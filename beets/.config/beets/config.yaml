@@ -1,0 +1,7 @@
+directory: ~/Music
+library: ~/.music.blb
+import:
+        move: yes
+plugins: lastgenre fetchart ftintitle mpdupdate random embedart
+embedart:
+        auto: yes
