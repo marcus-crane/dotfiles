@@ -61,6 +61,9 @@ alias ai="ssh marcus@207.246.122.202"
 alias kaze="ssh sentry@thingsima.de"
 alias makenshi="ssh sentry@192.168.0.101"
 
+# thefuck
+eval $(thefuck --alias)
+
 # xorg
 if [[ `uname` == 'Linux' ]]; then
   if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
