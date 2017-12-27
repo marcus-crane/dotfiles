@@ -1,0 +1,25 @@
+[general]
+ui = blinkenlights
+accounts = fastmail
+fsync = False
+maxsyncaccounts = 1
+pythonfile = $HOME/.offlineimap.py
+
+[Account fastmail]
+localrepository = local
+remoterepository = remote
+postsynchook = notmuch new
+
+[Repository local]
+type = Maildir
+localfolders = $HOME/Mail
+
+[Repository remote]
+type = IMAP
+remotehost = imap.fastmail.com
+remoteuser = marcus@thingsima.de
+remotepasseval = get_pass()
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+maxconnections = 1
+folderfilter = lambda folder: folder in ['Archive', 'Drafts', 'INBOX', 'Sent', 'Spam', 'Trash']
