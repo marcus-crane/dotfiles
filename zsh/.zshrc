@@ -16,17 +16,49 @@ source $ZSH/oh-my-zsh.sh
 
 # aliases
 alias cp="sudo rsync -av --info=progress2"
+alias edit="vi ~/.zshrc"
+alias files="ranger $HOME"
+alias refresh="source $HOME/.zshrc"
+alias ws="$HOME/Code"
+
+# django
+alias run="python manage.py runserver"
+
+# git
+alias gcm="git commit -S -m"
+alias gst="git status"
+
+# go
+export PATH="/usr/local/go/bin:$PATH"
+
+# neovim
+alias vi="NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# python
+alias ae="deactivate &> /dev/null; source ./env/bin/activate"
+alias de="deactivate &> /dev/null"
+alias venv="virtualenv env && ae"
+
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
+# rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# ssh
+alias ai="ssh marcus@207.246.122.202"
+alias kaze="ssh sentry@thingsima.de"
+alias makenshi="ssh sentry@192.168.0.101"
+
 # xorg
-if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
-      exec startx
+if [[ `uname` == 'Linux' ]]; then
+  if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
+    exec startx
+  fi
 fi
