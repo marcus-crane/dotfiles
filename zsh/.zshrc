@@ -21,6 +21,11 @@ alias files="ranger $HOME"
 alias refresh="source $HOME/.zshrc"
 alias ws="$HOME/Code"
 
+# daemons
+if [[ `uname` == 'Linux' ]]; then
+    alias restart="sudo systemctl restart"
+fi
+
 # django
 alias run="python manage.py runserver"
 
