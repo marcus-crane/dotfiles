@@ -1,5 +1,5 @@
 # Mailboxes
-set folder = ~/Mail
+set folder = ~/mail
 
 # Set sender details
 set from = "marcus@thingsima.de"
