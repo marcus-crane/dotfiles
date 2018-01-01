@@ -1,0 +1,119 @@
+# Mailboxes
+set folder = ~/Mail
+
+# Set sender details
+set from = "marcus@thingsima.de"
+set realname = "Marcus Crane"
+
+# Paths
+set folder = ~/Mail
+set alias_file = ~/.mutt/alias
+set header_cache = ~/.mutt/cache/headers
+set message_cachedir = ~/.mutt/cache/bodies
+set certificate_file = ~/.mutt/certificates
+set mailcap_path = ~/.mutt/mailcap
+set tmpdir = ~/.mutt/temp
+set signature = ~/.mutt/sig
+
+# Basics
+set wait_key = no
+set mbox_type = Maildir
+set timeout = 3
+set mail_check = 0
+set quit
+set beep_new
+set pipe_decode
+set thorough_search
+
+# Sidebar
+set sidebar_visible = yes
+set sidebar_width = 24
+color sidebar_new color221 color233
+
+# Status Bar
+set status_chars = " *%A"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+
+# Account Setup
+set spoolfile = "+INBOX"
+
+mailboxes +INBOX \
+          +Archive \
+          +Drafts \
+          +Sent \
+          +Spam \
+          +Trash
+
+set mbox = "Archive"
+set postponed = "Drafts"
+
+# Index view options
+set date_format = "%m/%d"
+set index_format = "[%Z]  %D  %-20.20F  %s"
+set sort = threads                         # like gmail
+set sort_aux = reverse-last-date-received  # like gmail
+set uncollapse_jump                        # don't collapse on an unread message
+set sort_re                                # thread based on regex
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+
+# Key bindings
+bind index <tab> sync-mailbox
+macro index O "<shell-escape>offlineimap<enter>" "run offlineimap to sync all mail"
+macro index o "<shell-escape>offlineimap -qf INBOX<enter>" "run offlineimap to sync inbox"
+macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+bind compose p postpone-message
+bind index p recall-message
+bind index N search-opposite
+bind pager N search-opposite
+macro index a "<limit>all\n" "show all messages (undo limit)"
+macro index,pager a <save-message>=Archive\n
+
+# Sidebar navigation
+bind index,pager k sidebar-next
+bind index,pager j sidebar-prev
+bind index,pager <right> sidebar-open
+
+# Pager settings
+set pager_index_lines = 10
+set pager_context = 3
+set pager_stop
+set menu_scroll
+set tilde
+unset markers
+
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+alternative_order text/plain text/enriched text/html
+
+# Pager key bindings
+bind pager <up> previous-line
+bind pager <down> next-line
+bind pager H top
+bind pager L bottom
+
+bind attach <return> view-mailcap
+macro pager \Cu "|urlview<enter>" "call urlview to open links"
+
+# Compose view options
+set realname = "Marcus Crane"        # who am i?
+set envelope_from                    # which from?
+set sig_dashes                       # dashes before sig
+set edit_headers                     # show headers when composing
+set fast_reply                       # skip to compose when replying
+set askcc                            # ask for CC:
+set fcc_attach                       # save attachments with the body
+unset mime_forward                   # forward attachments as part of body
+set forward_format = "Fwd: %s"       # format of subject when forwarding
+set forward_decode                   # decode when forwarding
+set attribution = "On %d, %n wrote:" # format of quoting header
+set reply_to                         # reply to Reply to: field
+set reverse_name                     # reply as whomever it was to
+set include                          # include message in replies
+set forward_quote                    # include message in forwards
+set editor = "nvim"
+
+# Sending
+set from = "marcus@thingsima.de"
+set sendmail = "/usr/local/bin/msmtp"
+set sendmail_wait = 0
+unset record
