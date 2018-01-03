@@ -47,7 +47,7 @@ export NVM_DIR="$HOME/.nvm"
 # python
 alias ae="deactivate &> /dev/null; source ./env/bin/activate"
 alias de="deactivate &> /dev/null"
-alias venv="virtualenv env && ae"
+alias venv="virtualenv --python=$(which python3) env && ae"
 
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -57,7 +57,7 @@ eval "$(rbenv init -)"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # ssh
-alias ai="ssh marcus@207.246.122.202"
+alias ai="ssh sentry@207.246.83.14"
 alias kaze="ssh sentry@thingsima.de"
 alias makenshi="ssh sentry@192.168.0.101"
 
