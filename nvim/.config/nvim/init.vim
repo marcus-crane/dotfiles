@@ -39,16 +39,23 @@ vnoremap K :m '<-2<CR>gv=gv
 filetype plugin indent on
 " Show existing tab as having a width of 4 spaces
 set tabstop=4
-" Use 4 spaces when indenting with '>'
+" Use 4 spaces when indenting with `>`
 set shiftwidth=4
 " Insert 4 spaces when pressing tab
 set expandtab
 
-" NERDTree
+" src: http://vimcasts.org/episodes/show-invisibles/
+" Set invisibles representation to be the same as TextMate
+set listchars=tab:▸\ ,eol:¬
+" Toggle invisibles using `\ + l` in NORMAL mode
+nmap <leader>l :set list!<CR>
+
+" Activate NERDTree with `Ctrl + n`
 map <C-n> :NERDTreeToggle<CR>
 
 """ Get better at using vim """
 
+" src: https://tylercipriani.com/vim.html
 " Disable arrow keys, forcing hjkl only in both INSERT and NORMAL modes
 inoremap <Up> <NOP>
 noremap <Up> <NOP>
@@ -61,7 +68,8 @@ noremap <Right> <NOP>
 
 """ Makin' things look nice """
 
-" Theme
+" src: https://github.com/mhartington/oceanic-next
+" Theme -> Oceanic Next
 syntax on
 let g:airline_theme='oceanicnext'
 let g:oceanic_next_terminal_bold = 1
