@@ -36,6 +36,11 @@ alias gst="git status"
 # go
 export PATH="/usr/local/go/bin:$PATH"
 
+# homebrew (mainly fixes rsync)
+if [[ `uname` == 'Darwin' ]]; then
+    export PATH="/usr/bin/local:$PATH"
+fi
+
 # neovim
 alias vi="NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
 
