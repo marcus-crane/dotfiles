@@ -47,6 +47,14 @@ set expandtab
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
 
+""" Get better at using vim """
+
+" Disable arrow keys, forcing hjkl only
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
 """ Makin' things look nice """
 
 " Theme
