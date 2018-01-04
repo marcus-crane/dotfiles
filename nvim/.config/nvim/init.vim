@@ -49,10 +49,14 @@ map <C-n> :NERDTreeToggle<CR>
 
 """ Get better at using vim """
 
-" Disable arrow keys, forcing hjkl only
+" Disable arrow keys, forcing hjkl only in both INSERT and NORMAL modes
+inoremap <Up> <NOP>
 noremap <Up> <NOP>
+inoremap <Down> <NOP>
 noremap <Down> <NOP>
+inoremap <Left> <NOP>
 noremap <Left> <NOP>
+inoremap <Right> <NOP>
 noremap <Right> <NOP>
 
 """ Makin' things look nice """
