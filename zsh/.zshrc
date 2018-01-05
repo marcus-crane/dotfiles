@@ -64,7 +64,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # ssh
 alias ai="ssh sentry@207.246.83.14"
 alias kaze="ssh sentry@thingsima.de"
-alias makenshi="ssh sentry@192.168.0.101"
+alias makenshi="ssh sentry@vsfan.net"
 
 # thefuck
 eval $(thefuck --alias)
