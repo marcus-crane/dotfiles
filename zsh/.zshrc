@@ -69,6 +69,11 @@ alias makenshi="ssh sentry@192.168.0.101"
 # thefuck
 eval $(thefuck --alias)
 
+# trash
+if [[ `uname` == 'Darkin' ]]; then
+    alias rm="trash"
+fi
+
 # xorg
 if [[ `uname` == 'Linux' ]]; then
   if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
