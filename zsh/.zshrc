@@ -27,7 +27,7 @@ if [[ `uname` == 'Linux' ]]; then
 fi
 
 # django
-alias run="python manage.py runserver"
+alias run="ae && python manage.py runserver"
 
 # git
 alias gcm="git commit -S -m"
@@ -62,15 +62,12 @@ eval "$(rbenv init -)"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # ssh
-alias ai="ssh sentry@207.246.83.14"
-alias kaze="ssh sentry@thingsima.de"
-alias makenshi="ssh sentry@vsfan.net"
-
-# thefuck
-eval $(thefuck --alias)
+alias ai="ssh sentry@ai"
+alias kaze="ssh sentry@kaze"
+alias makenshi="ssh sentry@makenshi"
 
 # trash
-if [[ `uname` == 'Darkin' ]]; then
+if [[ `uname` == 'Darwin' ]]; then
     alias rm="trash"
 fi
 
