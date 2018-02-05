@@ -46,8 +46,7 @@ alias vi="NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'  # This loads nvm
 
 # python
 alias ae="deactivate &> /dev/null; source ./env/bin/activate"
