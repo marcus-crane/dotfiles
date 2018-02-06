@@ -12,6 +12,9 @@ ZSH_THEME="robbyrussell"
 # defaults
 source $ZSH/oh-my-zsh.sh
 
+# set editor
+export EDITOR=$(which nvim)
+
 # --- user ---
 
 # aliases
@@ -43,10 +46,6 @@ fi
 
 # neovim
 alias vi="NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'  # This loads nvm
 
 # python
 alias ae="deactivate &> /dev/null; source ./env/bin/activate"
