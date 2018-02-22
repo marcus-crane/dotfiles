@@ -47,6 +47,10 @@ fi
 # neovim
 alias vi="NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
 
+# nvm
+export NVM_DIR="$HOME/.nvm"
+#alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+
 # python
 alias ae="deactivate &> /dev/null; source ./env/bin/activate"
 alias de="deactivate &> /dev/null"
@@ -69,9 +73,18 @@ if [[ `uname` == 'Darwin' ]]; then
     alias rm="trash"
 fi
 
+# windows for linux (wsl) subsystem
+if [[ $(uname -r) == *'Microsoft' ]]; then
+    alias open="wsl-open"
+fi
+
 # xorg
 if [[ `uname` == 'Linux' ]]; then
   if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
     exec startx
   fi
 fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
