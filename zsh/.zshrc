@@ -22,7 +22,17 @@ alias cp="sudo rsync -av --info=progress2"
 alias edit="vi ~/.zshrc"
 alias files="ranger $HOME"
 alias refresh="source $HOME/.zshrc"
-alias ws="$HOME/Code"
+
+if [[ $(uname -r) == *'Microsoft' ]]; then
+    alias ws="/mnt/c/dev/"
+else
+    alias ws="$HOME/Code"
+fi
+
+# docker (see https://blog.jayway.com/2017/04/19/running-docker-on-bash-on-windows/)
+if [[ $(which docker) && $(uname -r) == *'Microsoft' ]]; then
+    export DOCKER_HOST='tcp://0.0.0.0:2375'
+fi
 
 # daemons
 if [[ `uname` == 'Linux' ]]; then
@@ -37,24 +47,23 @@ alias gcm="git commit -S -m"
 alias gst="git status"
 
 # go
-export PATH="/usr/local/go/bin:$PATH"
+export PATH=/usr/local/go/bin:$PATH
 
 # homebrew (mainly fixes rsync)
 if [[ `uname` == 'Darwin' ]]; then
     export PATH="/usr/bin/local:$PATH"
 fi
 
+# n (node version manager)
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+
 # neovim
 alias vi="NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-#alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
 
 # python
 alias ae="deactivate &> /dev/null; source ./env/bin/activate"
 alias de="deactivate &> /dev/null"
-alias venv="virtualenv --python=$(which python3) env && ae"
+alias venv="python3 -m virtualenv --python=$(which python3) env && ae"
 
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -84,7 +93,3 @@ if [[ `uname` == 'Linux' ]]; then
     exec startx
   fi
 fi
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
