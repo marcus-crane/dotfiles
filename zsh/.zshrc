@@ -47,7 +47,8 @@ alias gcm="git commit -S -m"
 alias gst="git status"
 
 # go
-export PATH=/usr/local/go/bin:$PATH
+export GOROOT=$HOME/go
+export PATH=$GOROOT/bin:$PATH
 
 # homebrew (mainly fixes rsync)
 if [[ `uname` == 'Darwin' ]]; then
