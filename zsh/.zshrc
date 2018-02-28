@@ -47,8 +47,12 @@ alias gcm="git commit -S -m"
 alias gst="git status"
 
 # go
-export GOROOT=$HOME/go
-export PATH=$GOROOT/bin:$PATH
+if [[ $(uname -r) == *'Microsoft' ]]; then
+    export GOPATH=/mnt/c/dev/go
+else
+    export GOPATH=$HOME/code/go
+fi
+export PATH=/usr/local/go/bin:$GOPATH:$PATH
 
 # homebrew (mainly fixes rsync)
 if [[ `uname` == 'Darwin' ]]; then
@@ -65,6 +69,8 @@ alias vi="NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
 alias ae="deactivate &> /dev/null; source ./env/bin/activate"
 alias de="deactivate &> /dev/null"
 alias venv="python3 -m virtualenv --python=$(which python3) env && ae"
+alias python="python3"
+alias pip="pip3"
 
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -94,3 +100,5 @@ if [[ `uname` == 'Linux' ]]; then
     exec startx
   fi
 fi
+
+[[ -s "/home/marcus/.gvm/scripts/gvm" ]] && source "/home/marcus/.gvm/scripts/gvm"
