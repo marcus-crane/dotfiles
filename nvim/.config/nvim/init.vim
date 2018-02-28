@@ -38,11 +38,13 @@ vnoremap K :m '<-2<CR>gv=gv
 " Load filetype detection and indentation
 filetype plugin indent on
 " Show existing tab as having a width of 4 spaces
-set tabstop=4
-" Use 4 spaces when indenting with `>`
-set shiftwidth=4
-" Insert 4 spaces when pressing tab
+set tabstop=2
+" Use 2 spaces when indenting with `>`
+set shiftwidth=2
+" Insert 2 spaces when pressing tab
 set expandtab
+" Insert 4 spaces for Python files to match PEP8
+autocmd Filetype python setlocal ts=4 sw=4 sts=4
 
 " src: http://vimcasts.org/episodes/show-invisibles/
 " Set invisibles representation to be the same as TextMate
