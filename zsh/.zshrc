@@ -101,5 +101,3 @@ if [[ `uname` == 'Linux' ]]; then
     exec startx
   fi
 fi
-
-[[ -s "/home/marcus/.gvm/scripts/gvm" ]] && source "/home/marcus/.gvm/scripts/gvm"
