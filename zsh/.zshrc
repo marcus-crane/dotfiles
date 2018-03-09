@@ -1,7 +1,7 @@
 # --- init ---
 
 # base path
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:$HOME/.local/bin:$PATH"
 
 # oh-my-zsh install path
 export ZSH=$HOME/.oh-my-zsh
@@ -68,9 +68,9 @@ alias vi="NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
 # python
 alias ae="deactivate &> /dev/null; source ./env/bin/activate"
 alias de="deactivate &> /dev/null"
-alias venv="python3 -m virtualenv --python=$(which python3) env && ae"
-alias python="python3"
-alias pip="pip3"
+alias python="$(which python3)"
+alias pip="$(which pip3)"
+alias venv="python -m virtualenv env && ae"
 
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -92,6 +92,7 @@ fi
 # windows for linux (wsl) subsystem
 if [[ $(uname -r) == *'Microsoft' ]]; then
     alias open="wsl-open"
+    alias win="/mnt/c/Users/marcus.crane"
 fi
 
 # xorg
