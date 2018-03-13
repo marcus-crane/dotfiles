@@ -1,10 +1,10 @@
-# --- init ---
+#--- init ---
 
 # base path
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:$HOME/.local/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:~/.local/bin:$PATH"
 
 # oh-my-zsh install path
-export ZSH=$HOME/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # theme
 ZSH_THEME="robbyrussell"
@@ -20,13 +20,13 @@ export EDITOR=$(which nvim)
 # aliases
 alias cp="sudo rsync -av --info=progress2"
 alias edit="vi ~/.zshrc"
-alias files="ranger $HOME"
-alias refresh="source $HOME/.zshrc"
+alias files="ranger ~"
+alias refresh="source ~/.zshrc"
 
 if [[ $(uname -r) == *'Microsoft' ]]; then
     alias ws="/mnt/c/dev/"
 else
-    alias ws="$HOME/Code"
+    alias ws="~/Code"
 fi
 
 # docker (see https://blog.jayway.com/2017/04/19/running-docker-on-bash-on-windows/)
@@ -49,10 +49,12 @@ alias gst="git status"
 # go
 if [[ $(uname -r) == *'Microsoft' ]]; then
     export GOPATH=/mnt/c/dev/go
+    export GOROOT=/usr/local/go/bin
 else
-    export GOPATH=$HOME/code/go
+    export GOPATH=~/Code/Go
+    export GOROOT=/usr/local/opt/go/libexec
 fi
-export PATH=/usr/local/go/bin:$GOPATH:$PATH
+export PATH=$GOROOT:$GOPATH:$PATH
 
 # homebrew (mainly fixes rsync)
 if [[ `uname` == 'Darwin' ]]; then
@@ -60,7 +62,7 @@ if [[ `uname` == 'Darwin' ]]; then
 fi
 
 # n (node version manager)
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+export N_PREFIX="~/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
 # neovim
 alias vi="NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
@@ -73,11 +75,11 @@ alias pip="$(which pip3)"
 alias venv="python -m virtualenv env && ae"
 
 # rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="~/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 # rust
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="~/.cargo/bin:$PATH"
 
 # ssh
 alias ai="ssh sentry@ai"
@@ -101,5 +103,3 @@ if [[ `uname` == 'Linux' ]]; then
     exec startx
   fi
 fi
-
-[[ -s "/home/marcus/.gvm/scripts/gvm" ]] && source "/home/marcus/.gvm/scripts/gvm"
