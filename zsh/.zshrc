@@ -62,7 +62,7 @@ if [[ `uname` == 'Darwin' ]]; then
 fi
 
 # n (node version manager)
-export N_PREFIX="~/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
 # neovim
 alias vi="NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
