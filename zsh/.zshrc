@@ -24,19 +24,19 @@ alias files="ranger ~"
 alias refresh="source ~/.zshrc"
 
 if [[ $(uname -r) == *'Microsoft' ]]; then
-    alias ws="/mnt/c/dev/"
+  alias ws="/mnt/c/dev/"
 else
-    alias ws="~/Code"
+  alias ws="~/Code"
 fi
 
 # docker (see https://blog.jayway.com/2017/04/19/running-docker-on-bash-on-windows/)
 if [[ $(which docker) && $(uname -r) == *'Microsoft' ]]; then
-    export DOCKER_HOST='tcp://0.0.0.0:2375'
+  export DOCKER_HOST='tcp://0.0.0.0:2375'
 fi
 
 # daemons
 if [[ `uname` == 'Linux' ]]; then
-    alias restart="sudo systemctl restart"
+  alias restart="sudo systemctl restart"
 fi
 
 # django
@@ -48,15 +48,16 @@ alias gst="git status"
 
 # go
 if [[ $(uname -r) == *'Microsoft' ]]; then
-    export GOPATH=/mnt/c/dev/go
+  export GOROOT=/usr/local/go
+  export GOPATH=/mnt/c/dev/go
 else
-    export GOPATH=~/Code/Go
+  export GOPATH=~/Code/Go
 fi
-export PATH=$GOPATH:$PATH
+export PATH=$GOROOT/bin:$GOPATH:$PATH
 
 # homebrew (mainly fixes rsync)
 if [[ `uname` == 'Darwin' ]]; then
-    export PATH="/usr/bin/local:$PATH"
+  export PATH="/usr/bin/local:$PATH"
 fi
 
 # n (node version manager)
@@ -79,13 +80,13 @@ alias makenshi="ssh sentry@makenshi"
 
 # trash
 if [[ `uname` == 'Darwin' ]]; then
-    alias rm="trash"
+  alias rm="trash"
 fi
 
 # windows for linux (wsl) subsystem
 if [[ $(uname -r) == *'Microsoft' ]]; then
-    alias open="wsl-open"
-    alias win="/mnt/c/Users/marcus.crane"
+  alias open="wsl-open"
+  alias win="/mnt/c/Users/marcus.crane"
 fi
 
 # xorg
