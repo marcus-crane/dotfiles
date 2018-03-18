@@ -72,13 +72,6 @@ alias python="$(which python3)"
 alias pip="$(which pip3)"
 alias venv="python -m virtualenv env && ae"
 
-# rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
-# rust
-export PATH="$HOME/.cargo/bin:$PATH"
-
 # ssh
 alias ai="ssh sentry@ai"
 alias kaze="ssh sentry@kaze"
