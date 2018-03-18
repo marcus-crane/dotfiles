@@ -1,10 +1,10 @@
 #--- init ---
 
 # base path
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:~/.local/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:$HOME/.local/bin:$PATH"
 
 # oh-my-zsh install path
-export ZSH=~/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # theme
 ZSH_THEME="robbyrussell"
@@ -49,12 +49,10 @@ alias gst="git status"
 # go
 if [[ $(uname -r) == *'Microsoft' ]]; then
     export GOPATH=/mnt/c/dev/go
-    export GOROOT=/usr/local/go/bin
 else
     export GOPATH=~/Code/Go
-    export GOROOT=/usr/local/opt/go/libexec
 fi
-export PATH=$GOROOT:$GOPATH:$PATH
+export PATH=$GOPATH:$PATH
 
 # homebrew (mainly fixes rsync)
 if [[ `uname` == 'Darwin' ]]; then
@@ -75,11 +73,11 @@ alias pip="$(which pip3)"
 alias venv="python -m virtualenv env && ae"
 
 # rbenv
-export PATH="~/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 # rust
-export PATH="~/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # ssh
 alias ai="ssh sentry@ai"
