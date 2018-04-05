@@ -51,6 +51,7 @@ if [[ $(uname -r) == *'Microsoft' ]]; then
   export GOROOT=/usr/local/go
   export GOPATH=/mnt/c/dev/go
 else
+  export GOROOT=/usr/local/Cellar/go/1.10.1/libexec 
   export GOPATH=~/Code/Go
 fi
 export PATH=$GOROOT/bin:$GOPATH:$PATH
