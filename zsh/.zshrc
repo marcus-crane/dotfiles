@@ -18,7 +18,6 @@ export EDITOR=$(which nvim)
 # --- user ---
 
 # aliases
-alias cp="sudo rsync -av --info=progress2"
 alias edit="vi ~/.zshrc"
 alias files="ranger ~"
 alias forecast="curl wttr.in"
@@ -39,9 +38,6 @@ fi
 if [[ `uname` == 'Linux' ]]; then
   alias restart="sudo systemctl restart"
 fi
-
-# django
-alias run="ae && python manage.py runserver"
 
 # git
 alias gcm="git commit -S -m"
@@ -66,14 +62,11 @@ fi
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
 # neovim
-alias vi="NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
+alias vi="nvim"
 
 # python
-alias ae="deactivate &> /dev/null; source ./env/bin/activate"
-alias de="deactivate &> /dev/null"
 alias python="$(which python3)"
 alias pip="$(which pip3)"
-alias venv="python -m virtualenv env && ae"
 
 # ssh
 alias ai="ssh sentry@ai"
