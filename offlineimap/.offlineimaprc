@@ -16,10 +16,11 @@ localfolders = $HOME/Mail
 
 [Repository remote]
 type = IMAP
+readonly = true
 remotehost = imap.fastmail.com
 remoteuser = marcus@thingsima.de
 remotepasseval = get_pass()
 ssl = yes
-sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+sslcacertfile = /usr/local/etc/openssl/cert.pem
 maxconnections = 1
 folderfilter = lambda folder: folder in ['Archive', 'Drafts', 'INBOX', 'Sent', 'Spam', 'Trash']

@@ -7,7 +7,7 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/opt/X
 export ZSH=$HOME/.oh-my-zsh
 
 # theme
-ZSH_THEME="robbyrussell"
+ZSH_THEME="agnoster"
 
 # defaults
 source $ZSH/oh-my-zsh.sh
@@ -21,6 +21,7 @@ export EDITOR=$(which nvim)
 alias cp="sudo rsync -av --info=progress2"
 alias edit="vi ~/.zshrc"
 alias files="ranger ~"
+alias forecast="curl wttr.in"
 alias refresh="source ~/.zshrc"
 
 if [[ $(uname -r) == *'Microsoft' ]]; then
