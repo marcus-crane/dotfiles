@@ -65,13 +65,17 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 alias vi="nvim"
 
 # python
+alias ae="deactivate &> /dev/null; source ./env/bin/activate"
+alias de="deactivate &> /dev/null"
 alias python="$(which python3)"
 alias pip="$(which pip3)"
+alias venv="python -m virtualenv venv && ae"
 
 # ssh
 alias ai="ssh sentry@ai"
 alias kaze="ssh sentry@kaze"
 alias makenshi="ssh sentry@makenshi"
+alias sandbox="ssh -i ~/Documents/marcus.pem ubuntu@sandbox"
 
 # trash
 if [[ `uname` == 'Darwin' ]]; then
@@ -83,6 +87,9 @@ if [[ $(uname -r) == *'Microsoft' ]]; then
   alias open="wsl-open"
   alias win="/mnt/c/Users/marcus.crane"
 fi
+
+# xero
+source ~/.work_aliases
 
 # xorg
 if [[ `uname` == 'Linux' ]]; then
