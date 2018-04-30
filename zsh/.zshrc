@@ -65,11 +65,9 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 alias vi="nvim"
 
 # python
-alias ae="deactivate &> /dev/null; source ./env/bin/activate"
+alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
 alias de="deactivate &> /dev/null"
-alias python="$(which python3)"
-alias pip="$(which pip3)"
-alias venv="python -m virtualenv venv && ae"
+alias venv="python3 -m virtualenv venv && ae"
 
 # ssh
 alias ai="ssh sentry@ai"
