@@ -42,6 +42,8 @@ fi
 # git
 alias gcm="git commit -S -m"
 alias gst="git status"
+## https://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-changes
+alias gitskip="git update-index --no-skip-worktree"
 
 # go
 if [[ $(uname -r) == *'Microsoft' ]]; then
@@ -68,6 +70,9 @@ alias vi="nvim"
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
 alias de="deactivate &> /dev/null"
 alias venv="python3 -m virtualenv venv && ae"
+
+# rbenv
+eval "$(rbenv init -)"
 
 # ssh
 alias ai="ssh sentry@ai"

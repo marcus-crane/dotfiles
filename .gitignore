@@ -1,2 +1,3 @@
 .DS_Store
 mopidy/.config/mopidy/
+nvim/.config/configstore/*
