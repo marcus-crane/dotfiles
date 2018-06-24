@@ -7,7 +7,7 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/opt/X
 export ZSH=$HOME/.oh-my-zsh
 
 # theme
-ZSH_THEME="agnoster"
+ZSH_THEME="af-magic"
 
 # defaults
 source $ZSH/oh-my-zsh.sh
