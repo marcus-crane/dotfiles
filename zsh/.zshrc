@@ -19,14 +19,13 @@ export EDITOR=$(which nvim)
 export LC_ALL=en_NZ.UTF-8
 
 # plugins
-plugins=(aws brew cask command-not-found django docker encode64 git httpie npm osx redis-cli sublime sudo urltools vscode websearch yarn)
+plugins=(brew cask command-not-found docker encode64 git httpie npm osx sublime sudo urltools vscode)
 
 # --- user ---
 
 # aliasing
 alias edit="vi ~/.zshrc"
 alias files="ranger ~"
-alias forecast="curl wttr.in"
 alias refresh="source ~/.zshrc"
 alias ws="~/Code"
 
@@ -42,13 +41,11 @@ fi
 
 # git
 alias gcm="git commit -S -m"
+alias gpom="git pull origin master"
+alias gpum="git pull upstream master"
 alias gst="git status"
 ## https://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-changes
 alias gitskip="git update-index --no-skip-worktree"
-
-# google cloud
-if [ -f '/Users/marcus.crane/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/marcus.crane/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-if [ -f '/Users/marcus.crane/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/marcus.crane/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 # go
 if [[ $(uname -r) == *'Microsoft' ]]; then
