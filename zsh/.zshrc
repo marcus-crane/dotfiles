@@ -72,7 +72,10 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 alias vi="nvim"
 
 # powershell
-alias powershell="/usr/local/microsoft/powershell/6.0.2/pwsh"
+alias powershell="/usr/local/bin/pwsh"
+
+# pyenv
+eval "$(pyenv init -)"
 
 # python
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
@@ -87,12 +90,11 @@ eval "$(rbenv init -)"
 [[ -f /Users/marcus.crane/n/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/marcus.crane/n/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
 
 # ssh
-alias ai="ssh sentry@ai"
 alias kaze="ssh sentry@kaze"
 alias magus="ssh marcus@magus"
 alias magus-remote="ssh marcus@magus-remote"
 alias makenshi="ssh sentry@makenshi"
-alias sandbox="ssh -i ~/Documents/marcus.pem ubuntu@sandbox"
+alias site='eval "$(docker-machine env site)"'
 
 # trash
 if [[ `uname` == 'Darwin' ]]; then
