@@ -1,3 +1,12 @@
+! Xft
+Xft.dpi: 180
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
 ! urxvt
 URxvt*buffered: true
 URxvt*font: xft:Iosevka\ Nerd\ Font:size=10:antialias=true
