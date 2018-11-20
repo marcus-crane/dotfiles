@@ -1,3 +1,5 @@
 .DS_Store
 mopidy/.config/mopidy/
+newsboat/.newsboat/cache*
+newsboat/.newsboat/history*
 nvim/.config/configstore/*
