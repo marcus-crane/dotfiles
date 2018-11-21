@@ -1,4 +1,4 @@
-# i3blocks config file
+3blocks config file
 #
 # Please see man i3blocks for a complete reference!
 # The man page is also hosted at http://vivien.github.io/i3blocks
@@ -35,12 +35,15 @@ command=/usr/lib/i3blocks/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
-# Current mopidy song
-[mediaplayer]
-label=♪
-color=#00FF00
-interval=5
-signal=10
+[restart]
+full_text=Restart
+command=i3-msg -q restart
+
+[seperator]
+
+[battery]
+command=battery.sh
+interval=10
 
 [seperator]
 
