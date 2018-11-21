@@ -1,4 +1,4 @@
-3blocks config file
+# i3blocks config file
 #
 # Please see man i3blocks for a complete reference!
 # The man page is also hosted at http://vivien.github.io/i3blocks
@@ -39,17 +39,16 @@ markup=none
 full_text=Restart
 command=i3-msg -q restart
 
-[seperator]
+[weather]
+command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+interval=3600
+color=#A4C2F4
 
 [battery]
-command=battery.sh
+command=/home/marcus/.config/i3blocks/battery.sh
 interval=10
-
-[seperator]
 
 [time]
 color=#ffffff
 command=date '+%l:%M:%S %p'
 interval=1
-
-[seperator]
