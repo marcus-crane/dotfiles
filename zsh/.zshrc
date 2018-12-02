@@ -23,16 +23,17 @@ plugins=(brew cask command-not-found docker encode64 git httpie npm osx sublime 
 
 # --- user ---
 
-# aliasing
-alias edit="vi ~/.zshrc"
-alias files="ranger ~"
-alias refresh="source ~/.zshrc"
-alias ws="~/Code"
-
-# aliasing overrides (different platforms)
+# constants
 if [[ $(uname -r) == *'Microsoft' ]]; then
-  alias ws="/mnt/c/dev/"
+  export DEV_FOLDER="/mnt/c/dev"
+else
+  export DEV_FOLDER="~/Code"
 fi
+
+# general
+alias edit="vi ~/.zshrc"
+alias refresh="source ~/.zshrc"
+alias ws="cd $DEV_FOLDER"
 
 # docker (see https://blog.jayway.com/2017/04/19/running-docker-on-bash-on-windows/)
 if [[ $(which docker) && $(uname -r) == *'Microsoft' ]]; then
@@ -44,17 +45,15 @@ alias gcm="git commit -S -m"
 alias gpom="git pull origin master"
 alias gpum="git pull upstream master"
 alias gst="git status"
-## https://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-changes
-alias gitskip="git update-index --no-skip-worktree"
+alias gitskip="git update-index --no-skip-worktree" ## https://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-changes
 
 # go
 if [[ $(uname -r) == *'Microsoft' ]]; then
   export GOROOT=/usr/local/go
-  export GOPATH=/mnt/c/dev/go
 else
-  export GOROOT=/usr/local/Cellar/go/1.10.1/libexec 
-  export GOPATH=~/Code/Go
+  export GOROOT=/usr/local/Cellar/go/1.10.1/libexec
 fi
+export GOPATH="$DEV_FOLDER/go"
 export PATH=$GOROOT/bin:$GOPATH:$PATH
 
 # homebrew (mainly fixes rsync)
@@ -67,6 +66,7 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 
 # neovim
 alias vi="nvim"
+alias vim="nvim"
 
 # powershell
 alias powershell="/usr/local/bin/pwsh"
@@ -91,7 +91,6 @@ alias kaze="ssh sentry@kaze"
 alias magus="ssh marcus@magus"
 alias magus-remote="ssh marcus@magus-remote"
 alias makenshi="ssh sentry@makenshi"
-alias site='eval "$(docker-machine env site)"'
 
 # trash
 if [[ `uname` == 'Darwin' ]]; then
@@ -104,8 +103,10 @@ if [[ $(uname -r) == *'Microsoft' ]]; then
   alias win="/mnt/c/Users/marcus.crane"
 fi
 
-# xero
-source ~/.work_aliases
+# work related aliases
+if [[ -a ~/.work_aliases ]]; then
+  source ~/.work_aliases
+fi
 
 # xorg
 if [[ `uname` == 'Linux' ]]; then
