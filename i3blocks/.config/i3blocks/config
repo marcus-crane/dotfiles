@@ -35,18 +35,20 @@ command=/usr/lib/i3blocks/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
-# Current mopidy song
-[mediaplayer]
-label=♪
-color=#00FF00
-interval=5
-signal=10
+[restart]
+full_text=Restart
+command=i3-msg -q restart
 
-[seperator]
+[weather]
+command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+interval=3600
+color=#A4C2F4
+
+[battery]
+command=/home/marcus/.config/i3blocks/battery.sh
+interval=10
 
 [time]
 color=#ffffff
 command=date '+%l:%M:%S %p'
 interval=1
-
-[seperator]
