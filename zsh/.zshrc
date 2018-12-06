@@ -19,7 +19,7 @@ export EDITOR=$(which nvim)
 export LC_ALL=en_NZ.UTF-8
 
 # plugins
-plugins=(brew cask command-not-found docker encode64 git httpie npm osx sublime sudo urltools vscode)
+plugins=()
 
 # --- user ---
 
@@ -33,6 +33,7 @@ fi
 # general
 alias edit="vi ~/.zshrc"
 alias refresh="source ~/.zshrc"
+alias vol="alsamixer -c 1"
 alias ws="cd $DEV_FOLDER"
 
 # docker (see https://blog.jayway.com/2017/04/19/running-docker-on-bash-on-windows/)
@@ -72,7 +73,10 @@ alias vim="nvim"
 alias powershell="/usr/local/bin/pwsh"
 
 # pyenv
-eval "$(pyenv init -)"
+export PATH="$HOME/.pyenv/bin:$PATH"
+if command -v pyenv 1> /dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 # python
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
@@ -80,7 +84,10 @@ alias de="deactivate &> /dev/null"
 alias venv="python3 -m virtualenv venv && ae"
 
 # rbenv
-eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/bin:$PATH"
+if command -v rbenv 1> /dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
 
 # serverless
 [[ -f /Users/marcus.crane/n/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/marcus.crane/n/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
