@@ -39,10 +39,9 @@ markup=none
 full_text=Restart
 command=i3-msg -q restart
 
-[weather]
-command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
-interval=3600
-color=#A4C2F4
+[ip]
+command=hostname -I | awk '{ print "IP: " $1 }'
+interval=once
 
 [battery]
 command=/home/marcus/.config/i3blocks/battery.sh
@@ -50,5 +49,8 @@ interval=10
 
 [time]
 color=#ffffff
-command=date '+%l:%M:%S %p'
-interval=1
+command=date '+%T %p'
+interval=5
+
+[seperator]
+color=#A4C2F4
