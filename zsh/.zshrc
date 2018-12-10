@@ -62,6 +62,11 @@ if [[ `uname` == 'Darwin' ]]; then
   export PATH="/usr/bin/local:$PATH"
 fi
 
+# miniconda
+if [[ `uname` == 'Darwin' ]]; then
+  export PATH="/Users/marcus.crane/.miniconda3/bin:$PATH"
+fi
+
 # n (node version manager)
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
@@ -81,6 +86,7 @@ fi
 # python
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
 alias de="deactivate &> /dev/null"
+alias pireq="pip install -r requirements.txt"
 alias venv="python3 -m virtualenv venv && ae"
 
 # rbenv
