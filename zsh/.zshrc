@@ -27,7 +27,7 @@ plugins=()
 if [[ $(uname -r) == *'Microsoft' ]]; then
   export DEV_FOLDER="/mnt/c/dev"
 else
-  export DEV_FOLDER="~/Code"
+  export DEV_FOLDER="$HOME/Code"
 fi
 
 # general
@@ -49,10 +49,10 @@ alias gst="git status"
 alias gitskip="git update-index --no-skip-worktree" ## https://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-changes
 
 # go
-if [[ $(uname -r) == *'Microsoft' ]]; then
-  export GOROOT=/usr/local/go
-else
+if [[ `uname` == 'Darwin' ]]; then
   export GOROOT=/usr/local/Cellar/go/1.10.1/libexec
+else
+  export GOROOT=/usr/local/go
 fi
 export GOPATH="$DEV_FOLDER/go"
 export PATH=$GOROOT/bin:$GOPATH:$PATH
