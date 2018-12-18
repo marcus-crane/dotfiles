@@ -1,7 +1,7 @@
 # i3 configuration
 
 # Set modifier key: (CMD on Macbooks)
-set $mod Mod4
+set $mod Mod1
 
 # Font
 font pango:Iosevka\ Nerd\ Font 8
@@ -10,7 +10,8 @@ font pango:Iosevka\ Nerd\ Font 8
 floating_modifier $mod
 
 # Terminal
-bindsym $mod+Return exec alacritty
+#bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill

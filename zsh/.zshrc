@@ -19,6 +19,10 @@ export EDITOR
 # locale
 export LC_ALL=en_NZ.UTF-8
 
+# ensure github creds are set up
+git config --global user.email "marcus@utf9k.net"
+git config --global user.name "Marcus Crane"
+
 # plugins
 # plugins=()
 
