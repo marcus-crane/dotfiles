@@ -1,0 +1,96 @@
+##################
+# initialisation #
+##################
+
+# NOTE: I've ported my Windows bits and pieces over but I haven't used them yet
+# Consider this my best guess at what they would look like in fish but don't
+# expect them to actually work
+
+# base path
+set -gx PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin /usr/local/MagGPG2/bin /usr/local/sbin /opt/X11/bin $PATH
+
+# set $os to contain operating system name (mainly checking for wsl)
+if string match -q "*Microsoft*" -- (uname -a)
+  set os "windows"
+else
+  set os (string lower (uname))
+end
+
+# set workspace based on operating system
+if test $os = "windows"
+  set WORKSPACE "/mnt/c/dev"
+else
+  set WORKSPACE $HOME/Code
+end
+
+# set clang as the default compiler
+set -x CC clang
+
+# constants
+set CONFIG_FILE $HOME/.config/fish/config.fish
+set WORKSPACE $HOME/Code
+
+# general
+alias scut="abbr -a -g"
+
+################
+# applications #
+################
+
+# asdf
+if test $os = "darwin"
+  set -x ASDF_DIR (brew --prefix asdf) # gets around a macos mojave bug as mentioned in (3)
+end
+# source ~/.asdf/asdf.fish
+
+# docker
+if type docker -q; and test $os = "windows"
+  set -x DOCKER_HOST 'tcp://0.0.0.0:2375' # (2)
+end
+
+# git
+git config --global user.email "marcus@utf9k.net"
+git config --global user.name "Marcus Crane"
+
+# go
+if test $os = "darwin"
+  set GOROOT /usr/local/Cellar/go/1.11.5/libexec
+else
+  set GOROOT /usr/local/go
+end
+set GOPATH "$WORKSPACE/go"
+set PATH $GOROOT/bin $GOPATH $PATH
+
+# homebrew (mainly fixes rsync)
+if test $os = "darwin"
+  set PATH /usr/bin/local $PATH
+end
+
+# work related aliases
+if test -f $HOME/.work_aliases
+  # source $HOME/.work_aliases
+end
+
+#############
+# shortcuts #
+#############
+
+scut edit        "vi $CONFIG_FILE"
+scut gcm         "git commit -Si"
+scut gitskip     "git update-index --no-skip-worktree" # (1)
+scut gst         "git status"
+scut ls          "exa"
+scut powershell  "/usr/local/bin/pwsh"
+scut refresh     "source $CONFIG_FILE"
+scut vi          "nvim"
+scut view        "less $CONFIG_FILE"
+scut vim         "nvim"
+scut ws          "cd $WORKSPACE"
+
+##############
+# references #
+##############
+
+# (1) https://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-changes
+# (2) https://blog.jayway.com/2017/04/19/running-docker-on-bash-on-windows/
+# (3) https://github.com/asdf-vm/asdf/issues/425#issuecomment-459751694
