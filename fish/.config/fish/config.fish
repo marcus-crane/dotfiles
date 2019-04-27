@@ -51,11 +51,7 @@ git config --global user.email "marcus@utf9k.net"
 git config --global user.name "Marcus Crane"
 
 # go
-if test $os = "darwin"
-  set GOROOT /usr/local/Cellar/go/1.11.5/libexec
-else
-  set GOROOT /usr/local/go
-end
+set GOROOT (which go)
 set GOPATH "$WORKSPACE/go"
 set PATH $GOROOT/bin $GOPATH $PATH
 
