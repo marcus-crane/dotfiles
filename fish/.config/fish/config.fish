@@ -23,11 +23,9 @@ else
   set WORKSPACE $HOME/Code
 end
 
-# set clang as the default compiler
-set -x CC clang
-
 # constants
 set CONFIG_FILE $HOME/.config/fish/config.fish
+set EDITOR nvim
 set WORKSPACE $HOME/Code
 
 # general
