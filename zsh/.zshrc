@@ -1,7 +1,7 @@
 #--- init ---
 
 # base path
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:$HOME/.local/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/usr/local/share/dotnet:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:$HOME/.local/bin:$PATH"
 
 # oh-my-zsh install path
 export ZSH=$HOME/.oh-my-zsh
@@ -26,6 +26,9 @@ git config --global user.name "Marcus Crane"
 # plugins
 # plugins=()
 
+# enable z
+source "/usr/local/Cellar/z/1.9/etc/profile.d/z.sh"
+
 # --- user ---
 
 # constants
@@ -37,7 +40,10 @@ fi
 
 # general
 alias edit='vi $HOME/.zshrc'
+alias ls='exa'
+alias pap='git pull upstream master && git push origin master'
 alias refresh='source $HOME/.zshrc'
+alias view='less $HOME/.zshrc'
 alias vol="alsamixer -c 1"
 alias ws='cd $DEV_FOLDER'
 
@@ -55,7 +61,7 @@ alias gitskip="git update-index --no-skip-worktree" ## https://stackoverflow.com
 
 # go
 if [[ `uname` == 'Darwin' ]]; then
-  export GOROOT=/usr/local/Cellar/go/1.10.1/libexec
+  export GOROOT=/usr/local/Cellar/go/1.11.5/libexec
 else
   export GOROOT=/usr/local/go
 fi
@@ -65,11 +71,6 @@ export PATH=$GOROOT/bin:$GOPATH:$PATH
 # homebrew (mainly fixes rsync)
 if [[ $(uname) == 'Darwin' ]]; then
   export PATH="/usr/bin/local:$PATH"
-fi
-
-# miniconda
-if [[ $(uname) == 'Darwin' ]]; then
-  export PATH="/Users/marcus.crane/.miniconda3/bin:$PATH"
 fi
 
 # n (node version manager)
