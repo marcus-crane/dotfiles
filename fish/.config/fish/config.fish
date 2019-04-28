@@ -7,7 +7,7 @@
 # expect them to actually work
 
 # base path
-set -gx PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin /usr/local/MagGPG2/bin /usr/local/sbin /opt/X11/bin $PATH
+set -xg PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin /usr/local/MagGPG2/bin /usr/local/sbin /opt/X11/bin $PATH
 
 # set $os to contain operating system name (mainly checking for wsl)
 if string match -q "*Microsoft*" -- (uname -a)
@@ -58,9 +58,9 @@ git config --global user.email "marcus@utf9k.net"
 git config --global user.name "Marcus Crane"
 
 # go
-set GOROOT (which go)
-set GOPATH "$WORKSPACE/go"
-set PATH $GOROOT/bin $GOPATH $PATH
+set -xg GOPATH "$WORKSPACE/go"
+set -xg GOROOT (asdf where golang)/go   # set whatever asdf decides except which go points to a binary instead of entire directory
+set -xg PATH $GOPATH/bin $GOROOT $PATH
 
 # homebrew (mainly fixes rsync)
 if test $os = "darwin"
@@ -70,8 +70,8 @@ end
 #eval (python -m virtualfish)
 
 # work related aliases
-if test -f $HOME/.work_aliases
-  # source $HOME/.work_aliases
+if test -f $HOME/.work_aliases.fish
+  source $HOME/.work_aliases.fish
 end
 
 #############
