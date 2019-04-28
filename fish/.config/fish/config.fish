@@ -39,12 +39,19 @@ alias scut="abbr -a -g"
 if test $os = "darwin"
   set -x ASDF_DIR (brew --prefix asdf) # gets around a macos mojave bug as mentioned in (3)
 end
-# source ~/.asdf/asdf.fish
+source ~/.asdf/asdf.fish
 
 # docker
 if type docker -q; and test $os = "windows"
-  set -x DOCKER_HOST 'tcp://0.0.0.0:2375' # (2)
+  set -x DOCKER_HOST "tcp://0.0.0.0:2375" # (2)
 end
+if type docker -q; and dmesg | grep "Hypervisor" > /dev/null; and test $status = 0
+  set -x DOCKER_HOST "unix:///var/run/docker.sock" # fixes docker not resolving requests to the outside world ie; pulling base images from docker hub
+end
+
+# erlang
+set -xg KERL_CONFIGURE_OPTIONS "--disable-debug --without-javac"
+set -xg KERL_BUILD_DOCS yes
 
 # git
 git config --global user.email "marcus@utf9k.net"
@@ -54,7 +61,7 @@ git config --global user.name "Marcus Crane"
 if test $os = "darwin"
   set GOROOT /usr/local/Cellar/go/1.11.5/libexec
 else
-  set GOROOT /usr/local/go
+  set GOROOT (which go)
 end
 set GOPATH "$WORKSPACE/go"
 set PATH $GOROOT/bin $GOPATH $PATH
@@ -63,6 +70,8 @@ set PATH $GOROOT/bin $GOPATH $PATH
 if test $os = "darwin"
   set PATH /usr/bin/local $PATH
 end
+
+#eval (python -m virtualfish)
 
 # work related aliases
 if test -f $HOME/.work_aliases
@@ -73,6 +82,9 @@ end
 # shortcuts #
 #############
 
+scut ae          "vf activate (basename $PWD)"
+scut bp          "bpython3"
+scut de          "vf deactivate"
 scut edit        "vi $CONFIG_FILE"
 scut gcm         "git commit -Si"
 scut gitskip     "git update-index --no-skip-worktree" # (1)
@@ -80,6 +92,7 @@ scut gst         "git status"
 scut ls          "exa"
 scut powershell  "/usr/local/bin/pwsh"
 scut refresh     "source $CONFIG_FILE"
+scut venv        "vf new (basename $PWD)"
 scut vi          "nvim"
 scut view        "less $CONFIG_FILE"
 scut vim         "nvim"
