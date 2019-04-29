@@ -25,6 +25,7 @@ end
 
 # constants
 set CONFIG_FILE $HOME/.config/fish/config.fish
+set FUNCTION_FOLDER $HOME/.config/fish/functions
 set EDITOR nvim
 set WORKSPACE $HOME/Code
 

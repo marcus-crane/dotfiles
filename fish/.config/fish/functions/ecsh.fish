@@ -1,3 +1,3 @@
 function ecsh
-  ./ecsh.py
+  $FUNCTION_FOLDER/ecsh.py
 end
