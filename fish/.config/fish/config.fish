@@ -67,7 +67,9 @@ if test $os = "darwin"
   set PATH /usr/bin/local $PATH
 end
 
-#eval (python -m virtualfish)
+# python
+set -xg PATH (asdf where python)/bin $PATH
+eval (python -m virtualfish)
 
 # work related aliases
 if test -f $HOME/.work_aliases.fish
