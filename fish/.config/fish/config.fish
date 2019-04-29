@@ -39,13 +39,13 @@ alias scut="abbr -a -g"
 if test $os = "darwin"
   set -x ASDF_DIR (brew --prefix asdf) # gets around a macos mojave bug as mentioned in (3)
 end
-source ~/.asdf/asdf.fish
+source $ASDF_DIR/asdf.fish
 
 # docker
 if type docker -q; and test $os = "windows"
   set -x DOCKER_HOST "tcp://0.0.0.0:2375" # (2)
 end
-if type docker -q; and dmesg | grep "Hypervisor" > /dev/null; and test $status = 0
+if type docker -q; and test $os = "linux"; and dmesg | grep "Hypervisor" > /dev/null; and test $status = 0
   set -x DOCKER_HOST "unix:///var/run/docker.sock" # fixes docker not resolving requests to the outside world ie; pulling base images from docker hub
 end
 
