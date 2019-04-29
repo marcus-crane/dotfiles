@@ -86,6 +86,8 @@ scut de          "vf deactivate"
 scut edit        "vi $CONFIG_FILE"
 scut gcm         "git commit -Si"
 scut gitskip     "git update-index --no-skip-worktree" # (1)
+scut gpom        "git pull origin master"
+scut gpum        "git pull upstream master"
 scut gst         "git status"
 scut ls          "exa"
 scut powershell  "/usr/local/bin/pwsh"
