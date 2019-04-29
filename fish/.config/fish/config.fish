@@ -39,6 +39,8 @@ alias scut="abbr -a -g"
 # asdf
 if test $os = "darwin"
   set -x ASDF_DIR (brew --prefix asdf) # gets around a macos mojave bug as mentioned in (3)
+else
+  set -x ASDF_DIR $HOME/.asdf
 end
 source $ASDF_DIR/asdf.fish
 
