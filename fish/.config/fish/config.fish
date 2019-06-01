@@ -76,7 +76,7 @@ eval (python -m virtualfish)
 
 # work related aliases
 if test -f $HOME/.work_aliases.fish
-  source $HOME/.work_aliases.fish
+  . $HOME/.work_aliases.fish
 end
 
 #############
@@ -94,7 +94,7 @@ scut gpum        "git pull upstream master"
 scut gst         "git status"
 scut ls          "exa"
 scut powershell  "/usr/local/bin/pwsh"
-scut refresh     "source $CONFIG_FILE"
+scut refresh     ". $CONFIG_FILE"
 scut venv        "vf new (basename $PWD)"
 scut vi          "nvim"
 scut view        "less $CONFIG_FILE"
