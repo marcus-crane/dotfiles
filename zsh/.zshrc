@@ -42,7 +42,7 @@ if [[ $(command -v docker) && $OPSYS == 'windows' ]]; then
   export DOCKER_HOST="tcp://0.0.0.0:2375" # (2)
 fi
 if [[ $(command -v docker) && $OPSYS == 'linux' && $(dmesg | grep "Hypervisor") > /dev/null && $? -eq 0 ]]; then
-  export DOCKER_HOST="unix:///var/run/docker.sock" # (4)
+  export DOCKER_HOST="unix:///var/run/docker.sock" # (3)
 fi
 
 # erlang
@@ -102,5 +102,4 @@ alias ws="cd $WORKSPACE"
 
 # (1) https://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-changes
 # (2) https://blog.jayway.com/2017/04/19/running-docker-on-bash-on-windows/
-# (3) https://github.com/asdf-vm/asdf/issues/425#issuecomment-459751694
-# (4) I forget the exact purpose of this but something about not being able to pull from base images from Docker hub while inside a container?
+# (3) I forget the exact purpose of this but something about not being able to pull from base images from Docker hub while inside a container?
