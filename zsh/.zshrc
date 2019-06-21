@@ -1,134 +1,106 @@
-#--- init ---
+##################
+# initialisation #
+##################
 
 # base path
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/usr/local/share/dotnet:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:$HOME/.local/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/opt/X11/bin:$PATH"
 
-# oh-my-zsh install path
-export ZSH=$HOME/.oh-my-zsh
+# set $OPSYS to be a lowercased os name (mainly for checking if inside wsl)
+if [[ "*Microsft*" == $(uname -a) ]]; then
+  export OPSYS="windows"
+else
+  export OPSYS=${(L)$(uname -s)}
+fi
 
-# theme
-export ZSH_THEME="af-magic"
+# set workspace based on current operating system
+if [[ $OPSYS == "windows" ]]; then
+  export WORKSPACE="/mnt/c/dev"
+else
+  export WORKSPACE="$HOME/Code"
+fi
 
-# defaults
-source $ZSH/oh-my-zsh.sh
-
-# set default editor
-EDITOR=$(command -v nvim)
-export EDITOR
-
-# locale
+# constants
+export CONFIG_FILE="$HOME/.zshrc"
+export EDITOR=$(command -v nvim)
 export LC_ALL=en_NZ.UTF-8
+export PROMPT='%B%F{green}>%f%b '
 
-# ensure github creds are set up
+################
+# applications #
+################
+
+# asdf
+if [[ $OPSYS == "darwin" ]]; then
+  export ASDF_DIR=/usr/local/opt/asdf # (3)
+else
+  export ASDF_DIR=$HOME/.asdf
+fi
+. $ASDF_DIR/asdf.sh
+
+# docker
+if [[ $(command -v docker) && $OPSYS == 'windows' ]]; then
+  export DOCKER_HOST="tcp://0.0.0.0:2375" # (2)
+fi
+if [[ $(command -v docker) && $OPSYS == 'linux' && $(dmesg | grep "Hypervisor") > /dev/null && $? -eq 0 ]]; then
+  export DOCKER_HOST="unix:///var/run/docker.sock" # (4)
+fi
+
+# erlang
+export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac"
+export KERL_BUILD_DOCS="yes"
+
+# git
 git config --global user.email "marcus@utf9k.net"
 git config --global user.name "Marcus Crane"
 
-# plugins
-# plugins=()
-
-# enable z
-source "/usr/local/Cellar/z/1.9/etc/profile.d/z.sh"
-
-# --- user ---
-
-# constants
-if [[ $(uname -r) == *'Microsoft' ]]; then
-  export DEV_FOLDER="/mnt/c/dev"
-else
-  export DEV_FOLDER="$HOME/Code"
-fi
-
-# general
-alias edit='vi $HOME/.zshrc'
-alias ls='exa'
-alias pap='git pull upstream master && git push origin master'
-alias refresh='source $HOME/.zshrc'
-alias view='less $HOME/.zshrc'
-alias vol="alsamixer -c 1"
-alias ws='cd $DEV_FOLDER'
-
-# docker (see https://blog.jayway.com/2017/04/19/running-docker-on-bash-on-windows/)
-if [[ $(command -v docker) && $(uname -r) == *'Microsoft' ]]; then
-  export DOCKER_HOST='tcp://0.0.0.0:2375'
-fi
-
-# git
-alias gcm="git commit -Si"
-alias gpom="git pull origin master"
-alias gpum="git pull upstream master"
-alias gst="git status"
-alias gitskip="git update-index --no-skip-worktree" ## https://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-changes
-
 # go
-if [[ `uname` == 'Darwin' ]]; then
-  export GOROOT=/usr/local/Cellar/go/1.11.5/libexec
-else
-  export GOROOT=/usr/local/go
-fi
-export GOPATH="$DEV_FOLDER/go"
-export PATH=$GOROOT/bin:$GOPATH:$PATH
+export GOPATH="$WORKSPACE/go"
+export GOROOT="$(asdf where golang)/go"
+export PATH=$GOPATH/bin:$GOROOT:$PATH
 
 # homebrew (mainly fixes rsync)
-if [[ $(uname) == 'Darwin' ]]; then
+if [[ $OPSYS == "darwin" ]]; then
   export PATH="/usr/bin/local:$PATH"
 fi
 
-# n (node version manager)
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
-
-# neovim
-alias vi="nvim"
-alias vim="nvim"
-
-# powershell
-alias powershell="/usr/local/bin/pwsh"
-
-# pyenv
-export PATH="$HOME/.pyenv/bin:$PATH"
-if command -v pyenv 1> /dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
 # python
-alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
-alias de="deactivate &> /dev/null"
-alias pireq="pip install -r requirements.txt"
-alias venv="python3 -m virtualenv venv && ae"
-
-# rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-if command -v rbenv 1> /dev/null 2>&1; then
-  eval "$(rbenv init -)"
-fi
-
-# ssh
-alias kaze="ssh sentry@kaze"
-alias magus="ssh marcus@magus"
-alias magus-remote="ssh marcus@magus-remote"
-alias makenshi="ssh sentry@makenshi"
+export PATH=$(asdf where python)/bin:$PATH
 
 # trash
-if [[ $(uname) == 'Darwin' ]]; then
+if [[ $OPSYS == "darwin" ]]; then
   alias rm="trash"
-fi
-
-# windows for linux (wsl) subsystem
-if [[ $(uname -r) == *'Microsoft' ]]; then
-  alias open="wsl-open"
-  alias win="/mnt/c/Users/marcus.crane"
 fi
 
 # work related aliases
 if [[ -a "$HOME/.work_aliases" ]]; then
-  source "$HOME/.work_aliases"
+  . "$HOME/.work_aliases"
 fi
 
-# xorg
-if [[ $(uname) == 'Linux' ]]; then
-  if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
-    exec startx
-  fi
-fi
 
-# yarn
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+#############
+# shortcuts #
+#############
+
+alias edit="nvim $CONFIG_FILE"
+alias gcm="git commit -Si"
+alias gitskip="git update-index --no-skip-worktree" # (1)
+alias gpom="git pull origin master"
+alias gpum="git pull upstream master"
+alias gst="git status"
+alias ls="exa"
+alias pap="git pull upstream master && git push origin master"
+alias powershell="/usr/local/bin/pwsh"
+alias refresh=". $CONFIG_FILE"
+alias vi="nvim"
+alias view="less $CONFIG_FILE"
+alias vim="nvim"
+alias ws="cd $WORKSPACE"
+
+##############
+# references #
+##############
+
+# (1) https://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-changes
+# (2) https://blog.jayway.com/2017/04/19/running-docker-on-bash-on-windows/
+# (3) https://github.com/asdf-vm/asdf/issues/425#issuecomment-459751694
+# (4) I forget the exact purpose of this but something about not being able to pull from base images from Docker hub while inside a container?
