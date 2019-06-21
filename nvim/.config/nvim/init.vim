@@ -14,9 +14,11 @@ endif
 " This is where plugins will live
 call plug#begin('$HOME/.local/share/nvim/plugged')
 
-Plug 'scrooloose/nerdtree'
-Plug 'mhartington/oceanic-next'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'elzr/vim-json', { 'for': 'json' }
 
 " Initialize the plugin system
 call plug#end()
@@ -70,10 +72,7 @@ noremap <Right> <NOP>
 
 """ Makin' things look nice """
 
-" src: https://github.com/mhartington/oceanic-next
-" Theme -> Oceanic Next
+" src: https://github.com/vim-airline/vim-airline-themes/blob/master/autoload/airline/themes/dracula.vim
+" Theme -> Dracula
 syntax on
-let g:airline_theme='oceanicnext'
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
-colorscheme OceanicNext
+let g:airline_theme='dracula'
