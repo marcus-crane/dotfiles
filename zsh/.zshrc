@@ -3,7 +3,7 @@
 ##################
 
 # base path
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/opt/X11/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/opt/X11/bin:/usr/local/opt/:$PATH"
 
 # set $OPSYS to be a lowercased os name (mainly for checking if inside wsl)
 if [[ "*Microsft*" == $(uname -a) ]]; then
