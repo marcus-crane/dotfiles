@@ -81,6 +81,8 @@ fi
 # shortcuts #
 #############
 
+alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
+alias de="deactivate &> /dev/null"
 alias edit="nvim $CONFIG_FILE"
 alias gcm="git commit -Si"
 alias gitskip="git update-index --no-skip-worktree" # (1)
@@ -91,6 +93,7 @@ alias ls="exa"
 alias pap="git pull upstream master && git push origin master"
 alias powershell="/usr/local/bin/pwsh"
 alias refresh=". $CONFIG_FILE"
+alias venv="python3 -m virtualenv venv && ae"
 alias vi="nvim"
 alias view="less $CONFIG_FILE"
 alias vim="nvim"
