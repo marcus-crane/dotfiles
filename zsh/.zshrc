@@ -84,10 +84,12 @@ fi
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
 alias de="deactivate &> /dev/null"
 alias edit="nvim $CONFIG_FILE"
+alias gb="git branch -v"
 alias gcm="git commit -Si"
 alias gitskip="git update-index --no-skip-worktree" # (1)
 alias gpom="git pull origin master"
 alias gpum="git pull upstream master"
+alias gr="git remote -v"
 alias gst="git status"
 alias ls="exa"
 alias pap="git pull upstream master && git push origin master"
