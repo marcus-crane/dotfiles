@@ -75,7 +75,7 @@ fi
 
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
 alias de="deactivate &> /dev/null"
-alias dsync="cd ~/dotfiles && git add -i && gcm && gpom && cd - && refresh"
+alias dsync="cd ~/dotfiles && git add -i && gcm && git push && cd - && refresh"
 alias edit="nvim $CONFIG_FILE"
 alias gb="git branch -v"
 alias gbd="git branch -D"
