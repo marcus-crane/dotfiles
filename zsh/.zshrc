@@ -75,8 +75,11 @@ fi
 
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
 alias de="deactivate &> /dev/null"
+alias dsync="cd ~/dotfiles && git add -i && gcm && gpom && cd - && refresh"
 alias edit="nvim $CONFIG_FILE"
 alias gb="git branch -v"
+alias gbd="git branch -D"
+alias gbm="git checkout master"
 alias gcm="git commit -Si"
 alias gitskip="git update-index --no-skip-worktree" # (1)
 alias gpom="git pull origin master"
