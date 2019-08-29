@@ -102,6 +102,14 @@ alias view="less $CONFIG_FILE"
 alias vim="nvim"
 alias ws="cd $WORKSPACE"
 
+#############
+# functions #
+#############
+
+function whomport() {
+  lsof -nP -i4TCP:$1 | grep LISTEN
+}
+
 ##############
 # references #
 ##############
@@ -109,3 +117,5 @@ alias ws="cd $WORKSPACE"
 # (1) https://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-changes
 # (2) https://blog.jayway.com/2017/04/19/running-docker-on-bash-on-windows/
 # (3) I forget the exact purpose of this but something about not being able to pull from base images from Docker hub while inside a container?
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
