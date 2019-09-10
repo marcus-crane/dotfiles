@@ -6,7 +6,7 @@
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/opt/X11/bin:/usr/local/opt/:$PATH"
 
 # set $OPSYS to be a lowercased os name (mainly for checking if inside wsl)
-if [[ "*Microsft*" == $(uname -a) ]]; then
+if [[ $(uname -a) =~ 'Microsoft' ]]; then
   export OPSYS="windows"
 else
   export OPSYS=${(L)$(uname -s)}
@@ -22,7 +22,8 @@ fi
 # constants
 export CONFIG_FILE="$HOME/.zshrc"
 export EDITOR=$(command -v nvim)
-export LC_ALL=en_NZ.UTF-8
+export LANGUAGE="en_NZ:en"
+export LC_ALL="en_NZ.UTF-8"
 export PROMPT='%B%F{green}>%f%b '
 
 ################
@@ -36,6 +37,11 @@ else
   export ASDF_DIR=$HOME/.asdf
 fi
 . $ASDF_DIR/asdf.sh
+
+# docker
+if [[ $OPSYS == "windows" ]]; then
+  export DOCKER_HOST='tcp://0.0.0.0:2375'
+fi
 
 # erlang
 export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac"
@@ -74,6 +80,7 @@ fi
 #############
 
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
+alias code="code-insiders"
 alias de="deactivate &> /dev/null"
 alias dsync="cd ~/dotfiles && git add -i && gcm && git push && cd - && refresh"
 alias edit="nvim $CONFIG_FILE"
