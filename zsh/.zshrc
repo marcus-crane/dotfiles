@@ -22,6 +22,7 @@ fi
 # constants
 export CONFIG_FILE="$HOME/.zshrc"
 export EDITOR=$(command -v nvim)
+export GPG_TTY=$(tty) # (3)
 export LANGUAGE="en_NZ:en"
 export LC_ALL="en_NZ.UTF-8"
 export PROMPT='%B%F{green}>%f%b '
@@ -40,7 +41,7 @@ fi
 
 # docker
 if [[ $OPSYS == "windows" ]]; then
-  export DOCKER_HOST='tcp://0.0.0.0:2375'
+  export DOCKER_HOST='tcp://0.0.0.0:2375' # (4)
 fi
 
 # erlang
@@ -118,4 +119,9 @@ function whomport() {
 
 # (1) https://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-changes
 # (2) https://blog.jayway.com/2017/04/19/running-docker-on-bash-on-windows/
-# (3) I forget the exact purpose of this but something about not being able to pull from base images from Docker hub while inside a container?
+# (3) This allows the GPG prompt to appear when using WSL.
+#     Without it, a "gpg: signing failed: Inappropriate ioctl for device" error is thrown.
+#       - https://github.com/microsoft/WSL/issues/4029
+#       - https://www.gnupg.org/(it)/documentation/manuals/gnupg/Common-Problems.html
+# (4) Setting TLS insecure on Docker for Windows, alongside this exported DOCKER_HOST means that the Docker daemon
+#     inside WSL is able to use the actual Docker for Windows service. Windows without windows! :)
