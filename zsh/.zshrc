@@ -109,9 +109,12 @@ alias ws="cd $WORKSPACE"
 # functions #
 #############
 
-function whomport() {
-  lsof -nP -i4TCP:$1 | grep LISTEN
-}
+if [[ $OPSYS == "windows" ]]; then # (5)
+  function oclip() { pass otp $1 | clip.exe }
+  function pclip() { pass show $1 | head -n 1 | clip.exe }
+fi
+
+function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 
 ##############
 # references #
@@ -125,3 +128,5 @@ function whomport() {
 #       - https://www.gnupg.org/(it)/documentation/manuals/gnupg/Common-Problems.html
 # (4) Setting TLS insecure on Docker for Windows, alongside this exported DOCKER_HOST means that the Docker daemon
 #     inside WSL is able to use the actual Docker for Windows service. Windows without windows! :)
+# (5) I run pass inside of WSL which means that, for now, I can't use the Firefox browser extension. As a workaround,
+#     these functions pipe output to clip.exe, placing them on the Windows clipboard. Works pretty well.
