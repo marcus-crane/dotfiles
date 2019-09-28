@@ -75,13 +75,15 @@ if [[ -a "$HOME/.work_aliases" ]]; then
   . "$HOME/.work_aliases"
 fi
 
+# yarn
+export PATH=$(yarn global bin):$PATH
+
 
 #############
 # shortcuts #
 #############
 
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
-alias code="code-insiders"
 alias de="deactivate &> /dev/null"
 alias dsync="cd ~/dotfiles && git add -i && gcm && git push && cd - && refresh"
 alias edit="nvim $CONFIG_FILE"
