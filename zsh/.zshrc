@@ -62,6 +62,11 @@ if [[ $OPSYS == "darwin" ]]; then
   export PATH="/usr/bin/local:$PATH"
 fi
 
+# macos
+if [[ $OPSYS == "darwin" ]]; then
+  export PATH="/usr/local/opt/openssl/bin:$PATH" # (6)
+fi
+
 # python
 export PATH=$(asdf where python)/bin:$PATH
 
@@ -137,4 +142,5 @@ export LS_COLORS="or=0;38;2;0;0;0;48;2;255;92;87:ln=0;38;2;255;106;193:fi=0:pi=0
 # (4) Setting TLS insecure on Docker for Windows, alongside this exported DOCKER_HOST means that the Docker daemon
 #     inside WSL is able to use the actual Docker for Windows service. Windows without windows! :)
 # (5) I run pass inside of WSL which means that, for now, I can't use the Firefox browser extension. As a workaround,
-#     these functions pipe output to clip.exe, placing them on the Windows clipboard. Works pretty well.
+#     these functions pipe output to clip.exe, placing them on the Windows clipboard. Works pretty well.# (6) Fixes compilation issues with Erlang on macOS
+#       - https://github.com/kerl/kerl/issues/226
