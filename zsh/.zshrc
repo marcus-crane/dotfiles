@@ -40,7 +40,7 @@ fi
 . $ASDF_DIR/asdf.sh
 
 # docker
-if [[ $OPSYS == "windows" ]]; then
+if [[ $(command -v docker) && $OPSYS == "windows" ]]; then
   export DOCKER_HOST='tcp://0.0.0.0:2375' # (4)
 fi
 
@@ -69,6 +69,9 @@ fi
 
 # python
 export PATH=$(asdf where python)/bin:$PATH
+
+# rust
+export PATH=$(asdf where rust)/bin:$PATH
 
 # trash
 if [[ $OPSYS == "darwin" ]]; then
@@ -101,7 +104,6 @@ alias gpom="git pull origin master"
 alias gpum="git pull upstream master"
 alias gr="git remote -v"
 alias gst="git status"
-alias lcrash="docker logs $(docker ps -alq)"
 alias ls="exa"
 alias pap="git pull upstream master && git push origin master"
 alias powershell="/usr/local/bin/pwsh"
