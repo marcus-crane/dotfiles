@@ -19,6 +19,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Initialize the plugin system
 call plug#end()
