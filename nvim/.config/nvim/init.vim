@@ -1,6 +1,7 @@
 " All plugin srcs can be found in the plugin names themselves
 " For example Plug 'scrooloose/nerdtree' lives at
 " https://github.com/scrooloose/nerdtree
+" See footnotes for relevant links and notes
 
 """ Plugins """
 
@@ -33,24 +34,27 @@ set incsearch
 " Enable search highlighting
 set hlsearch
 
-" Rebind J and K to move blocks up and down in visual mode
-" src: https://vimrcfu.com/snippet/77
+" Rebind J and K to move blocks up and down in visual mode [footnotes#move-blocks-visual]
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 " Load filetype detection and indentation
 filetype plugin indent on
+
 " Show existing tab as having a width of 4 spaces
 set tabstop=2
+
 " Use 2 spaces when indenting with `>`
 set shiftwidth=2
+
 " Insert 2 spaces when pressing tab
 set expandtab
+
 " Insert 4 spaces for Python files to match PEP8
 autocmd Filetype python setlocal ts=4 sw=4 sts=4
 
-" src: http://vimcasts.org/episodes/show-invisibles/
-" Set invisibles representation to be the same as TextMate
+" Set invisibles representation to be the same as TextMate [footnotes#show-invisibles]
+
 set listchars=tab:▸\ ,eol:¬
 " Toggle invisibles using `\ + l` in NORMAL mode
 nmap <leader>l :set list!<CR>
@@ -60,8 +64,7 @@ map <C-n> :NERDTreeToggle<CR>
 
 """ Get better at using vim """
 
-" src: https://tylercipriani.com/vim.html
-" Disable arrow keys, forcing hjkl only in both INSERT and NORMAL modes
+" Disable arrow keys, forcing hjkl only in both INSERT and NORMAL modes [footnotes#no-arrow-keys]
 inoremap <Up> <NOP>
 noremap <Up> <NOP>
 inoremap <Down> <NOP>
@@ -73,7 +76,36 @@ noremap <Right> <NOP>
 
 """ Makin' things look nice """
 
-" src: https://github.com/vim-airline/vim-airline-themes/blob/master/autoload/airline/themes/dracula.vim
-" Theme -> Dracula
+" Theme -> Dracula [footnote#dracula]
 syntax on
 let g:airline_theme='dracula'
+
+""" COC (autocompleter) configuration [footnote#coc] """
+
+set updatetime=300
+
+" Use tab to trigger completion
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c_space> to trigger completion
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+""" Footnotes """
+
+" [coc]: Configuration pulled from the example available here: https://github.com/neoclide/coc.nvim
+" [dracula]: https://github.com/vim-airline/vim-airline-themes/blob/master/autoload/airline/themes/dracula.vim
+" [move-blocks-visual]: https://vimrcfu.com/snippet/77
+" [no-arrow-keys]: https://tylercipriani.com/vim.html
+" [show-invisibles]: http://vimcasts.org/episodes/show-invisibles/
