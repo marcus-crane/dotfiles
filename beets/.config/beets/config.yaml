@@ -1,4 +1,4 @@
-directory: ~/Music/Albums
+directory: ~/Music
 library: ~/.music.blb
 import:
         move: yes
