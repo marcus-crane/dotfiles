@@ -6,6 +6,8 @@
 # more in-depth setup scripts             #
 ###########################################
 
+# TODO: Set up SSH key to avoid remote fiddling
+
 CHECKMARK="✔"
 CROSS="✖"
 
