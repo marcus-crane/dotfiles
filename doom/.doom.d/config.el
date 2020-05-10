@@ -31,6 +31,16 @@
 (setq org-directory "~/Dropbox/org/")
 (setq org-agenda-files '("~/Dropbox/org/gtd/"))
 
+;; src: https://blog.jethro.dev/posts/capturing_inbox/
+(setq marcus/org-agenda-directory "~/Dropbox/org/gtd/")
+(setq org-capture-templates
+      `(("i" "inbox" entry (file ,(concat marcus/org-agenda-directory "inbox.org"))
+         "* TODO %?")
+        ("l" "link" entry (file ,(concat marcus/org-agenda-directory "inbox.org"))
+         "* TODO %(org-cliplink-capture)" :immediate-finish t)
+        ("c" "org-protocol-capture" entry (file ,(concat marcus/org-agenda-directory "inbox.org"))
+         "* TODO [[%:link][%:description]]\n\n %i" :immediate-finish t)))
+
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
