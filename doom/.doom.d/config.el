@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Marcus Crane"
+      user-mail-address "marcus@utf9k.net")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -28,7 +28,8 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/Dropbox/org/")
+(setq org-agenda-files '("~/Dropbox/org/gtd/"))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -51,5 +52,61 @@
 ;;
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
-(setq deft-directory "~/notes")
-(setq deft-recursive t)
+(use-package! org-roam
+  :commands (org-roam-insert org-roam-find-file org-roam-switch-to-buffer org-roam)
+  :hook
+  (after-init . org-roam-mode)
+  :custom-face
+  (org-roam-link ((t (:inherit org-link :foreground "#005200"))))
+  :init
+  (map! :leader
+        :prefix "n"
+        :desc "org-roam" "l" #'org-roam
+        :desc "org-roam-insert" "i" #'org-roam-insert
+        :desc "org-roam-switch-to-buffer" "b" #'org-roam-switch-to-buffer
+        :desc "org-roam-find-file" "f" #'org-roam-find-file
+        :desc "org-roam-graph" "g" #'org-roam-graph
+        :desc "org-roam-insert" "i" #'org-roam-insert
+        :desc "org-roam-capture" "c" #'org-roam-capture)
+  (setq org-roam-directory "~/Dropbox/org/notes/"
+        org-roam-db-location "~/org-roam.db"
+        org-roam-graph-exclude-matcher "private")
+  :config
+  (require 'org-roam-protocol)
+  (setq org-roam-capture-templates
+      '(("d" "default" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "${slug}"
+         :head "#+TITLE: ${title}\n"
+         :unnarrowed t)
+        ("p" "private" plain (function org-roam-capture--get-point)
+         "%?"
+         :file-name "private-${slug}"
+         :head "#+TITLE: ${title}\n"
+         :unnarrowed t)))
+  (setq org-roam-ref-capture-templates
+        '(("r" "ref" plain (function org-roam-capture--get-point)
+           "%?"
+           :file-name "websites/${slug}"
+           :head "#+ROAM_KEY: ${ref}\n#+TITLE: ${title}\n\n- source :: ${ref}"
+           :unnarrowed t))))
+
+(use-package deft
+  :after org
+  :bind
+  ("C-c n d" . deft)
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory "~/Dropbox/org/"))
+
+(use-package! org-journal
+  :bind
+  ("C-c n j" . org-journal-new-entry)
+  :config
+  (setq org-journal-date-prefix "#+TITLE: "
+        org-journal-file-format "private-%Y-%m-%d.org"
+        org-journal-dir "~/Dropbox/org/notes/"
+        org-journal-carryover-items nil
+        org-journal-date-format "%Y-%m-%d"))
