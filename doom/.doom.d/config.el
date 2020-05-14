@@ -28,18 +28,42 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Dropbox/org/")
-(setq org-agenda-files '("~/Dropbox/org/gtd/"))
+(after! org (setq org-directory "~/Dropbox/org/"))
+(after! org (setq org-agenda-files '("~/Dropbox/org/gtd/inbox.org"
+                                     "~/Dropbox/org/gtd/gtd.org"
+                                     "~/Dropbox/org/gtd/tickler.org")))
 
-;; src: https://blog.jethro.dev/posts/capturing_inbox/
+;; src 1: https://blog.jethro.dev/posts/capturing_inbox/
+;; src 2: https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
+;; note : https://emacs.stackexchange.com/questions/7481/how-to-evaluate-the-variables-before-adding-them-to-a-list
+;; the backtick (`) here has symantic meaning!
 (setq marcus/org-agenda-directory "~/Dropbox/org/gtd/")
-(setq org-capture-templates
-      `(("i" "inbox" entry (file ,(concat marcus/org-agenda-directory "inbox.org"))
-         "* TODO %?")
-        ("l" "link" entry (file ,(concat marcus/org-agenda-directory "inbox.org"))
-         "* TODO %(org-cliplink-capture)" :immediate-finish t)
-        ("c" "org-protocol-capture" entry (file ,(concat marcus/org-agenda-directory "inbox.org"))
-         "* TODO [[%:link][%:description]]\n\n %i" :immediate-finish t)))
+(after! org
+  (setq org-capture-templates
+      `(("i" "inbox" entry
+         (file ,(concat marcus/org-agenda-directory "inbox.org"))
+         "* TODO %i%?")
+        ("l" "link" entry
+         (file ,(concat marcus/org-agenda-directory "inbox.org"))
+         "* TODO %(org-cliplink-capture)"
+         :immediate-finish t)
+        ("c" "org-protocol-capture" entry
+         (file ,(concat marcus/org-agenda-directory "inbox.org"))
+         "* TODO [[%:link][%:description]]\n\n %i"
+         :immediate-finish t)
+        ("t" "tickler" entry
+         (file ,(concat marcus/org-agenda-directory "tickler.org"))
+         "* %i%? \n %U"
+        ))))
+
+;; Refile targets to move a task from one gtd file to another
+(after! org (setq org-refile-targets
+      `((,(concat marcus/org-agenda-directory "gtd.org") :maxlevel . 3)
+        (,(concat marcus/org-agenda-directory "someday.org") :level . 1)
+        (,(concat marcus/org-agenda-directory "tickler.org") :maxlevel . 2))))
+
+;; Set some default keywords to use as org task statuses
+(after! org (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
