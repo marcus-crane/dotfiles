@@ -63,7 +63,7 @@
         (,(concat marcus/org-agenda-directory "tickler.org") :maxlevel . 2))))
 
 ;; Set some default keywords to use as org task statuses
-(after! org (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
+(after! org (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "PROJ(p)" "DONE(d)" "CANCELLED(c)"))))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
