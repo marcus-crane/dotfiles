@@ -44,6 +44,16 @@ if [[ $(command -v docker) && $OPSYS == "windows" ]]; then
   export DOCKER_HOST='tcp://0.0.0.0:2375' # (dockertls)
 fi
 
+# dropbox // changes based on which computer i'm at
+
+if [[ $OPSYS == "windows" && $(hostname) =~ "DESKTOP" ]]; then
+  export DROPBOX_DIR=/mnt/s/Dropbox
+elif [[ $OPSYS == "windows" && $(hostname) =~ "XLW" ]]; then
+  export DROPBOX_DIR=/mnt/c/Users/marcus.crane/Dropbox
+else
+  export DROPBOX_DIR=$HOME/Dropbox
+fi
+
 # erlang
 export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac"
 export KERL_BUILD_DOCS="yes"
