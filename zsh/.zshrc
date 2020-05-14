@@ -21,6 +21,7 @@ fi
 
 # constants
 export CONFIG_FILE="$HOME/.zshrc"
+export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
 export EDITOR=$(command -v nvim)
 export GPG_TTY=$(tty) # (3)
 export LANGUAGE="en_NZ:en"
