@@ -6,27 +6,26 @@
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/opt/X11/bin:/usr/local/opt/:$HOME/.emacs.d/bin:$PATH"
 
 # set $OPSYS to be a lowercased os name (mainly for checking if inside wsl)
-if [[ $(uname -a) =~ 'Microsoft' ]]; then
+if [[ $(uname -r) =~ 'microsoft' ]]; then
   export OPSYS="windows"
 else
   export OPSYS=${(L)$(uname -s)}
 fi
 
-# set workspace based on current operating system
-if [[ $OPSYS == "windows" ]]; then
-  export WORKSPACE="/mnt/c/dev"
-else
-  export WORKSPACE="$HOME/Code"
-fi
+# set workspace
+export WORKSPACE="$HOME/Code"
 
 # constants
 export CONFIG_FILE="$HOME/.zshrc"
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
-export EDITOR=$(command -v nvim)
-export GPG_TTY=$(tty) # (3)
+export EDITOR=$(command -v emacs)
+export GPG_TTY=$(tty) # (gpgwsl)
 export LANGUAGE="en_NZ:en"
 export LC_ALL="en_NZ.UTF-8"
 export PROMPT='%B%F{green}>%f%b '
+
+if [[ $OPSYS == "windows" ]]; then
+   export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 # (disp)
+fi
 
 ################
 # applications #
@@ -42,7 +41,7 @@ fi
 
 # docker
 if [[ $(command -v docker) && $OPSYS == "windows" ]]; then
-  export DOCKER_HOST='tcp://0.0.0.0:2375' # (4)
+  export DOCKER_HOST='tcp://0.0.0.0:2375' # (dockertls)
 fi
 
 # erlang
@@ -65,7 +64,7 @@ fi
 
 # macos
 if [[ $OPSYS == "darwin" ]]; then
-  export PATH="/usr/local/opt/openssl/bin:$PATH" # (6)
+  export PATH="/usr/local/opt/openssl/bin:$PATH" # (kerlmacos)
 fi
 
 # python
@@ -95,12 +94,12 @@ export PATH=$(yarn global bin):$PATH
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
 alias de="deactivate &> /dev/null"
 alias dsync="cd ~/dotfiles && git add -i && gcm && git push && cd - && refresh"
-alias edit="nvim $CONFIG_FILE"
+alias edit="$EDITOR $CONFIG_FILE"
 alias gb="git branch -v"
 alias gbd="git branch -D"
 alias gbm="git checkout master"
 alias gcm="git commit -Si"
-alias gitskip="git update-index --no-skip-worktree" # (1)
+alias gitskip="git update-index --no-skip-worktree" # (emptycommit)
 alias gpom="git pull origin master"
 alias gpum="git pull upstream master"
 alias gr="git remote -v"
@@ -118,11 +117,6 @@ alias ws="cd $WORKSPACE"
 # functions #
 #############
 
-if [[ $OPSYS == "windows" ]]; then # (5)
-  function oclip() { pass otp $1 | clip.exe }
-  function pclip() { pass show $1 | head -n 1 | clip.exe }
-fi
-
 function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 
 ##################
@@ -135,14 +129,15 @@ export LS_COLORS="or=0;38;2;0;0;0;48;2;255;92;87:ln=0;38;2;255;106;193:fi=0:pi=0
 # references #
 ##############
 
-# (1) https://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-changes
-# (2) https://blog.jayway.com/2017/04/19/running-docker-on-bash-on-windows/
-# (3) This allows the GPG prompt to appear when using WSL.
+# (emptycommit) https://stackoverflow.com/questions/3319479/can-i-git-commit-a-file-and-ignore-its-content-changes
+# (gpgwsl) This allows the GPG prompt to appear when using WSL.
 #     Without it, a "gpg: signing failed: Inappropriate ioctl for device" error is thrown.
 #       - https://github.com/microsoft/WSL/issues/4029
 #       - https://www.gnupg.org/(it)/documentation/manuals/gnupg/Common-Problems.html
-# (4) Setting TLS insecure on Docker for Windows, alongside this exported DOCKER_HOST means that the Docker daemon
+# (dockertls) Setting TLS insecure on Docker for Windows, alongside this exported DOCKER_HOST means that the Docker daemon
 #     inside WSL is able to use the actual Docker for Windows service. Windows without windows! :)
-# (5) I run pass inside of WSL which means that, for now, I can't use the Firefox browser extension. As a workaround,
-#     these functions pipe output to clip.exe, placing them on the Windows clipboard. Works pretty well.# (6) Fixes compilation issues with Erlang on macOS
+# (kerlmacos) Fixes compilation issues with Erlang on macOS
 #       - https://github.com/kerl/kerl/issues/226
+# (disp) This allows X11 supported programs (ie Emacs) to render on my Windows desktop, rather than inside a terminal
+#     I use the Windows Terminal currently which doesn't support key passthrough for Ctrl + Shift + <key> for example
+#     You can read more about this setup here: https://utf9k.net/blog/emacs-wsl2-install/
