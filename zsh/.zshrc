@@ -77,6 +77,11 @@ if [[ $OPSYS == "darwin" ]]; then
   export PATH="/usr/local/opt/openssl/bin:$PATH" # (kerlmacos)
 fi
 
+# nixops
+if [[ -a "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
+  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+fi
+
 # python
 export PATH=$(asdf where python)/bin:$PATH
 
