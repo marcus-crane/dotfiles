@@ -119,8 +119,13 @@
          :unnarrowed t)
         ("p" "private" plain (function org-roam-capture--get-point)
          "%?"
-         :file-name "private-${slug}"
-         :head "#+TITLE: ${title}\n"
+         :file-name "${slug}"
+         :head "#+TITLE: ${title}\n#+ROAM_TAG: private\n"
+         :unnarrowed t)
+        ("h" "human" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "${slug}"
+         :head "#+TITLE: ${title}\n#+ROAM_TAG: person\n"
          :unnarrowed t)))
   (setq org-roam-ref-capture-templates
         '(("r" "ref" plain (function org-roam-capture--get-point)
@@ -137,14 +142,13 @@
   (deft-recursive t)
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
-  (deft-directory "~/Dropbox/org/"))
+  (deft-directory "~/Dropbox/org/notes/"))
 
 (use-package! org-journal
   :bind
   ("C-c n j" . org-journal-new-entry)
   :config
-  (setq org-journal-date-prefix "#+TITLE: "
-        org-journal-file-format "private-%Y-%m-%d.org"
+  (setq org-journal-file-format "%Y-%m.org"
+        org-journal-date-format "%Y-%m-%d"
         org-journal-dir "~/Dropbox/org/notes/"
-        org-journal-carryover-items nil
-        org-journal-date-format "%Y-%m-%d"))
+        org-journal-file-type 'monthly))
