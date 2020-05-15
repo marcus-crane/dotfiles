@@ -29,6 +29,10 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (after! org (setq org-directory "~/Dropbox/org/"))
+(after! org (setq org-archive-location
+                  (concat org-directory "gtd/archive/archive-"
+                          (format-time-string "%Y%m" (current-time))
+                          ".org::")))
 (after! org (setq org-agenda-files '("~/Dropbox/org/gtd/inbox.org"
                                      "~/Dropbox/org/gtd/gtd.org"
                                      "~/Dropbox/org/gtd/tickler.org")))
