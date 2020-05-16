@@ -3,3 +3,4 @@ mopidy/.config/mopidy/
 newsboat/.newsboat/cache*
 newsboat/.newsboat/history*
 nvim/.config/configstore/*
+doom/.doom.d/config.el
