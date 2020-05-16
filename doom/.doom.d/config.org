@@ -1,0 +1,238 @@
+#+TITLE: My Doom Emacs configuration
+
+* General setup
+** Header comment
+Not sure if this is important but I believe it has some semantic meaning
+
+#+begin_src emacs-lisp
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+#+end_src
+** Name and email address
+#+begin_src emacs-lisp
+(setq user-full-name "Marcus Crane"
+      user-mail-address "marcus@utf9k.net")
+#+end_src
+** Theming
+I'm sure there's probably a lot of cool theming setups
+
+Personally, I'm happy with the default Doom Emacs styling for now
+
+We're using 14pt monospace
+
+#+begin_src emacs-lisp
+(setq doom-font (font-spec :family "monospace" :size 14))
+#+end_src
+
+Doom One is a pretty solid default theme too
+
+#+begin_src emacs-lisp
+(setq doom-theme 'doom-one)
+#+end_src
+** Show line numbers
+Nothing fancy here
+
+I think [[https://github.com/hlissner][Henrik]] might have mentioned that line numbers cause a bit of a performance impact? I'd need to do some benchmarking... not that I know how, haha
+
+#+begin_src emacs-lisp
+(setq display-line-numbers-type t)
+#+end_src
+* Org setup
+
+You'll notice most org bits are prefixed with ~after! org~
+
+I still don't really understand it but I believe that's overwriting the default configuration that Doom Emacs already provides
+
+** Setting up default directories
+I could use Github as my storage option for my org notes but not all of them are intended to be public
+
+Dropbox works for now, although the actual location of Dropbox will change from computer to computer
+
+For instance, it lives at ~S:/Dropbox/~ on my desktop while it lives at ~C:\Users\marcus.crane\Dropbox~ on my work laptop
+
+I've got an environment variable that gets loaded in my org file called ~DROPBOX_DIR~ so all I'll need to do is substitute this directory with that environment variable.
+
+It's not much work, I just haven't gotten around to it
+
+#+begin_src emacs-lisp
+(after! org (setq org-directory "~/Dropbox/org/"))
+#+end_src
+
+Similarly, I also store my ~org-agenda~ files in Dropbox
+
+They live in a slightly more specific GTD directory but I should really just define the base dropbox address so I can then simply re-use that variable in these definitions
+
+#+begin_src emacs-lisp
+(setq marcus/org-agenda-directory "~/Dropbox/org/gtd/")
+#+end_src
+
+** Setting org file locations
+
+Now that I've set my default org directories, I need to define what files org, and org-agenda, should actually operate on
+
+Firstly, I want to use the following org-agenda files
+
+#+begin_src emacs-lisp
+(after! org (setq org-agenda-files '("~/Dropbox/org/gtd/inbox.org"
+                                     "~/Dropbox/org/gtd/gtd.org"
+                                     "~/Dropbox/org/gtd/tickler.org")))
+#+end_src
+
+I've got three files here:
+
+Inbox: Anything I've used ~org-capture~ for, as well as anything that needs sorting. I can use ~org-refile~ to quickly move these items to their respective files (generally ends up being ~gtd.org~). The layout of this file needs the most work I think. Maybe splitting into sections for eg; website links vs tasks
+
+GTD: All tags, grouped by headings, that I might want to focus on
+
+Tickler: Anything I want to remember in a future date. Quite literally just a flat list of notes paired with scheduled dates
+
+The other important thing to define is the location of my archive. It's just a list of items that have been completed. Once they're done, you don't want them floating around your lists, but they might be nice to refer back to in future.
+
+I've opted to segment them into their own folder, with a file for each month of the year
+
+#+begin_src emacs-lisp
+(after! org (setq org-archive-location
+                  (concat org-directory "gtd/archive/archive-"
+                          (format-time-string "%Y%m" (current-time))
+                          ".org::")))
+#+end_src
+
+All done but I should give credit, where credit is due
+
+I heavily relied on these two sources for inspiration and configuration
+
+- https://blog.jethro.dev/posts/capturing_inbox/
+- https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
+** Configuring org-capture-templates
+
+When invoking org-capture, it's nice to prefile some metadata and this is exactly what we're doing here.
+
+I should note that the backticks are an important distinction. It seems they tell Emacs Lisp to evaluate the contents of variables before creating strings, rather than just using them literally like it would with a single quote. You can [[https://emacs.stackexchange.com/questions/7481/how-to-evaluate-the-variables-before-adding-them-to-a-list][read more here]].
+
+#+begin_src emacs-lisp
+(after! org
+  (setq org-capture-templates
+      `(("i" "inbox" entry
+         (file ,(concat marcus/org-agenda-directory "inbox.org"))
+         "* TODO %i%?")
+        ("l" "link" entry
+         (file ,(concat marcus/org-agenda-directory "inbox.org"))
+         "* TODO %(org-cliplink-capture)"
+         :immediate-finish t)
+        ("c" "org-protocol-capture" entry
+         (file ,(concat marcus/org-agenda-directory "inbox.org"))
+         "* TODO [[%:link][%:description]]\n\n %i"
+         :immediate-finish t)
+        ("t" "tickler" entry
+         (file ,(concat marcus/org-agenda-directory "tickler.org"))
+         "* %i%? \n %U"
+        ))))
+#+end_src
+
+#+RESULTS:
+| i | inbox                | entry | (file ~/Dropbox/org/gtd/inbox.org) | * TODO %i%?                    |                   |   |
+| l | link                 | entry | (file ~/Dropbox/org/gtd/inbox.org) | * TODO %(org-cliplink-capture) | :immediate-finish | t |
+| c | org-protocol-capture | entry | (file ~/Dropbox/org/gtd/inbox.org) | * TODO [[%:link][%:description]]           |                   |   |
+
+I'd like to refine these further but for now, they're mostly what I found from Jethro Kuan I believe?
+** Set up org-refile locations
+
+I had always figured I would need to manually copy/paste or retype TODO lists but of course, org supports the ability to just "magically" send text from one file to another
+
+With a few keystrokes, this can be accomplished but some files should have a flatter heirarchy than others.
+
+I haven't really explored the limits of org trees so I'm mostly speaking without understanding what I'm saying here!
+
+#+begin_src emacs-lisp
+(after! org (setq org-refile-targets
+      `((,(concat marcus/org-agenda-directory "gtd.org") :maxlevel . 3)
+        (,(concat marcus/org-agenda-directory "someday.org") :level . 1)
+        (,(concat marcus/org-agenda-directory "tickler.org") :maxlevel . 2))))
+#+end_src
+** Create keywords for TODO lists
+
+A very cool feature of org-mode is that you can specify arbitrary keywords so eg; I could make the keyword SPORTS mean done just as much as DONE means done
+
+Anyway, here's what that looks like
+
+#+begin_src emacs-lisp
+(after! org (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "PROJ(p)" "|" "DONE(d)" "CANCELLED(c)"))))
+#+end_src
+
+It's nothing special. I didn't realise at first but the pipe operator (~|~) is what separates the "to be actioned" keywords from the "has been actioned" keywords
+* org-roam setup
+#+begin_src emacs-lisp
+(use-package! org-roam
+  :commands (org-roam-insert org-roam-find-file org-roam-switch-to-buffer org-roam)
+  :hook
+  (after-init . org-roam-mode)
+  :custom-face
+  (org-roam-link ((t (:inherit org-link :foreground "#005200"))))
+  :init
+  (map! :leader
+        :prefix "n"
+        :desc "org-roam" "l" #'org-roam
+        :desc "org-roam-insert" "i" #'org-roam-insert
+        :desc "org-roam-switch-to-buffer" "b" #'org-roam-switch-to-buffer
+        :desc "org-roam-find-file" "f" #'org-roam-find-file
+        :desc "org-roam-graph" "g" #'org-roam-graph
+        :desc "org-roam-insert" "i" #'org-roam-insert
+        :desc "org-roam-capture" "c" #'org-roam-capture)
+  (setq org-roam-directory "~/Dropbox/org/notes/"
+        org-roam-db-location "~/org-roam.db"
+        org-roam-graph-exclude-matcher "private")
+  :config
+  (require 'org-roam-protocol)
+  (setq org-roam-capture-templates
+      '(("d" "default" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "${slug}"
+         :head "#+TITLE: ${title}\n"
+         :unnarrowed t)
+        ("p" "private" plain (function org-roam-capture--get-point)
+         "%?"
+         :file-name "${slug}"
+         :head "#+TITLE: ${title}\n#+ROAM_TAG: private\n"
+         :unnarrowed t)
+        ("h" "human" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "${slug}"
+         :head "#+TITLE: ${title}\n#+ROAM_TAG: person\n"
+         :unnarrowed t)
+        ("r" "ref" plain (function org-roam-capture--get-point)
+         "%?"
+         :file-name "websites/${slug}"
+         :head "#+TITLE: ${title}\n#+ROAM_KEY: ${title}\n#+ROAM_TAG: \n\n- source :: ${ref}"
+         :unnarrowed t)))
+  (setq org-roam-ref-capture-templates
+        '(("r" "ref" plain (function org-roam-capture--get-point)
+           "%?"
+           :file-name "websites/${slug}"
+           :head "#+ROAM_KEY: ${ref}\n#+TITLE: ${title}\n\n- source :: ${ref}"
+           :unnarrowed t))))
+#+end_src
+* Deft setup
+A very cool mode for searching over plain text
+
+#+begin_src emacs-lisp
+(use-package deft
+  :after org
+  :bind
+  ("C-c n d" . deft)
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory "~/Dropbox/org/notes/"))
+#+end_src
+* org-journal setup
+
+#+begin_src emacs-lisp
+(use-package! org-journal
+  :bind
+  ("C-c n j" . org-journal-new-entry)
+  :config
+  (setq org-journal-file-format "%Y-%m.org"
+        org-journal-date-format "%Y-%m-%d"
+        org-journal-dir "~/Dropbox/org/notes/"
+        org-journal-file-type 'monthly))
+#+end_src
