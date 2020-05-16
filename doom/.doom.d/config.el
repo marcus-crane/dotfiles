@@ -126,6 +126,11 @@
          "%?"
          :file-name "${slug}"
          :head "#+TITLE: ${title}\n#+ROAM_TAG: person\n"
+         :unnarrowed t)
+        ("r" "ref" plain (function org-roam-capture--get-point)
+         "%?"
+         :file-name "websites/${slug}"
+         :head "#+TITLE: ${title}\n#+ROAM_KEY: ${title}\n#+ROAM_TAG: \n\n- source :: ${ref}"
          :unnarrowed t)))
   (setq org-roam-ref-capture-templates
         '(("r" "ref" plain (function org-roam-capture--get-point)
