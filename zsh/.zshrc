@@ -39,11 +39,6 @@ else
 fi
 . $ASDF_DIR/asdf.sh
 
-# docker
-if [[ $(command -v docker) && $OPSYS == "windows" ]]; then
-  export DOCKER_HOST='tcp://0.0.0.0:2375' # (dockertls)
-fi
-
 # dropbox // changes based on which computer i'm at
 
 if [[ $OPSYS == "windows" && $(hostname) =~ "DESKTOP" ]]; then
@@ -149,8 +144,6 @@ export LS_COLORS="or=0;38;2;0;0;0;48;2;255;92;87:ln=0;38;2;255;106;193:fi=0:pi=0
 #     Without it, a "gpg: signing failed: Inappropriate ioctl for device" error is thrown.
 #       - https://github.com/microsoft/WSL/issues/4029
 #       - https://www.gnupg.org/(it)/documentation/manuals/gnupg/Common-Problems.html
-# (dockertls) Setting TLS insecure on Docker for Windows, alongside this exported DOCKER_HOST means that the Docker daemon
-#     inside WSL is able to use the actual Docker for Windows service. Windows without windows! :)
 # (kerlmacos) Fixes compilation issues with Erlang on macOS
 #       - https://github.com/kerl/kerl/issues/226
 # (disp) This allows X11 supported programs (ie Emacs) to render on my Windows desktop, rather than inside a terminal
