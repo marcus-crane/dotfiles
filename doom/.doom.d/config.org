@@ -160,6 +160,15 @@ Anyway, here's what that looks like
 
 It's nothing special. I didn't realise at first but the pipe operator (~|~) is what separates the "to be actioned" keywords from the "has been actioned" keywords
 * org-roam setup
+
+This is a very cool package from [[https://github.com/jethrokuan][Jethro Kuan]] that aims to replicate [[https://twitter.com/Conaw][Conor White-Sullivan]]'s [[https://roamresearch.com][Roam Research]] purely in Emacs and org-mode
+
+It's probably the largest custom configuration I've got to date
+
+Most of it follows the same configuration that Jethro uses, with some modifications to fit my own tastes.
+
+You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.doom.d/config.el#L419][here]]
+
 #+begin_src emacs-lisp
 (use-package! org-roam
   :commands (org-roam-insert org-roam-find-file org-roam-switch-to-buffer org-roam)
@@ -210,8 +219,23 @@ It's nothing special. I didn't realise at first but the pipe operator (~|~) is w
            :head "#+ROAM_KEY: ${ref}\n#+TITLE: ${title}\n\n- source :: ${ref}"
            :unnarrowed t))))
 #+end_src
+
+I'm still experimenting with this setup. I want to basically tag things enough that I can differentiate between public and private notes in case I want to publish them.
+
+That said, Deft isn't concerned with folder structure so it's debatable.
+
+I know that Jethro uses a prefix such as ~private-~ but I don't like how that messages with ordering
+
+Tags were newly introduced but I may opt to use folders instead for clarity
+
+That also doesn't address that fact I'd likely want to redact private references from public notes
+
+Thankfully, for a static site, speed of deployment isn't a concern.
+
 * Deft setup
-A very cool mode for searching over plain text
+A very cool mode for searching over plain text which I use in conjunction with ~org-roam~
+
+There's nothing fancy here that I can see
 
 #+begin_src emacs-lisp
 (use-package deft
@@ -224,7 +248,20 @@ A very cool mode for searching over plain text
   (deft-default-extension "org")
   (deft-directory "~/Dropbox/org/notes/"))
 #+end_src
+
 * org-journal setup
+
+I've been experimenting with journaling in order
+
+It's not like a full journal entry for one day as you might expect but snippets throughout the day
+
+The point is meant to be capturing fleeting thoughts it seems
+
+Anyway, I've opted to use the "monthly" style, which generates one file per month and appends to it
+
+I mainly use the above for two reasons: one file for each day adds up fast and also I might want to reference the previous day without having to switch files
+
+I may move these into their own folder someday as well
 
 #+begin_src emacs-lisp
 (use-package! org-journal
