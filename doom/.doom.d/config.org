@@ -44,6 +44,8 @@ Luckily, Emacs is able to read environment variable so we can dynamically change
 
 #+begin_src emacs-lisp
 (setq dropbox (getenv "DROPBOX_DIR"))
+(setq dropbox-org (concat (getenv "DROPBOX_DIR") "/org/gtd/"))
+(setq dropbox-notes (concat dropbox "/org/notes/"))
 #+end_src
 
 * Org setup
@@ -64,7 +66,7 @@ I've got an environment variable that gets loaded in my org file called ~DROPBOX
 It's not much work, I just haven't gotten around to it
 
 #+begin_src emacs-lisp
-(after! org (setq org-directory (concat dropbox "/org/")))
+(after! org (setq org-directory dropbox-org))
 #+end_src
 
 Similarly, I also store my ~org-agenda~ files in Dropbox
@@ -72,7 +74,7 @@ Similarly, I also store my ~org-agenda~ files in Dropbox
 They live in a slightly more specific GTD directory but I should really just define the base dropbox address so I can then simply re-use that variable in these definitions
 
 #+begin_src emacs-lisp
-(after! org (setq org-agenda-directory (concat org-directory "gtd/")))
+(after! org (setq org-agenda-directory dropbox-org))
 #+end_src
 
 ** Setting org file locations
@@ -196,7 +198,7 @@ You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.do
         :desc "org-roam-graph" "g" #'org-roam-graph
         :desc "org-roam-insert" "i" #'org-roam-insert
         :desc "org-roam-capture" "c" #'org-roam-capture)
-  (setq org-roam-directory "~/Dropbox/org/notes/"
+  (setq org-roam-directory dropbox-notes
         org-roam-db-location "~/org-roam.db"
         org-roam-graph-exclude-matcher "private")
   :config
@@ -256,7 +258,7 @@ There's nothing fancy here that I can see
   (deft-recursive t)
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
-  (deft-directory "~/Dropbox/org/notes/"))
+  (deft-directory dropbox-notes))
 #+end_src
 
 * org-journal setup
@@ -280,6 +282,6 @@ I may move these into their own folder someday as well
   :config
   (setq org-journal-file-format "%Y-%m.org"
         org-journal-date-format "%Y-%m-%d"
-        org-journal-dir "~/Dropbox/org/notes/"
+        org-journal-dir dropbox-notes
         org-journal-file-type 'monthly))
 #+end_src
