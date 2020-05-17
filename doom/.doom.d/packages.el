@@ -48,6 +48,4 @@
 (package! org-download)
 (package! org-cliplink)
 (package! org-ref)
-(package! org-roam)
-(package! org-journal)
-(package! slack)
+(package! evil-escape :disable t)
