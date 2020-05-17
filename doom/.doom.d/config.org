@@ -36,6 +36,16 @@ I think [[https://github.com/hlissner][Henrik]] might have mentioned that line n
 #+begin_src emacs-lisp
 (setq display-line-numbers-type t)
 #+end_src
+** Setting Dropbox directory
+
+I store my org file in Dropbox but the location of said Dropbox differs from system to system!
+
+Luckily, Emacs is able to read environment variable so we can dynamically change where org files are read from
+
+#+begin_src emacs-lisp
+(setq dropbox (getenv "DROPBOX_DIR"))
+#+end_src
+
 * Org setup
 
 You'll notice most org bits are prefixed with ~after! org~
@@ -54,7 +64,7 @@ I've got an environment variable that gets loaded in my org file called ~DROPBOX
 It's not much work, I just haven't gotten around to it
 
 #+begin_src emacs-lisp
-(after! org (setq org-directory "~/Dropbox/org/"))
+(after! org (setq org-directory (concat dropbox "/org/")))
 #+end_src
 
 Similarly, I also store my ~org-agenda~ files in Dropbox
@@ -62,7 +72,7 @@ Similarly, I also store my ~org-agenda~ files in Dropbox
 They live in a slightly more specific GTD directory but I should really just define the base dropbox address so I can then simply re-use that variable in these definitions
 
 #+begin_src emacs-lisp
-(setq marcus/org-agenda-directory "~/Dropbox/org/gtd/")
+(after! org (setq org-agenda-directory (concat org-directory "gtd/")))
 #+end_src
 
 ** Setting org file locations
@@ -72,9 +82,9 @@ Now that I've set my default org directories, I need to define what files org, a
 Firstly, I want to use the following org-agenda files
 
 #+begin_src emacs-lisp
-(after! org (setq org-agenda-files '("~/Dropbox/org/gtd/inbox.org"
-                                     "~/Dropbox/org/gtd/gtd.org"
-                                     "~/Dropbox/org/gtd/tickler.org")))
+(after! org (setq org-agenda-files `(,(concat org-agenda-directory "inbox.org")
+                                     ,(concat org-agenda-directory "gtd.org")
+                                     ,(concat org-agenda-directory "tickler.org"))))
 #+end_src
 
 I've got three files here:
@@ -91,7 +101,7 @@ I've opted to segment them into their own folder, with a file for each month of 
 
 #+begin_src emacs-lisp
 (after! org (setq org-archive-location
-                  (concat org-directory "gtd/archive/archive-"
+                  (concat org-agenda-directory "archive/archive-"
                           (format-time-string "%Y%m" (current-time))
                           ".org::")))
 #+end_src
@@ -112,18 +122,18 @@ I should note that the backticks are an important distinction. It seems they tel
 (after! org
   (setq org-capture-templates
       `(("i" "inbox" entry
-         (file ,(concat marcus/org-agenda-directory "inbox.org"))
+         (file ,(concat org-agenda-directory "inbox.org"))
          "* TODO %i%?")
         ("l" "link" entry
-         (file ,(concat marcus/org-agenda-directory "inbox.org"))
+         (file ,(concat org-agenda-directory "inbox.org"))
          "* TODO %(org-cliplink-capture)"
          :immediate-finish t)
         ("c" "org-protocol-capture" entry
-         (file ,(concat marcus/org-agenda-directory "inbox.org"))
+         (file ,(concat org-agenda-directory "inbox.org"))
          "* TODO [[%:link][%:description]]\n\n %i"
          :immediate-finish t)
         ("t" "tickler" entry
-         (file ,(concat marcus/org-agenda-directory "tickler.org"))
+         (file ,(concat org-agenda-directory "tickler.org"))
          "* %i%? \n %U"
         ))))
 #+end_src
@@ -144,9 +154,9 @@ I haven't really explored the limits of org trees so I'm mostly speaking without
 
 #+begin_src emacs-lisp
 (after! org (setq org-refile-targets
-      `((,(concat marcus/org-agenda-directory "gtd.org") :maxlevel . 3)
-        (,(concat marcus/org-agenda-directory "someday.org") :level . 1)
-        (,(concat marcus/org-agenda-directory "tickler.org") :maxlevel . 2))))
+      `((,(concat org-agenda-directory "gtd.org") :maxlevel . 3)
+        (,(concat org-agenda-directory "someday.org") :level . 1)
+        (,(concat org-agenda-directory "tickler.org") :maxlevel . 2))))
 #+end_src
 ** Create keywords for TODO lists
 
