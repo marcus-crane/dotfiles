@@ -17,7 +17,7 @@ export WORKSPACE="$HOME/Code"
 
 # constants
 export CONFIG_FILE="$HOME/.zshrc"
-export EDITOR=$(command -v emacs)
+export EDITOR="$(command -v emacsclient) -c"
 export GPG_TTY=$(tty) # (gpgwsl)
 export LANGUAGE="en_NZ:en"
 export LC_ALL="en_NZ.UTF-8"
@@ -48,6 +48,9 @@ elif [[ $OPSYS == "windows" && $(hostname) =~ "XLW" ]]; then
 else
   export DROPBOX_DIR=$HOME/Dropbox
 fi
+
+# emacs
+alias ec=$EDITOR
 
 # erlang
 export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac"
