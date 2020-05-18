@@ -45,7 +45,5 @@
 ;; This is required for some packages whose default branch isn't 'master' (which
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
-(package! org-download)
 (package! org-cliplink)
-(package! org-ref)
 (package! evil-escape :disable t)

@@ -237,7 +237,7 @@ You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.do
         ("b" "books" plain (function org-roam-capture--get-point)
          "%?"
          :file-name "books/${slug}"
-         :head "#+TITLE: ${title}\n#+ROAM_TAG: book\n\n[[${goodreads_url}][Goodreads]]"
+         :head "#+TITLE: ${title}\n#+ROAM_TAG: book\n\n- goodreads :: ${goodreads_url}"
          :unnarrowed t)
         ("q" "quotes" plain (function org-roam-capture--get-point)
          "%?"
@@ -252,7 +252,7 @@ You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.do
         ("a" "articles" plain (function org-roam-capture--get-point)
          "%?"
          :file-name "articles/${slug}"
-         :head "#+TITLE: ${title}\n#+ROAM_KEY: ${title}\n#+ROAM_TAG: \n\n[[${href}][Source]]"
+         :head "#+TITLE: ${title}\n#+ROAM_KEY: ${title}\n#+ROAM_TAG: \n\n- source :: ${href}"
          :unnarrowed t))))
 #+end_src
 
