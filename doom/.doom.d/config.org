@@ -44,8 +44,23 @@ Luckily, Emacs is able to read environment variable so we can dynamically change
 
 #+begin_src emacs-lisp
 (setq dropbox (getenv "DROPBOX_DIR"))
-(setq dropbox-org (concat (getenv "DROPBOX_DIR") "/org/gtd/"))
+(setq dropbox-org (concat dropbox "/org/gtd/"))
 (setq dropbox-notes (concat dropbox "/org/notes/"))
+(setq dropbox-journal (concat dropbox-notes "journal/"))
+#+end_src
+** Disable ivy-minibuffer-map
+This is probably the most weirdly specific part of my config
+
+ivy, the framework that powers the minibuffers Doom Emacs uses, has ~S-SPC~ bound to ~ivy-minibuffer-map~ by default
+
+If I type rapidly, I accidentally trigger this. It does a subsearch, which is supposed to narrow down your search but in effect, it just ends up deleting what I've typed...
+
+For that reason, I'm unmapping it for now since it causes me grief
+
+#+begin_src emacs-lisp
+(map! :after ivy
+      :map ivy-minibuffer-map
+      "S-SPC" nil)
 #+end_src
 
 * Org setup
@@ -204,32 +219,41 @@ You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.do
   :config
   (require 'org-roam-protocol)
   (setq org-roam-capture-templates
-      '(("d" "default" plain (function org-roam--capture-get-point)
+      '(("s" "scraps" plain (function org-roam--capture-get-point)
          "%?"
-         :file-name "${slug}"
+         :file-name "scraps/${slug}"
          :head "#+TITLE: ${title}\n"
          :unnarrowed t)
-        ("p" "private" plain (function org-roam-capture--get-point)
+        ("p" "public" plain (function org-roam-capture--get-point)
          "%?"
-         :file-name "${slug}"
-         :head "#+TITLE: ${title}\n#+ROAM_TAG: private\n"
+         :file-name "public/${slug}"
+         :head "#+TITLE: ${title}\n#+ROAM_TAG: public\n"
          :unnarrowed t)
         ("h" "human" plain (function org-roam--capture-get-point)
          "%?"
-         :file-name "${slug}"
+         :file-name "people/${slug}"
          :head "#+TITLE: ${title}\n#+ROAM_TAG: person\n"
          :unnarrowed t)
-        ("r" "ref" plain (function org-roam-capture--get-point)
+        ("b" "books" plain (function org-roam-capture--get-point)
          "%?"
-         :file-name "websites/${slug}"
-         :head "#+TITLE: ${title}\n#+ROAM_KEY: ${title}\n#+ROAM_TAG: \n\n- source :: ${ref}"
-         :unnarrowed t)))
-  (setq org-roam-ref-capture-templates
-        '(("r" "ref" plain (function org-roam-capture--get-point)
-           "%?"
-           :file-name "websites/${slug}"
-           :head "#+ROAM_KEY: ${ref}\n#+TITLE: ${title}\n\n- source :: ${ref}"
-           :unnarrowed t))))
+         :file-name "books/${slug}"
+         :head "#+TITLE: ${title}\n#+ROAM_TAG: book\n\n[[${goodreads_url}][Goodreads]]"
+         :unnarrowed t)
+        ("q" "quotes" plain (function org-roam-capture--get-point)
+         "%?"
+         :file-name "quotes/${slug}"
+         :head "#+TITLE: ${title}\n#+ROAM_TAG: quote\n"
+         :unnarrowed t)
+        ("p" "posts" plain (function org-roam-capture--get-point)
+         "%?"
+         :file-name "posts/${slug}"
+         :head "#+TITLE: ${title}\n#+ROAM_TAG: posts\n"
+         :unnarrowed t)
+        ("a" "articles" plain (function org-roam-capture--get-point)
+         "%?"
+         :file-name "articles/${slug}"
+         :head "#+TITLE: ${title}\n#+ROAM_KEY: ${title}\n#+ROAM_TAG: \n\n[[${href}][Source]]"
+         :unnarrowed t))))
 #+end_src
 
 I'm still experimenting with this setup. I want to basically tag things enough that I can differentiate between public and private notes in case I want to publish them.
@@ -282,6 +306,6 @@ I may move these into their own folder someday as well
   :config
   (setq org-journal-file-format "%Y-%m.org"
         org-journal-date-format "%Y-%m-%d"
-        org-journal-dir dropbox-notes
+        org-journal-dir dropbox-journal
         org-journal-file-type 'monthly))
 #+end_src
