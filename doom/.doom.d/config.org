@@ -214,7 +214,7 @@ You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.do
         :desc "org-roam-insert" "i" #'org-roam-insert
         :desc "org-roam-switch-to-buffer" "b" #'org-roam-switch-to-buffer
         :desc "org-roam-find-file" "f" #'org-roam-find-file
-        :desc "org-roam-graph" "g" #'org-roam-graph
+        :desc "org-roam-show-graph" "g" #'org-roam-show-graph
         :desc "org-roam-insert" "i" #'org-roam-insert
         :desc "org-roam-capture" "c" #'org-roam-capture)
   (setq org-roam-directory dropbox-notes
@@ -223,41 +223,15 @@ You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.do
   :config
   (require 'org-roam-protocol)
   (setq org-roam-capture-templates
-      '(("s" "scraps" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "scraps/${slug}"
-         :head "#+TITLE: ${title}\n"
-         :unnarrowed t)
-        ("p" "public" plain (function org-roam-capture--get-point)
-         "%?"
-         :file-name "public/${slug}"
-         :head "#+TITLE: ${title}\n#+ROAM_TAG: public\n"
-         :unnarrowed t)
-        ("h" "human" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "people/${slug}"
-         :head "#+TITLE: ${title}\n#+ROAM_TAG: person\n"
-         :unnarrowed t)
-        ("b" "books" plain (function org-roam-capture--get-point)
-         "%?"
-         :file-name "books/${slug}"
-         :head "#+TITLE: ${title}\n#+ROAM_TAG: book\n\n- goodreads :: ${goodreads_url}"
-         :unnarrowed t)
-        ("q" "quotes" plain (function org-roam-capture--get-point)
-         "%?"
-         :file-name "quotes/${slug}"
-         :head "#+TITLE: ${title}\n#+ROAM_TAG: quote\n"
-         :unnarrowed t)
-        ("p" "posts" plain (function org-roam-capture--get-point)
-         "%?"
-         :file-name "posts/${slug}"
-         :head "#+TITLE: ${title}\n#+ROAM_TAG: posts\n"
-         :unnarrowed t)
-        ("a" "articles" plain (function org-roam-capture--get-point)
-         "%?"
-         :file-name "articles/${slug}"
-         :head "#+TITLE: ${title}\n#+ROAM_KEY: ${title}\n#+ROAM_TAG: \n\n- source :: ${href}"
-         :unnarrowed t))))
+        '(("d" "default" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "${slug}-public"
+           :head "#+TITLE: ${title}\n#+ROAM_TAG:\n"
+           :unnarrowed t)
+          ("p" "private" plain (function org-roam-capture--get-point)
+           "%?"
+           :file-name "${slug}-private"
+           :head "#+TITLE: ${title}\n#+ROAM_TAG:\n"))))
 #+end_src
 
 I'm still experimenting with this setup. I want to basically tag things enough that I can differentiate between public and private notes in case I want to publish them.
