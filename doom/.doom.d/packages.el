@@ -48,5 +48,3 @@
 (package! org-cliplink)
 (package! org-chef)
 (package! evil-escape :disable t)
-(package! org-roam
-  :recipe (:host github :repo "org-roam/org-roam"))
