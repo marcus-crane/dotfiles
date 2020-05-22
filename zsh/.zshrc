@@ -41,11 +41,13 @@ fi
 
 # dropbox // changes based on which computer i'm at
 
-if [[ $OPSYS == "windows" && $(hostname) =~ "DESKTOP" ]]; then
-  export DROPBOX_DIR=/mnt/s/Dropbox
-elif [[ $OPSYS == "windows" && $(hostname) =~ "XLW" ]]; then
+if [[ $OPSYS == "windows" ]]; then
   export DROPBOX_DIR=/mnt/c/Users/marcus.crane/Dropbox
-else
+fi
+if [[ $OPSYS == "linux" ]]; then
+  export DROPBOX_DIR=/media/marcus/Storage/Dropbox
+fi
+if [[ $OPSYS == "darwin" ]]; then
   export DROPBOX_DIR=$HOME/Dropbox
 fi
 
