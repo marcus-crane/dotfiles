@@ -1,4 +1,5 @@
 #+TITLE: My Doom Emacs configuration
+#+OPTIONS: toc:2
 
 * General setup
 ** Header comment
