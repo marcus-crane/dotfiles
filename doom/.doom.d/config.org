@@ -43,6 +43,12 @@ I store my org file in Dropbox but the location of said Dropbox differs from sys
 
 Luckily, Emacs is able to read environment variable so we can dynamically change where org files are read from
 
+NOTE: For anyone who wants to follow this example, it will set a hard dependency on Dropbox being available.
+
+In my case, it lives on an external hard drive for my Linux desktop.
+
+In the event it doesn't mount correctly, Emacs will fail to resolve the paths below and refuse to start :(
+
 #+begin_src emacs-lisp
 (setq dropbox (getenv "DROPBOX_DIR"))
 (setq dropbox-org (concat dropbox "/org/gtd/"))
