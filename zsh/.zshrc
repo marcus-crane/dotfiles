@@ -17,7 +17,7 @@ export WORKSPACE="$HOME/Code"
 
 # constants
 export CONFIG_FILE="$HOME/.zshrc"
-export EDITOR="$(command -v emacsclient) -c"
+export EDITOR="$(command -v emacs)client -c" # (emacsclient)
 export GPG_TTY=$(tty) # (gpgwsl)
 export LANGUAGE="en_NZ:en"
 export LC_ALL="en_NZ.UTF-8"
@@ -148,3 +148,7 @@ function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 # (disp) This allows X11 supported programs (ie Emacs) to render on my Windows desktop, rather than inside a terminal
 #     I use the Windows Terminal currently which doesn't support key passthrough for Ctrl + Shift + <key> for example
 #     You can read more about this setup here: https://utf9k.net/blog/emacs-wsl2-install/
+# (emacsclient) On some devices, I compile Emacs only to find that the emacs executable exists in my PATH but emacsclient
+#               may not. Weirdly enough, that shouldn't be the case. Anyway, generally they live side by side so as a quick
+#               hack, I just append "client" to the end of the emacs location in case it's not able to be resolved.
+#               I'll definitely need to fix this shortly
