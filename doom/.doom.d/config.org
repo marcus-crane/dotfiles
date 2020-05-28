@@ -51,10 +51,15 @@ In the event it doesn't mount correctly, Emacs will fail to resolve the paths be
 
 #+begin_src emacs-lisp
 (setq dropbox (getenv "DROPBOX_DIR"))
-(setq dropbox-org (concat dropbox "/org/gtd/"))
+(setq dropbox-org (concat dropbox "/org"))
+(setq dropbox-gtd (concat dropbox "/org/gtd/"))
 (setq dropbox-notes (concat dropbox "/org/notes/"))
 (setq dropbox-journal (concat dropbox-notes "journal/"))
 #+end_src
+
+#+RESULTS:
+: /media/marcus/Storage/Dropbox/org/notes/journal/
+
 ** Disable ivy-minibuffer-map
 This is probably the most weirdly specific part of my config
 
@@ -88,16 +93,22 @@ I've got an environment variable that gets loaded in my org file called ~DROPBOX
 It's not much work, I just haven't gotten around to it
 
 #+begin_src emacs-lisp
-(after! org (setq org-directory dropbox-org))
+(after! org (setq org-directory dropbox-gtd))
 #+end_src
+
+#+RESULTS:
+: /media/marcus/Storage/Dropbox/org/gtd/
 
 Similarly, I also store my ~org-agenda~ files in Dropbox
 
 They live in a slightly more specific GTD directory but I should really just define the base dropbox address so I can then simply re-use that variable in these definitions
 
 #+begin_src emacs-lisp
-(after! org (setq org-agenda-directory dropbox-org))
+(after! org (setq org-agenda-directory dropbox-gtd))
 #+end_src
+
+#+RESULTS:
+: /media/marcus/Storage/Dropbox/org/gtd/
 
 ** Setting org file locations
 
@@ -223,7 +234,7 @@ You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.do
         :desc "org-roam-graph-show" "g" #'org-roam-graph-show
         :desc "org-roam-insert" "i" #'org-roam-insert
         :desc "org-roam-capture" "c" #'org-roam-capture)
-  (setq org-roam-directory dropbox-notes
+  (setq org-roam-directory dropbox-org
         org-roam-db-location "~/org-roam.db"
         org-roam-graph-exclude-matcher "private")
   :config
