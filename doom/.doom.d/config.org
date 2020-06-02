@@ -52,6 +52,7 @@ In the event it doesn't mount correctly, Emacs will fail to resolve the paths be
 #+begin_src emacs-lisp
 (setq dropbox (getenv "DROPBOX_DIR"))
 (setq dropbox-org (concat dropbox "/org"))
+(setq dropbox-tmpl (concat dropbox-org "/templates/"))
 (setq dropbox-gtd (concat dropbox "/org/gtd/"))
 (setq dropbox-notes (concat dropbox "/org/notes/"))
 (setq dropbox-journal (concat dropbox-notes "journal/"))
@@ -96,9 +97,6 @@ It's not much work, I just haven't gotten around to it
 (after! org (setq org-directory dropbox-gtd))
 #+end_src
 
-#+RESULTS:
-: /media/marcus/Storage/Dropbox/org/gtd/
-
 Similarly, I also store my ~org-agenda~ files in Dropbox
 
 They live in a slightly more specific GTD directory but I should really just define the base dropbox address so I can then simply re-use that variable in these definitions
@@ -106,9 +104,6 @@ They live in a slightly more specific GTD directory but I should really just def
 #+begin_src emacs-lisp
 (after! org (setq org-agenda-directory dropbox-gtd))
 #+end_src
-
-#+RESULTS:
-: /media/marcus/Storage/Dropbox/org/gtd/
 
 ** Setting org file locations
 
@@ -170,18 +165,17 @@ I should note that the backticks are an important distinction. It seems they tel
         ("r" "recipe" entry
          (file ,(concat dropbox-notes "cookbook.org"))
          "* %^{Recipe title: }\n  :PROPERTIES:\n  :source-url:\n  :servings:\n  :prep-time:\n  :cook-time:\n  :ready-in:\n  :END:\n** Ingredients\n   %?\n** Directions\n\n")
+        ("w" "weekly review" entry
+         (file+olp+datetree ,(concat dropbox-notes "reviews.org"))
+         (file ,(concat dropbox-tmpl "weekly_review.org")))
         ("t" "tickler" entry
          (file ,(concat org-agenda-directory "tickler.org"))
          "* %i%? \n %U"
         ))))
 #+end_src
 
-#+RESULTS:
-| i | inbox                | entry | (file ~/Dropbox/org/gtd/inbox.org) | * TODO %i%?                    |                   |   |
-| l | link                 | entry | (file ~/Dropbox/org/gtd/inbox.org) | * TODO %(org-cliplink-capture) | :immediate-finish | t |
-| c | org-protocol-capture | entry | (file ~/Dropbox/org/gtd/inbox.org) | * TODO [[%:link][%:description]]           |                   |   |
-
 I'd like to refine these further but for now, they're mostly what I found from Jethro Kuan I believe?
+
 ** Set up org-refile locations
 
 I had always figured I would need to manually copy/paste or retype TODO lists but of course, org supports the ability to just "magically" send text from one file to another
@@ -260,11 +254,7 @@ You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.do
           ("B" "blog post" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "posts/${slug}-public"
-           :head "#+TITLE: ${title}\n#ROAM_TAG: post\n\n")
-          ("r" "gtd review" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "reviews/${slug}_review-private"
-           :head "#+TITLE: ${title} Review\n#ROAM_TAG: gtd review\n\n* What went well this week?\n\n* What could be adjusted?\n\n* What should I stop doing\n\n* What should I start doing?\n"))))
+           :head "#+TITLE: ${title}\n#ROAM_TAG: post\n\n"))))
 #+end_src
 
 I'm still experimenting with this setup. I want to basically tag things enough that I can differentiate between public and private notes in case I want to publish them.
@@ -320,6 +310,7 @@ I may move these into their own folder someday as well
         org-journal-dir dropbox-journal
         org-journal-file-type 'monthly))
 #+end_src
+
 * org-chef setup
 
 What could be cooler than capturing recipes as org files?
