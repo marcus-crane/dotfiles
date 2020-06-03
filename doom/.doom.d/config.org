@@ -116,7 +116,8 @@ Firstly, I want to use the following org-agenda files
 (after! org (setq org-agenda-files `(,(concat org-agenda-directory "inbox.org")
                                      ,(concat org-agenda-directory "gtd.org")
                                      ,(concat org-agenda-directory "tickler.org")
-                                     ,(concat dropbox-cal "events.org"))))
+                                     ,(concat dropbox-cal "events.org")
+                                     ,(concat dropbox-cal "events-inbox.org"))))
 #+end_src
 
 I've got three files here:
@@ -339,4 +340,38 @@ Viewing my Fastmail calendar within ~org-agenda~
          :inbox ,(concat dropbox-cal "events-inbox.org")))
       org-caldav-resume-aborted 'never
       org-caldav-save-directory dropbox-cal)))
+#+end_src
+* org-agenda setup
+Setup for org-agenda
+
+#+begin_src emacs-lisp
+(use-package! org-agenda
+  :init
+  (map! "C-c a" #'switch-to-agenda)
+  (defun switch-to-agenda ()
+    (interactive)
+    (org-agenda nil " "))
+  :config
+  (setq org-agenda-custom-commands `((" " "Agenda"
+                                      ((agenda ""
+                                               ((org-agenda-span 'week)
+                                                (org-deadline-warning-days 365)))
+                                       (todo "TODO"
+                                             ((org-agenda-overriding-header "To Refile")
+                                              (org-agenda-files '(,(concat dropbox-gtd "inbox.org")))
+                                              ))
+                                       (todo "NEXT"
+                                             ((org-agenda-overriding-header "In Progress")
+                                              (org-agenda-files '(,(concat dropbox-gtd "someday.org")
+                                                                  ,(concat dropbox-gtd "projects.org")
+                                                                  ,(concat dropbox-gtd "next.org")))
+                                              ))
+                                       (todo "TODO"
+                                             ((org-agenda-overriding-header "Projects")
+                                              (org-agenda-files '(,(concat dropbox-gtd "projects.org")))
+                                              ))
+                                       (todo "TODO"
+                                             ((org-agenda-overriding-header "One-off Tasks")
+                                              (org-agenda-files '(,(concat dropbox-gtd "next.org")))
+                                              (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled)))))))))
 #+end_src
