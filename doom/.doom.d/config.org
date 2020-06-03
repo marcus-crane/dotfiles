@@ -52,9 +52,10 @@ In the event it doesn't mount correctly, Emacs will fail to resolve the paths be
 #+begin_src emacs-lisp
 (setq dropbox (getenv "DROPBOX_DIR"))
 (setq dropbox-org (concat dropbox "/org"))
+(setq dropbox-cal (concat dropbox-org "/calendar/"))
 (setq dropbox-tmpl (concat dropbox-org "/templates/"))
-(setq dropbox-gtd (concat dropbox "/org/gtd/"))
-(setq dropbox-notes (concat dropbox "/org/notes/"))
+(setq dropbox-gtd (concat dropbox-org "/gtd/"))
+(setq dropbox-notes (concat dropbox-org "/notes/"))
 (setq dropbox-journal (concat dropbox-notes "journal/"))
 #+end_src
 
@@ -114,7 +115,8 @@ Firstly, I want to use the following org-agenda files
 #+begin_src emacs-lisp
 (after! org (setq org-agenda-files `(,(concat org-agenda-directory "inbox.org")
                                      ,(concat org-agenda-directory "gtd.org")
-                                     ,(concat org-agenda-directory "tickler.org"))))
+                                     ,(concat org-agenda-directory "tickler.org")
+                                     ,(concat dropbox-cal "events.org"))))
 #+end_src
 
 I've got three files here:
@@ -318,4 +320,23 @@ What could be cooler than capturing recipes as org files?
 #+begin_src emacs-lisp
 (use-package org-chef
   :ensure t)
+#+end_src
+
+* org-caldav setup
+Viewing my Fastmail calendar within ~org-agenda~
+
+#+begin_src emacs-lisp
+(after! org
+  (use-package org-caldav
+    :defer 3
+    :config
+    (setq
+      org-caldav-url "https://caldav.fastmail.com/dav/calendars/user/marcus@utf9k.net"
+      org-caldav-inbox nil
+      org-caldav-calendars `(
+        (:calendar-id "d9a65464-ff38-426f-b615-6accd279b1b1"
+         :files (,(concat dropbox-cal "events.org"))
+         :inbox ,(concat dropbox-cal "events-inbox.org")))
+      org-caldav-resume-aborted 'never
+      org-caldav-save-directory dropbox-cal)))
 #+end_src
