@@ -231,7 +231,7 @@ You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.do
         :desc "org-roam-graph-show" "g" #'org-roam-graph-show
         :desc "org-roam-insert" "i" #'org-roam-insert
         :desc "org-roam-capture" "c" #'org-roam-capture)
-  (setq org-roam-directory dropbox-org
+  (setq org-roam-directory dropbox-notes
         org-roam-db-location "~/org-roam.db"
         org-roam-graph-exclude-matcher "private")
   :config
