@@ -51,6 +51,8 @@ In the event it doesn't mount correctly, Emacs will fail to resolve the paths be
 
 #+begin_src emacs-lisp
 (setq dropbox (getenv "DROPBOX_DIR"))
+(setq workspace (getenv "WORKSPACE"))
+(setq notes (concat workspace "/utf9k/content-org/notes/"))
 (setq dropbox-org (concat dropbox "/org"))
 (setq dropbox-cal (concat dropbox-org "/calendar/"))
 (setq dropbox-tmpl (concat dropbox-org "/templates/"))
