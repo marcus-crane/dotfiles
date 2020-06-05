@@ -200,7 +200,9 @@ A very cool feature of org-mode is that you can specify arbitrary keywords so eg
 Anyway, here's what that looks like
 
 #+begin_src emacs-lisp
-(after! org (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "PROJ(p)" "|" "DONE(d)" "CANCELLED(c)"))))
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+        (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c)")))
 #+end_src
 
 It's nothing special. I didn't realise at first but the pipe operator (~|~) is what separates the "to be actioned" keywords from the "has been actioned" keywords
@@ -312,15 +314,6 @@ I may move these into their own folder someday as well
         org-journal-date-format "%Y-%m-%d"
         org-journal-dir dropbox-journal
         org-journal-file-type 'monthly))
-#+end_src
-
-* org-chef setup
-
-What could be cooler than capturing recipes as org files?
-
-#+begin_src emacs-lisp
-(use-package org-chef
-  :ensure t)
 #+end_src
 
 * org-caldav setup
