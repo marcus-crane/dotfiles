@@ -190,10 +190,11 @@ With a few keystrokes, this can be accomplished but some files should have a fla
 I haven't really explored the limits of org trees so I'm mostly speaking without understanding what I'm saying here!
 
 #+begin_src emacs-lisp
-(after! org (setq org-refile-targets
-      `((,(concat org-agenda-directory "gtd.org") :maxlevel . 3)
-        (,(concat org-agenda-directory "someday.org") :level . 1)
-        (,(concat org-agenda-directory "tickler.org") :maxlevel . 2))))
+(setq org-refile-targets
+      `((,(concat org-agenda-directory "next.org") :level . 0)
+        (,(concat org-agenda-directory "someday.org") :level . 0)
+        (,(concat org-agenda-directory "tickler.org") :maxlevel . 1)
+        (,(concat org-agenda-directory "projects.org") :maxlevel . 1)))
 #+end_src
 ** Create keywords for TODO lists
 
@@ -208,6 +209,16 @@ Anyway, here's what that looks like
 #+end_src
 
 It's nothing special. I didn't realise at first but the pipe operator (~|~) is what separates the "to be actioned" keywords from the "has been actioned" keywords
+** Set up org tag list
+#+begin_src emacs-lisp
+(setq org-tag-alist (quote (("@errand" . ?e)
+                            ("@office" . ?o)
+                            ("@home" . ?h)
+                            (:newline)
+                            ("WAITING" . ?w)
+                            ("HOLD" . ?H)
+                            ("CANCELLED" . ?c))))
+#+end_src
 * org-roam setup
 
 This is a very cool package from [[https://github.com/jethrokuan][Jethro Kuan]] that aims to replicate [[https://twitter.com/Conaw][Conor White-Sullivan]]'s [[https://roamresearch.com][Roam Research]] purely in Emacs and org-mode
@@ -347,6 +358,7 @@ Setup for org-agenda
     (interactive)
     (org-agenda nil " "))
   :config
+  (setq org-columns-default-format "%40ITEM(Task) %Effort(EE){:} %CLOCKSUM(Time Spent) %SCHEDULED(Scheduled) %DEADLINE(Deadline)")
   (setq org-agenda-custom-commands `((" " "Agenda"
                                       ((agenda ""
                                                ((org-agenda-span 'week)
