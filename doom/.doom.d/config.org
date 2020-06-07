@@ -118,6 +118,7 @@ Firstly, I want to use the following org-agenda files
 (after! org (setq org-agenda-files `(,(concat org-agenda-directory "inbox.org")
                                      ,(concat org-agenda-directory "gtd.org")
                                      ,(concat org-agenda-directory "tickler.org")
+                                     ,(concat org-agenda-directory "habits.org")
                                      ,(concat dropbox-cal "events.org")
                                      ,(concat dropbox-cal "events-inbox.org"))))
 #+end_src
