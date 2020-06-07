@@ -171,7 +171,7 @@ I should note that the backticks are an important distinction. It seems they tel
          (file ,(concat dropbox-notes "cookbook.org"))
          "* %^{Recipe title: }\n  :PROPERTIES:\n  :source-url:\n  :servings:\n  :prep-time:\n  :cook-time:\n  :ready-in:\n  :END:\n** Ingredients\n   %?\n** Directions\n\n")
         ("w" "weekly review" entry
-         (file+olp+datetree ,(concat dropbox-notes "reviews.org"))
+         (file+olp+datetree ,(concat org-agenda-directory "reviews.org"))
          (file ,(concat dropbox-tmpl "weekly_review.org")))
         ("t" "tickler" entry
          (file ,(concat org-agenda-directory "tickler.org"))
@@ -373,12 +373,5 @@ Setup for org-agenda
                                                                   ,(concat dropbox-gtd "projects.org")
                                                                   ,(concat dropbox-gtd "next.org")))
                                               ))
-                                       (todo "TODO"
-                                             ((org-agenda-overriding-header "Projects")
-                                              (org-agenda-files '(,(concat dropbox-gtd "projects.org")))
-                                              ))
-                                       (todo "TODO"
-                                             ((org-agenda-overriding-header "One-off Tasks")
-                                              (org-agenda-files '(,(concat dropbox-gtd "next.org")))
-                                              (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled)))))))))
+                                       )))))
 #+end_src
