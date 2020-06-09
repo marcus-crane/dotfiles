@@ -54,7 +54,6 @@ In the event it doesn't mount correctly, Emacs will fail to resolve the paths be
 (setq workspace (getenv "WORKSPACE"))
 (setq notes (concat workspace "/utf9k/content-org/notes/"))
 (setq dropbox-org (concat dropbox "/org"))
-(setq dropbox-cal (concat dropbox-org "/calendar/"))
 (setq dropbox-tmpl (concat dropbox-org "/templates/"))
 (setq dropbox-gtd (concat dropbox-org "/gtd/"))
 (setq dropbox-notes (concat dropbox-org "/notes/"))
@@ -119,8 +118,8 @@ Firstly, I want to use the following org-agenda files
                                      ,(concat org-agenda-directory "gtd.org")
                                      ,(concat org-agenda-directory "tickler.org")
                                      ,(concat org-agenda-directory "habits.org")
-                                     ,(concat dropbox-cal "events.org")
-                                     ,(concat dropbox-cal "events-inbox.org"))))
+                                     ,(concat org-agenda-directory "events.org")
+                                     ,(concat org-agenda-directory "gcal-events.org"))))
 #+end_src
 
 I've got three files here:
@@ -191,11 +190,11 @@ With a few keystrokes, this can be accomplished but some files should have a fla
 I haven't really explored the limits of org trees so I'm mostly speaking without understanding what I'm saying here!
 
 #+begin_src emacs-lisp
-(setq org-refile-targets
+(after! org (setq org-refile-targets
       `((,(concat org-agenda-directory "next.org") :level . 0)
         (,(concat org-agenda-directory "someday.org") :level . 0)
         (,(concat org-agenda-directory "tickler.org") :maxlevel . 1)
-        (,(concat org-agenda-directory "projects.org") :maxlevel . 1)))
+        (,(concat org-agenda-directory "projects.org") :maxlevel . 1))))
 #+end_src
 ** Create keywords for TODO lists
 
@@ -204,9 +203,9 @@ A very cool feature of org-mode is that you can specify arbitrary keywords so eg
 Anyway, here's what that looks like
 
 #+begin_src emacs-lisp
-(setq org-todo-keywords
+(after! org (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-        (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c)")))
+        (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c)"))))
 #+end_src
 
 It's nothing special. I didn't realise at first but the pipe operator (~|~) is what separates the "to be actioned" keywords from the "has been actioned" keywords
@@ -343,10 +342,13 @@ Viewing my Fastmail calendar within ~org-agenda~
       org-caldav-inbox nil
       org-caldav-calendars `(
         (:calendar-id "d9a65464-ff38-426f-b615-6accd279b1b1"
-         :files (,(concat dropbox-cal "events.org"))
-         :inbox ,(concat dropbox-cal "events-inbox.org")))
+         :sync 'cal->org
+         :inbox ,(concat org-agenda-directory "events.org"))
+        (:calendar-id "ef15d722-d095-45ea-b0b8-7273d9a8b909"
+         :sync 'cal->org
+         :inbox ,(concat org-agenda-directory "gcal-events.org")))
       org-caldav-resume-aborted 'never
-      org-caldav-save-directory dropbox-cal)))
+      org-caldav-save-directory org-agenda-directory)))
 #+end_src
 * org-agenda setup
 Setup for org-agenda
