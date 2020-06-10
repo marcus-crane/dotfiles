@@ -1,5 +1,5 @@
-#+TITLE: My Doom Emacs configuration
-#+OPTIONS: toc:2
+#+title: My Doom Emacs configuration
+#+options: toc:2
 
 * General setup
 ** Header comment
@@ -116,10 +116,11 @@ Firstly, I want to use the following org-agenda files
 #+begin_src emacs-lisp
 (after! org (setq org-agenda-files `(,(concat org-agenda-directory "inbox.org")
                                      ,(concat org-agenda-directory "gtd.org")
+                                     ,(concat org-agenda-directory "projects.org")
                                      ,(concat org-agenda-directory "tickler.org")
                                      ,(concat org-agenda-directory "habits.org")
                                      ,(concat org-agenda-directory "events.org")
-                                     ,(concat org-agenda-directory "gcal-events.org"))))
+                                     ,(concat org-agenda-directory "work.org"))))
 #+end_src
 
 I've got three files here:
@@ -147,6 +148,7 @@ I heavily relied on these two sources for inspiration and configuration
 
 - https://blog.jethro.dev/posts/capturing_inbox/
 - https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
+
 ** Configuring org-capture-templates
 
 When invoking org-capture, it's nice to prefile some metadata and this is exactly what we're doing here.
@@ -169,7 +171,7 @@ I should note that the backticks are an important distinction. It seems they tel
          :immediate-finish t)
         ("r" "recipe" entry
          (file ,(concat dropbox-notes "cookbook.org"))
-         "* %^{Recipe title: }\n  :PROPERTIES:\n  :source-url:\n  :servings:\n  :prep-time:\n  :cook-time:\n  :ready-in:\n  :END:\n** Ingredients\n   %?\n** Directions\n\n")
+         "* %^{Recipe title: }\n  :properties:\n  :source-url:\n  :servings:\n  :prep-time:\n  :cook-time:\n  :ready-in:\n  :end:\n** Ingredients\n   %?\n** Directions\n\n")
         ("w" "weekly review" entry
          (file+olp+datetree ,(concat org-agenda-directory "reviews.org"))
          (file ,(concat dropbox-tmpl "weekly_review.org")))
@@ -255,24 +257,24 @@ You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.do
         '(("d" "default" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "${slug}-public"
-           :head "#+TITLE: ${title}\n#+ROAM_TAG:\n"
+           :head "#+title: ${title}\n#+roam_tag:\n"
            :unnarrowed t)
           ("p" "private" plain (function org-roam-capture--get-point)
            "%?"
            :file-name "${slug}-private"
-           :head "#+TITLE: ${title}\n#+ROAM_TAG:\n")
+           :head "#+title: ${title}\n#+roam_tag:\n")
           ("b" "book" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "books/${slug}-public"
-           :head "#+TITLE: ${title}\n#+ROAM_TAG: book\n\n")
+           :head "#+title: ${title}\n#+roam_tag: book\n\n")
           ("h" "human" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "people/${slug}-private"
-           :head "#+TITLE: ${title}\n#+ROAM_TAG: person\n\n")
+           :head "#+title: ${title}\n#+roam_tag: person\n\n")
           ("B" "blog post" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "posts/${slug}-public"
-           :head "#+TITLE: ${title}\n#ROAM_TAG: post\n\n"))))
+           :head "#+title: ${title}\n#+roam_tag: post\n\n"))))
 #+end_src
 
 I'm still experimenting with this setup. I want to basically tag things enough that I can differentiate between public and private notes in case I want to publish them.
@@ -343,10 +345,7 @@ Viewing my Fastmail calendar within ~org-agenda~
       org-caldav-calendars `(
         (:calendar-id "d9a65464-ff38-426f-b615-6accd279b1b1"
          :sync 'cal->org
-         :inbox ,(concat org-agenda-directory "events.org"))
-        (:calendar-id "ef15d722-d095-45ea-b0b8-7273d9a8b909"
-         :sync 'cal->org
-         :inbox ,(concat org-agenda-directory "gcal-events.org")))
+         :inbox ,(concat org-agenda-directory "events.org")))
       org-caldav-resume-aborted 'never
       org-caldav-save-directory org-agenda-directory)))
 #+end_src
@@ -367,11 +366,11 @@ Setup for org-agenda
                                                ((org-agenda-span 'week)
                                                 (org-deadline-warning-days 365)))
                                        (todo "TODO"
-                                             ((org-agenda-overriding-header "To Refile")
+                                             ((org-agenda-overriding-header "Inbox")
                                               (org-agenda-files '(,(concat dropbox-gtd "inbox.org")))
                                               ))
                                        (todo "NEXT"
-                                             ((org-agenda-overriding-header "In Progress")
+                                             ((org-agenda-overriding-header "Next")
                                               (org-agenda-files '(,(concat dropbox-gtd "someday.org")
                                                                   ,(concat dropbox-gtd "projects.org")
                                                                   ,(concat dropbox-gtd "next.org")))
