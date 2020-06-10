@@ -362,18 +362,18 @@ Setup for org-agenda
   :config
   (setq org-columns-default-format "%40ITEM(Task) %Effort(EE){:} %CLOCKSUM(Time Spent) %SCHEDULED(Scheduled) %DEADLINE(Deadline)")
   (setq org-agenda-custom-commands `((" " "Agenda"
-                                      ((agenda ""
+                                      ((todo "NEXT"
+                                             ((org-agenda-overriding-header "Current Focus")
+                                              (org-agenda-files '(,(concat dropbox-gtd "next.org")
+                                                                  ,(concat dropbox-gtd "projects.org")
+                                                                  ,(concat dropbox-gtd "someday.org")))
+                                              ))
+                                       (agenda ""
                                                ((org-agenda-span 'week)
                                                 (org-deadline-warning-days 365)))
                                        (todo "TODO"
                                              ((org-agenda-overriding-header "Inbox")
                                               (org-agenda-files '(,(concat dropbox-gtd "inbox.org")))
-                                              ))
-                                       (todo "NEXT"
-                                             ((org-agenda-overriding-header "Next")
-                                              (org-agenda-files '(,(concat dropbox-gtd "someday.org")
-                                                                  ,(concat dropbox-gtd "projects.org")
-                                                                  ,(concat dropbox-gtd "next.org")))
                                               ))
                                        )))))
 #+end_src
