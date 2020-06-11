@@ -60,9 +60,6 @@ In the event it doesn't mount correctly, Emacs will fail to resolve the paths be
 (setq dropbox-journal (concat dropbox-notes "journal/"))
 #+end_src
 
-#+RESULTS:
-: /media/marcus/Storage/Dropbox/org/notes/journal/
-
 ** Disable ivy-minibuffer-map
 This is probably the most weirdly specific part of my config
 
@@ -383,4 +380,16 @@ Setup for org-agenda
 (after! org
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
+#+end_src
+
+* org-gcal setup
+#+begin_src emacs-lisp
+;; Doesn't currently work as +pass-get-blah won't resolve the values properly
+;; I intend to get this working shortly though
+;;(use-package! org-gcal
+;;  :config
+;;  (setq
+;;    org-gcal-client-id (+pass-get-field "keys/org-gcal" "client-id")
+;;    org-gcal-client-secret (+pass-get-field "keys/org-gcal" "client-secret")
+;;    org-gcal-file-alist `((,(+pass-get-secret "keys/org-gcal") . ,(concat org-agenda-directory "work.org")))))
 #+end_src
