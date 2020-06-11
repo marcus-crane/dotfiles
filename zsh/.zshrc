@@ -43,11 +43,7 @@ fi
 
 if [[ $OPSYS == "windows" ]]; then
   export DROPBOX_DIR=/mnt/c/Users/marcus.crane/Dropbox
-fi
-if [[ $OPSYS == "linux" ]]; then
-  export DROPBOX_DIR=/media/marcus/Storage/Dropbox
-fi
-if [[ $OPSYS == "darwin" ]]; then
+else
   export DROPBOX_DIR=$HOME/Dropbox
 fi
 
