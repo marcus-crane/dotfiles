@@ -115,6 +115,7 @@ Firstly, I want to use the following org-agenda files
                                      ,(concat org-agenda-directory "gtd.org")
                                      ,(concat org-agenda-directory "projects.org")
                                      ,(concat org-agenda-directory "tickler.org")
+                                     ,(concat org-agenda-directory "repeaters.org")
                                      ,(concat org-agenda-directory "habits.org")
                                      ,(concat org-agenda-directory "events.org")
                                      ,(concat org-agenda-directory "work.org"))))
