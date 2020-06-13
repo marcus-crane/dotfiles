@@ -52,7 +52,7 @@ In the event it doesn't mount correctly, Emacs will fail to resolve the paths be
 #+begin_src emacs-lisp
 (setq dropbox (getenv "DROPBOX_DIR"))
 (setq workspace (getenv "WORKSPACE"))
-(setq notes (concat workspace "/utf9k/content-org/notes/"))
+(setq utf9k-notes (concat workspace "/utf9k/content-org/notes/"))
 (setq dropbox-org (concat dropbox "/org"))
 (setq dropbox-tmpl (concat dropbox-org "/templates/"))
 (setq dropbox-gtd (concat dropbox-org "/gtd/"))
@@ -268,15 +268,7 @@ You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.do
           ("b" "book" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "books/${slug}-public"
-           :head "#+title: ${title}\n#+roam_tag: book\n\n")
-          ("h" "human" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "people/${slug}-private"
-           :head "#+title: ${title}\n#+roam_tag: person\n\n")
-          ("B" "blog post" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "posts/${slug}-public"
-           :head "#+title: ${title}\n#+roam_tag: post\n\n"))))
+           :head "#+title: ${title}\n#+roam_tag: book\n\n"))))
 #+end_src
 
 I'm still experimenting with this setup. I want to basically tag things enough that I can differentiate between public and private notes in case I want to publish them.
