@@ -258,7 +258,7 @@ You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.do
         '(("d" "default" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "${slug}"
-           :head "#+setupfile: ./hugo_setup.org\n#+title: ${title}\n#+hugo_slug: ${slug}\n#+roam_tag:\n"
+           :head "#+title: ${title}\n#+setupfile: ./hugo_setup.org\n#+hugo_slug: ${slug}\n#+roam_tag:\n"
            :unnarrowed t))))
 #+end_src
 
@@ -286,9 +286,10 @@ There's nothing fancy here that I can see
   ("C-c n d" . deft)
   :custom
   (deft-recursive t)
+  (deft-ignore-file-regexp "hugo_setup.org")
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
-  (deft-directory dropbox-notes))
+  (deft-directory utf9k-notes))
 #+end_src
 
 * org-journal setup
