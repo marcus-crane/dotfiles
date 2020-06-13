@@ -365,6 +365,7 @@ Setup for org-agenda
   (setq org-agenda-custom-commands `((" " "Agenda"
                                       ((tags-todo "+PRIORITY=\"A\""
                                              ((org-agenda-overriding-header "Important")
+                                              (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))
                                               (org-agenda-files '(,(concat dropbox-gtd "next.org")
                                                                   ,(concat dropbox-gtd "projects.org")
                                                                   ,(concat dropbox-gtd "someday.org")))
