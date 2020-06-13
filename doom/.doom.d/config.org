@@ -193,6 +193,7 @@ I haven't really explored the limits of org trees so I'm mostly speaking without
       `((,(concat org-agenda-directory "next.org") :level . 0)
         (,(concat org-agenda-directory "someday.org") :level . 0)
         (,(concat org-agenda-directory "tickler.org") :maxlevel . 1)
+        (,(concat org-agenda-directory "repeaters.org") :maxlevel . 1)
         (,(concat org-agenda-directory "projects.org") :maxlevel . 1))))
 #+end_src
 ** Create keywords for TODO lists
@@ -213,6 +214,9 @@ It's nothing special. I didn't realise at first but the pipe operator (~|~) is w
 (setq org-tag-alist (quote (("@errand" . ?e)
                             ("@office" . ?o)
                             ("@home" . ?h)
+                            ("@research" . ?r)
+                            ("@social" . ?s)
+                            ("@meta" . ?m)
                             (:newline)
                             ("WAITING" . ?w)
                             ("HOLD" . ?H)
@@ -359,15 +363,17 @@ Setup for org-agenda
   :config
   (setq org-columns-default-format "%40ITEM(Task) %Effort(EE){:} %CLOCKSUM(Time Spent) %SCHEDULED(Scheduled) %DEADLINE(Deadline)")
   (setq org-agenda-custom-commands `((" " "Agenda"
-                                      ((todo "NEXT"
-                                             ((org-agenda-overriding-header "Current Focus")
+                                      ((tags-todo "+PRIORITY=\"A\""
+                                             ((org-agenda-overriding-header "Important")
                                               (org-agenda-files '(,(concat dropbox-gtd "next.org")
                                                                   ,(concat dropbox-gtd "projects.org")
                                                                   ,(concat dropbox-gtd "someday.org")))
                                               ))
                                        (agenda ""
-                                               ((org-agenda-span 'week)
-                                                (org-deadline-warning-days 365)))
+                                             ((org-agenda-overriding-header "Up Next")
+                                              (org-agenda-span 2)
+                                              (org-deadline-warning-days 2)
+                                              (org-agenda-start-day "1d")))
                                        (todo "TODO"
                                              ((org-agenda-overriding-header "Inbox")
                                               (org-agenda-files '(,(concat dropbox-gtd "inbox.org")))
