@@ -2,6 +2,11 @@
 #+options: toc:2
 
 * General setup
+** Set default shell
+#+begin_src emacs-lisp
+(setq shell-file-name "/bin/zsh")
+#+end_src
+
 ** Header comment
 Not sure if this is important but I believe it has some semantic meaning
 
@@ -29,6 +34,19 @@ Doom One is a pretty solid default theme too
 #+begin_src emacs-lisp
 (setq doom-theme 'doom-one)
 #+end_src
+
+
+** Add keys to environment
+
+I've had troubles with ~auth-password-store~ so this is the next best thing
+
+#+begin_src emacs-lisp
+(setq gcal-client-id (getenv "GCAL_CLIENT_ID"))
+(setq gcal-client-secret (getenv "GCAL_CLIENT_SECRET"))
+(setq gcal-cal-id (getenv "GCAL_CAL_ID"))
+#+end_src
+
+
 ** Show line numbers
 Nothing fancy here
 
@@ -175,8 +193,7 @@ I should note that the backticks are an important distinction. It seems they tel
          (file ,(concat dropbox-tmpl "weekly_review.org")))
         ("t" "tickler" entry
          (file ,(concat org-agenda-directory "tickler.org"))
-         "* %i%? \n %U"
-        ))))
+         "* %i%?"))))
 #+end_src
 
 I'd like to refine these further but for now, they're mostly what I found from Jethro Kuan I believe?
@@ -217,6 +234,7 @@ It's nothing special. I didn't realise at first but the pipe operator (~|~) is w
                             ("@home" . ?h)
                             ("@research" . ?r)
                             ("@social" . ?s)
+                            ("@self" . ?S)
                             ("@meta" . ?m)
                             (:newline)
                             ("WAITING" . ?w)
@@ -331,10 +349,11 @@ Viewing my Fastmail calendar within ~org-agenda~
       org-caldav-calendars `(
         (:calendar-id "d9a65464-ff38-426f-b615-6accd279b1b1"
          :sync 'cal->org
-         :inbox ,(concat org-agenda-directory "events.org")))
+         :inbox ,(concat org-agenda-directory "personal.org")))
       org-caldav-resume-aborted 'never
       org-caldav-save-directory org-agenda-directory)))
 #+end_src
+
 * org-agenda setup
 Setup for org-agenda
 
@@ -376,12 +395,13 @@ Setup for org-agenda
 
 * org-gcal setup
 #+begin_src emacs-lisp
-;; Doesn't currently work as +pass-get-blah won't resolve the values properly
-;; I intend to get this working shortly though
-;;(use-package! org-gcal
-;;  :config
-;;  (setq
-;;    org-gcal-client-id (+pass-get-field "keys/org-gcal" "client-id")
-;;    org-gcal-client-secret (+pass-get-field "keys/org-gcal" "client-secret")
-;;    org-gcal-file-alist `((,(+pass-get-secret "keys/org-gcal") . ,(concat org-agenda-directory "work.org")))))
+(use-package! org-gcal
+  :config
+  (setq
+    org-gcal-up-days 14
+    org-gcal-down-days 14
+    org-gcal-remove-api-cancelled-events t
+    org-gcal-client-id gcal-client-id
+    org-gcal-client-secret gcal-client-secret
+    org-gcal-file-alist `((,gcal-cal-id . ,(concat org-agenda-directory "work.org")))))
 #+end_src
