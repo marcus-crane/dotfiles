@@ -130,6 +130,13 @@ alias ws="cd $WORKSPACE"
 
 function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 
+########
+# keys #
+########
+export GCAL_CAL_ID=$(pass show keys/org-gcal | head -n 1)
+export GCAL_CLIENT_ID=$(pass show keys/org-gcal | grep client-id | cut -d ' ' -f2)
+export GCAL_CLIENT_SECRET=$(pass show keys/org-gcal | grep client-secret | cut -d ' ' -f2)
+
 ##############
 # references #
 ##############
