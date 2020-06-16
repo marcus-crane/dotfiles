@@ -84,11 +84,6 @@ export PATH=$(asdf where python)/bin:$PATH
 # rust
 export PATH=$(asdf where rust)/bin:$PATH
 
-# trash
-if [[ $OPSYS == "darwin" ]]; then
-  alias rm="trash"
-fi
-
 # work related aliases
 if [[ -a "$HOME/.work_aliases" ]]; then
   . "$HOME/.work_aliases"
