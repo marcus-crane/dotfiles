@@ -125,6 +125,10 @@ alias ws="cd $WORKSPACE"
 
 function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 
+function tangle-file() {
+  emacs --batch -l org $@ -f org-babel-tangle
+}
+
 ########
 # keys #
 ########
