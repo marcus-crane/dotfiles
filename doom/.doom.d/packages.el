@@ -47,6 +47,4 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 (package! org-cliplink)
 (package! org-download)
-(package! org-caldav)
-(package! org-gcal)
 (package! evil-escape :disable t)

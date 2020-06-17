@@ -3,11 +3,6 @@
 #+property: header-args :tangle config.el
 
 * General setup
-** Set default shell
-#+begin_src emacs-lisp
-(setq shell-file-name "/bin/zsh")
-#+end_src
-
 ** Header comment
 Not sure if this is important but I believe it has some semantic meaning
 
@@ -35,18 +30,6 @@ Doom One is a pretty solid default theme too
 #+begin_src emacs-lisp
 (setq doom-theme 'doom-one)
 #+end_src
-
-
-** Add keys to environment
-
-I've had troubles with ~auth-password-store~ so this is the next best thing
-
-#+begin_src emacs-lisp
-(setq gcal-client-id (getenv "GCAL_CLIENT_ID"))
-(setq gcal-client-secret (getenv "GCAL_CLIENT_SECRET"))
-(setq gcal-cal-id (getenv "GCAL_CAL_ID"))
-#+end_src
-
 
 ** Show line numbers
 Nothing fancy here
@@ -135,9 +118,7 @@ Firstly, I want to use the following org-agenda files
                                      ,(concat org-agenda-directory "projects.org")
                                      ,(concat org-agenda-directory "tickler.org")
                                      ,(concat org-agenda-directory "repeaters.org")
-                                     ,(concat org-agenda-directory "habits.org")
-                                     ,(concat org-agenda-directory "events.org")
-                                     ,(concat org-agenda-directory "work.org"))))
+                                     ,(concat org-agenda-directory "habits.org"))))
 #+end_src
 
 I've got three files here:
@@ -336,25 +317,6 @@ I may move these into their own folder someday as well
         org-journal-file-type 'monthly))
 #+end_src
 
-* org-caldav setup
-Viewing my Fastmail calendar within ~org-agenda~
-
-#+begin_src emacs-lisp
-(after! org
-  (use-package org-caldav
-    :defer 3
-    :config
-    (setq
-      org-caldav-url "https://caldav.fastmail.com/dav/calendars/user/marcus@utf9k.net"
-      org-caldav-inbox nil
-      org-caldav-calendars `(
-        (:calendar-id "d9a65464-ff38-426f-b615-6accd279b1b1"
-         :sync 'cal->org
-         :inbox ,(concat org-agenda-directory "personal.org")))
-      org-caldav-resume-aborted 'never
-      org-caldav-save-directory org-agenda-directory)))
-#+end_src
-
 * org-agenda setup
 Setup for org-agenda
 
@@ -392,17 +354,4 @@ Setup for org-agenda
 (after! org
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
-#+end_src
-
-* org-gcal setup
-#+begin_src emacs-lisp
-(use-package! org-gcal
-  :config
-  (setq
-    org-gcal-up-days 14
-    org-gcal-down-days 14
-    org-gcal-remove-api-cancelled-events t
-    org-gcal-client-id gcal-client-id
-    org-gcal-client-secret gcal-client-secret
-    org-gcal-file-alist `((,gcal-cal-id . ,(concat org-agenda-directory "work.org")))))
 #+end_src
