@@ -73,11 +73,6 @@ if [[ $OPSYS == "darwin" ]]; then
   export PATH="/usr/local/opt/openssl/bin:$PATH" # (kerlmacos)
 fi
 
-# nixops
-if [[ -a "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
-  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
-fi
-
 # python
 export PATH=$(asdf where python)/bin:$PATH
 
@@ -88,10 +83,6 @@ export PATH=$(asdf where rust)/bin:$PATH
 if [[ -a "$HOME/.work_aliases" ]]; then
   . "$HOME/.work_aliases"
 fi
-
-# yarn
-export PATH=$(yarn global bin):$PATH
-
 
 #############
 # shortcuts #
@@ -128,13 +119,6 @@ function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 function tangle-file() {
   emacs --batch -l org $@ -f org-babel-tangle
 }
-
-########
-# keys #
-########
-export GCAL_CAL_ID=$(pass show keys/org-gcal | head -n 1)
-export GCAL_CLIENT_ID=$(pass show keys/org-gcal | grep client-id | cut -d ' ' -f2)
-export GCAL_CLIENT_SECRET=$(pass show keys/org-gcal | grep client-secret | cut -d ' ' -f2)
 
 ##############
 # references #
