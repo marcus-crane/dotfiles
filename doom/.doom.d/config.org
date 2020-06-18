@@ -55,6 +55,7 @@ In the event it doesn't mount correctly, Emacs will fail to resolve the paths be
 (setq dropbox (getenv "DROPBOX_DIR"))
 (setq workspace (getenv "WORKSPACE"))
 (setq utf9k-notes (concat workspace "/utf9k/content-org/notes/"))
+(setq utf9k-zettels (concat workspace "/utf9k/content-org/zettels/"))
 (setq dropbox-org (concat dropbox "/org"))
 (setq dropbox-tmpl (concat dropbox-org "/templates/"))
 (setq dropbox-gtd (concat dropbox-org "/gtd/"))
@@ -253,7 +254,7 @@ You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.do
         :desc "org-roam-graph-show" "g" #'org-roam-graph-show
         :desc "org-roam-insert" "i" #'org-roam-insert
         :desc "org-roam-capture" "c" #'org-roam-capture)
-  (setq org-roam-directory utf9k-notes
+  (setq org-roam-directory utf9k-zettels
         org-roam-db-location "~/org-roam.db")
   :config
   (require 'org-roam-protocol)
