@@ -47,4 +47,5 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 (package! org-cliplink)
 (package! org-download)
+(package! beacon)
 (package! evil-escape :disable t)

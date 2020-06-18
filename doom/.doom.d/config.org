@@ -76,7 +76,10 @@ For that reason, I'm unmapping it for now since it causes me grief
       :map ivy-minibuffer-map
       "S-SPC" nil)
 #+end_src
-
+** Enable beacon
+#+begin_src emacs-lisp
+(beacon-mode 1)
+#+end_src
 * Org setup
 
 You'll notice most org bits are prefixed with ~after! org~
