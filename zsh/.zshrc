@@ -129,6 +129,7 @@ function tangle-file() {
 #     Without it, a "gpg: signing failed: Inappropriate ioctl for device" error is thrown.
 #       - https://github.com/microsoft/WSL/issues/4029
 #       - https://www.gnupg.org/(it)/documentation/manuals/gnupg/Common-Problems.html
+#       - https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html#Invoking-GPG_002dAGENT
 # (kerlmacos) Fixes compilation issues with Erlang on macOS
 #       - https://github.com/kerl/kerl/issues/226
 # (disp) This allows X11 supported programs (ie Emacs) to render on my Windows desktop, rather than inside a terminal
