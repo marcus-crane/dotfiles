@@ -25,6 +25,7 @@ export PROMPT='%B%F{green}>%f%b '
 
 if [[ $OPSYS == "windows" ]]; then
    export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 # (disp)
+   export BROWSER="/mnt/c/Windows/explorer.exe" # (wslbrowser)
 fi
 
 ################
@@ -41,9 +42,15 @@ fi
 
 # dropbox // changes based on which computer i'm at
 
-if [[ $OPSYS == "windows" ]]; then
+if [[ $OPSYS == "windows" && $NAME == "epitaph" ]]; then
+  export DROPBOX_DIR=/mnt/c/Users/Marcus/Dropbox
+fi
+
+if [[ $OPSYS == "windows" && $NAME != "epitaph" ]]; then
   export DROPBOX_DIR=/mnt/c/Users/marcus.crane/Dropbox
-else
+fi
+
+if [[ ! $OPSYS == "windows" ]]; then
   export DROPBOX_DIR=$HOME/Dropbox
 fi
 
@@ -139,3 +146,4 @@ function tangle-file() {
 #               may not. Weirdly enough, that shouldn't be the case. Anyway, generally they live side by side so as a quick
 #               hack, I just append "client" to the end of the emacs location in case it's not able to be resolved.
 #               I'll definitely need to fix this shortly
+# (wslbrowser) In order to open links in my host browser, explorer.exe receives links and forwards them to the default host browser

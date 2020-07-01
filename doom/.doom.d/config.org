@@ -176,7 +176,7 @@ I should note that the backticks are an important distinction. It seems they tel
          (file ,(concat dropbox-notes "cookbook.org"))
          "* %^{Recipe title: }\n  :properties:\n  :source-url:\n  :servings:\n  :prep-time:\n  :cook-time:\n  :ready-in:\n  :end:\n** Ingredients\n   %?\n** Directions\n\n")
         ("w" "weekly review" entry
-         (file+olp+datetree ,(concat org-agenda-directory "reviews.org"))
+         (file+olp+datetree ,(concat org-agenda-directory "reviews/weekly.org"))
          (file ,(concat dropbox-tmpl "weekly_review.org")))
         ("t" "tickler" entry
          (file ,(concat org-agenda-directory "tickler.org"))
@@ -208,9 +208,10 @@ A very cool feature of org-mode is that you can specify arbitrary keywords so eg
 Anyway, here's what that looks like
 
 #+begin_src emacs-lisp
-(after! org (setq org-todo-keywords
-      '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-        (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c)"))))
+(after! org (
+    setq org-todo-keywords
+         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+           (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c)"))))
 #+end_src
 
 It's nothing special. I didn't realise at first but the pipe operator (~|~) is what separates the "to be actioned" keywords from the "has been actioned" keywords
