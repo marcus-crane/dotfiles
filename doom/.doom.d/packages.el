@@ -49,3 +49,4 @@
 (package! org-download)
 (package! beacon)
 (package! evil-escape :disable t)
+(package! org-clock-convenience)
