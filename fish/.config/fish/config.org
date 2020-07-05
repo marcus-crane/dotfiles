@@ -60,7 +60,6 @@ set -x CONFIG_SRC  ~/.config/fish/config.org
 set -x EDITOR      (command -v emacs)client -c # (1)
 set -x GPG_TTY     (tty)
 set -x LANGUAGE    "en_NZ:en"
-set -x LC_ALL      "en_NZ.UTF-8"
 #+end_src
 
 1. In some cases, when I compile Emacs, I'm not able to find the ~emacsclient~ executiable within my path.
@@ -103,7 +102,7 @@ else
     set -x ASDF_DIR ~/.asdf
 end
 if test -e $ASDF_DIR
-    source $ASDF/asdf.fish
+    source $ASDF_DIR/asdf.fish
     if ! test -e ~/.config/fish/completions
         mkdir -p ~/.config/fish/completions; and cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions # (2)
     end
@@ -162,7 +161,7 @@ While I don't write much golang, it's kind of annoying to set it up each time so
 
 #+begin_src fish
 set -x GOPATH $WORKSPACE/go
-if test -e $ASDF_DIR
+if test -e $ASDF_DIR; and test -e $ASDF_DIR/plugins/golang
     set -x GOROOT (asdf where golang)/go
 end
 set -xg PATH $GOPATH/bin $GOROOT $PATH
@@ -180,7 +179,7 @@ end
 ** Python
 
 #+begin_src fish
-if test -e $ASDF_DIR
+if test -e $ASDF_DIR; and test -e $ASDF_DIR/plugins/python
     set -xg PATH (asdf where python)/bin $PATH
 end
 #+end_src
@@ -188,7 +187,7 @@ end
 ** Rust
 
 #+begin_src fish
-if test -e $ASDF_DIR
+if test -e $ASDF_DIR; and test -e $ASDF_DIR/plugins/rust
     set -xg PATH (asdf where rust)/bin $PATH
 end
 #+end_src
@@ -204,7 +203,7 @@ scut gcm     "git commit -Si"
 scut gr      "git remote -v"
 scut gst     "git status"
 scut pap     "git pull upstream master && git push origin master"
-scut refresh "tangle $CONFIG_SRC && source $CONFIG_FILE"
+scut refresh "tangle $CONFIG_SRC && stow fish -d ~/dotfiles && source $CONFIG_FILE"
 scut venv    "python3 -m virtualenv venv && ae"
 scut vi      "nvim"
 scut view    "less $CONFIG_FILE"
