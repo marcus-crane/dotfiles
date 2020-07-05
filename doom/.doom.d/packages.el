@@ -50,3 +50,4 @@
 (package! beacon)
 (package! evil-escape :disable t)
 (package! org-clock-convenience)
+(package! fish-mode)

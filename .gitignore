@@ -4,3 +4,4 @@ newsboat/.newsboat/cache*
 newsboat/.newsboat/history*
 nvim/.config/configstore/*
 doom/.doom.d/config.el
+fish/.config/fish/config.fish
