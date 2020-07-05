@@ -43,7 +43,7 @@ fi
 # dropbox // changes based on which computer i'm at
 
 if [[ $OPSYS == "windows" && $NAME == "epitaph" ]]; then
-  export DROPBOX_DIR=/mnt/c/Users/Marcus/Dropbox
+  export DROPBOX_DIR=$HOME/Dropbox
 fi
 
 if [[ $OPSYS == "windows" && $NAME != "epitaph" ]]; then
