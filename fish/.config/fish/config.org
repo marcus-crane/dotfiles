@@ -103,7 +103,7 @@ else
 end
 if test -e $ASDF_DIR
     source $ASDF_DIR/asdf.fish
-    if ! test -e ~/.config/fish/completions
+    if not test -e ~/.config/fish/completions
         mkdir -p ~/.config/fish/completions; and cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions # (2)
     end
 end
