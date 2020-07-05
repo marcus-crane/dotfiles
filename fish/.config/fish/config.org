@@ -1,0 +1,213 @@
+#+title: My Fish configuration
+#+options: toc:2
+#+property: header-args :tangle config.fish
+
+* Setting up PATHS
+** Universal system folders
+
+These paths generally exist on most every system so we'll set them separate from other PATH additions.
+
+#+begin_src fish
+set -xg PATH /usr/local/bin /usr/bin /usr/sbin /sbin /bin /usr/local/sbin /opt/X11/bin $PATH
+#+end_src
+
+** macOS specific items
+
+At first glance, having two references to ~Emacs.app~ seems silly but the ~emacs~ and ~emacsclient~ executables live in separate directories. How annoying!
+
+#+begin_src fish
+set -xg PATH /usr/local/opt /Applications/Emacs.app/Contents/MacOS/bin /Applications/Emacs.app/Contents/MacOS $PATH
+#+end_src
+* Initialisation
+
+This section consists of helpers functions and global variables used by various applications.
+
+A few of the helper functions are intended to make sure my configuration acts mostly identical across all machines and OSes without any extra configuration.
+
+Whether that statement holds true is... debatable :)
+
+** Determining the current OS
+
+In order to save having to remember how to use ~uname~ and all that, I just have my own little configuration within my shell that I can reference
+
+#+begin_src fish
+if string match -q '*microsoft*' -- (uname -r)
+    set OPSYS "windows"
+else
+    set OPSYS (string lower (uname))
+end
+#+end_src
+
+Windows is a bit of a misnomer here because what I'm really checking for is whether the shell is running inside of [[https://docs.microsoft.com/en-us/windows/wsl/about][Windows Subsystem for Linux (WSL)]]
+
+Functionally, I can treat WSL and Linux the same (and I do) but there are some minor alterations I make use of, such as pointing the ~DISPLAY~ environment variable at an X display server on my host system
+
+It's worth noting that the value of ~$OPSYS~ on ~macOS~ is ~darwin~. I could change it to be clearer but [[https://en.wikipedia.org/wiki/Darwin_(operating_system)][Darwin]] is technically the correct name for the base operating system
+
+** Setting my workspace
+
+All of my development occurs in ~$HOME/Code~ regardless of what machine I'm on. One day I might change it though hence the variable.
+
+#+begin_src fish
+set -x WORKSPACE ~/Code
+#+end_src
+
+** Setting various global constants
+
+#+begin_src fish
+set -x CONFIG_FILE ~/.config/fish/config.fish
+set -x CONFIG_SRC  ~/.config/fish/config.org
+set -x EDITOR      (command -v emacs)client -c # (1)
+set -x GPG_TTY     (tty)
+set -x LANGUAGE    "en_NZ:en"
+set -x LC_ALL      "en_NZ.UTF-8"
+#+end_src
+
+1. In some cases, when I compile Emacs, I'm not able to find the ~emacsclient~ executiable within my path.
+
+   This doesn't really make much sense given ~emacs~ and ~emacsclient~ tend to live side by side and I don't actually remember the specific details from last time I ran into that problem.
+
+   In the event that happens anyway, this quick hack (find ~emacs~ and append "client" on the end) works in the meantime
+
+** Setting some Windows / WSL specific constants
+
+#+begin_src fish
+if test $OPSYS = "windows"
+    set -x DISPLAY (cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 # (1)
+    set -x BROWSER "/mnt/c/Windows/explorer.exe" # (2)
+end
+#+end_src
+
+
+1. If I'm running on a Windows machine, I run Emacs by starting a daemon inside my terminal and connecting with ~emacsclient~. Doing so spawns a new frame using the X display server running on the Windows host itself
+
+2. While I don't believe this actually works, I attempt to override the ~BROWSER~ environment variable to open links on the Windows host from within Emacs
+** Convenience functions
+I had to remind myself why this exists but it's just a convenience function to make my configuration slightly more readable
+
+#+begin_src fish
+alias scut="abbr -a -g"
+#+end_src
+
+* Applications and Languages
+** [[https://github.com/asdf-vm/asdf][asdf]]
+
+The version manager to rule them all
+
+It wraps a number of existing language version managers into plugins that can be managed through one unified CLI tool
+
+#+begin_src fish
+if test $OPSYS = "darwin"
+    set -x ASDF_DIR (brew --prefix asdf) # (1)
+else
+    set -x ASDF_DIR ~/.asdf
+end
+if test -e $ASDF_DIR
+    source $ASDF/asdf.fish
+    if ! test -e ~/.config/fish/completions
+        mkdir -p ~/.config/fish/completions; and cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions # (2)
+    end
+end
+#+end_src
+
+1. While I'm not sure if it's still the case, there used to be issues with ~asdf~ on ~macOS~ being unable to find versions installed using Brew as seen [[https://github.com/asdf-vm/asdf/issues/425#issuecomment-459751694][here]]
+
+2. Autocompletions aren't added to Fish so this step, provided by the asdf docs, configures them properly
+   
+** [[https://dropbox.cm][Dropbox]]
+
+Depending on which computer I'm using, I'll often have my Dropbox in different places
+
+Historically, it would only be in a different place when using Emacs in WSL (I store my org stuff in Dropbox)
+
+I'm currently in the process of moving to Dropbox within WSL though, which will mean that all version of Dropbox will live in ~$HOME/Dropbox~
+
+The reason for that is because file operations across WSL boundaries (ie anything on the C:\ Drive) is super slow compared to staying within the boundaries
+
+#+begin_src fish
+if test $OPSYS = "windows"; and test $NAME != "epitaph"
+    set -x DROPBOX_DIR /mnt/c/Users/marcus.crane/Dropbox
+else
+    set -x DROPBOX_DIR ~/Dropbox
+end
+#+end_src
+
+** Emacs
+
+I'll probably configure this a fair bit more but for now, I just shorten the name of ~emacsclient~
+
+#+begin_src fish
+scut ec $EDITOR
+#+end_src
+** Erlang
+
+Whenever I compile ~erlang~ (using ~asdf~), I always use the same flags so it's easier to just set them within my shell
+
+#+begin_src fish
+set -x KERL_CONFIGURE_OPTIONS "--disable-debug --without-javac"
+set -x KERL_BUILD_DOCS "yes"
+#+end_src
+** git
+
+To save me having to set up each machine, I just set my Git identifiers each time
+
+#+begin_src fish
+git config --global user.name "Marcus Crane"
+git config --global user.email "marcus@utf9k.net"
+#+end_src
+
+** go
+
+While I don't write much golang, it's kind of annoying to set it up each time so I just leave working configuration in each of my shells in the event that I decide to do anything golang related
+
+#+begin_src fish
+set -x GOPATH $WORKSPACE/go
+if test -e $ASDF_DIR
+    set -x GOROOT (asdf where golang)/go
+end
+set -xg PATH $GOPATH/bin $GOROOT $PATH
+#+end_src
+** Homebrew
+
+Sometimes I have trouble with rsync which is about the only thing that this snippet fixes
+
+#+begin_src fish
+if test $OPSYS = "darwin"
+    set -xg PATH /usr/bin/local $PATH
+end
+#+end_src
+
+** Python
+
+#+begin_src fish
+if test -e $ASDF_DIR
+    set -xg PATH (asdf where python)/bin $PATH
+end
+#+end_src
+
+** Rust
+
+#+begin_src fish
+if test -e $ASDF_DIR
+    set -xg PATH (asdf where rust)/bin $PATH
+end
+#+end_src
+* Shortcuts
+A whole bunch of shortcuts, or as fish calls them, "abbreviations"
+
+#+begin_src fish
+scut ae      "deactivate &> /dev/null; source ./venv/bin/activate"
+scut de      "deactivate &> /dev/null"
+scut edit    "$EDITOR $CONFIG_SRC"
+scut gb      "git branch -v"
+scut gcm     "git commit -Si"
+scut gr      "git remote -v"
+scut gst     "git status"
+scut pap     "git pull upstream master && git push origin master"
+scut refresh "tangle $CONFIG_SRC && source $CONFIG_FILE"
+scut venv    "python3 -m virtualenv venv && ae"
+scut vi      "nvim"
+scut view    "less $CONFIG_FILE"
+scut vim     "nvim"
+scut ws      "cd $WORKSPACE"
+#+end_src
