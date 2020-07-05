@@ -81,6 +81,11 @@ For that reason, I'm unmapping it for now since it causes me grief
 #+begin_src emacs-lisp
 (beacon-mode 1)
 #+end_src
+** Fish mode
+#+begin_src emacs-lisp
+(add-hook 'fish-mode-hook (lambda ()
+                            (add-hook 'before-save-hook 'fish_indent=before-save)))
+#+end_src
 * Org setup
 
 You'll notice most org bits are prefixed with ~after! org~
