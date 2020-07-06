@@ -1,6 +1,10 @@
 #+title: My Fish configuration
 #+options: toc:2
 #+property: header-args :tangle config.fish
+#+setupfile: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+
+Welcome to my configuration. It's always a work in progress.
 
 * Setting up PATHS
 ** Universal system folders
@@ -210,3 +214,7 @@ scut view    "less $CONFIG_FILE"
 scut vim     "nvim"
 scut ws      "cd $WORKSPACE"
 #+end_src
+
+# Local variables:
+# eval: (add-hook 'after-save-hook 'org-html-export-to-html t t)
+# end:
