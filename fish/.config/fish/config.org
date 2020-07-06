@@ -116,7 +116,16 @@ end
 1. While I'm not sure if it's still the case, there used to be issues with ~asdf~ on ~macOS~ being unable to find versions installed using Brew as seen [[https://github.com/asdf-vm/asdf/issues/425#issuecomment-459751694][here]]
 
 2. Autocompletions aren't added to Fish so this step, provided by the asdf docs, configures them properly
-   
+
+** Dart
+
+Google's language for building cross-platform applications
+
+#+begin_src fish
+if test -e $ASDF_DIR; and test -e $ASDF_DIR/plugins/dart
+    set -xg PATH (asdf where dart)/bin $PATH
+end
+#+end_src
 ** [[https://dropbox.cm][Dropbox]]
 
 Depending on which computer I'm using, I'll often have my Dropbox in different places
@@ -149,6 +158,15 @@ Whenever I compile ~erlang~ (using ~asdf~), I always use the same flags so it's 
 #+begin_src fish
 set -x KERL_CONFIGURE_OPTIONS "--disable-debug --without-javac"
 set -x KERL_BUILD_DOCS "yes"
+#+end_src
+** Flutter
+
+Google's framework for building cross-platform applications
+
+#+begin_src fish
+if test -e $ASDF_DIR; and test -e $ASDF_DIR/plugins/flutter
+    set -xg PATH (asdf where flutter)/bin $PATH
+end
 #+end_src
 ** git
 

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-<!-- 2020-07-06 Mon 16:40 -->
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>My Fish configuration</title>
-<meta name="generator" content="Org mode" />
-<meta name="author" content="Marcus Crane" />
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
+  <head>
+    <!-- 2020-07-06 Mon 23:09 -->
+    <meta http-equiv="Content-Type"
+    content="text/html;charset=utf-8" />
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1" />
+    <title>My Fish configuration</title>
+    <meta name="generator" content="Org mode" />
+    <meta name="author" content="Marcus Crane" />
+    <style type="text/css">
+    <!--/*-->
+<![CDATA[/*><!--*/
   .title  { text-align: center;
              margin-bottom: .2em; }
   .subtitle { text-align: center;
@@ -191,17 +194,27 @@
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { width: 90%; }
-  /*]]>*/-->
-</style>
-<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
-<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
-<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
-<script type="text/javascript">
-// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
-<!--/*--><![CDATA[/*><!--*/
+  /*]]>
+*/--&gt;</style>
+    <link rel="stylesheet" type="text/css"
+    href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css" />
+    <link rel="stylesheet" type="text/css"
+    href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+    </script>
+    <script type="text/javascript"
+    src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js">
+    </script>
+    <script type="text/javascript"
+    src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js">
+    </script>
+    <script type="text/javascript">// @license
+    magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt
+    GPL-v3-or-Later 
+    <!--/*-->
+<![CDATA[/*><!--*/
      function CodeHighlightOn(elem, id)
      {
        var target = document.getElementById(id);
@@ -220,404 +233,748 @@
        if(elem.cacheClassTarget)
          target.className = elem.cacheClassTarget;
      }
-    /*]]>*///-->
-// @license-end
-</script>
-</head>
-<body>
-<div id="content">
-<h1 class="title">My Fish configuration</h1>
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#orga94184c">1. Setting up PATHS</a>
-<ul>
-<li><a href="#orgd499e7c">1.1. Universal system folders</a></li>
-<li><a href="#org1295cc4">1.2. macOS specific items</a></li>
-</ul>
-</li>
-<li><a href="#orgafd7670">2. Initialisation</a>
-<ul>
-<li><a href="#orgb6c1ff9">2.1. Determining the current OS</a></li>
-<li><a href="#org841a4da">2.2. Setting my workspace</a></li>
-<li><a href="#org8ebc9fe">2.3. Setting various global constants</a></li>
-<li><a href="#orgfe94053">2.4. Setting some Windows / WSL specific constants</a></li>
-<li><a href="#orgf789c85">2.5. Convenience functions</a></li>
-</ul>
-</li>
-<li><a href="#orga0505af">3. Applications and Languages</a>
-<ul>
-<li><a href="#orgc03e6c0">3.1. asdf</a></li>
-<li><a href="#org986601c">3.2. Dropbox</a></li>
-<li><a href="#orgf987523">3.3. Emacs</a></li>
-<li><a href="#orgc16ce58">3.4. Erlang</a></li>
-<li><a href="#orgf23f971">3.5. git</a></li>
-<li><a href="#org3a49140">3.6. go</a></li>
-<li><a href="#org9f8f66e">3.7. Homebrew</a></li>
-<li><a href="#org18b2933">3.8. Python</a></li>
-<li><a href="#org38382b7">3.9. Rust</a></li>
-</ul>
-</li>
-<li><a href="#orgd4feb90">4. Shortcuts</a></li>
-</ul>
-</div>
-</div>
-<p>
-Welcome to my configuration. It&rsquo;s always a work in progress.
-</p>
-
-<div id="outline-container-orga94184c" class="outline-2">
-<h2 id="orga94184c"><span class="section-number-2">1</span> Setting up PATHS</h2>
-<div class="outline-text-2" id="text-1">
-</div>
-<div id="outline-container-orgd499e7c" class="outline-3">
-<h3 id="orgd499e7c"><span class="section-number-3">1.1</span> Universal system folders</h3>
-<div class="outline-text-3" id="text-1-1">
-<p>
-These paths generally exist on most every system so we&rsquo;ll set them separate from other PATH additions.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-xg</span> <span style="color: #dcaeea;">PATH</span> /usr/local/bin /usr/bin /usr/sbin /sbin /bin /usr/local/sbin /opt/X11/bin <span style="color: #98be65;">$</span><span style="color: #dcaeea;">PATH</span>
+    /*]]>
+*///--&gt; // @license-end</script>
+  </head>
+  <body>
+    <div id="content">
+      <h1 class="title">My Fish configuration</h1>
+      <div id="table-of-contents">
+        <h2>Table of Contents</h2>
+        <div id="text-table-of-contents">
+          <ul>
+            <li>
+              <a href="#orgd615763">1. Setting up PATHS</a>
+              <ul>
+                <li>
+                  <a href="#org75b0e62">1.1. Universal system
+                  folders</a>
+                </li>
+                <li>
+                  <a href="#org0950ab4">1.2. macOS specific
+                  items</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#org024a7b4">2. Initialisation</a>
+              <ul>
+                <li>
+                  <a href="#orge067bdf">2.1. Determining the
+                  current OS</a>
+                </li>
+                <li>
+                  <a href="#orgb74efd3">2.2. Setting my
+                  workspace</a>
+                </li>
+                <li>
+                  <a href="#org7e03bc3">2.3. Setting various global
+                  constants</a>
+                </li>
+                <li>
+                  <a href="#org842b4b0">2.4. Setting some Windows /
+                  WSL specific constants</a>
+                </li>
+                <li>
+                  <a href="#org2fa17a0">2.5. Convenience
+                  functions</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#orga3051e3">3. Applications and
+              Languages</a>
+              <ul>
+                <li>
+                  <a href="#org98e6c0a">3.1. asdf</a>
+                </li>
+                <li>
+                  <a href="#org1c9352d">3.2. Dart</a>
+                </li>
+                <li>
+                  <a href="#orgaa00883">3.3. Dropbox</a>
+                </li>
+                <li>
+                  <a href="#orgdca44a5">3.4. Emacs</a>
+                </li>
+                <li>
+                  <a href="#orgf613c19">3.5. Erlang</a>
+                </li>
+                <li>
+                  <a href="#org93d1610">3.6. Flutter</a>
+                </li>
+                <li>
+                  <a href="#org56e4a71">3.7. git</a>
+                </li>
+                <li>
+                  <a href="#orgc1e0fdc">3.8. go</a>
+                </li>
+                <li>
+                  <a href="#org853f94c">3.9. Homebrew</a>
+                </li>
+                <li>
+                  <a href="#orgb181f2e">3.10. Python</a>
+                </li>
+                <li>
+                  <a href="#orga7298e8">3.11. Rust</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#orgd0bd617">4. Shortcuts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <p>Welcome to my configuration. It&#8217;s always a work in
+      progress.</p>
+      <div id="outline-container-orgd615763" class="outline-2">
+        <h2 id="orgd615763">
+        <span class="section-number-2">1</span>Setting up
+        PATHS</h2>
+        <div class="outline-text-2" id="text-1"></div>
+        <div id="outline-container-org75b0e62" class="outline-3">
+          <h3 id="org75b0e62">
+          <span class="section-number-3">1.1</span>Universal system
+          folders</h3>
+          <div class="outline-text-3" id="text-1-1">
+            <p>These paths generally exist on most every system so
+            we&#8217;ll set them separate from other PATH
+            additions.</p>
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-xg</span> 
+<span style="color: #dcaeea;">PATH</span> /usr/local/bin /usr/bin
+/usr/sbin /sbin /bin /usr/local/sbin /opt/X11/bin 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">PATH</span>
 </pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org1295cc4" class="outline-3">
-<h3 id="org1295cc4"><span class="section-number-3">1.2</span> macOS specific items</h3>
-<div class="outline-text-3" id="text-1-2">
-<p>
-At first glance, having two references to <code>Emacs.app</code> seems silly but the <code>emacs</code> and <code>emacsclient</code> executables live in separate directories. How annoying!
-</p>
-
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-xg</span> <span style="color: #dcaeea;">PATH</span> /usr/local/opt /Applications/Emacs.app/Contents/MacOS/bin /Applications/Emacs.app/Contents/MacOS <span style="color: #98be65;">$</span><span style="color: #dcaeea;">PATH</span>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org0950ab4" class="outline-3">
+          <h3 id="org0950ab4">
+          <span class="section-number-3">1.2</span>macOS specific
+          items</h3>
+          <div class="outline-text-3" id="text-1-2">
+            <p>At first glance, having two references to 
+            <code>Emacs.app</code>seems silly but the 
+            <code>emacs</code>and 
+            <code>emacsclient</code>executables live in separate
+            directories. How annoying!</p>
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-xg</span> 
+<span style="color: #dcaeea;">PATH</span> /usr/local/opt
+/Applications/Emacs.app/Contents/MacOS/bin
+/Applications/Emacs.app/Contents/MacOS 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">PATH</span>
 </pre>
-</div>
-</div>
-</div>
-</div>
-<div id="outline-container-orgafd7670" class="outline-2">
-<h2 id="orgafd7670"><span class="section-number-2">2</span> Initialisation</h2>
-<div class="outline-text-2" id="text-2">
-<p>
-This section consists of helpers functions and global variables used by various applications.
-</p>
-
-<p>
-A few of the helper functions are intended to make sure my configuration acts mostly identical across all machines and OSes without any extra configuration.
-</p>
-
-<p>
-Whether that statement holds true is&#x2026; debatable :)
-</p>
-</div>
-
-<div id="outline-container-orgb6c1ff9" class="outline-3">
-<h3 id="orgb6c1ff9"><span class="section-number-3">2.1</span> Determining the current OS</h3>
-<div class="outline-text-3" id="text-2-1">
-<p>
-In order to save having to remember how to use <code>uname</code> and all that, I just have my own little configuration within my shell that I can reference
-</p>
-
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #51afef;">if</span> <span style="color: #c678dd;">string</span> match -q <span style="color: #98be65;">'*microsoft*'</span> -- (<span style="color: #c678dd;">uname</span> -r)
-    <span style="color: #51afef;">set</span> <span style="color: #dcaeea;">OPSYS</span> <span style="color: #98be65;">"windows"</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org024a7b4" class="outline-2">
+        <h2 id="org024a7b4">
+        <span class="section-number-2">2</span>Initialisation</h2>
+        <div class="outline-text-2" id="text-2">
+          <p>This section consists of helpers functions and global
+          variables used by various applications.</p>
+          <p>A few of the helper functions are intended to make
+          sure my configuration acts mostly identical across all
+          machines and OSes without any extra configuration.</p>
+          <p>Whether that statement holds true is&#8230; debatable
+          :)</p>
+        </div>
+        <div id="outline-container-orge067bdf" class="outline-3">
+          <h3 id="orge067bdf">
+          <span class="section-number-3">2.1</span>Determining the
+          current OS</h3>
+          <div class="outline-text-3" id="text-2-1">
+            <p>In order to save having to remember how to use 
+            <code>uname</code>and all that, I just have my own
+            little configuration within my shell that I can
+            reference</p>
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">if</span> 
+<span style="color: #c678dd;">string</span> match -q 
+<span style="color: #98be65;">'*microsoft*'</span> -- (
+<span style="color: #c678dd;">uname</span> -r)
+    
+<span style="color: #51afef;">set</span> 
+<span style="color: #dcaeea;">OPSYS</span> 
+<span style="color: #98be65;">"windows"</span>
 <span style="color: #51afef;">else</span>
-    <span style="color: #51afef;">set</span> <span style="color: #dcaeea;">OPSYS</span> (<span style="color: #c678dd;">string</span> lower (uname))
+    
+<span style="color: #51afef;">set</span> 
+<span style="color: #dcaeea;">OPSYS</span> (
+<span style="color: #c678dd;">string</span> lower (uname))
 <span style="color: #51afef;">end</span>
 </pre>
-</div>
-
-<p>
-Windows is a bit of a misnomer here because what I&rsquo;m really checking for is whether the shell is running inside of <a href="https://docs.microsoft.com/en-us/windows/wsl/about">Windows Subsystem for Linux (WSL)</a>
-</p>
-
-<p>
-Functionally, I can treat WSL and Linux the same (and I do) but there are some minor alterations I make use of, such as pointing the <code>DISPLAY</code> environment variable at an X display server on my host system
-</p>
-
-<p>
-It&rsquo;s worth noting that the value of <code>$OPSYS</code> on <code>macOS</code> is <code>darwin</code>. I could change it to be clearer but <a href="https://en.wikipedia.org/wiki/Darwin_(operating_system)">Darwin</a> is technically the correct name for the base operating system
-</p>
-</div>
-</div>
-
-<div id="outline-container-org841a4da" class="outline-3">
-<h3 id="org841a4da"><span class="section-number-3">2.2</span> Setting my workspace</h3>
-<div class="outline-text-3" id="text-2-2">
-<p>
-All of my development occurs in <code>$HOME/Code</code> regardless of what machine I&rsquo;m on. One day I might change it though hence the variable.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">WORKSPACE</span> ~/Code
+            </div>
+            <p>Windows is a bit of a misnomer here because what
+            I&#8217;m really checking for is whether the shell is
+            running inside of 
+            <a href="https://docs.microsoft.com/en-us/windows/wsl/about">
+            Windows Subsystem for Linux (WSL)</a></p>
+            <p>Functionally, I can treat WSL and Linux the same
+            (and I do) but there are some minor alterations I make
+            use of, such as pointing the 
+            <code>DISPLAY</code>environment variable at an X
+            display server on my host system</p>
+            <p>It&#8217;s worth noting that the value of 
+            <code>$OPSYS</code>on 
+            <code>macOS</code>is 
+            <code>darwin</code>. I could change it to be clearer
+            but 
+            <a href="https://en.wikipedia.org/wiki/Darwin_(operating_system)">
+            Darwin</a>is technically the correct name for the base
+            operating system</p>
+          </div>
+        </div>
+        <div id="outline-container-orgb74efd3" class="outline-3">
+          <h3 id="orgb74efd3">
+          <span class="section-number-3">2.2</span>Setting my
+          workspace</h3>
+          <div class="outline-text-3" id="text-2-2">
+            <p>All of my development occurs in 
+            <code>$HOME/Code</code>regardless of what machine
+            I&#8217;m on. One day I might change it though hence
+            the variable.</p>
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">WORKSPACE</span> ~/Code
 </pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org8ebc9fe" class="outline-3">
-<h3 id="org8ebc9fe"><span class="section-number-3">2.3</span> Setting various global constants</h3>
-<div class="outline-text-3" id="text-2-3">
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">CONFIG_FILE</span> ~/.config/fish/config.<span style="color: #c678dd;">fish</span>
-<span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">CONFIG_SRC</span>  ~/.config/fish/config.org
-<span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">EDITOR</span>      (<span style="color: #c678dd;">command</span> -v emacs)client -c <span style="color: #5B6268;"># </span><span style="color: #5B6268;">(1)</span>
-<span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">GPG_TTY</span>     (<span style="color: #c678dd;">tty</span>)
-<span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">LANGUAGE</span>    <span style="color: #98be65;">"en_NZ:en"</span>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org7e03bc3" class="outline-3">
+          <h3 id="org7e03bc3">
+          <span class="section-number-3">2.3</span>Setting various
+          global constants</h3>
+          <div class="outline-text-3" id="text-2-3">
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">CONFIG_FILE</span>
+~/.config/fish/config.
+<span style="color: #c678dd;">fish</span>
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">CONFIG_SRC</span> 
+~/.config/fish/config.org
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">EDITOR</span>      (
+<span style="color: #c678dd;">command</span> -v emacs)client -c 
+<span style="color: #5B6268;"># </span>
+<span style="color: #5B6268;">(1)</span>
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">GPG_TTY</span>     (
+<span style="color: #c678dd;">tty</span>)
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">LANGUAGE</span>    
+<span style="color: #98be65;">"en_NZ:en"</span>
 </pre>
-</div>
-
-<ol class="org-ol">
-<li><p>
-In some cases, when I compile Emacs, I&rsquo;m not able to find the <code>emacsclient</code> executiable within my path.
-</p>
-
-<p>
-This doesn&rsquo;t really make much sense given <code>emacs</code> and <code>emacsclient</code> tend to live side by side and I don&rsquo;t actually remember the specific details from last time I ran into that problem.
-</p>
-
-<p>
-In the event that happens anyway, this quick hack (find <code>emacs</code> and append &ldquo;client&rdquo; on the end) works in the meantime
-</p></li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-orgfe94053" class="outline-3">
-<h3 id="orgfe94053"><span class="section-number-3">2.4</span> Setting some Windows / WSL specific constants</h3>
-<div class="outline-text-3" id="text-2-4">
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #51afef;">if</span> <span style="color: #51afef;">test</span> <span style="color: #98be65;">$</span><span style="color: #dcaeea;">OPSYS</span> = <span style="color: #98be65;">"windows"</span>
-    <span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">DISPLAY</span> (<span style="color: #c678dd;">cat</span> /etc/resolv.conf <span style="color: #51afef; font-weight: bold;">|</span> <span style="color: #c678dd;">grep</span> nameserver <span style="color: #51afef; font-weight: bold;">|</span> <span style="color: #c678dd;">awk</span> <span style="color: #98be65;">'{print $2; exit;}'</span>):<span style="color: #da8548; font-weight: bold;">0.0</span> <span style="color: #5B6268;"># </span><span style="color: #5B6268;">(1)</span>
-    <span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">BROWSER</span> <span style="color: #98be65;">"/mnt/c/Windows/explorer.exe"</span> <span style="color: #5B6268;"># </span><span style="color: #5B6268;">(2)</span>
+            </div>
+            <ol class="org-ol">
+              <li>
+                <p>In some cases, when I compile Emacs, I&#8217;m
+                not able to find the 
+                <code>emacsclient</code>executiable within my
+                path.</p>
+                <p>This doesn&#8217;t really make much sense given 
+                <code>emacs</code>and 
+                <code>emacsclient</code>tend to live side by side
+                and I don&#8217;t actually remember the specific
+                details from last time I ran into that problem.</p>
+                <p>In the event that happens anyway, this quick
+                hack (find 
+                <code>emacs</code>and append &#8220;client&#8221;
+                on the end) works in the meantime</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div id="outline-container-org842b4b0" class="outline-3">
+          <h3 id="org842b4b0">
+          <span class="section-number-3">2.4</span>Setting some
+          Windows / WSL specific constants</h3>
+          <div class="outline-text-3" id="text-2-4">
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">if</span> 
+<span style="color: #51afef;">test</span> 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">OPSYS</span> = 
+<span style="color: #98be65;">"windows"</span>
+    
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">DISPLAY</span> (
+<span style="color: #c678dd;">cat</span> /etc/resolv.conf 
+<span style="color: #51afef; font-weight: bold;">|</span> 
+<span style="color: #c678dd;">grep</span> nameserver 
+<span style="color: #51afef; font-weight: bold;">|</span> 
+<span style="color: #c678dd;">awk</span> 
+<span style="color: #98be65;">'{print $2; exit;}'</span>):
+<span style="color: #da8548; font-weight: bold;">0.0</span> 
+<span style="color: #5B6268;"># </span>
+<span style="color: #5B6268;">(1)</span>
+    
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">BROWSER</span> 
+<span style="color: #98be65;">"/mnt/c/Windows/explorer.exe"</span> 
+<span style="color: #5B6268;"># </span>
+<span style="color: #5B6268;">(2)</span>
 <span style="color: #51afef;">end</span>
 </pre>
-</div>
-
-
-<ol class="org-ol">
-<li>If I&rsquo;m running on a Windows machine, I run Emacs by starting a daemon inside my terminal and connecting with <code>emacsclient</code>. Doing so spawns a new frame using the X display server running on the Windows host itself</li>
-
-<li>While I don&rsquo;t believe this actually works, I attempt to override the <code>BROWSER</code> environment variable to open links on the Windows host from within Emacs</li>
-</ol>
-</div>
-</div>
-<div id="outline-container-orgf789c85" class="outline-3">
-<h3 id="orgf789c85"><span class="section-number-3">2.5</span> Convenience functions</h3>
-<div class="outline-text-3" id="text-2-5">
-<p>
-I had to remind myself why this exists but it&rsquo;s just a convenience function to make my configuration slightly more readable
-</p>
-
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #c678dd;">alias</span> scut=<span style="color: #98be65;">"abbr -a -g"</span>
+            </div>
+            <ol class="org-ol">
+              <li>If I&#8217;m running on a Windows machine, I run
+              Emacs by starting a daemon inside my terminal and
+              connecting with 
+              <code>emacsclient</code>. Doing so spawns a new frame
+              using the X display server running on the Windows
+              host itself</li>
+              <li>While I don&#8217;t believe this actually works,
+              I attempt to override the 
+              <code>BROWSER</code>environment variable to open
+              links on the Windows host from within Emacs</li>
+            </ol>
+          </div>
+        </div>
+        <div id="outline-container-org2fa17a0" class="outline-3">
+          <h3 id="org2fa17a0">
+          <span class="section-number-3">2.5</span>Convenience
+          functions</h3>
+          <div class="outline-text-3" id="text-2-5">
+            <p>I had to remind myself why this exists but
+            it&#8217;s just a convenience function to make my
+            configuration slightly more readable</p>
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #c678dd;">alias</span> scut=
+<span style="color: #98be65;">"abbr -a -g"</span>
 </pre>
-</div>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orga0505af" class="outline-2">
-<h2 id="orga0505af"><span class="section-number-2">3</span> Applications and Languages</h2>
-<div class="outline-text-2" id="text-3">
-</div>
-<div id="outline-container-orgc03e6c0" class="outline-3">
-<h3 id="orgc03e6c0"><span class="section-number-3">3.1</span> <a href="https://github.com/asdf-vm/asdf">asdf</a></h3>
-<div class="outline-text-3" id="text-3-1">
-<p>
-The version manager to rule them all
-</p>
-
-<p>
-It wraps a number of existing language version managers into plugins that can be managed through one unified CLI tool
-</p>
-
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #51afef;">if</span> <span style="color: #51afef;">test</span> <span style="color: #98be65;">$</span><span style="color: #dcaeea;">OPSYS</span> = <span style="color: #98be65;">"darwin"</span>
-    <span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">ASDF_DIR</span> (<span style="color: #c678dd;">brew</span> --prefix asdf) <span style="color: #5B6268;"># </span><span style="color: #5B6268;">(1)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orga3051e3" class="outline-2">
+        <h2 id="orga3051e3">
+        <span class="section-number-2">3</span>Applications and
+        Languages</h2>
+        <div class="outline-text-2" id="text-3"></div>
+        <div id="outline-container-org98e6c0a" class="outline-3">
+          <h3 id="org98e6c0a">
+            <span class="section-number-3">3.1</span>
+            <a href="https://github.com/asdf-vm/asdf">asdf</a>
+          </h3>
+          <div class="outline-text-3" id="text-3-1">
+            <p>The version manager to rule them all</p>
+            <p>It wraps a number of existing language version
+            managers into plugins that can be managed through one
+            unified CLI tool</p>
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">if</span> 
+<span style="color: #51afef;">test</span> 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">OPSYS</span> = 
+<span style="color: #98be65;">"darwin"</span>
+    
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">ASDF_DIR</span> (
+<span style="color: #c678dd;">brew</span> --prefix asdf) 
+<span style="color: #5B6268;"># </span>
+<span style="color: #5B6268;">(1)</span>
 <span style="color: #51afef;">else</span>
-    <span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">ASDF_DIR</span> ~/.asdf
+    
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">ASDF_DIR</span> ~/.asdf
 <span style="color: #51afef;">end</span>
-<span style="color: #51afef;">if</span> <span style="color: #51afef;">test</span> -e <span style="color: #98be65;">$</span><span style="color: #dcaeea;">ASDF_DIR</span>
-    <span style="color: #c678dd;">source</span> <span style="color: #98be65;">$</span><span style="color: #dcaeea;">ASDF_DIR/asdf</span>.<span style="color: #c678dd;">fish</span>
-    <span style="color: #51afef;">if</span> <span style="color: #51afef; font-weight: bold;">not</span> <span style="color: #51afef;">test</span> -e ~/.config/fish/completions
-        <span style="color: #c678dd;">mkdir</span> -p ~/.config/fish/completions; <span style="color: #51afef;">and</span> <span style="color: #c678dd;">cp</span> ~/.asdf/completions/asdf.<span style="color: #c678dd;">fish</span> ~/.config/fish/completions <span style="color: #5B6268;"># </span><span style="color: #5B6268;">(2)</span>
-    <span style="color: #51afef;">end</span>
+<span style="color: #51afef;">if</span> 
+<span style="color: #51afef;">test</span> -e 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">ASDF_DIR</span>
+    
+<span style="color: #c678dd;">source</span> 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">ASDF_DIR/asdf</span>.
+<span style="color: #c678dd;">fish</span>
+    
+<span style="color: #51afef;">if</span> 
+<span style="color: #51afef; font-weight: bold;">not</span> 
+<span style="color: #51afef;">test</span> -e
+~/.config/fish/completions
+        
+<span style="color: #c678dd;">mkdir</span> -p
+~/.config/fish/completions; 
+<span style="color: #51afef;">and</span> 
+<span style="color: #c678dd;">cp</span> ~/.asdf/completions/asdf.
+<span style="color: #c678dd;">fish</span>
+~/.config/fish/completions 
+<span style="color: #5B6268;"># </span>
+<span style="color: #5B6268;">(2)</span>
+    
+<span style="color: #51afef;">end</span>
 <span style="color: #51afef;">end</span>
 </pre>
-</div>
-
-<ol class="org-ol">
-<li>While I&rsquo;m not sure if it&rsquo;s still the case, there used to be issues with <code>asdf</code> on <code>macOS</code> being unable to find versions installed using Brew as seen <a href="https://github.com/asdf-vm/asdf/issues/425#issuecomment-459751694">here</a></li>
-
-<li>Autocompletions aren&rsquo;t added to Fish so this step, provided by the asdf docs, configures them properly</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-org986601c" class="outline-3">
-<h3 id="org986601c"><span class="section-number-3">3.2</span> <a href="https://dropbox.cm">Dropbox</a></h3>
-<div class="outline-text-3" id="text-3-2">
-<p>
-Depending on which computer I&rsquo;m using, I&rsquo;ll often have my Dropbox in different places
-</p>
-
-<p>
-Historically, it would only be in a different place when using Emacs in WSL (I store my org stuff in Dropbox)
-</p>
-
-<p>
-I&rsquo;m currently in the process of moving to Dropbox within WSL though, which will mean that all version of Dropbox will live in <code>$HOME/Dropbox</code>
-</p>
-
-<p>
-The reason for that is because file operations across WSL boundaries (ie anything on the C:\ Drive) is super slow compared to staying within the boundaries
-</p>
-
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #51afef;">if</span> <span style="color: #51afef;">test</span> <span style="color: #98be65;">$</span><span style="color: #dcaeea;">OPSYS</span> = <span style="color: #98be65;">"windows"</span>; <span style="color: #51afef;">and</span> <span style="color: #51afef;">test</span> <span style="color: #98be65;">$</span><span style="color: #dcaeea;">NAME</span> != <span style="color: #98be65;">"epitaph"</span>
-    <span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">DROPBOX_DIR</span> /mnt/c/Users/marcus.crane/Dropbox
+            </div>
+            <ol class="org-ol">
+              <li>While I&#8217;m not sure if it&#8217;s still the
+              case, there used to be issues with 
+              <code>asdf</code>on 
+              <code>macOS</code>being unable to find versions
+              installed using Brew as seen 
+              <a href="https://github.com/asdf-vm/asdf/issues/425#issuecomment-459751694">
+              here</a></li>
+              <li>Autocompletions aren&#8217;t added to Fish so
+              this step, provided by the asdf docs, configures them
+              properly</li>
+            </ol>
+          </div>
+        </div>
+        <div id="outline-container-org1c9352d" class="outline-3">
+          <h3 id="org1c9352d">
+          <span class="section-number-3">3.2</span>Dart</h3>
+          <div class="outline-text-3" id="text-3-2">
+            <p>Google&#8217;s language for building cross-platform
+            applications</p>
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">if</span> 
+<span style="color: #51afef;">test</span> -e 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">ASDF_DIR</span>; 
+<span style="color: #51afef;">and</span> 
+<span style="color: #51afef;">test</span> -e 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">ASDF_DIR/plugins/dart</span>
+    
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-xg</span> 
+<span style="color: #dcaeea;">PATH</span> (
+<span style="color: #c678dd;">asdf</span> where dart)/bin 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">PATH</span>
+<span style="color: #51afef;">end</span>
+</pre>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgaa00883" class="outline-3">
+          <h3 id="orgaa00883">
+            <span class="section-number-3">3.3</span>
+            <a href="https://dropbox.cm">Dropbox</a>
+          </h3>
+          <div class="outline-text-3" id="text-3-3">
+            <p>Depending on which computer I&#8217;m using,
+            I&#8217;ll often have my Dropbox in different
+            places</p>
+            <p>Historically, it would only be in a different place
+            when using Emacs in WSL (I store my org stuff in
+            Dropbox)</p>
+            <p>I&#8217;m currently in the process of moving to
+            Dropbox within WSL though, which will mean that all
+            version of Dropbox will live in 
+            <code>$HOME/Dropbox</code></p>
+            <p>The reason for that is because file operations
+            across WSL boundaries (ie anything on the C:\ Drive) is
+            super slow compared to staying within the
+            boundaries</p>
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">if</span> 
+<span style="color: #51afef;">test</span> 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">OPSYS</span> = 
+<span style="color: #98be65;">"windows"</span>; 
+<span style="color: #51afef;">and</span> 
+<span style="color: #51afef;">test</span> 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">NAME</span> != 
+<span style="color: #98be65;">"epitaph"</span>
+    
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">DROPBOX_DIR</span>
+/mnt/c/Users/marcus.crane/Dropbox
 <span style="color: #51afef;">else</span>
-    <span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">DROPBOX_DIR</span> ~/Dropbox
+    
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">DROPBOX_DIR</span> ~/Dropbox
 <span style="color: #51afef;">end</span>
 </pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgf987523" class="outline-3">
-<h3 id="orgf987523"><span class="section-number-3">3.3</span> Emacs</h3>
-<div class="outline-text-3" id="text-3-3">
-<p>
-I&rsquo;ll probably configure this a fair bit more but for now, I just shorten the name of <code>emacsclient</code>
-</p>
-
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #c678dd;">scut</span> ec <span style="color: #98be65;">$</span><span style="color: #dcaeea;">EDITOR</span>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgdca44a5" class="outline-3">
+          <h3 id="orgdca44a5">
+          <span class="section-number-3">3.4</span>Emacs</h3>
+          <div class="outline-text-3" id="text-3-4">
+            <p>I&#8217;ll probably configure this a fair bit more
+            but for now, I just shorten the name of 
+            <code>emacsclient</code></p>
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #c678dd;">scut</span> ec 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">EDITOR</span>
 </pre>
-</div>
-</div>
-</div>
-<div id="outline-container-orgc16ce58" class="outline-3">
-<h3 id="orgc16ce58"><span class="section-number-3">3.4</span> Erlang</h3>
-<div class="outline-text-3" id="text-3-4">
-<p>
-Whenever I compile <code>erlang</code> (using <code>asdf</code>), I always use the same flags so it&rsquo;s easier to just set them within my shell
-</p>
-
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">KERL_CONFIGURE_OPTIONS</span> <span style="color: #98be65;">"--disable-debug --without-javac"</span>
-<span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">KERL_BUILD_DOCS</span> <span style="color: #98be65;">"yes"</span>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgf613c19" class="outline-3">
+          <h3 id="orgf613c19">
+          <span class="section-number-3">3.5</span>Erlang</h3>
+          <div class="outline-text-3" id="text-3-5">
+            <p>Whenever I compile 
+            <code>erlang</code>(using 
+            <code>asdf</code>), I always use the same flags so
+            it&#8217;s easier to just set them within my shell</p>
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">KERL_CONFIGURE_OPTIONS</span> 
+<span style="color: #98be65;">"--disable-debug
+--without-javac"</span>
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">KERL_BUILD_DOCS</span> 
+<span style="color: #98be65;">"yes"</span>
 </pre>
-</div>
-</div>
-</div>
-<div id="outline-container-orgf23f971" class="outline-3">
-<h3 id="orgf23f971"><span class="section-number-3">3.5</span> git</h3>
-<div class="outline-text-3" id="text-3-5">
-<p>
-To save me having to set up each machine, I just set my Git identifiers each time
-</p>
-
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #c678dd;">git</span> config --global user.name <span style="color: #98be65;">"Marcus Crane"</span>
-<span style="color: #c678dd;">git</span> config --global user.email <span style="color: #98be65;">"marcus@utf9k.net"</span>
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org3a49140" class="outline-3">
-<h3 id="org3a49140"><span class="section-number-3">3.6</span> go</h3>
-<div class="outline-text-3" id="text-3-6">
-<p>
-While I don&rsquo;t write much golang, it&rsquo;s kind of annoying to set it up each time so I just leave working configuration in each of my shells in the event that I decide to do anything golang related
-</p>
-
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">GOPATH</span> <span style="color: #98be65;">$</span><span style="color: #dcaeea;">WORKSPACE/go</span>
-<span style="color: #51afef;">if</span> <span style="color: #51afef;">test</span> -e <span style="color: #98be65;">$</span><span style="color: #dcaeea;">ASDF_DIR</span>; <span style="color: #51afef;">and</span> <span style="color: #51afef;">test</span> -e <span style="color: #98be65;">$</span><span style="color: #dcaeea;">ASDF_DIR/plugins/golang</span>
-    <span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">GOROOT</span> (<span style="color: #c678dd;">asdf</span> where golang)/go
-<span style="color: #51afef;">end</span>
-<span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-xg</span> <span style="color: #dcaeea;">PATH</span> <span style="color: #98be65;">$</span><span style="color: #dcaeea;">GOPATH/bin</span> <span style="color: #98be65;">$</span><span style="color: #dcaeea;">GOROOT</span> <span style="color: #98be65;">$</span><span style="color: #dcaeea;">PATH</span>
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-org9f8f66e" class="outline-3">
-<h3 id="org9f8f66e"><span class="section-number-3">3.7</span> Homebrew</h3>
-<div class="outline-text-3" id="text-3-7">
-<p>
-Sometimes I have trouble with rsync which is about the only thing that this snippet fixes
-</p>
-
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #51afef;">if</span> <span style="color: #51afef;">test</span> <span style="color: #98be65;">$</span><span style="color: #dcaeea;">OPSYS</span> = <span style="color: #98be65;">"darwin"</span>
-    <span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-xg</span> <span style="color: #dcaeea;">PATH</span> /usr/bin/local <span style="color: #98be65;">$</span><span style="color: #dcaeea;">PATH</span>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org93d1610" class="outline-3">
+          <h3 id="org93d1610">
+          <span class="section-number-3">3.6</span>Flutter</h3>
+          <div class="outline-text-3" id="text-3-6">
+            <p>Google&#8217;s framework for building cross-platform
+            applications</p>
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">if</span> 
+<span style="color: #51afef;">test</span> -e 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">ASDF_DIR</span>; 
+<span style="color: #51afef;">and</span> 
+<span style="color: #51afef;">test</span> -e 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">ASDF_DIR/plugins/flutter</span>
+    
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-xg</span> 
+<span style="color: #dcaeea;">PATH</span> (
+<span style="color: #c678dd;">asdf</span> where flutter)/bin 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">PATH</span>
 <span style="color: #51afef;">end</span>
 </pre>
-</div>
-</div>
-</div>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org56e4a71" class="outline-3">
+          <h3 id="org56e4a71">
+          <span class="section-number-3">3.7</span>git</h3>
+          <div class="outline-text-3" id="text-3-7">
+            <p>To save me having to set up each machine, I just set
+            my Git identifiers each time</p>
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #c678dd;">git</span> config --global user.name 
+<span style="color: #98be65;">"Marcus Crane"</span>
+<span style="color: #c678dd;">git</span> config --global user.email
 
-<div id="outline-container-org18b2933" class="outline-3">
-<h3 id="org18b2933"><span class="section-number-3">3.8</span> Python</h3>
-<div class="outline-text-3" id="text-3-8">
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #51afef;">if</span> <span style="color: #51afef;">test</span> -e <span style="color: #98be65;">$</span><span style="color: #dcaeea;">ASDF_DIR</span>; <span style="color: #51afef;">and</span> <span style="color: #51afef;">test</span> -e <span style="color: #98be65;">$</span><span style="color: #dcaeea;">ASDF_DIR/plugins/python</span>
-    <span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-xg</span> <span style="color: #dcaeea;">PATH</span> (<span style="color: #c678dd;">asdf</span> where python)/bin <span style="color: #98be65;">$</span><span style="color: #dcaeea;">PATH</span>
+<span style="color: #98be65;">"marcus@utf9k.net"</span>
+</pre>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgc1e0fdc" class="outline-3">
+          <h3 id="orgc1e0fdc">
+          <span class="section-number-3">3.8</span>go</h3>
+          <div class="outline-text-3" id="text-3-8">
+            <p>While I don&#8217;t write much golang, it&#8217;s
+            kind of annoying to set it up each time so I just leave
+            working configuration in each of my shells in the event
+            that I decide to do anything golang related</p>
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">GOPATH</span> 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">WORKSPACE/go</span>
+<span style="color: #51afef;">if</span> 
+<span style="color: #51afef;">test</span> -e 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">ASDF_DIR</span>; 
+<span style="color: #51afef;">and</span> 
+<span style="color: #51afef;">test</span> -e 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">ASDF_DIR/plugins/golang</span>
+    
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-x</span> 
+<span style="color: #dcaeea;">GOROOT</span> (
+<span style="color: #c678dd;">asdf</span> where golang)/go
+<span style="color: #51afef;">end</span>
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-xg</span> 
+<span style="color: #dcaeea;">PATH</span> 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">GOPATH/bin</span> 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">GOROOT</span> 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">PATH</span>
+</pre>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org853f94c" class="outline-3">
+          <h3 id="org853f94c">
+          <span class="section-number-3">3.9</span>Homebrew</h3>
+          <div class="outline-text-3" id="text-3-9">
+            <p>Sometimes I have trouble with rsync which is about
+            the only thing that this snippet fixes</p>
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">if</span> 
+<span style="color: #51afef;">test</span> 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">OPSYS</span> = 
+<span style="color: #98be65;">"darwin"</span>
+    
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-xg</span> 
+<span style="color: #dcaeea;">PATH</span> /usr/bin/local 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">PATH</span>
 <span style="color: #51afef;">end</span>
 </pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org38382b7" class="outline-3">
-<h3 id="org38382b7"><span class="section-number-3">3.9</span> Rust</h3>
-<div class="outline-text-3" id="text-3-9">
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #51afef;">if</span> <span style="color: #51afef;">test</span> -e <span style="color: #98be65;">$</span><span style="color: #dcaeea;">ASDF_DIR</span>; <span style="color: #51afef;">and</span> <span style="color: #51afef;">test</span> -e <span style="color: #98be65;">$</span><span style="color: #dcaeea;">ASDF_DIR/plugins/rust</span>
-    <span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-xg</span> <span style="color: #dcaeea;">PATH</span> (<span style="color: #c678dd;">asdf</span> where rust)/bin <span style="color: #98be65;">$</span><span style="color: #dcaeea;">PATH</span>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgb181f2e" class="outline-3">
+          <h3 id="orgb181f2e">
+          <span class="section-number-3">3.10</span>Python</h3>
+          <div class="outline-text-3" id="text-3-10">
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">if</span> 
+<span style="color: #51afef;">test</span> -e 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">ASDF_DIR</span>; 
+<span style="color: #51afef;">and</span> 
+<span style="color: #51afef;">test</span> -e 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">ASDF_DIR/plugins/python</span>
+    
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-xg</span> 
+<span style="color: #dcaeea;">PATH</span> (
+<span style="color: #c678dd;">asdf</span> where python)/bin 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">PATH</span>
 <span style="color: #51afef;">end</span>
 </pre>
-</div>
-</div>
-</div>
-</div>
-<div id="outline-container-orgd4feb90" class="outline-2">
-<h2 id="orgd4feb90"><span class="section-number-2">4</span> Shortcuts</h2>
-<div class="outline-text-2" id="text-4">
-<p>
-A whole bunch of shortcuts, or as fish calls them, &ldquo;abbreviations&rdquo;
-</p>
-
-<div class="org-src-container">
-<pre class="src src-fish"><span style="color: #c678dd;">scut</span> ae      <span style="color: #98be65;">"deactivate &amp;&gt; /dev/null; source ./venv/bin/activate"</span>
-<span style="color: #c678dd;">scut</span> de      <span style="color: #98be65;">"deactivate &amp;&gt; /dev/null"</span>
-<span style="color: #c678dd;">scut</span> edit    <span style="color: #98be65;">"$EDITOR $CONFIG_SRC"</span>
-<span style="color: #c678dd;">scut</span> gb      <span style="color: #98be65;">"git branch -v"</span>
-<span style="color: #c678dd;">scut</span> gcm     <span style="color: #98be65;">"git commit -Si"</span>
-<span style="color: #c678dd;">scut</span> gr      <span style="color: #98be65;">"git remote -v"</span>
-<span style="color: #c678dd;">scut</span> gst     <span style="color: #98be65;">"git status"</span>
-<span style="color: #c678dd;">scut</span> pap     <span style="color: #98be65;">"git pull upstream master &amp;&amp; git push origin master"</span>
-<span style="color: #c678dd;">scut</span> refresh <span style="color: #98be65;">"tangle $CONFIG_SRC &amp;&amp; stow fish -d ~/dotfiles &amp;&amp; source $CONFIG_FILE"</span>
-<span style="color: #c678dd;">scut</span> venv    <span style="color: #98be65;">"python3 -m virtualenv venv &amp;&amp; ae"</span>
-<span style="color: #c678dd;">scut</span> vi      <span style="color: #98be65;">"nvim"</span>
-<span style="color: #c678dd;">scut</span> view    <span style="color: #98be65;">"less $CONFIG_FILE"</span>
-<span style="color: #c678dd;">scut</span> vim     <span style="color: #98be65;">"nvim"</span>
-<span style="color: #c678dd;">scut</span> ws      <span style="color: #98be65;">"cd $WORKSPACE"</span>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orga7298e8" class="outline-3">
+          <h3 id="orga7298e8">
+          <span class="section-number-3">3.11</span>Rust</h3>
+          <div class="outline-text-3" id="text-3-11">
+            <div class="org-src-container">
+              <pre class="src src-fish">
+<span style="color: #51afef;">if</span> 
+<span style="color: #51afef;">test</span> -e 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">ASDF_DIR</span>; 
+<span style="color: #51afef;">and</span> 
+<span style="color: #51afef;">test</span> -e 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">ASDF_DIR/plugins/rust</span>
+    
+<span style="color: #51afef;">set</span> 
+<span style="color: #51afef; font-weight: bold;">-xg</span> 
+<span style="color: #dcaeea;">PATH</span> (
+<span style="color: #c678dd;">asdf</span> where rust)/bin 
+<span style="color: #98be65;">$</span>
+<span style="color: #dcaeea;">PATH</span>
+<span style="color: #51afef;">end</span>
 </pre>
-</div>
-</div>
-</div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Marcus Crane</p>
-<p class="date">Created: 2020-07-06 Mon 16:40</p>
-</div>
-</body>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgd0bd617" class="outline-2">
+        <h2 id="orgd0bd617">
+        <span class="section-number-2">4</span>Shortcuts</h2>
+        <div class="outline-text-2" id="text-4">
+          <p>A whole bunch of shortcuts, or as fish calls them,
+          &#8220;abbreviations&#8221;</p>
+          <div class="org-src-container">
+            <pre class="src src-fish">
+<span style="color: #c678dd;">scut</span> ae      
+<span style="color: #98be65;">"deactivate &amp;&gt; /dev/null;
+source ./venv/bin/activate"</span>
+<span style="color: #c678dd;">scut</span> de      
+<span style="color: #98be65;">"deactivate &amp;&gt;
+/dev/null"</span>
+<span style="color: #c678dd;">scut</span> edit    
+<span style="color: #98be65;">"$EDITOR $CONFIG_SRC"</span>
+<span style="color: #c678dd;">scut</span> gb      
+<span style="color: #98be65;">"git branch -v"</span>
+<span style="color: #c678dd;">scut</span> gcm     
+<span style="color: #98be65;">"git commit -Si"</span>
+<span style="color: #c678dd;">scut</span> gr      
+<span style="color: #98be65;">"git remote -v"</span>
+<span style="color: #c678dd;">scut</span> gst     
+<span style="color: #98be65;">"git status"</span>
+<span style="color: #c678dd;">scut</span> pap     
+<span style="color: #98be65;">"git pull upstream master &amp;&amp;
+git push origin master"</span>
+<span style="color: #c678dd;">scut</span> refresh 
+<span style="color: #98be65;">"tangle $CONFIG_SRC &amp;&amp; stow
+fish -d ~/dotfiles &amp;&amp; source $CONFIG_FILE"</span>
+<span style="color: #c678dd;">scut</span> venv    
+<span style="color: #98be65;">"python3 -m virtualenv venv
+&amp;&amp; ae"</span>
+<span style="color: #c678dd;">scut</span> vi      
+<span style="color: #98be65;">"nvim"</span>
+<span style="color: #c678dd;">scut</span> view    
+<span style="color: #98be65;">"less $CONFIG_FILE"</span>
+<span style="color: #c678dd;">scut</span> vim     
+<span style="color: #98be65;">"nvim"</span>
+<span style="color: #c678dd;">scut</span> ws      
+<span style="color: #98be65;">"cd $WORKSPACE"</span>
+</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <p class="author">Author: Marcus Crane</p>
+      <p class="date">Created: 2020-07-06 Mon 23:09</p>
+    </div>
+  </body>
 </html>
