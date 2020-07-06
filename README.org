@@ -1,5 +1,7 @@
 #+title: dotfiles
 
+Want to browse this repo like a website? Start [[https://dots.utf9k.net/][here]]
+
 I recently came across [[https://twitter.com/brandoninvergo][Brandon Invergo]]'s [[http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html][blog post]] about [[https://www.gnu.org/software/stow/][GNU Stow]] after battling with dotfile configuration for quite some time.
 
 The top level files are simply categories and running ~stow {folder name}~ on them will symlink the contents to ~$HOME~.
