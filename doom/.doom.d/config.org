@@ -1,6 +1,7 @@
 #+title: My Doom Emacs configuration
 #+options: toc:2
 #+property: header-args :tangle config.el
+#+setupfile: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
 * General setup
 ** Header comment
@@ -469,3 +470,7 @@ Shamelessly copied from Jethro Kuan's dotfiles
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
 #+end_src
+
+# Local variables:
+# eval: (add-hook 'after-save-hook 'org-html-export-to-html t t)
+# end:
