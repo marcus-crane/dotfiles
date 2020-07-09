@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-07-06 Mon 16:40 -->
+<!-- 2020-07-09 Thu 16:11 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My Fish configuration</title>
@@ -231,35 +231,36 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga94184c">1. Setting up PATHS</a>
+<li><a href="#orgf1da446">1. Setting up PATHS</a>
 <ul>
-<li><a href="#orgd499e7c">1.1. Universal system folders</a></li>
-<li><a href="#org1295cc4">1.2. macOS specific items</a></li>
+<li><a href="#org5343e2c">1.1. Universal system folders</a></li>
+<li><a href="#org111abdd">1.2. macOS specific items</a></li>
 </ul>
 </li>
-<li><a href="#orgafd7670">2. Initialisation</a>
+<li><a href="#orge3e895d">2. Initialisation</a>
 <ul>
-<li><a href="#orgb6c1ff9">2.1. Determining the current OS</a></li>
-<li><a href="#org841a4da">2.2. Setting my workspace</a></li>
-<li><a href="#org8ebc9fe">2.3. Setting various global constants</a></li>
-<li><a href="#orgfe94053">2.4. Setting some Windows / WSL specific constants</a></li>
-<li><a href="#orgf789c85">2.5. Convenience functions</a></li>
+<li><a href="#orgcba7a79">2.1. Determining the current OS</a></li>
+<li><a href="#org5e510db">2.2. Setting my workspace</a></li>
+<li><a href="#org2c4e068">2.3. Setting various global constants</a></li>
+<li><a href="#org5644b31">2.4. Setting some Windows / WSL specific constants</a></li>
+<li><a href="#orgc2d324f">2.5. Convenience functions</a></li>
+<li><a href="#orgbfdd9e5">2.6. Bootstrapping Fisher</a></li>
 </ul>
 </li>
-<li><a href="#orga0505af">3. Applications and Languages</a>
+<li><a href="#orgd56da5d">3. Applications and Languages</a>
 <ul>
-<li><a href="#orgc03e6c0">3.1. asdf</a></li>
-<li><a href="#org986601c">3.2. Dropbox</a></li>
-<li><a href="#orgf987523">3.3. Emacs</a></li>
-<li><a href="#orgc16ce58">3.4. Erlang</a></li>
-<li><a href="#orgf23f971">3.5. git</a></li>
-<li><a href="#org3a49140">3.6. go</a></li>
-<li><a href="#org9f8f66e">3.7. Homebrew</a></li>
-<li><a href="#org18b2933">3.8. Python</a></li>
-<li><a href="#org38382b7">3.9. Rust</a></li>
+<li><a href="#org78a815a">3.1. asdf</a></li>
+<li><a href="#org49c6074">3.2. Dropbox</a></li>
+<li><a href="#orgff8aa71">3.3. Emacs</a></li>
+<li><a href="#orgd2b28e8">3.4. Erlang</a></li>
+<li><a href="#org887fcf3">3.5. git</a></li>
+<li><a href="#orgd53443d">3.6. go</a></li>
+<li><a href="#org09a9f9e">3.7. Homebrew</a></li>
+<li><a href="#org99d1a94">3.8. Python</a></li>
+<li><a href="#org0260843">3.9. Rust</a></li>
 </ul>
 </li>
-<li><a href="#orgd4feb90">4. Shortcuts</a></li>
+<li><a href="#orga1a907b">4. Shortcuts</a></li>
 </ul>
 </div>
 </div>
@@ -267,12 +268,12 @@
 Welcome to my configuration. It&rsquo;s always a work in progress.
 </p>
 
-<div id="outline-container-orga94184c" class="outline-2">
-<h2 id="orga94184c"><span class="section-number-2">1</span> Setting up PATHS</h2>
+<div id="outline-container-orgf1da446" class="outline-2">
+<h2 id="orgf1da446"><span class="section-number-2">1</span> Setting up PATHS</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgd499e7c" class="outline-3">
-<h3 id="orgd499e7c"><span class="section-number-3">1.1</span> Universal system folders</h3>
+<div id="outline-container-org5343e2c" class="outline-3">
+<h3 id="org5343e2c"><span class="section-number-3">1.1</span> Universal system folders</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 These paths generally exist on most every system so we&rsquo;ll set them separate from other PATH additions.
@@ -285,8 +286,8 @@ These paths generally exist on most every system so we&rsquo;ll set them separat
 </div>
 </div>
 
-<div id="outline-container-org1295cc4" class="outline-3">
-<h3 id="org1295cc4"><span class="section-number-3">1.2</span> macOS specific items</h3>
+<div id="outline-container-org111abdd" class="outline-3">
+<h3 id="org111abdd"><span class="section-number-3">1.2</span> macOS specific items</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 At first glance, having two references to <code>Emacs.app</code> seems silly but the <code>emacs</code> and <code>emacsclient</code> executables live in separate directories. How annoying!
@@ -299,8 +300,8 @@ At first glance, having two references to <code>Emacs.app</code> seems silly but
 </div>
 </div>
 </div>
-<div id="outline-container-orgafd7670" class="outline-2">
-<h2 id="orgafd7670"><span class="section-number-2">2</span> Initialisation</h2>
+<div id="outline-container-orge3e895d" class="outline-2">
+<h2 id="orge3e895d"><span class="section-number-2">2</span> Initialisation</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 This section consists of helpers functions and global variables used by various applications.
@@ -315,8 +316,8 @@ Whether that statement holds true is&#x2026; debatable :)
 </p>
 </div>
 
-<div id="outline-container-orgb6c1ff9" class="outline-3">
-<h3 id="orgb6c1ff9"><span class="section-number-3">2.1</span> Determining the current OS</h3>
+<div id="outline-container-orgcba7a79" class="outline-3">
+<h3 id="orgcba7a79"><span class="section-number-3">2.1</span> Determining the current OS</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 In order to save having to remember how to use <code>uname</code> and all that, I just have my own little configuration within my shell that I can reference
@@ -345,8 +346,8 @@ It&rsquo;s worth noting that the value of <code>$OPSYS</code> on <code>macOS</co
 </div>
 </div>
 
-<div id="outline-container-org841a4da" class="outline-3">
-<h3 id="org841a4da"><span class="section-number-3">2.2</span> Setting my workspace</h3>
+<div id="outline-container-org5e510db" class="outline-3">
+<h3 id="org5e510db"><span class="section-number-3">2.2</span> Setting my workspace</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 All of my development occurs in <code>$HOME/Code</code> regardless of what machine I&rsquo;m on. One day I might change it though hence the variable.
@@ -359,8 +360,8 @@ All of my development occurs in <code>$HOME/Code</code> regardless of what machi
 </div>
 </div>
 
-<div id="outline-container-org8ebc9fe" class="outline-3">
-<h3 id="org8ebc9fe"><span class="section-number-3">2.3</span> Setting various global constants</h3>
+<div id="outline-container-org2c4e068" class="outline-3">
+<h3 id="org2c4e068"><span class="section-number-3">2.3</span> Setting various global constants</h3>
 <div class="outline-text-3" id="text-2-3">
 <div class="org-src-container">
 <pre class="src src-fish"><span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-x</span> <span style="color: #dcaeea;">CONFIG_FILE</span> ~/.config/fish/config.<span style="color: #c678dd;">fish</span>
@@ -387,8 +388,8 @@ In the event that happens anyway, this quick hack (find <code>emacs</code> and a
 </div>
 </div>
 
-<div id="outline-container-orgfe94053" class="outline-3">
-<h3 id="orgfe94053"><span class="section-number-3">2.4</span> Setting some Windows / WSL specific constants</h3>
+<div id="outline-container-org5644b31" class="outline-3">
+<h3 id="org5644b31"><span class="section-number-3">2.4</span> Setting some Windows / WSL specific constants</h3>
 <div class="outline-text-3" id="text-2-4">
 <div class="org-src-container">
 <pre class="src src-fish"><span style="color: #51afef;">if</span> <span style="color: #51afef;">test</span> <span style="color: #98be65;">$</span><span style="color: #dcaeea;">OPSYS</span> = <span style="color: #98be65;">"windows"</span>
@@ -406,8 +407,8 @@ In the event that happens anyway, this quick hack (find <code>emacs</code> and a
 </ol>
 </div>
 </div>
-<div id="outline-container-orgf789c85" class="outline-3">
-<h3 id="orgf789c85"><span class="section-number-3">2.5</span> Convenience functions</h3>
+<div id="outline-container-orgc2d324f" class="outline-3">
+<h3 id="orgc2d324f"><span class="section-number-3">2.5</span> Convenience functions</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
 I had to remind myself why this exists but it&rsquo;s just a convenience function to make my configuration slightly more readable
@@ -419,14 +420,34 @@ I had to remind myself why this exists but it&rsquo;s just a convenience functio
 </div>
 </div>
 </div>
-</div>
+<div id="outline-container-orgbfdd9e5" class="outline-3">
+<h3 id="orgbfdd9e5"><span class="section-number-3">2.6</span> Bootstrapping Fisher</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+<a href="https://github.com/jorgebucaran/fisher">Fisher</a> is a package manager for the fish shell, which makes installing small plugins a lot easier
+</p>
 
-<div id="outline-container-orga0505af" class="outline-2">
-<h2 id="orga0505af"><span class="section-number-2">3</span> Applications and Languages</h2>
+<p>
+I won&rsquo;t have it installed by default on any new machines so we can automatically correct that based on the suggestion <a href="https://github.com/jorgebucaran/fisher#bootstrap-installation">here</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-fish"><span style="color: #51afef;">if</span> <span style="color: #51afef; font-weight: bold;">not</span> <span style="color: #c678dd;">functions</span> -q fisher
+    <span style="color: #51afef;">set</span> <span style="color: #51afef; font-weight: bold;">-q</span> <span style="color: #dcaeea;">XDG_CONFIG_HOME</span>; <span style="color: #51afef;">or</span> <span style="color: #51afef;">set</span> <span style="color: #dcaeea;">XDG_CONFIG_HOME</span> ~/.config
+    <span style="color: #c678dd;">curl</span> https://git.io/fisher --create-dirs -sLo <span style="color: #98be65;">$</span><span style="color: #dcaeea;">XDG_CONFIG_HOME/fish/functions/fisher</span>.<span style="color: #c678dd;">fish</span>
+    <span style="color: #c678dd;">fish</span> -c fisher
+<span style="color: #51afef;">end</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd56da5d" class="outline-2">
+<h2 id="orgd56da5d"><span class="section-number-2">3</span> Applications and Languages</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgc03e6c0" class="outline-3">
-<h3 id="orgc03e6c0"><span class="section-number-3">3.1</span> <a href="https://github.com/asdf-vm/asdf">asdf</a></h3>
+<div id="outline-container-org78a815a" class="outline-3">
+<h3 id="org78a815a"><span class="section-number-3">3.1</span> <a href="https://github.com/asdf-vm/asdf">asdf</a></h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 The version manager to rule them all
@@ -459,8 +480,8 @@ It wraps a number of existing language version managers into plugins that can be
 </div>
 </div>
 
-<div id="outline-container-org986601c" class="outline-3">
-<h3 id="org986601c"><span class="section-number-3">3.2</span> <a href="https://dropbox.cm">Dropbox</a></h3>
+<div id="outline-container-org49c6074" class="outline-3">
+<h3 id="org49c6074"><span class="section-number-3">3.2</span> <a href="https://dropbox.cm">Dropbox</a></h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Depending on which computer I&rsquo;m using, I&rsquo;ll often have my Dropbox in different places
@@ -489,8 +510,8 @@ The reason for that is because file operations across WSL boundaries (ie anythin
 </div>
 </div>
 
-<div id="outline-container-orgf987523" class="outline-3">
-<h3 id="orgf987523"><span class="section-number-3">3.3</span> Emacs</h3>
+<div id="outline-container-orgff8aa71" class="outline-3">
+<h3 id="orgff8aa71"><span class="section-number-3">3.3</span> Emacs</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 I&rsquo;ll probably configure this a fair bit more but for now, I just shorten the name of <code>emacsclient</code>
@@ -502,8 +523,8 @@ I&rsquo;ll probably configure this a fair bit more but for now, I just shorten t
 </div>
 </div>
 </div>
-<div id="outline-container-orgc16ce58" class="outline-3">
-<h3 id="orgc16ce58"><span class="section-number-3">3.4</span> Erlang</h3>
+<div id="outline-container-orgd2b28e8" class="outline-3">
+<h3 id="orgd2b28e8"><span class="section-number-3">3.4</span> Erlang</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 Whenever I compile <code>erlang</code> (using <code>asdf</code>), I always use the same flags so it&rsquo;s easier to just set them within my shell
@@ -516,8 +537,8 @@ Whenever I compile <code>erlang</code> (using <code>asdf</code>), I always use t
 </div>
 </div>
 </div>
-<div id="outline-container-orgf23f971" class="outline-3">
-<h3 id="orgf23f971"><span class="section-number-3">3.5</span> git</h3>
+<div id="outline-container-org887fcf3" class="outline-3">
+<h3 id="org887fcf3"><span class="section-number-3">3.5</span> git</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 To save me having to set up each machine, I just set my Git identifiers each time
@@ -531,8 +552,8 @@ To save me having to set up each machine, I just set my Git identifiers each tim
 </div>
 </div>
 
-<div id="outline-container-org3a49140" class="outline-3">
-<h3 id="org3a49140"><span class="section-number-3">3.6</span> go</h3>
+<div id="outline-container-orgd53443d" class="outline-3">
+<h3 id="orgd53443d"><span class="section-number-3">3.6</span> go</h3>
 <div class="outline-text-3" id="text-3-6">
 <p>
 While I don&rsquo;t write much golang, it&rsquo;s kind of annoying to set it up each time so I just leave working configuration in each of my shells in the event that I decide to do anything golang related
@@ -548,8 +569,8 @@ While I don&rsquo;t write much golang, it&rsquo;s kind of annoying to set it up 
 </div>
 </div>
 </div>
-<div id="outline-container-org9f8f66e" class="outline-3">
-<h3 id="org9f8f66e"><span class="section-number-3">3.7</span> Homebrew</h3>
+<div id="outline-container-org09a9f9e" class="outline-3">
+<h3 id="org09a9f9e"><span class="section-number-3">3.7</span> Homebrew</h3>
 <div class="outline-text-3" id="text-3-7">
 <p>
 Sometimes I have trouble with rsync which is about the only thing that this snippet fixes
@@ -564,8 +585,8 @@ Sometimes I have trouble with rsync which is about the only thing that this snip
 </div>
 </div>
 
-<div id="outline-container-org18b2933" class="outline-3">
-<h3 id="org18b2933"><span class="section-number-3">3.8</span> Python</h3>
+<div id="outline-container-org99d1a94" class="outline-3">
+<h3 id="org99d1a94"><span class="section-number-3">3.8</span> Python</h3>
 <div class="outline-text-3" id="text-3-8">
 <div class="org-src-container">
 <pre class="src src-fish"><span style="color: #51afef;">if</span> <span style="color: #51afef;">test</span> -e <span style="color: #98be65;">$</span><span style="color: #dcaeea;">ASDF_DIR</span>; <span style="color: #51afef;">and</span> <span style="color: #51afef;">test</span> -e <span style="color: #98be65;">$</span><span style="color: #dcaeea;">ASDF_DIR/plugins/python</span>
@@ -576,8 +597,8 @@ Sometimes I have trouble with rsync which is about the only thing that this snip
 </div>
 </div>
 
-<div id="outline-container-org38382b7" class="outline-3">
-<h3 id="org38382b7"><span class="section-number-3">3.9</span> Rust</h3>
+<div id="outline-container-org0260843" class="outline-3">
+<h3 id="org0260843"><span class="section-number-3">3.9</span> Rust</h3>
 <div class="outline-text-3" id="text-3-9">
 <div class="org-src-container">
 <pre class="src src-fish"><span style="color: #51afef;">if</span> <span style="color: #51afef;">test</span> -e <span style="color: #98be65;">$</span><span style="color: #dcaeea;">ASDF_DIR</span>; <span style="color: #51afef;">and</span> <span style="color: #51afef;">test</span> -e <span style="color: #98be65;">$</span><span style="color: #dcaeea;">ASDF_DIR/plugins/rust</span>
@@ -588,8 +609,8 @@ Sometimes I have trouble with rsync which is about the only thing that this snip
 </div>
 </div>
 </div>
-<div id="outline-container-orgd4feb90" class="outline-2">
-<h2 id="orgd4feb90"><span class="section-number-2">4</span> Shortcuts</h2>
+<div id="outline-container-orga1a907b" class="outline-2">
+<h2 id="orga1a907b"><span class="section-number-2">4</span> Shortcuts</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 A whole bunch of shortcuts, or as fish calls them, &ldquo;abbreviations&rdquo;
@@ -617,7 +638,7 @@ A whole bunch of shortcuts, or as fish calls them, &ldquo;abbreviations&rdquo;
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Marcus Crane</p>
-<p class="date">Created: 2020-07-06 Mon 16:40</p>
+<p class="date">Created: 2020-07-09 Thu 16:11</p>
 </div>
 </body>
 </html>

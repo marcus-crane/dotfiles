@@ -91,7 +91,18 @@ I had to remind myself why this exists but it's just a convenience function to m
 #+begin_src fish
 alias scut="abbr -a -g"
 #+end_src
+** Bootstrapping Fisher
+[[https://github.com/jorgebucaran/fisher][Fisher]] is a package manager for the fish shell, which makes installing small plugins a lot easier
 
+I won't have it installed by default on any new machines so we can automatically correct that based on the suggestion [[https://github.com/jorgebucaran/fisher#bootstrap-installation][here]]
+
+#+begin_src fish
+if not functions -q fisher
+    set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+    curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+    fish -c fisher
+end
+#+end_src
 * Applications and Languages
 ** [[https://github.com/asdf-vm/asdf][asdf]]
 

@@ -7,5 +7,6 @@ doom/.doom.d/config.el
 fish/.config/fish/config.fish
 fish/.config/fish/completions
 fish/.config/fish/fish_variables
+fish/.config/fish/functions/fisher.fish
 fish/.config/fish/fishd.*
 output
