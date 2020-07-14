@@ -111,11 +111,7 @@ The version manager to rule them all
 It wraps a number of existing language version managers into plugins that can be managed through one unified CLI tool
 
 #+begin_src fish
-if test $OPSYS = "darwin"
-    set -x ASDF_DIR (brew --prefix asdf) # (1)
-else
-    set -x ASDF_DIR ~/.asdf
-end
+set -x ASDF_DIR ~/.asdf
 if test -e $ASDF_DIR
     source $ASDF_DIR/asdf.fish
     if not test -e ~/.config/fish/completions
@@ -124,9 +120,7 @@ if test -e $ASDF_DIR
 end
 #+end_src
 
-1. While I'm not sure if it's still the case, there used to be issues with ~asdf~ on ~macOS~ being unable to find versions installed using Brew as seen [[https://github.com/asdf-vm/asdf/issues/425#issuecomment-459751694][here]]
-
-2. Autocompletions aren't added to Fish so this step, provided by the asdf docs, configures them properly
+1. Autocompletions aren't added to Fish so this step, provided by the asdf docs, configures them properly
 
 ** Dart
 
