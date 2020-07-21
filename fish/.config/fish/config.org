@@ -131,7 +131,7 @@ if test -e $ASDF_DIR; and test -e $ASDF_DIR/plugins/dart
     set -xg PATH (asdf where dart)/bin $PATH
 end
 #+end_src
-** [[https://dropbox.cm][Dropbox]]
+** [[https://dropbox.com][Dropbox]]
 
 Depending on which computer I'm using, I'll often have my Dropbox in different places
 
@@ -155,6 +155,7 @@ I'll probably configure this a fair bit more but for now, I just shorten the nam
 
 #+begin_src fish
 scut ec $EDITOR
+set -xg PATH ~/.emacs.d/bin $PATH
 #+end_src
 ** Erlang
 
