@@ -222,7 +222,7 @@ Anyway, here's what that looks like
 (after! org (
     setq org-todo-keywords
          '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-           (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c)"))))
+           (sequence "WAITING(w@/!)" "HOLD(h@/!)" "MAYBE(m)" "|" "CANCELLED(c)"))))
 #+end_src
 
 It's nothing special. I didn't realise at first but the pipe operator (~|~) is what separates the "to be actioned" keywords from the "has been actioned" keywords
@@ -231,11 +231,8 @@ It's nothing special. I didn't realise at first but the pipe operator (~|~) is w
 (setq org-tag-alist (quote (("@errand" . ?e)
                             ("@office" . ?o)
                             ("@home" . ?h)
-                            ("@research" . ?r)
-                            ("@social" . ?s)
-                            ("@self" . ?S)
-                            ("@meta" . ?m)
-                            ("@habit" . ?H))))
+                            ("@PROJ" . ?p)
+                            ("@anywhere" . ?a))))
 #+end_src
 * org-roam setup
 
