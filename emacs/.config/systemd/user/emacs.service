@@ -1,0 +1,13 @@
+[Unit]
+Description=Emacs daemon
+Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
+
+[Service]
+Type=forking
+ExecStart=/usr/local/bin/emacs --daemon
+ExecStop=/usr/local/bin/emacsclient --eval "(kill-emacs)"
+Environment=SSH_AUTH_SOCK=%t/keyring/ssh
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
