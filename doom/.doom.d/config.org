@@ -1,342 +1,160 @@
 #+title: My Doom Emacs configuration
 #+options: toc:2
+#+startup: content
 #+property: header-args :tangle config.el
 #+setupfile: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
-* General setup
-** Header comment
-Not sure if this is important but I believe it has some semantic meaning
+# Local variables:
+# eval: (add-hook 'after-save-hook 'org-html-export-to-html t t)
+# end:
 
+* Core setup
+** Lexical binding
 #+begin_src emacs-lisp
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 #+end_src
-** Name and email address
+** User details
 #+begin_src emacs-lisp
 (setq user-full-name "Marcus Crane"
       user-mail-address "marcus@utf9k.net")
 #+end_src
 ** Theming
-I'm sure there's probably a lot of cool theming setups
-
-Personally, I'm happy with the default Doom Emacs styling for now
-
-We're using 14pt monospace
-
-#+begin_src emacs-lisp
-(setq doom-font (font-spec :family "monospace" :size 14))
-#+end_src
-
-Doom One is a pretty solid default theme too
-
 #+begin_src emacs-lisp
 (setq doom-theme 'doom-one)
 #+end_src
+** Dropbox
+I make use of [[https://dropbox.com][Dropbox]] to sync and store my org files.
 
-** Show line numbers
-Nothing fancy here
+The location of Dropbox differs between all of my machines so I have an environment variable, ~$DROPBOX_DIR~, set by my shell.
 
-I think [[https://github.com/hlissner][Henrik]] might have mentioned that line numbers cause a bit of a performance impact? I'd need to do some benchmarking... not that I know how, haha
+On some systems, it may live in my home directory while on others, it may live on an external hard drive for example.
 
-#+begin_src emacs-lisp
-(setq display-line-numbers-type t)
-#+end_src
-** Setting Dropbox directory
-
-I store my org file in Dropbox but the location of said Dropbox differs from system to system!
-
-Luckily, Emacs is able to read environment variable so we can dynamically change where org files are read from
-
-NOTE: For anyone who wants to follow this example, it will set a hard dependency on Dropbox being available.
-
-In my case, it lives on an external hard drive for my Linux desktop.
-
-In the event it doesn't mount correctly, Emacs will fail to resolve the paths below and refuse to start :(
+NOTE: This will (unfortunately) set a hard dependency on Dropbox existing. If it isn't present, most of my Emacs config will break.
 
 #+begin_src emacs-lisp
-(setq dropbox (getenv "DROPBOX_DIR"))
-(setq workspace (getenv "WORKSPACE"))
-(setq utf9k-notes (concat workspace "/utf9k/content-org/notes/"))
-(setq utf9k-zettels (concat workspace "/utf9k/content-org/zettels/"))
-(setq dropbox-org (concat dropbox "/org"))
-(setq dropbox-tmpl (concat dropbox-org "/templates/"))
-(setq dropbox-gtd (concat dropbox-org "/gtd/"))
-(setq dropbox-notes (concat dropbox-org "/notes/"))
-(setq dropbox-journal (concat dropbox-notes "journal/"))
+(setq dropbox       (getenv "DROPBOX_DIR")
+      dropbox-org   (concat dropbox "/org")
+      dropbox-tmpl  (concat dropbox-org "/templates/")
+      dropbox-gtd   (concat dropbox-org "/gtd/")
+      dropbox-notes (concat dropbox-org "/notes/"))
 #+end_src
+** Common files
+Here are some variables for locations I often access, or want to encourage myself to access
+#+begin_src emacs-lisp
+(setq workspace     (getenv "WORKSPACE")
+      utf9k-notes   (concat workspace "/utf9k/content-org/notes/")
+      utf9k-zettels (concat workspace "/utf9k/content-org/zettels/"))
+#+end_src
+** Shell (fish)
+I currently use fish as my shell of choice so I add a hook to make use of ~fish_indent~
 
-** Disable ivy-minibuffer-map
-This is probably the most weirdly specific part of my config
-
-ivy, the framework that powers the minibuffers Doom Emacs uses, has ~S-SPC~ bound to ~ivy-minibuffer-map~ by default
-
-If I type rapidly, I accidentally trigger this. It does a subsearch, which is supposed to narrow down your search but in effect, it just ends up deleting what I've typed...
-
-For that reason, I'm unmapping it for now since it causes me grief
-
+#+begin_src emacs-lisp
+(add-hook 'fish-mode-hook (lambda ()
+                            (add-hook 'before-save-hook 'fish_indent=before-save)))
+#+end_src
+** Usability tweaks
+*** How can I get Emacs to not open "find file" when double tapping <SPC>?
 #+begin_src emacs-lisp
 (map! :after ivy
       :map ivy-minibuffer-map
       "S-SPC" nil)
 #+end_src
-** Enable beacon
+*** I want a glowy line to appear when I move my cursor
 #+begin_src emacs-lisp
 (beacon-mode 1)
 #+end_src
-** Fish mode
-#+begin_src emacs-lisp
-(add-hook 'fish-mode-hook (lambda ()
-                            (add-hook 'before-save-hook 'fish_indent=before-save)))
-#+end_src
-* Org setup
-
-You'll notice most org bits are prefixed with ~after! org~
-
-I still don't really understand it but I believe that's overwriting the default configuration that Doom Emacs already provides
-
-** Setting up default directories
-I could use Github as my storage option for my org notes but not all of them are intended to be public
-
-Dropbox works for now, although the actual location of Dropbox will change from computer to computer
-
-For instance, it lives at ~S:/Dropbox/~ on my desktop while it lives at ~C:\Users\marcus.crane\Dropbox~ on my work laptop
-
-I've got an environment variable that gets loaded in my org file called ~DROPBOX_DIR~ so all I'll need to do is substitute this directory with that environment variable.
-
-It's not much work, I just haven't gotten around to it
-
-#+begin_src emacs-lisp
-(after! org (setq org-directory dropbox-gtd))
-(after! org (setq org-ellipsis "⤵"))
-#+end_src
-
-Similarly, I also store my ~org-agenda~ files in Dropbox
-
-They live in a slightly more specific GTD directory but I should really just define the base dropbox address so I can then simply re-use that variable in these definitions
-
-#+begin_src emacs-lisp
-(after! org (setq org-agenda-directory dropbox-gtd))
-#+end_src
-
-** Setting org file locations
-
-Now that I've set my default org directories, I need to define what files org, and org-agenda, should actually operate on
-
-Firstly, I want to use the following org-agenda files
-
-#+begin_src emacs-lisp
-(after! org (setq org-agenda-files `(,(concat org-agenda-directory "inbox.org")
-                                     ,(concat org-agenda-directory "next.org")
-                                     ,(concat org-agenda-directory "projects.org")
-                                     ,(concat org-agenda-directory "tickler.org")
-                                     ,(concat org-agenda-directory "repeaters.org")
-                                     ,(concat org-agenda-directory "habits.org"))))
-#+end_src
-
-I've got three files here:
-
-Inbox: Anything I've used ~org-capture~ for, as well as anything that needs sorting. I can use ~org-refile~ to quickly move these items to their respective files (generally ends up being ~gtd.org~). The layout of this file needs the most work I think. Maybe splitting into sections for eg; website links vs tasks
-
-GTD: All tags, grouped by headings, that I might want to focus on
-
-Tickler: Anything I want to remember in a future date. Quite literally just a flat list of notes paired with scheduled dates
-
-The other important thing to define is the location of my archive. It's just a list of items that have been completed. Once they're done, you don't want them floating around your lists, but they might be nice to refer back to in future.
-
-I've opted to segment them into their own folder, with a file for each month of the year
-
-#+begin_src emacs-lisp
-(after! org (setq org-archive-location
-                  (concat org-agenda-directory "archive/archive-"
-                          (format-time-string "%Y%m" (current-time))
-                          ".org::")))
-#+end_src
-
-All done but I should give credit, where credit is due
-
-I heavily relied on these two sources for inspiration and configuration
-
-- https://blog.jethro.dev/posts/capturing_inbox/
-- https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
-** Trace creation of org items
+* org-mode
+** Shared settings
 #+begin_src emacs-lisp
 (after! org
-  (setq org-treat-insert-todo-heading-as-state-change t)
-  (setq org-log-into-drawer t))
+  (setq org-directory        dropbox-gtd
+        org-agenda-directory dropbox-gtd
+        org-ellipsis         "⤵"))
 #+end_src
-** Configuring org-capture-templates
-
-When invoking org-capture, it's nice to prefile some metadata and this is exactly what we're doing here.
-
-I should note that the backticks are an important distinction. It seems they tell Emacs Lisp to evaluate the contents of variables before creating strings, rather than just using them literally like it would with a single quote. You can [[https://emacs.stackexchange.com/questions/7481/how-to-evaluate-the-variables-before-adding-them-to-a-list][read more here]].
-
+** Agenda settings
+*** Where should org look for tasks?
+#+begin_src emacs-lisp
+(after! org
+  (setq org-agenda-files
+        `(,(concat org-agenda-directory "habits.org")
+          ,(concat org-agenda-directory "inbox.org")
+          ,(concat org-agenda-directory "next.org")
+          ,(concat org-agenda-directory "projects.org")
+          ,(concat org-agenda-directory "repeaters.org")
+          ,(concat org-agenda-directory "tickler.org"))))
+#+end_src
+*** How should org archive completed tasks?
+#+begin_src emacs-lisp
+(after! org
+  (setq org-archive-location
+        (concat org-agenda-directory "archive/archive-"
+                (format-time-string "%Y%m" (current-time))
+                ".org::")))
+#+end_src
+*** Where should org be allowed to refile tasks?
+#+begin_src emacs-lisp
+(after! org
+  (setq org-refile-targets
+        `((,(concat org-agenda-directory "ideas.org")     :level    . 0)
+          (,(concat org-agenda-directory "next.org")      :level    . 0)
+          (,(concat org-agenda-directory "projects.org")  :maxlevel . 1)
+          (,(concat org-agenda-directory "repeaters.org") :maxlevel . 1)
+          (,(concat org-agenda-directory "research.org")  :level    . 0)
+          (,(concat org-agenda-directory "someday.org")   :level    . 0)
+          (,(concat org-agenda-directory "tickler.org")   :maxlevel . 1))))
+#+end_src
+*** What statuses can tasks have?
+#+begin_src emacs-lisp
+(after! org
+  (setq org-todo-keywords
+        '((sequence
+           "TODO(t)"
+           "NEXT(n)"
+           "|"
+           "DONE(d)")
+          (sequence
+           "WAITING(w@/!)"
+           "HOLD(h@/!)"
+           "MAYBE(m)"
+           "|"
+           "CANCELLED(c)"))))
+#+end_src
+*** What tags can be associated with a task?
+#+begin_src emacs-lisp
+(setq org-tag-alist
+      '(("@anywhere" . ?a)
+        ("@errand"   . ?e)
+        ("@home"     . ?h)
+        ("@office"   . ?o)))
+#+end_src
+*** How can I hide items that are scheduled for the future?
+#+begin_src emacs-lisp
+(after! org
+  (setq org-agenda-todo-ignore-scheduled 'future))
+#+end_src
+** Capture templates
 #+begin_src emacs-lisp
 (after! org
   (setq org-capture-templates
-      `(("i" "inbox" entry
-         (file ,(concat org-agenda-directory "inbox.org"))
-         "* TODO %i%?")
-        ("l" "link" entry
-         (file ,(concat org-agenda-directory "inbox.org"))
-         "* TODO %(org-cliplink-capture)"
-         :immediate-finish t)
-        ("c" "org-protocol-capture" entry
-         (file ,(concat org-agenda-directory "inbox.org"))
-         "* TODO [[%:link][%:description]]\n\n %i"
-         :immediate-finish t)
-        ("r" "recipe" entry
-         (file ,(concat dropbox-notes "cookbook.org"))
-         "* %^{Recipe title: }\n  :properties:\n  :source-url:\n  :servings:\n  :prep-time:\n  :cook-time:\n  :ready-in:\n  :end:\n** Ingredients\n   %?\n** Directions\n\n")
-        ("w" "weekly review" entry
-         (file+olp+datetree ,(concat org-agenda-directory "reviews/weekly.org"))
-         (file ,(concat dropbox-tmpl "weekly_review.org")))
-        ("t" "tickler" entry
-         (file ,(concat org-agenda-directory "tickler.org"))
-         "* %i%?"))))
+        `(("i" "inbox" entry
+           (file ,(concat org-agenda-directory "inbox.org"))
+           "* TODO %i%?")
+          ("d" "daily checklist" entry
+           (file+olp+datetree ,(concat org-agenda-directory "checklists/daily.org"))
+           (file ,(concat dropbox-tmpl "daily_checklist.org")))
+          ("w" "weekly review" entry
+           (file+olp+datetree ,(concat org-agenda-directory "reviews/weekly.org"))
+           (file ,(concat dropbox-tmpl "weekly_review.org"))
+           :immediate-finish t)
+          ("h" "horizons review" entry
+           (file+olp+datetree ,(concat org-agenda-directory "reviews/horizons.org"))
+           (file ,(concat dropbox-tmpl "horizon_review.org"))
+           :immediate-finish t :tree-type month))))
 #+end_src
-
-I'd like to refine these further but for now, they're mostly what I found from Jethro Kuan I believe?
-
-** Set up org-refile locations
-
-I had always figured I would need to manually copy/paste or retype TODO lists but of course, org supports the ability to just "magically" send text from one file to another
-
-With a few keystrokes, this can be accomplished but some files should have a flatter heirarchy than others.
-
-I haven't really explored the limits of org trees so I'm mostly speaking without understanding what I'm saying here!
-
-#+begin_src emacs-lisp
-(after! org (setq org-refile-targets
-      `((,(concat org-agenda-directory "next.org") :level . 0)
-        (,(concat org-agenda-directory "someday.org") :level . 0)
-        (,(concat org-agenda-directory "tickler.org") :maxlevel . 1)
-        (,(concat org-agenda-directory "repeaters.org") :maxlevel . 1)
-        (,(concat org-agenda-directory "ideas.org") :level . 0)
-        (,(concat org-agenda-directory "research.org") :level . 0)
-        (,(concat org-agenda-directory "projects.org") :maxlevel . 1))))
-#+end_src
-** Create keywords for TODO lists
-
-A very cool feature of org-mode is that you can specify arbitrary keywords so eg; I could make the keyword SPORTS mean done just as much as DONE means done
-
-Anyway, here's what that looks like
-
-#+begin_src emacs-lisp
-(after! org (
-    setq org-todo-keywords
-         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-           (sequence "WAITING(w@/!)" "HOLD(h@/!)" "MAYBE(m)" "|" "CANCELLED(c)"))))
-#+end_src
-
-It's nothing special. I didn't realise at first but the pipe operator (~|~) is what separates the "to be actioned" keywords from the "has been actioned" keywords
-** Set up org tag list
-#+begin_src emacs-lisp
-(setq org-tag-alist (quote (("@errand" . ?e)
-                            ("@office" . ?o)
-                            ("@home" . ?h)
-                            ("@PROJ" . ?p)
-                            ("@anywhere" . ?a))))
-#+end_src
-* org-roam setup
-
-This is a very cool package from [[https://github.com/jethrokuan][Jethro Kuan]] that aims to replicate [[https://twitter.com/Conaw][Conor White-Sullivan]]'s [[https://roamresearch.com][Roam Research]] purely in Emacs and org-mode
-
-It's probably the largest custom configuration I've got to date
-
-Most of it follows the same configuration that Jethro uses, with some modifications to fit my own tastes.
-
-You can see Jethro's config [[https://github.com/jethrokuan/dots/blob/master/.doom.d/config.el#L419][here]]
-
-#+begin_src emacs-lisp
-(use-package! org-roam
-  :commands (org-roam-insert org-roam-find-file org-roam-switch-to-buffer org-roam)
-  :hook
-  (after-init . org-roam-mode)
-  :custom-face
-  (org-roam-link ((t (:inherit org-link :foreground "#005200"))))
-  :init
-  (map! :leader
-        :prefix "n"
-        :desc "org-roam" "l" #'org-roam
-        :desc "org-roam-insert" "i" #'org-roam-insert
-        :desc "org-roam-switch-to-buffer" "b" #'org-roam-switch-to-buffer
-        :desc "org-roam-find-file" "f" #'org-roam-find-file
-        :desc "org-roam-graph-show" "g" #'org-roam-graph-show
-        :desc "org-roam-insert" "i" #'org-roam-insert
-        :desc "org-roam-capture" "c" #'org-roam-capture)
-  (setq org-roam-directory utf9k-zettels
-        org-roam-db-location "~/org-roam.db")
-  :config
-  (require 'org-roam-protocol)
-  (setq org-roam-capture-templates
-        '(("d" "default" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "${slug}"
-           :head "#+title: ${title}\n#+setupfile: ./hugo_setup.org\n#+hugo_slug: ${slug}\n#+roam_tag:\n"
-           :unnarrowed t))))
-#+end_src
-
-I'm still experimenting with this setup. I want to basically tag things enough that I can differentiate between public and private notes in case I want to publish them.
-
-That said, Deft isn't concerned with folder structure so it's debatable.
-
-I know that Jethro uses a prefix such as ~private-~ but I don't like how that messages with ordering
-
-Tags were newly introduced but I may opt to use folders instead for clarity
-
-That also doesn't address that fact I'd likely want to redact private references from public notes
-
-Thankfully, for a static site, speed of deployment isn't a concern.
-
-* Deft setup
-A very cool mode for searching over plain text which I use in conjunction with ~org-roam~
-
-There's nothing fancy here that I can see
-
-#+begin_src emacs-lisp
-(use-package deft
-  :after org
-  :bind
-  ("C-c n d" . deft)
-  :custom
-  (deft-recursive t)
-  (deft-ignore-file-regexp "hugo_setup.org")
-  (deft-use-filter-string-for-filename t)
-  (deft-default-extension "org")
-  (deft-directory utf9k-notes))
-#+end_src
-
-* org-journal setup
-
-I've been experimenting with journaling in order
-
-It's not like a full journal entry for one day as you might expect but snippets throughout the day
-
-The point is meant to be capturing fleeting thoughts it seems
-
-Anyway, I've opted to use the "monthly" style, which generates one file per month and appends to it
-
-I mainly use the above for two reasons: one file for each day adds up fast and also I might want to reference the previous day without having to switch files
-
-I may move these into their own folder someday as well
-
-#+begin_src emacs-lisp
-(use-package! org-journal
-  :bind
-  ("C-c n j" . org-journal-new-entry)
-  :config
-  (setq org-journal-file-format "%Y-%m-private.org"
-        org-journal-date-format "%Y-%m-%d"
-        org-journal-dir dropbox-journal
-        org-journal-file-type 'monthly))
-#+end_src
-
-* org-habit setup
+** Modules
+*** Enabling org-habit
 #+begin_src emacs-lisp
 (after! org
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
 #+end_src
-
-# Local variables:
-# eval: (add-hook 'after-save-hook 'org-html-export-to-html t t)
-# end:
