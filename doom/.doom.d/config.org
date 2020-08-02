@@ -76,10 +76,9 @@ I currently use fish as my shell of choice so I add a hook to make use of ~fish_
 #+begin_src emacs-lisp
 (after! org
   (setq org-agenda-files
-        `(,(concat org-agenda-directory "habits.org")
+        `(,(concat org-agenda-directory "focus.org")
+          ,(concat org-agenda-directory "habits.org")
           ,(concat org-agenda-directory "inbox.org")
-          ,(concat org-agenda-directory "next.org")
-          ,(concat org-agenda-directory "projects.org")
           ,(concat org-agenda-directory "repeaters.org")
           ,(concat org-agenda-directory "tickler.org"))))
 #+end_src
@@ -95,9 +94,8 @@ I currently use fish as my shell of choice so I add a hook to make use of ~fish_
 #+begin_src emacs-lisp
 (after! org
   (setq org-refile-targets
-        `((,(concat org-agenda-directory "ideas.org")     :level    . 0)
-          (,(concat org-agenda-directory "next.org")      :level    . 0)
-          (,(concat org-agenda-directory "projects.org")  :maxlevel . 1)
+        `((,(concat org-agenda-directory "focus.org")     :maxlevel . 1)
+          (,(concat org-agenda-directory "ideas.org")     :level    . 0)
           (,(concat org-agenda-directory "repeaters.org") :maxlevel . 1)
           (,(concat org-agenda-directory "research.org")  :level    . 0)
           (,(concat org-agenda-directory "someday.org")   :level    . 0)
@@ -109,21 +107,15 @@ I currently use fish as my shell of choice so I add a hook to make use of ~fish_
   (setq org-todo-keywords
         '((sequence
            "TODO(t)"
-           "NEXT(n)"
-           "|"
-           "DONE(d)")
-          (sequence
            "WAITING(w@/!)"
-           "HOLD(h@/!)"
-           "MAYBE(m)"
            "|"
+           "DONE(d)"
            "CANCELLED(c)"))))
 #+end_src
 *** What tags can be associated with a task?
 #+begin_src emacs-lisp
 (setq org-tag-alist
-      '(("@anywhere" . ?a)
-        ("@errand"   . ?e)
+      '(("@errand"   . ?e)
         ("@home"     . ?h)
         ("@office"   . ?o)))
 #+end_src
