@@ -42,8 +42,7 @@ NOTE: This will (unfortunately) set a hard dependency on Dropbox existing. If it
 Here are some variables for locations I often access, or want to encourage myself to access
 #+begin_src emacs-lisp
 (setq workspace     (getenv "WORKSPACE")
-      utf9k-notes   (concat workspace "/utf9k/content-org/notes/")
-      utf9k-zettels (concat workspace "/utf9k/content-org/zettels/"))
+      utf9k-notes   (concat workspace "/utf9k/content-org/notes/"))
 #+end_src
 ** Shell (fish)
 I currently use fish as my shell of choice so I add a hook to make use of ~fish_indent~
