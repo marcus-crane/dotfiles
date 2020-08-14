@@ -20,5 +20,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: SonarQube Shellcheck
-      uses: sunilagarwal22/sonarscanner-shell@2.0
+    - name: Run Shellcheck
+      uses: azohra/shell-linter@latest
