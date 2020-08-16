@@ -10,3 +10,19 @@ For example, let's say you used ~stow~ on ~mopidy/.config/mopidy~. It would igno
 ~$HOME~ (eg; ~/home/marcus~), it would place the folder in ~home/marcus/.config/mopidy~.
 
 The nice thing about it is that everything is kept organised in one folder but you don't have to worry about conflicts since you need to explicitly use stow on each folder.
+
+## A note on tangling files
+
+You may notice that some configuration files are seemingly missing with `.org` files in their place.
+
+This is because a few, and in time most of, my config files are kept as "literate configuration".
+
+In short, all of the surrounding commentary is stripped and the correct file is generated off of the source code blocks.
+
+In order to "tangle" them into a proper config, you'll need to have `emacs` installed.
+
+Assuming it's installed, you can "tangle" the file you're interested in like so:
+
+#+begin_src bash
+~/.emacs.d/bin/org-tangle <config_path>
+#+end_src
