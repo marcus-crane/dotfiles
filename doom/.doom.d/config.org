@@ -35,7 +35,6 @@ NOTE: This will (unfortunately) set a hard dependency on Dropbox existing. If it
 (setq dropbox       (getenv "DROPBOX_DIR")
       dropbox-org   (concat dropbox "/org")
       dropbox-tmpl  (concat dropbox-org "/templates/")
-      dropbox-gtd   (concat dropbox-org "/gtd/")
       dropbox-notes (concat dropbox-org "/notes/"))
 #+end_src
 ** Common files
@@ -67,85 +66,18 @@ I currently use fish as my shell of choice so I add a hook to make use of ~fish_
 #+begin_src emacs-lisp
 (after! org
   (setq org-directory        dropbox-gtd
-        org-agenda-directory dropbox-gtd
         org-ellipsis         "⤵"))
-#+end_src
-** Agenda settings
-*** Where should org look for tasks?
-#+begin_src emacs-lisp
-(after! org
-  (setq org-agenda-files
-        `(,(concat org-agenda-directory "focus.org")
-          ,(concat org-agenda-directory "habits.org")
-          ,(concat org-agenda-directory "inbox.org")
-          ,(concat org-agenda-directory "repeaters.org")
-          ,(concat org-agenda-directory "tickler.org"))))
-#+end_src
-*** How should org archive completed tasks?
-#+begin_src emacs-lisp
-(after! org
-  (setq org-archive-location
-        (concat org-agenda-directory "archive/archive-"
-                (format-time-string "%Y%m" (current-time))
-                ".org::")))
-#+end_src
-*** Where should org be allowed to refile tasks?
-#+begin_src emacs-lisp
-(after! org
-  (setq org-refile-targets
-        `((,(concat org-agenda-directory "focus.org")     :maxlevel . 1)
-          (,(concat org-agenda-directory "ideas.org")     :level    . 0)
-          (,(concat org-agenda-directory "repeaters.org") :maxlevel . 1)
-          (,(concat org-agenda-directory "research.org")  :level    . 0)
-          (,(concat org-agenda-directory "someday.org")   :level    . 0)
-          (,(concat org-agenda-directory "tickler.org")   :maxlevel . 1))))
-#+end_src
-*** What statuses can tasks have?
-#+begin_src emacs-lisp
-(after! org
-  (setq org-todo-keywords
-        '((sequence
-           "TODO(t)"
-           "WAITING(w@/!)"
-           "|"
-           "DONE(d)"
-           "CANCELLED(c)"))))
-#+end_src
-*** What tags can be associated with a task?
-#+begin_src emacs-lisp
-(setq org-tag-alist
-      '(("@errand"   . ?e)
-        ("@home"     . ?h)
-        ("@office"   . ?o)))
-#+end_src
-*** How can I hide items that are scheduled for the future?
-#+begin_src emacs-lisp
-(after! org
-  (setq org-agenda-todo-ignore-scheduled 'future))
 #+end_src
 ** Capture templates
 #+begin_src emacs-lisp
 (after! org
   (setq org-capture-templates
-        `(("i" "inbox" entry
-           (file ,(concat org-agenda-directory "inbox.org"))
-           "* TODO %i%?")
-          ("d" "daily checklist" entry
-           (file+olp+datetree ,(concat org-agenda-directory "checklists/daily.org"))
-           (file ,(concat dropbox-tmpl "daily_checklist.org")))
-          ("w" "weekly review" entry
-           (file+olp+datetree ,(concat org-agenda-directory "reviews/weekly.org"))
+        `(("w" "weekly review" entry
+           (file+olp+datetree ,(concat dropbox-org "reviews/weekly.org"))
            (file ,(concat dropbox-tmpl "weekly_review.org"))
            :immediate-finish t)
           ("h" "horizons review" entry
-           (file+olp+datetree ,(concat org-agenda-directory "reviews/horizons.org"))
+           (file+olp+datetree ,(concat dropbox-org "reviews/horizons.org"))
            (file ,(concat dropbox-tmpl "horizon_review.org"))
            :immediate-finish t :tree-type month))))
-#+end_src
-** Modules
-*** Enabling org-habit
-#+begin_src emacs-lisp
-(after! org
-  (require 'org-habit)
-  (add-to-list 'org-modules 'org-habit))
 #+end_src
