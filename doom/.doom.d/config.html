@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-08-21 Fri 20:37 -->
+<!-- 2020-08-23 Sun 18:21 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My Doom Emacs configuration</title>
@@ -231,33 +231,33 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org71a170b">1. Core setup</a>
+<li><a href="#orgb07d110">1. Core setup</a>
 <ul>
-<li><a href="#org1ae81d3">1.1. Lexical binding</a></li>
-<li><a href="#org8795f1c">1.2. User details</a></li>
-<li><a href="#org89ac0bb">1.3. Theming</a></li>
-<li><a href="#orgff0f529">1.4. Dropbox</a></li>
-<li><a href="#org5d96b4a">1.5. Common files</a></li>
-<li><a href="#org59ef479">1.6. Shell (fish)</a></li>
-<li><a href="#orgd2d4474">1.7. Usability tweaks</a></li>
+<li><a href="#org0f04566">1.1. Lexical binding</a></li>
+<li><a href="#org254966d">1.2. User details</a></li>
+<li><a href="#orgf12410c">1.3. Theming</a></li>
+<li><a href="#orge9f8b9a">1.4. Dropbox</a></li>
+<li><a href="#orgc97c709">1.5. Common files</a></li>
+<li><a href="#org746230f">1.6. Shell (fish)</a></li>
+<li><a href="#org05805c2">1.7. Usability tweaks</a></li>
 </ul>
 </li>
-<li><a href="#orgb9f7bf5">2. org-mode</a>
+<li><a href="#org9b4db51">2. org-mode</a>
 <ul>
-<li><a href="#orgc705aea">2.1. Shared settings</a></li>
-<li><a href="#org50faa8c">2.2. Capture templates</a></li>
+<li><a href="#orgd763ad8">2.1. Shared settings</a></li>
+<li><a href="#orge15d4ec">2.2. Capture templates</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org71a170b" class="outline-2">
-<h2 id="org71a170b"><span class="section-number-2">1</span> Core setup</h2>
+<div id="outline-container-orgb07d110" class="outline-2">
+<h2 id="orgb07d110"><span class="section-number-2">1</span> Core setup</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org1ae81d3" class="outline-3">
-<h3 id="org1ae81d3"><span class="section-number-3">1.1</span> Lexical binding</h3>
+<div id="outline-container-org0f04566" class="outline-3">
+<h3 id="org0f04566"><span class="section-number-3">1.1</span> Lexical binding</h3>
 <div class="outline-text-3" id="text-1-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #5B6268;">;;; </span><span style="color: #5B6268;">$DOOMDIR/config.el -*- lexical-binding: t; -*-</span>
@@ -265,8 +265,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org8795f1c" class="outline-3">
-<h3 id="org8795f1c"><span class="section-number-3">1.2</span> User details</h3>
+<div id="outline-container-org254966d" class="outline-3">
+<h3 id="org254966d"><span class="section-number-3">1.2</span> User details</h3>
 <div class="outline-text-3" id="text-1-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">user-full-name</span> <span style="color: #98be65;">"Marcus Crane"</span>
@@ -275,8 +275,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org89ac0bb" class="outline-3">
-<h3 id="org89ac0bb"><span class="section-number-3">1.3</span> Theming</h3>
+<div id="outline-container-orgf12410c" class="outline-3">
+<h3 id="orgf12410c"><span class="section-number-3">1.3</span> Theming</h3>
 <div class="outline-text-3" id="text-1-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">doom-theme</span> <span style="color: #51afef;">'</span><span style="color: #ECBE7B;">doom-one</span><span style="color: #51afef;">)</span>
@@ -284,8 +284,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgff0f529" class="outline-3">
-<h3 id="orgff0f529"><span class="section-number-3">1.4</span> Dropbox</h3>
+<div id="outline-container-orge9f8b9a" class="outline-3">
+<h3 id="orge9f8b9a"><span class="section-number-3">1.4</span> Dropbox</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 I make use of <a href="https://dropbox.com">Dropbox</a> to sync and store my org files.
@@ -305,15 +305,15 @@ NOTE: This will (unfortunately) set a hard dependency on Dropbox existing. If it
 
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> dropbox       <span style="color: #c678dd;">(</span><span style="color: #c678dd;">getenv</span> <span style="color: #98be65;">"DROPBOX_DIR"</span><span style="color: #c678dd;">)</span>
-      dropbox-org   <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">concat</span> dropbox <span style="color: #98be65;">"/org"</span><span style="color: #c678dd;">)</span>
+      dropbox-org   <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">concat</span> dropbox <span style="color: #98be65;">"/org/"</span><span style="color: #c678dd;">)</span>
       dropbox-tmpl  <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">concat</span> dropbox-org <span style="color: #98be65;">"/templates/"</span><span style="color: #c678dd;">)</span>
       dropbox-notes <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">concat</span> dropbox-org <span style="color: #98be65;">"/notes/"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org5d96b4a" class="outline-3">
-<h3 id="org5d96b4a"><span class="section-number-3">1.5</span> Common files</h3>
+<div id="outline-container-orgc97c709" class="outline-3">
+<h3 id="orgc97c709"><span class="section-number-3">1.5</span> Common files</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 Here are some variables for locations I often access, or want to encourage myself to access
@@ -325,8 +325,8 @@ Here are some variables for locations I often access, or want to encourage mysel
 </div>
 </div>
 </div>
-<div id="outline-container-org59ef479" class="outline-3">
-<h3 id="org59ef479"><span class="section-number-3">1.6</span> Shell (fish)</h3>
+<div id="outline-container-org746230f" class="outline-3">
+<h3 id="org746230f"><span class="section-number-3">1.6</span> Shell (fish)</h3>
 <div class="outline-text-3" id="text-1-6">
 <p>
 I currently use fish as my shell of choice so I add a hook to make use of <code>fish_indent</code>
@@ -339,12 +339,12 @@ I currently use fish as my shell of choice so I add a hook to make use of <code>
 </div>
 </div>
 </div>
-<div id="outline-container-orgd2d4474" class="outline-3">
-<h3 id="orgd2d4474"><span class="section-number-3">1.7</span> Usability tweaks</h3>
+<div id="outline-container-org05805c2" class="outline-3">
+<h3 id="org05805c2"><span class="section-number-3">1.7</span> Usability tweaks</h3>
 <div class="outline-text-3" id="text-1-7">
 </div>
-<div id="outline-container-org64311a9" class="outline-4">
-<h4 id="org64311a9"><span class="section-number-4">1.7.1</span> How can I get Emacs to not open &ldquo;find file&rdquo; when double tapping &lt;SPC&gt;?</h4>
+<div id="outline-container-orgf81a141" class="outline-4">
+<h4 id="orgf81a141"><span class="section-number-4">1.7.1</span> How can I get Emacs to not open &ldquo;find file&rdquo; when double tapping &lt;SPC&gt;?</h4>
 <div class="outline-text-4" id="text-1-7-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">map!</span> <span style="color: #c678dd;">:after</span> ivy
@@ -354,8 +354,8 @@ I currently use fish as my shell of choice so I add a hook to make use of <code>
 </div>
 </div>
 </div>
-<div id="outline-container-org6e71f36" class="outline-4">
-<h4 id="org6e71f36"><span class="section-number-4">1.7.2</span> I want a glowy line to appear when I move my cursor</h4>
+<div id="outline-container-orgc46e208" class="outline-4">
+<h4 id="orgc46e208"><span class="section-number-4">1.7.2</span> I want a glowy line to appear when I move my cursor</h4>
 <div class="outline-text-4" id="text-1-7-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #dcaeea;">beacon-mode</span> <span style="color: #da8548; font-weight: bold;">1</span><span style="color: #51afef;">)</span>
@@ -365,23 +365,23 @@ I currently use fish as my shell of choice so I add a hook to make use of <code>
 </div>
 </div>
 </div>
-<div id="outline-container-orgb9f7bf5" class="outline-2">
-<h2 id="orgb9f7bf5"><span class="section-number-2">2</span> org-mode</h2>
+<div id="outline-container-org9b4db51" class="outline-2">
+<h2 id="org9b4db51"><span class="section-number-2">2</span> org-mode</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgc705aea" class="outline-3">
-<h3 id="orgc705aea"><span class="section-number-3">2.1</span> Shared settings</h3>
+<div id="outline-container-orgd763ad8" class="outline-3">
+<h3 id="orgd763ad8"><span class="section-number-3">2.1</span> Shared settings</h3>
 <div class="outline-text-3" id="text-2-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">after!</span> org
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">org-directory</span>        dropbox-gtd
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">org-directory</span>        dropbox-org
         <span style="color: #dcaeea;">org-ellipsis</span>         <span style="color: #98be65;">"&#10549;"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org50faa8c" class="outline-3">
-<h3 id="org50faa8c"><span class="section-number-3">2.2</span> Capture templates</h3>
+<div id="outline-container-orge15d4ec" class="outline-3">
+<h3 id="orge15d4ec"><span class="section-number-3">2.2</span> Capture templates</h3>
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">after!</span> org
@@ -402,7 +402,7 @@ I currently use fish as my shell of choice so I add a hook to make use of <code>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Marcus Crane</p>
-<p class="date">Created: 2020-08-21 Fri 20:37</p>
+<p class="date">Created: 2020-08-23 Sun 18:21</p>
 </div>
 </body>
 </html>

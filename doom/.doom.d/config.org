@@ -33,7 +33,7 @@ NOTE: This will (unfortunately) set a hard dependency on Dropbox existing. If it
 
 #+begin_src emacs-lisp
 (setq dropbox       (getenv "DROPBOX_DIR")
-      dropbox-org   (concat dropbox "/org")
+      dropbox-org   (concat dropbox "/org/")
       dropbox-tmpl  (concat dropbox-org "/templates/")
       dropbox-notes (concat dropbox-org "/notes/"))
 #+end_src
@@ -65,7 +65,7 @@ I currently use fish as my shell of choice so I add a hook to make use of ~fish_
 ** Shared settings
 #+begin_src emacs-lisp
 (after! org
-  (setq org-directory        dropbox-gtd
+  (setq org-directory        dropbox-org
         org-ellipsis         "⤵"))
 #+end_src
 ** Capture templates
