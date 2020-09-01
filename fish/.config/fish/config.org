@@ -1,7 +1,6 @@
 #+title: My Fish configuration
 #+options: toc:2
 #+property: header-args :tangle config.fish
-#+setupfile: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
 
 Welcome to my configuration. It's always a work in progress.
@@ -219,6 +218,16 @@ if test -e $ASDF_DIR; and test -e $ASDF_DIR/plugins/rust
     set -xg PATH (asdf where rust)/bin $PATH
 end
 #+end_src
+
+
+** Work setup
+
+#+begin_src fish
+if test -e ~/.work_aliases.fish
+    source ~/.work_aliases.fish
+end
+#+end_src
+
 * Shortcuts
 A whole bunch of shortcuts, or as fish calls them, "abbreviations"
 
