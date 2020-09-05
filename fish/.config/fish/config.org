@@ -202,7 +202,10 @@ if test $OPSYS = "darwin"
     set -xg PATH /usr/bin/local $PATH
 end
 #+end_src
-
+** nix
+#+begin_src fish
+. /Users/marcus/.nix-profile/etc/profile.d/nix.sh
+#+end_src
 ** Python
 
 #+begin_src fish
@@ -218,7 +221,6 @@ if test -e $ASDF_DIR; and test -e $ASDF_DIR/plugins/rust
     set -xg PATH (asdf where rust)/bin $PATH
 end
 #+end_src
-
 
 ** Work setup
 

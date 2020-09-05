@@ -1,0 +1,225 @@
+#+title: My zsh configuration
+#+property: header-args :tangle .zshrc
+
+Welcome to my configuration. It's always a work in progress.
+
+* Setting up PATHs
+** Universal system folders
+
+These paths generally exist on most every system so we'll set them seperately from other PATH additions.
+
+#+begin_src bash
+export PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/opt/X11/bin:$PATH"
+#+end_src
+
+* Initialisation
+
+This section consists of helpers functions and global variables used by various applications.
+
+A few of the helper functions are intended to make sure my configuration acts mostly identical across all machines and OSes without any extra configuration.
+
+Whether that statement holds true is... debatable :)
+
+** Determining the current OS
+
+In order to save having to remember how to use ~uname~ and all that, I just have my own little configuration within my shell that I can reference
+
+#+begin_src bash
+if [[ $(uname -r) =~ 'microsoft' ]]; then
+  export OPSYS="windows"
+else
+  export OPSYS=${(L)$(uname -s)}
+fi
+#+end_src
+
+#+RESULTS:
+
+Windows is a bit of a misnomer here because what I'm really checking for is whether the shell is running inside of [[https://docs.microsoft.com/en-us/windows/wsl/about][Windows Subsystem for Linux (WSL)]]
+
+Functionally, I can treat WSL and Linux the same (and I do) but there are some minor alterations I make use of, such as pointing the ~DISPLAY~ environment variable at an X display server on my host system
+
+It's worth noting that the value of ~$OPSYS~ on ~macOS~ is ~darwin~. I could change it to be clearer but [[https://en.wikipedia.org/wiki/Darwin_(operating_system)][Darwin]] is technically the correct name for the base operating system
+
+** Setting my workspace
+
+All of my development occurs in ~$HOME/Code~ regardless of what machine I'm on. One day I might change it though hence the variable.
+
+#+begin_src bash
+export WORKSPACE="$HOME/Code"
+#+end_src
+
+** Setting various global constants
+
+#+begin_src bash
+export CONFIG_FILE="~/.zshrc"
+export CONFIG_SRC="~/dotfiles/zsh/zshrc.org"
+export EDITOR="$(command -v emacs)client -c"
+export GPG_TTY=$(tty)
+export LANGUAGE="en_NZ:en"
+export PROMPT='%B%F{green}>%f%b '
+#+end_src
+
+1. In some cases, when I compile Emacs, I'm not able to find the ~emacsclient~ executiable within my path.
+
+   This doesn't really make much sense given ~emacs~ and ~emacsclient~ tend to live side by side and I don't actually remember the specific details from last time I ran into that problem.
+
+   In the event that happens anyway, this quick hack (find ~emacs~ and append "client" on the end) works in the meantime
+
+** Setting some Windows / WSL specific constants
+
+#+begin_src bash
+if [[ $OPSYS == "windows" ]]; then
+  export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
+  export BROWSER="/mnt/c/Windows/explorer.exe"
+fi
+#+end_src
+
+1. If I'm running on a Windows machine, I run Emacs by starting a daemon inside my terminal and connecting with ~emacsclient~. Doing so spawns a new frame using the X display server running on the Windows host itself
+
+2. While I don't believe this actually works, I attempt to override the ~BROWSER~ environment variable to open links on the Windows host from within Emacs
+
+* Applications
+** asdf
+
+The version manager to rule them all
+
+It wraps a number of existing language version managers into plugins that can be managed through one unified CLI tool
+
+#+begin_src bash
+export ASDF_DIR=$HOME/.asdf
+. $ASDF_DIR/asdf.sh
+#+end_src
+
+** Dropbox
+
+Depending on which computer I'm using, I'll often have my Dropbox in different places
+
+Historically, it would only be in a different place when using Emacs in WSL (I store my org stuff in Dropbox)
+
+I'm currently in the process of moving to Dropbox within WSL though, which will mean that all version of Dropbox will live in ~$HOME/Dropbox~
+
+The reason for that is because file operations across WSL boundaries (ie anything on the C:\ Drive) is super slow compared to staying within the boundaries
+
+#+begin_src bash
+export DROPBOX_DIR=~/Dropbox
+#+end_src
+
+** Emacs
+
+I'll probably configure this a fair bit more but for now, I just shorten the name of ~emacsclient~
+
+#+begin_src bash
+alias ec=$EDITOR
+export PATH="~/.emacs.d/bin:$PATH"
+#+end_src
+
+** Erlang
+
+Whenever I compile ~erlang~ (using ~asdf~), I always use the same flags so it's easier to just set them within my shell
+
+#+begin_src bash
+export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac"
+export KERL_BUILD_DOCS="yes"
+#+end_src
+
+** git
+
+To save me having to set up each machine, I just set my Git identifiers each time
+
+#+begin_src bash
+git config --global user.name "Marcus Crane"
+git config --global user.email "marcus@utf9k.net"
+#+end_src
+
+** go
+
+While I don't write much golang, it's kind of annoying to set it up each time so I just leave working configuration in each of my shells in the event that I decide to do anything golang related
+
+#+begin_src bash
+export GOPATH="$WORKSPACE/go"
+if [[ -a "$ASDF_DIR/plugins/golang" ]]; then
+  export GOROOT="$(asdf where golang)/go"
+fi
+export PATH="$GOPATH/bin:$GOROOT:$PATH"
+#+end_src
+
+** Homebrew
+
+Sometimes I have trouble with rsync which is about the only thing that this snippet fixes
+
+#+begin_src bash
+if [[ $OPSYS == "darwin" ]]; then
+  export PATH="/usr/bin/local:$PATH"
+fi
+#+end_src
+
+** nix
+
+#+begin_src bash
+if [[ -a "~/.nix-profile" ]]; then
+  . ~/.nix-profile/etc/profile.d/nix.sh
+fi
+#+end_src
+
+** Python
+
+#+begin_src bash
+if [[ -a $(asdf where python) ]]; then
+  export PATH="$(asdf where python)/bin:$PATH"
+fi
+#+end_src
+
+** Rust
+
+#+begin_src bash
+if [[ -a "$ASDF_DIR/plugins/rust" ]]; then
+  export PATH="$(asdf where rust)/bin:$PATH"
+fi
+#+end_src
+
+** Work setup
+
+#+begin_src bash
+if [[ -a "~/.work_aliases" ]]; then
+  . "~/.work_aliases"
+fi
+#+end_src
+
+* Shortcuts
+
+#+begin_src bash
+alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
+alias de="deactivate &> /dev/null"
+alias edit="$EDITOR $CONFIG_SRC"
+alias gb="git branch -v"
+alias gbd="git branch -D"
+alias gbm="git checkout master"
+alias gcm="git commit -Si"
+alias gpom="git pull origin master"
+alias gpum="git pull upstream master"
+alias gr="git remote -v"
+alias gst="git status"
+alias pap="git pull upstream master && git push origin master"
+alias refresh="tangle-file $CONFIG_SRC && stow zsh -d ~/dotfiles && source $CONFIG_FILE"
+alias venv="python3 -m virtualenv venv && ae"
+alias vi="nvim"
+alias view="less $CONFIG_FILE"
+alias vim="nvim"
+alias ws="cd $WORKSPACE"
+#+end_src
+
+* Functions
+
+These are some handly one line functions I use from time to time
+
+#+begin_src bash
+function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
+
+function tangle-file() {
+  emacs --batch -l org $@ -f org-babel-tangle
+}
+#+end_src
+
+# Local variables:
+# eval: (add-hook 'after-save-hook 'org-html-export-to-html t t)
+# end:

@@ -12,3 +12,4 @@ fish/.config/fish/functions/fisher.fish
 fish/.config/fish/fishd.*
 nvim/.config/nvim/.netrwhist
 output
+zsh/.zshrc

@@ -43,13 +43,6 @@ Here are some variables for locations I often access, or want to encourage mysel
 (setq workspace     (getenv "WORKSPACE")
       utf9k-notes   (concat workspace "/utf9k/content-org/notes/"))
 #+end_src
-** Shell (fish)
-I currently use fish as my shell of choice so I add a hook to make use of ~fish_indent~
-
-#+begin_src emacs-lisp
-(add-hook 'fish-mode-hook (lambda ()
-                            (add-hook 'before-save-hook 'fish_indent=before-save)))
-#+end_src
 ** Usability tweaks
 *** How can I get Emacs to not open "find file" when double tapping <SPC>?
 #+begin_src emacs-lisp
