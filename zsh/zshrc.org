@@ -180,8 +180,8 @@ fi
 ** Work setup
 
 #+begin_src bash
-if [[ -a "~/.work_aliases" ]]; then
-  . "~/.work_aliases"
+if [[ -f "$HOME/.work_aliases" ]]; then
+  . "$HOME/.work_aliases"
 fi
 #+end_src
 
