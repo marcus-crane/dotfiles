@@ -180,8 +180,8 @@ fi
 ** Work setup
 
 #+begin_src bash
-if [[ -f "$HOME/.work_aliases" ]]; then
-  . "$HOME/.work_aliases"
+if [[ -f "$HOME/dotfiles/work/entrypoint.sh" ]]; then
+  . "$HOME/dotfiles/work/entrypoint.sh"
 fi
 #+end_src
 
@@ -200,7 +200,7 @@ alias gpum="git pull upstream master"
 alias gr="git remote -v"
 alias gst="git status"
 alias pap="git pull upstream master && git push origin master"
-alias refresh="tangle-file $CONFIG_SRC && stow zsh -d ~/dotfiles && source $CONFIG_FILE"
+alias refresh="tangle-file $CONFIG_SRC &> /dev/null && stow zsh -d ~/dotfiles && source $CONFIG_FILE && echo 'Refreshed config'"
 alias venv="python3 -m virtualenv venv && ae"
 alias vi="nvim"
 alias view="less $CONFIG_FILE"
