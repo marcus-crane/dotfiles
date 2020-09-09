@@ -1,4 +1,5 @@
 .DS_Store
+.gitmodules
 mopidy/.config/mopidy/
 newsboat/.newsboat/cache*
 newsboat/.newsboat/history*
@@ -12,4 +13,5 @@ fish/.config/fish/functions/fisher.fish
 fish/.config/fish/fishd.*
 nvim/.config/nvim/.netrwhist
 output
+work
 zsh/.zshrc
