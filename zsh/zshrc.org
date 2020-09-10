@@ -226,6 +226,10 @@ This function is used to display both encrypted and regular JWT tokens, as oppos
 
 It's taken almost verbatim from [[https://www.jvt.me/posts/2019/06/13/pretty-printing-jwt-openssl/][this post]] except the original ~exit 0~ would cause my terminal session to exit so I swapped it for a ~break~ instead.
 
+To pretty print a JWT line, just use it like so: ~jwt <token>~
+
+If you'd like to use a JWT stored as a file, you can do that pretty easily too: ~jwt $(cat a_saved_jwt)~
+
 #+begin_src bash
 function jwt() {
   for part in 1 2; do
