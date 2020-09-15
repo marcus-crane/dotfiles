@@ -277,3 +277,24 @@ function get-all-resources() {
     kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n $@
 }
 #+end_src
+** What functions have I defined?
+
+Often I'll forget what little shortcut functions I've made so here's a quick cheatsheet
+
+There is a built-in ~functions~ but it shows the actual source code rather than a list of names
+
+#+begin_src shell
+function funcs() {
+    functions | grep "()" | grep -v '"'
+}
+#+end_src
+
+How's that for disorientation? Enough "functions" for ya?
+
+The extra ~grep~ is a bit of a hack because without it, the actual function body will match the search for ~grep "()"~
+
+It's quite interesting in a way, that it would recursively search itself so I added in a second grep to remove any lines that feature a double quote.
+
+Technically speaking, the second grep would potentially be filtering itself out recursively which I think is pretty interesting
+
+It also makes my head hurt a little bit for what you'd think would be a pretty basic function!
