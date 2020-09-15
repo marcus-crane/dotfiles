@@ -51,8 +51,8 @@ export WORKSPACE="$HOME/Code"
 ** Setting various global constants
 
 #+begin_src bash
-export CONFIG_FILE="$HOME/.zshrc"
-export CONFIG_SRC="$HOME/dotfiles/zsh/zshrc.org"
+export CONFIG_FILE="~/.zshrc"
+export CONFIG_SRC="~/dotfiles/zsh/zshrc.org"
 export EDITOR="$(command -v emacs)client -c"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
@@ -77,7 +77,54 @@ fi
 1. If I'm running on a Windows machine, I run Emacs by starting a daemon inside my terminal and connecting with ~emacsclient~. Doing so spawns a new frame using the X display server running on the Windows host itself
 
 2. While I don't believe this actually works, I attempt to override the ~BROWSER~ environment variable to open links on the Windows host from within Emacs
+** Setting up my work-related aliases
 
+I've got some work related [[https://github.com/marcus-crane/dotfiles][dotfiles]] that live in a folder called "work"
+
+In reality, it's added as a git submodule but I never commit it as one.
+
+Anyway, I have a single ~entrypoint.sh~ script that does nothing but source any other scripts I might use, so that there is a fairly clean separation between my personal and work configuration
+
+#+begin_src bash
+if [[ -f "$HOME/dotfiles/work/entrypoint.sh" ]]; then
+  . "$HOME/dotfiles/work/entrypoint.sh"
+fi
+#+end_src
+
+* Languages
+** Erlang
+
+Whenever I compile ~erlang~ (using ~asdf~), I always use the same flags so it's easier to just set them within my shell
+
+#+begin_src bash
+export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac"
+export KERL_BUILD_DOCS="yes"
+#+end_src
+** go
+
+While I don't write much golang, it's kind of annoying to set it up each time so I just leave working configuration in each of my shells in the event that I decide to do anything golang related
+
+#+begin_src bash
+export GOPATH="$WORKSPACE/go"
+if [[ -a "$ASDF_DIR/plugins/golang" ]]; then
+  export GOROOT="$(asdf where golang)/go"
+fi
+export PATH="$GOPATH/bin:$GOROOT:$PATH"
+#+end_src
+** Python
+
+#+begin_src bash
+if [[ -a $(asdf where python) ]]; then
+  export PATH="$(asdf where python)/bin:$PATH"
+fi
+#+end_src
+** Rust
+
+#+begin_src bash
+if [[ -a "$ASDF_DIR/plugins/rust" ]]; then
+  export PATH="$(asdf where rust)/bin:$PATH"
+fi
+#+end_src
 * Applications
 ** asdf
 
@@ -86,8 +133,8 @@ The version manager to rule them all
 It wraps a number of existing language version managers into plugins that can be managed through one unified CLI tool
 
 #+begin_src bash
-export ASDF_DIR="$HOME/.asdf"
-. "$ASDF_DIR/asdf.sh"
+export ASDF_DIR=$HOME/.asdf
+. $ASDF_DIR/asdf.sh
 #+end_src
 
 ** Dropbox
@@ -101,7 +148,7 @@ I'm currently in the process of moving to Dropbox within WSL though, which will 
 The reason for that is because file operations across WSL boundaries (ie anything on the C:\ Drive) is super slow compared to staying within the boundaries
 
 #+begin_src bash
-export DROPBOX_DIR="$HOME/Dropbox"
+export DROPBOX_DIR=~/Dropbox
 #+end_src
 
 ** Emacs
@@ -110,16 +157,7 @@ I'll probably configure this a fair bit more but for now, I just shorten the nam
 
 #+begin_src bash
 alias ec=$EDITOR
-export PATH="$HOME/.emacs.d/bin:$PATH"
-#+end_src
-
-** Erlang
-
-Whenever I compile ~erlang~ (using ~asdf~), I always use the same flags so it's easier to just set them within my shell
-
-#+begin_src bash
-export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac"
-export KERL_BUILD_DOCS="yes"
+export PATH="~/.emacs.d/bin:$PATH"
 #+end_src
 
 ** git
@@ -129,18 +167,6 @@ To save me having to set up each machine, I just set my Git identifiers each tim
 #+begin_src bash
 git config --global user.name "Marcus Crane"
 git config --global user.email "marcus@utf9k.net"
-#+end_src
-
-** go
-
-While I don't write much golang, it's kind of annoying to set it up each time so I just leave working configuration in each of my shells in the event that I decide to do anything golang related
-
-#+begin_src bash
-export GOPATH="$WORKSPACE/go"
-if [[ -a "$ASDF_DIR/plugins/golang" ]]; then
-  export GOROOT="$(asdf where golang)/go"
-fi
-export PATH="$GOPATH/bin:$GOROOT:$PATH"
 #+end_src
 
 ** Homebrew
@@ -156,36 +182,18 @@ fi
 ** nix
 
 #+begin_src bash
-if [[ -a "$HOME/.nix-profile" ]]; then
-  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
-fi
-#+end_src
-
-** Python
-
-#+begin_src bash
-if [[ -a $(asdf where python) ]]; then
-  export PATH="$(asdf where python)/bin:$PATH"
-fi
-#+end_src
-
-** Rust
-
-#+begin_src bash
-if [[ -a "$ASDF_DIR/plugins/rust" ]]; then
-  export PATH="$(asdf where rust)/bin:$PATH"
-fi
-#+end_src
-
-** Work setup
-
-#+begin_src bash
-if [[ -f "$HOME/dotfiles/work/entrypoint.sh" ]]; then
-  . "$HOME/dotfiles/work/entrypoint.sh"
+if [[ -a "~/.nix-profile" ]]; then
+  . ~/.nix-profile/etc/profile.d/nix.sh
 fi
 #+end_src
 
 * Shortcuts
+
+Admittedly most of the git related stuff could live inside of a ~.gitconfig~ file but I never get around to moving it
+
+That and I figure this will all eventually be superseded by ~nix~ anyway
+
+You know... when I get around to doing that...
 
 #+begin_src bash
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
@@ -200,7 +208,7 @@ alias gpum="git pull upstream master"
 alias gr="git remote -v"
 alias gst="git status"
 alias pap="git pull upstream master && git push origin master"
-alias refresh="tangle-file $CONFIG_SRC &> /dev/null && stow zsh -d $HOME/dotfiles && source $CONFIG_FILE && echo 'Refreshed config'"
+alias refresh="tangle-file $CONFIG_SRC &> /dev/null && stow zsh -d ~/dotfiles && source $CONFIG_FILE && echo 'Refreshed config'"
 alias venv="python3 -m virtualenv venv && ae"
 alias vi="nvim"
 alias view="less $CONFIG_FILE"
@@ -212,19 +220,16 @@ alias ws="cd $WORKSPACE"
 
 These are some handly functions I use from time to time
 
-** What is holding onto a port?
 #+begin_src bash
 function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 #+end_src
 
-** Tangle an org-mode file
 #+begin_src bash
 function tangle-file() {
   emacs --batch -l org $@ -f org-babel-tangle
 }
 #+end_src
 
-** What's inside that JWT?
 This function is used to display both encrypted and regular JWT tokens, as opposed to using an online service like https://jwt.io
 
 It's taken almost verbatim from [[https://www.jvt.me/posts/2019/06/13/pretty-printing-jwt-openssl/][this post]] except the original ~exit 0~ would cause my terminal session to exit so I swapped it for a ~break~ instead.
