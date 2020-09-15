@@ -219,10 +219,12 @@ alias ws="cd $WORKSPACE"
 
 These are some handly functions I use from time to time
 
+** What application is listening on any given port?
 #+begin_src bash
 function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 #+end_src
 
+** I'd like to tangle an org file please
 #+begin_src bash
 function tangle-file() {
   emacs --batch -l org $@ -f org-babel-tangle
@@ -237,6 +239,7 @@ To pretty print a JWT line, just use it like so: ~jwt <token>~
 
 If you'd like to use a JWT stored as a file, you can do that pretty easily too: ~jwt $(cat a_saved_jwt)~
 
+** What's inside that JWT?
 #+begin_src bash
 function jwt() {
   for part in 1 2; do
@@ -261,3 +264,16 @@ function jwt() {
 # Local variables:
 # eval: (add-hook 'after-save-hook 'org-html-export-to-html t t)
 # end:
+** I'd like to see all resources in any given namespace
+
+Annoyingly, the ~kubectl get all~ command doesn't actually do what it says on the tin.
+
+Specifically, "all" in this case only includes a couple of different resources like ~pods~ and ~services~.
+
+As a workaround, it's a bit slow but we can just enumerate through all of the supported resources and see what we get back.
+
+#+begin_src shell
+function get-all-resources() {
+    kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n $@
+}
+#+end_src
