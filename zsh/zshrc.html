@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-09-15 Tue 16:27 -->
+<!-- 2020-09-15 Tue 16:28 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My zsh configuration</title>
@@ -225,40 +225,40 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org303d351">1. Setting up PATHs</a>
+<li><a href="#org5d4d490">1. Setting up PATHs</a>
 <ul>
-<li><a href="#orgb2dbf71">1.1. Universal system folders</a></li>
+<li><a href="#org0f4a48e">1.1. Universal system folders</a></li>
 </ul>
 </li>
-<li><a href="#orgc6606d5">2. Initialisation</a>
+<li><a href="#orgf9aeeda">2. Initialisation</a>
 <ul>
-<li><a href="#orgabd2dff">2.1. Determining the current OS</a></li>
-<li><a href="#orgc7284f6">2.2. Setting my workspace</a></li>
-<li><a href="#org6ba4ea6">2.3. Setting various global constants</a></li>
-<li><a href="#org2d1a3c6">2.4. Setting some Windows / WSL specific constants</a></li>
-<li><a href="#org8547483">2.5. Setting up my work-related aliases</a></li>
+<li><a href="#org425593c">2.1. Determining the current OS</a></li>
+<li><a href="#org362bcdd">2.2. Setting my workspace</a></li>
+<li><a href="#org01c5b3e">2.3. Setting various global constants</a></li>
+<li><a href="#org4631c7c">2.4. Setting some Windows / WSL specific constants</a></li>
+<li><a href="#org098bc91">2.5. Setting up my work-related aliases</a></li>
 </ul>
 </li>
-<li><a href="#org1455203">3. Languages</a>
+<li><a href="#orga26117c">3. Languages</a>
 <ul>
-<li><a href="#org6a421a5">3.1. Erlang</a></li>
-<li><a href="#org8146e0b">3.2. go</a></li>
-<li><a href="#org9eb8082">3.3. Python</a></li>
-<li><a href="#org97ebbb6">3.4. Rust</a></li>
+<li><a href="#org400fa15">3.1. Erlang</a></li>
+<li><a href="#org125a055">3.2. go</a></li>
+<li><a href="#orge48a125">3.3. Python</a></li>
+<li><a href="#orgcbfaf09">3.4. Rust</a></li>
 </ul>
 </li>
-<li><a href="#org54caf7e">4. Applications</a>
+<li><a href="#org87ce7f0">4. Applications</a>
 <ul>
-<li><a href="#org30ccac9">4.1. asdf</a></li>
-<li><a href="#orgf2a41dc">4.2. Dropbox</a></li>
-<li><a href="#orgad6329d">4.3. Emacs</a></li>
-<li><a href="#orged30717">4.4. git</a></li>
-<li><a href="#org6dab24a">4.5. Homebrew</a></li>
-<li><a href="#org1738ad9">4.6. nix</a></li>
+<li><a href="#orgbf894e8">4.1. asdf</a></li>
+<li><a href="#orgf4cba69">4.2. Dropbox</a></li>
+<li><a href="#org479fba2">4.3. Emacs</a></li>
+<li><a href="#org3f10b1c">4.4. git</a></li>
+<li><a href="#org2020af7">4.5. Homebrew</a></li>
+<li><a href="#orgf3b7a5f">4.6. nix</a></li>
 </ul>
 </li>
-<li><a href="#org23227aa">5. Shortcuts</a></li>
-<li><a href="#org80d556f">6. Functions</a></li>
+<li><a href="#orgd63122f">5. Shortcuts</a></li>
+<li><a href="#orgb0dee8f">6. Functions</a></li>
 </ul>
 </div>
 </div>
@@ -266,12 +266,12 @@
 Welcome to my configuration. It&rsquo;s always a work in progress.
 </p>
 
-<div id="outline-container-org303d351" class="outline-2">
-<h2 id="org303d351"><span class="section-number-2">1</span> Setting up PATHs</h2>
+<div id="outline-container-org5d4d490" class="outline-2">
+<h2 id="org5d4d490"><span class="section-number-2">1</span> Setting up PATHs</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgb2dbf71" class="outline-3">
-<h3 id="orgb2dbf71"><span class="section-number-3">1.1</span> Universal system folders</h3>
+<div id="outline-container-org0f4a48e" class="outline-3">
+<h3 id="org0f4a48e"><span class="section-number-3">1.1</span> Universal system folders</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 These paths generally exist on most every system so we&rsquo;ll set them seperately from other PATH additions.
@@ -285,8 +285,8 @@ These paths generally exist on most every system so we&rsquo;ll set them seperat
 </div>
 </div>
 
-<div id="outline-container-orgc6606d5" class="outline-2">
-<h2 id="orgc6606d5"><span class="section-number-2">2</span> Initialisation</h2>
+<div id="outline-container-orgf9aeeda" class="outline-2">
+<h2 id="orgf9aeeda"><span class="section-number-2">2</span> Initialisation</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 This section consists of helpers functions and global variables used by various applications.
@@ -301,8 +301,8 @@ Whether that statement holds true is&#x2026; debatable :)
 </p>
 </div>
 
-<div id="outline-container-orgabd2dff" class="outline-3">
-<h3 id="orgabd2dff"><span class="section-number-3">2.1</span> Determining the current OS</h3>
+<div id="outline-container-org425593c" class="outline-3">
+<h3 id="org425593c"><span class="section-number-3">2.1</span> Determining the current OS</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 In order to save having to remember how to use <code>uname</code> and all that, I just have my own little configuration within my shell that I can reference
@@ -331,8 +331,8 @@ It&rsquo;s worth noting that the value of <code>$OPSYS</code> on <code>macOS</co
 </div>
 </div>
 
-<div id="outline-container-orgc7284f6" class="outline-3">
-<h3 id="orgc7284f6"><span class="section-number-3">2.2</span> Setting my workspace</h3>
+<div id="outline-container-org362bcdd" class="outline-3">
+<h3 id="org362bcdd"><span class="section-number-3">2.2</span> Setting my workspace</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 All of my development occurs in <code>$HOME/Code</code> regardless of what machine I&rsquo;m on. One day I might change it though hence the variable.
@@ -345,8 +345,8 @@ All of my development occurs in <code>$HOME/Code</code> regardless of what machi
 </div>
 </div>
 
-<div id="outline-container-org6ba4ea6" class="outline-3">
-<h3 id="org6ba4ea6"><span class="section-number-3">2.3</span> Setting various global constants</h3>
+<div id="outline-container-org01c5b3e" class="outline-3">
+<h3 id="org01c5b3e"><span class="section-number-3">2.3</span> Setting various global constants</h3>
 <div class="outline-text-3" id="text-2-3">
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">CONFIG_FILE</span>=<span style="color: #98be65;">"~/.zshrc"</span>
@@ -374,8 +374,8 @@ In the event that happens anyway, this quick hack (find <code>emacs</code> and a
 </div>
 </div>
 
-<div id="outline-container-org2d1a3c6" class="outline-3">
-<h3 id="org2d1a3c6"><span class="section-number-3">2.4</span> Setting some Windows / WSL specific constants</h3>
+<div id="outline-container-org4631c7c" class="outline-3">
+<h3 id="org4631c7c"><span class="section-number-3">2.4</span> Setting some Windows / WSL specific constants</h3>
 <div class="outline-text-3" id="text-2-4">
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #51afef;">if</span> <span style="color: #51afef;">[</span><span style="color: #c678dd;">[</span> $<span style="color: #dcaeea;">OPSYS</span> == <span style="color: #98be65;">"windows"</span> <span style="color: #c678dd;">]</span><span style="color: #51afef;">]</span>; <span style="color: #51afef;">then</span>
@@ -392,8 +392,8 @@ In the event that happens anyway, this quick hack (find <code>emacs</code> and a
 </ol>
 </div>
 </div>
-<div id="outline-container-org8547483" class="outline-3">
-<h3 id="org8547483"><span class="section-number-3">2.5</span> Setting up my work-related aliases</h3>
+<div id="outline-container-org098bc91" class="outline-3">
+<h3 id="org098bc91"><span class="section-number-3">2.5</span> Setting up my work-related aliases</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
 I&rsquo;ve got some work related <a href="https://github.com/marcus-crane/dotfiles">dotfiles</a> that live in a folder called &ldquo;work&rdquo;
@@ -417,12 +417,12 @@ Anyway, I have a single <code>entrypoint.sh</code> script that does nothing but 
 </div>
 </div>
 
-<div id="outline-container-org1455203" class="outline-2">
-<h2 id="org1455203"><span class="section-number-2">3</span> Languages</h2>
+<div id="outline-container-orga26117c" class="outline-2">
+<h2 id="orga26117c"><span class="section-number-2">3</span> Languages</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org6a421a5" class="outline-3">
-<h3 id="org6a421a5"><span class="section-number-3">3.1</span> Erlang</h3>
+<div id="outline-container-org400fa15" class="outline-3">
+<h3 id="org400fa15"><span class="section-number-3">3.1</span> Erlang</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Whenever I compile <code>erlang</code> (using <code>asdf</code>), I always use the same flags so it&rsquo;s easier to just set them within my shell
@@ -435,8 +435,8 @@ Whenever I compile <code>erlang</code> (using <code>asdf</code>), I always use t
 </div>
 </div>
 </div>
-<div id="outline-container-org8146e0b" class="outline-3">
-<h3 id="org8146e0b"><span class="section-number-3">3.2</span> go</h3>
+<div id="outline-container-org125a055" class="outline-3">
+<h3 id="org125a055"><span class="section-number-3">3.2</span> go</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 While I don&rsquo;t write much golang, it&rsquo;s kind of annoying to set it up each time so I just leave working configuration in each of my shells in the event that I decide to do anything golang related
@@ -452,8 +452,8 @@ While I don&rsquo;t write much golang, it&rsquo;s kind of annoying to set it up 
 </div>
 </div>
 </div>
-<div id="outline-container-org9eb8082" class="outline-3">
-<h3 id="org9eb8082"><span class="section-number-3">3.3</span> Python</h3>
+<div id="outline-container-orge48a125" class="outline-3">
+<h3 id="orge48a125"><span class="section-number-3">3.3</span> Python</h3>
 <div class="outline-text-3" id="text-3-3">
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #51afef;">if</span> <span style="color: #51afef;">[</span><span style="color: #c678dd;">[</span> -a $<span style="color: #98be65;">(</span>asdf where python<span style="color: #98be65;">)</span> <span style="color: #c678dd;">]</span><span style="color: #51afef;">]</span>; <span style="color: #51afef;">then</span>
@@ -463,8 +463,8 @@ While I don&rsquo;t write much golang, it&rsquo;s kind of annoying to set it up 
 </div>
 </div>
 </div>
-<div id="outline-container-org97ebbb6" class="outline-3">
-<h3 id="org97ebbb6"><span class="section-number-3">3.4</span> Rust</h3>
+<div id="outline-container-orgcbfaf09" class="outline-3">
+<h3 id="orgcbfaf09"><span class="section-number-3">3.4</span> Rust</h3>
 <div class="outline-text-3" id="text-3-4">
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #51afef;">if</span> <span style="color: #51afef;">[</span><span style="color: #c678dd;">[</span> -a <span style="color: #98be65;">"</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">ASDF_DIR</span><span style="color: #98be65;">/plugins/rust"</span> <span style="color: #c678dd;">]</span><span style="color: #51afef;">]</span>; <span style="color: #51afef;">then</span>
@@ -475,12 +475,12 @@ While I don&rsquo;t write much golang, it&rsquo;s kind of annoying to set it up 
 </div>
 </div>
 </div>
-<div id="outline-container-org54caf7e" class="outline-2">
-<h2 id="org54caf7e"><span class="section-number-2">4</span> Applications</h2>
+<div id="outline-container-org87ce7f0" class="outline-2">
+<h2 id="org87ce7f0"><span class="section-number-2">4</span> Applications</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org30ccac9" class="outline-3">
-<h3 id="org30ccac9"><span class="section-number-3">4.1</span> asdf</h3>
+<div id="outline-container-orgbf894e8" class="outline-3">
+<h3 id="orgbf894e8"><span class="section-number-3">4.1</span> asdf</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 The version manager to rule them all
@@ -498,8 +498,8 @@ It wraps a number of existing language version managers into plugins that can be
 </div>
 </div>
 
-<div id="outline-container-orgf2a41dc" class="outline-3">
-<h3 id="orgf2a41dc"><span class="section-number-3">4.2</span> Dropbox</h3>
+<div id="outline-container-orgf4cba69" class="outline-3">
+<h3 id="orgf4cba69"><span class="section-number-3">4.2</span> Dropbox</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Depending on which computer I&rsquo;m using, I&rsquo;ll often have my Dropbox in different places
@@ -524,8 +524,8 @@ The reason for that is because file operations across WSL boundaries (ie anythin
 </div>
 </div>
 
-<div id="outline-container-orgad6329d" class="outline-3">
-<h3 id="orgad6329d"><span class="section-number-3">4.3</span> Emacs</h3>
+<div id="outline-container-org479fba2" class="outline-3">
+<h3 id="org479fba2"><span class="section-number-3">4.3</span> Emacs</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 I&rsquo;ll probably configure this a fair bit more but for now, I just shorten the name of <code>emacsclient</code>
@@ -539,8 +539,8 @@ I&rsquo;ll probably configure this a fair bit more but for now, I just shorten t
 </div>
 </div>
 
-<div id="outline-container-orged30717" class="outline-3">
-<h3 id="orged30717"><span class="section-number-3">4.4</span> git</h3>
+<div id="outline-container-org3f10b1c" class="outline-3">
+<h3 id="org3f10b1c"><span class="section-number-3">4.4</span> git</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 To save me having to set up each machine, I just set my Git identifiers each time
@@ -554,8 +554,8 @@ To save me having to set up each machine, I just set my Git identifiers each tim
 </div>
 </div>
 
-<div id="outline-container-org6dab24a" class="outline-3">
-<h3 id="org6dab24a"><span class="section-number-3">4.5</span> Homebrew</h3>
+<div id="outline-container-org2020af7" class="outline-3">
+<h3 id="org2020af7"><span class="section-number-3">4.5</span> Homebrew</h3>
 <div class="outline-text-3" id="text-4-5">
 <p>
 Sometimes I have trouble with rsync which is about the only thing that this snippet fixes
@@ -569,9 +569,8 @@ Sometimes I have trouble with rsync which is about the only thing that this snip
 </div>
 </div>
 </div>
-
-<div id="outline-container-org1738ad9" class="outline-3">
-<h3 id="org1738ad9"><span class="section-number-3">4.6</span> nix</h3>
+<div id="outline-container-orgf3b7a5f" class="outline-3">
+<h3 id="orgf3b7a5f"><span class="section-number-3">4.6</span> nix</h3>
 <div class="outline-text-3" id="text-4-6">
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #51afef;">if</span> <span style="color: #51afef;">[</span><span style="color: #c678dd;">[</span> -a <span style="color: #98be65;">"~/.nix-profile"</span> <span style="color: #c678dd;">]</span><span style="color: #51afef;">]</span>; <span style="color: #51afef;">then</span>
@@ -583,8 +582,8 @@ Sometimes I have trouble with rsync which is about the only thing that this snip
 </div>
 </div>
 
-<div id="outline-container-org23227aa" class="outline-2">
-<h2 id="org23227aa"><span class="section-number-2">5</span> Shortcuts</h2>
+<div id="outline-container-orgd63122f" class="outline-2">
+<h2 id="orgd63122f"><span class="section-number-2">5</span> Shortcuts</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Admittedly most of the git related stuff could live inside of a <code>.gitconfig</code> file but I never get around to moving it
@@ -622,8 +621,8 @@ You know&#x2026; when I get around to doing that&#x2026;
 </div>
 </div>
 
-<div id="outline-container-org80d556f" class="outline-2">
-<h2 id="org80d556f"><span class="section-number-2">6</span> Functions</h2>
+<div id="outline-container-orgb0dee8f" class="outline-2">
+<h2 id="orgb0dee8f"><span class="section-number-2">6</span> Functions</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 These are some handly functions I use from time to time
@@ -683,7 +682,7 @@ If you&rsquo;d like to use a JWT stored as a file, you can do that pretty easily
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: John Doe</p>
-<p class="date">Created: 2020-09-15 Tue 16:27</p>
+<p class="date">Created: 2020-09-15 Tue 16:28</p>
 </div>
 </body>
 </html>

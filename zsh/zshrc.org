@@ -178,7 +178,6 @@ if [[ $OPSYS == "darwin" ]]; then
   export PATH="/usr/bin/local:$PATH"
 fi
 #+end_src
-
 ** nix
 
 #+begin_src bash
