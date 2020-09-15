@@ -51,8 +51,8 @@ export WORKSPACE="$HOME/Code"
 ** Setting various global constants
 
 #+begin_src bash
-export CONFIG_FILE="~/.zshrc"
-export CONFIG_SRC="~/dotfiles/zsh/zshrc.org"
+export CONFIG_FILE="$HOME/.zshrc"
+export CONFIG_SRC="$HOME/dotfiles/zsh/zshrc.org"
 export EDITOR="$(command -v emacs)client -c"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
@@ -86,8 +86,8 @@ The version manager to rule them all
 It wraps a number of existing language version managers into plugins that can be managed through one unified CLI tool
 
 #+begin_src bash
-export ASDF_DIR=$HOME/.asdf
-. $ASDF_DIR/asdf.sh
+export ASDF_DIR="$HOME/.asdf"
+. "$ASDF_DIR/asdf.sh"
 #+end_src
 
 ** Dropbox
@@ -101,7 +101,7 @@ I'm currently in the process of moving to Dropbox within WSL though, which will 
 The reason for that is because file operations across WSL boundaries (ie anything on the C:\ Drive) is super slow compared to staying within the boundaries
 
 #+begin_src bash
-export DROPBOX_DIR=~/Dropbox
+export DROPBOX_DIR="$HOME/Dropbox"
 #+end_src
 
 ** Emacs
@@ -110,7 +110,7 @@ I'll probably configure this a fair bit more but for now, I just shorten the nam
 
 #+begin_src bash
 alias ec=$EDITOR
-export PATH="~/.emacs.d/bin:$PATH"
+export PATH="$HOME/.emacs.d/bin:$PATH"
 #+end_src
 
 ** Erlang
@@ -156,8 +156,8 @@ fi
 ** nix
 
 #+begin_src bash
-if [[ -a "~/.nix-profile" ]]; then
-  . ~/.nix-profile/etc/profile.d/nix.sh
+if [[ -a "$HOME/.nix-profile" ]]; then
+  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
 fi
 #+end_src
 
@@ -200,7 +200,7 @@ alias gpum="git pull upstream master"
 alias gr="git remote -v"
 alias gst="git status"
 alias pap="git pull upstream master && git push origin master"
-alias refresh="tangle-file $CONFIG_SRC &> /dev/null && stow zsh -d ~/dotfiles && source $CONFIG_FILE && echo 'Refreshed config'"
+alias refresh="tangle-file $CONFIG_SRC &> /dev/null && stow zsh -d $HOME/dotfiles && source $CONFIG_FILE && echo 'Refreshed config'"
 alias venv="python3 -m virtualenv venv && ae"
 alias vi="nvim"
 alias view="less $CONFIG_FILE"
@@ -212,16 +212,19 @@ alias ws="cd $WORKSPACE"
 
 These are some handly functions I use from time to time
 
+** What is holding onto a port?
 #+begin_src bash
 function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 #+end_src
 
+** Tangle an org-mode file
 #+begin_src bash
 function tangle-file() {
   emacs --batch -l org $@ -f org-babel-tangle
 }
 #+end_src
 
+** What's inside that JWT?
 This function is used to display both encrypted and regular JWT tokens, as opposed to using an online service like https://jwt.io
 
 It's taken almost verbatim from [[https://www.jvt.me/posts/2019/06/13/pretty-printing-jwt-openssl/][this post]] except the original ~exit 0~ would cause my terminal session to exit so I swapped it for a ~break~ instead.

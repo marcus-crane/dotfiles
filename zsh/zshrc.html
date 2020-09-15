@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-09-10 Thu 17:10 -->
+<!-- 2020-09-15 Tue 14:00 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My zsh configuration</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="Marcus Crane" />
+<meta name="author" content="John Doe" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -225,36 +225,42 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org7c27579">1. Setting up PATHs</a>
+<li><a href="#org58398c1">1. Setting up PATHs</a>
 <ul>
-<li><a href="#orga0b2ecd">1.1. Universal system folders</a></li>
+<li><a href="#org91c691b">1.1. Universal system folders</a></li>
 </ul>
 </li>
-<li><a href="#org2ea49bb">2. Initialisation</a>
+<li><a href="#orga41357d">2. Initialisation</a>
 <ul>
-<li><a href="#orgaf1bbe2">2.1. Determining the current OS</a></li>
-<li><a href="#org0b0cbbc">2.2. Setting my workspace</a></li>
-<li><a href="#orgb3072bc">2.3. Setting various global constants</a></li>
-<li><a href="#org8f20cd0">2.4. Setting some Windows / WSL specific constants</a></li>
+<li><a href="#org38889d2">2.1. Determining the current OS</a></li>
+<li><a href="#orgb577329">2.2. Setting my workspace</a></li>
+<li><a href="#org2607f36">2.3. Setting various global constants</a></li>
+<li><a href="#org1cc9d63">2.4. Setting some Windows / WSL specific constants</a></li>
 </ul>
 </li>
-<li><a href="#org269bc6c">3. Applications</a>
+<li><a href="#org3c8bd8a">3. Applications</a>
 <ul>
-<li><a href="#org9a46fb7">3.1. asdf</a></li>
-<li><a href="#orgc778362">3.2. Dropbox</a></li>
-<li><a href="#orgb99c940">3.3. Emacs</a></li>
-<li><a href="#org82993f0">3.4. Erlang</a></li>
-<li><a href="#org1466cba">3.5. git</a></li>
-<li><a href="#org4ffc97a">3.6. go</a></li>
-<li><a href="#org588cbf6">3.7. Homebrew</a></li>
-<li><a href="#orgdfd3ef8">3.8. nix</a></li>
-<li><a href="#org54a01d2">3.9. Python</a></li>
-<li><a href="#org171096f">3.10. Rust</a></li>
-<li><a href="#org019c39f">3.11. Work setup</a></li>
+<li><a href="#org6e781e4">3.1. asdf</a></li>
+<li><a href="#org32b9fe6">3.2. Dropbox</a></li>
+<li><a href="#org8ac1d6d">3.3. Emacs</a></li>
+<li><a href="#org3b6fb70">3.4. Erlang</a></li>
+<li><a href="#orga9c91a5">3.5. git</a></li>
+<li><a href="#org465697a">3.6. go</a></li>
+<li><a href="#orgfd16062">3.7. Homebrew</a></li>
+<li><a href="#orgf18afb9">3.8. nix</a></li>
+<li><a href="#org16b7b7c">3.9. Python</a></li>
+<li><a href="#orgbf7511d">3.10. Rust</a></li>
+<li><a href="#org75b12c7">3.11. Work setup</a></li>
 </ul>
 </li>
-<li><a href="#orgd0d965a">4. Shortcuts</a></li>
-<li><a href="#org176c7ff">5. Functions</a></li>
+<li><a href="#orgf010553">4. Shortcuts</a></li>
+<li><a href="#orga3b12e4">5. Functions</a>
+<ul>
+<li><a href="#org49f9cc2">5.1. What is holding onto a port?</a></li>
+<li><a href="#orge1ab29e">5.2. Tangle an org-mode file</a></li>
+<li><a href="#orge168c0c">5.3. What&rsquo;s inside that JWT?</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -262,12 +268,12 @@
 Welcome to my configuration. It&rsquo;s always a work in progress.
 </p>
 
-<div id="outline-container-org7c27579" class="outline-2">
-<h2 id="org7c27579"><span class="section-number-2">1</span> Setting up PATHs</h2>
+<div id="outline-container-org58398c1" class="outline-2">
+<h2 id="org58398c1"><span class="section-number-2">1</span> Setting up PATHs</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orga0b2ecd" class="outline-3">
-<h3 id="orga0b2ecd"><span class="section-number-3">1.1</span> Universal system folders</h3>
+<div id="outline-container-org91c691b" class="outline-3">
+<h3 id="org91c691b"><span class="section-number-3">1.1</span> Universal system folders</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 These paths generally exist on most every system so we&rsquo;ll set them seperately from other PATH additions.
@@ -281,8 +287,8 @@ These paths generally exist on most every system so we&rsquo;ll set them seperat
 </div>
 </div>
 
-<div id="outline-container-org2ea49bb" class="outline-2">
-<h2 id="org2ea49bb"><span class="section-number-2">2</span> Initialisation</h2>
+<div id="outline-container-orga41357d" class="outline-2">
+<h2 id="orga41357d"><span class="section-number-2">2</span> Initialisation</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 This section consists of helpers functions and global variables used by various applications.
@@ -297,8 +303,8 @@ Whether that statement holds true is&#x2026; debatable :)
 </p>
 </div>
 
-<div id="outline-container-orgaf1bbe2" class="outline-3">
-<h3 id="orgaf1bbe2"><span class="section-number-3">2.1</span> Determining the current OS</h3>
+<div id="outline-container-org38889d2" class="outline-3">
+<h3 id="org38889d2"><span class="section-number-3">2.1</span> Determining the current OS</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 In order to save having to remember how to use <code>uname</code> and all that, I just have my own little configuration within my shell that I can reference
@@ -327,8 +333,8 @@ It&rsquo;s worth noting that the value of <code>$OPSYS</code> on <code>macOS</co
 </div>
 </div>
 
-<div id="outline-container-org0b0cbbc" class="outline-3">
-<h3 id="org0b0cbbc"><span class="section-number-3">2.2</span> Setting my workspace</h3>
+<div id="outline-container-orgb577329" class="outline-3">
+<h3 id="orgb577329"><span class="section-number-3">2.2</span> Setting my workspace</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 All of my development occurs in <code>$HOME/Code</code> regardless of what machine I&rsquo;m on. One day I might change it though hence the variable.
@@ -341,12 +347,12 @@ All of my development occurs in <code>$HOME/Code</code> regardless of what machi
 </div>
 </div>
 
-<div id="outline-container-orgb3072bc" class="outline-3">
-<h3 id="orgb3072bc"><span class="section-number-3">2.3</span> Setting various global constants</h3>
+<div id="outline-container-org2607f36" class="outline-3">
+<h3 id="org2607f36"><span class="section-number-3">2.3</span> Setting various global constants</h3>
 <div class="outline-text-3" id="text-2-3">
 <div class="org-src-container">
-<pre class="src src-bash"><span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">CONFIG_FILE</span>=<span style="color: #98be65;">"~/.zshrc"</span>
-<span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">CONFIG_SRC</span>=<span style="color: #98be65;">"~/dotfiles/zsh/zshrc.org"</span>
+<pre class="src src-bash"><span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">CONFIG_FILE</span>=<span style="color: #98be65;">"</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">HOME</span><span style="color: #98be65;">/.zshrc"</span>
+<span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">CONFIG_SRC</span>=<span style="color: #98be65;">"</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">HOME</span><span style="color: #98be65;">/dotfiles/zsh/zshrc.org"</span>
 <span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">EDITOR</span>=<span style="color: #98be65;">"</span><span style="color: #51afef; font-weight: bold;">$(command -v emacs)</span><span style="color: #98be65;">client -c"</span>
 <span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">GPG_TTY</span>=$<span style="color: #51afef;">(</span>tty<span style="color: #51afef;">)</span>
 <span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">LANGUAGE</span>=<span style="color: #98be65;">"en_NZ:en"</span>
@@ -370,8 +376,8 @@ In the event that happens anyway, this quick hack (find <code>emacs</code> and a
 </div>
 </div>
 
-<div id="outline-container-org8f20cd0" class="outline-3">
-<h3 id="org8f20cd0"><span class="section-number-3">2.4</span> Setting some Windows / WSL specific constants</h3>
+<div id="outline-container-org1cc9d63" class="outline-3">
+<h3 id="org1cc9d63"><span class="section-number-3">2.4</span> Setting some Windows / WSL specific constants</h3>
 <div class="outline-text-3" id="text-2-4">
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #51afef;">if</span> <span style="color: #51afef;">[</span><span style="color: #c678dd;">[</span> $<span style="color: #dcaeea;">OPSYS</span> == <span style="color: #98be65;">"windows"</span> <span style="color: #c678dd;">]</span><span style="color: #51afef;">]</span>; <span style="color: #51afef;">then</span>
@@ -390,12 +396,12 @@ In the event that happens anyway, this quick hack (find <code>emacs</code> and a
 </div>
 </div>
 
-<div id="outline-container-org269bc6c" class="outline-2">
-<h2 id="org269bc6c"><span class="section-number-2">3</span> Applications</h2>
+<div id="outline-container-org3c8bd8a" class="outline-2">
+<h2 id="org3c8bd8a"><span class="section-number-2">3</span> Applications</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org9a46fb7" class="outline-3">
-<h3 id="org9a46fb7"><span class="section-number-3">3.1</span> asdf</h3>
+<div id="outline-container-org6e781e4" class="outline-3">
+<h3 id="org6e781e4"><span class="section-number-3">3.1</span> asdf</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 The version manager to rule them all
@@ -406,15 +412,15 @@ It wraps a number of existing language version managers into plugins that can be
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash"><span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">ASDF_DIR</span>=$<span style="color: #dcaeea;">HOME</span>/.asdf
-. $<span style="color: #dcaeea;">ASDF_DIR</span>/asdf.sh
+<pre class="src src-bash"><span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">ASDF_DIR</span>=<span style="color: #98be65;">"</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">HOME</span><span style="color: #98be65;">/.asdf"</span>
+. <span style="color: #98be65;">"</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">ASDF_DIR</span><span style="color: #98be65;">/asdf.sh"</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgc778362" class="outline-3">
-<h3 id="orgc778362"><span class="section-number-3">3.2</span> Dropbox</h3>
+<div id="outline-container-org32b9fe6" class="outline-3">
+<h3 id="org32b9fe6"><span class="section-number-3">3.2</span> Dropbox</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Depending on which computer I&rsquo;m using, I&rsquo;ll often have my Dropbox in different places
@@ -433,29 +439,29 @@ The reason for that is because file operations across WSL boundaries (ie anythin
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash"><span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">DROPBOX_DIR</span>=~/Dropbox
+<pre class="src src-bash"><span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">DROPBOX_DIR</span>=<span style="color: #98be65;">"</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">HOME</span><span style="color: #98be65;">/Dropbox"</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgb99c940" class="outline-3">
-<h3 id="orgb99c940"><span class="section-number-3">3.3</span> Emacs</h3>
+<div id="outline-container-org8ac1d6d" class="outline-3">
+<h3 id="org8ac1d6d"><span class="section-number-3">3.3</span> Emacs</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 I&rsquo;ll probably configure this a fair bit more but for now, I just shorten the name of <code>emacsclient</code>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">alias <span style="color: #dcaeea;">ec</span>=$<span style="color: #dcaeea;">EDITOR</span>
-<span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">PATH</span>=<span style="color: #98be65;">"~/.emacs.d/bin:</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">PATH</span><span style="color: #98be65;">"</span>
+<pre class="src src-bash"><span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">ec</span>=$<span style="color: #dcaeea;">EDITOR</span>
+<span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">PATH</span>=<span style="color: #98be65;">"</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">HOME</span><span style="color: #98be65;">/.emacs.d/bin:</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">PATH</span><span style="color: #98be65;">"</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org82993f0" class="outline-3">
-<h3 id="org82993f0"><span class="section-number-3">3.4</span> Erlang</h3>
+<div id="outline-container-org3b6fb70" class="outline-3">
+<h3 id="org3b6fb70"><span class="section-number-3">3.4</span> Erlang</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 Whenever I compile <code>erlang</code> (using <code>asdf</code>), I always use the same flags so it&rsquo;s easier to just set them within my shell
@@ -469,8 +475,8 @@ Whenever I compile <code>erlang</code> (using <code>asdf</code>), I always use t
 </div>
 </div>
 
-<div id="outline-container-org1466cba" class="outline-3">
-<h3 id="org1466cba"><span class="section-number-3">3.5</span> git</h3>
+<div id="outline-container-orga9c91a5" class="outline-3">
+<h3 id="orga9c91a5"><span class="section-number-3">3.5</span> git</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 To save me having to set up each machine, I just set my Git identifiers each time
@@ -484,8 +490,8 @@ To save me having to set up each machine, I just set my Git identifiers each tim
 </div>
 </div>
 
-<div id="outline-container-org4ffc97a" class="outline-3">
-<h3 id="org4ffc97a"><span class="section-number-3">3.6</span> go</h3>
+<div id="outline-container-org465697a" class="outline-3">
+<h3 id="org465697a"><span class="section-number-3">3.6</span> go</h3>
 <div class="outline-text-3" id="text-3-6">
 <p>
 While I don&rsquo;t write much golang, it&rsquo;s kind of annoying to set it up each time so I just leave working configuration in each of my shells in the event that I decide to do anything golang related
@@ -502,8 +508,8 @@ While I don&rsquo;t write much golang, it&rsquo;s kind of annoying to set it up 
 </div>
 </div>
 
-<div id="outline-container-org588cbf6" class="outline-3">
-<h3 id="org588cbf6"><span class="section-number-3">3.7</span> Homebrew</h3>
+<div id="outline-container-orgfd16062" class="outline-3">
+<h3 id="orgfd16062"><span class="section-number-3">3.7</span> Homebrew</h3>
 <div class="outline-text-3" id="text-3-7">
 <p>
 Sometimes I have trouble with rsync which is about the only thing that this snippet fixes
@@ -518,20 +524,20 @@ Sometimes I have trouble with rsync which is about the only thing that this snip
 </div>
 </div>
 
-<div id="outline-container-orgdfd3ef8" class="outline-3">
-<h3 id="orgdfd3ef8"><span class="section-number-3">3.8</span> nix</h3>
+<div id="outline-container-orgf18afb9" class="outline-3">
+<h3 id="orgf18afb9"><span class="section-number-3">3.8</span> nix</h3>
 <div class="outline-text-3" id="text-3-8">
 <div class="org-src-container">
-<pre class="src src-bash"><span style="color: #51afef;">if</span> <span style="color: #51afef;">[</span><span style="color: #c678dd;">[</span> -a <span style="color: #98be65;">"~/.nix-profile"</span> <span style="color: #c678dd;">]</span><span style="color: #51afef;">]</span>; <span style="color: #51afef;">then</span>
-  . ~/.nix-profile/etc/profile.d/nix.sh
+<pre class="src src-bash"><span style="color: #51afef;">if</span> <span style="color: #51afef;">[</span><span style="color: #c678dd;">[</span> -a <span style="color: #98be65;">"</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">HOME</span><span style="color: #98be65;">/.nix-profile"</span> <span style="color: #c678dd;">]</span><span style="color: #51afef;">]</span>; <span style="color: #51afef;">then</span>
+  . <span style="color: #98be65;">"</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">HOME</span><span style="color: #98be65;">/.nix-profile/etc/profile.d/nix.sh"</span>
 <span style="color: #51afef;">fi</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org54a01d2" class="outline-3">
-<h3 id="org54a01d2"><span class="section-number-3">3.9</span> Python</h3>
+<div id="outline-container-org16b7b7c" class="outline-3">
+<h3 id="org16b7b7c"><span class="section-number-3">3.9</span> Python</h3>
 <div class="outline-text-3" id="text-3-9">
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #51afef;">if</span> <span style="color: #51afef;">[</span><span style="color: #c678dd;">[</span> -a $<span style="color: #98be65;">(</span>asdf where python<span style="color: #98be65;">)</span> <span style="color: #c678dd;">]</span><span style="color: #51afef;">]</span>; <span style="color: #51afef;">then</span>
@@ -542,8 +548,8 @@ Sometimes I have trouble with rsync which is about the only thing that this snip
 </div>
 </div>
 
-<div id="outline-container-org171096f" class="outline-3">
-<h3 id="org171096f"><span class="section-number-3">3.10</span> Rust</h3>
+<div id="outline-container-orgbf7511d" class="outline-3">
+<h3 id="orgbf7511d"><span class="section-number-3">3.10</span> Rust</h3>
 <div class="outline-text-3" id="text-3-10">
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #51afef;">if</span> <span style="color: #51afef;">[</span><span style="color: #c678dd;">[</span> -a <span style="color: #98be65;">"</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">ASDF_DIR</span><span style="color: #98be65;">/plugins/rust"</span> <span style="color: #c678dd;">]</span><span style="color: #51afef;">]</span>; <span style="color: #51afef;">then</span>
@@ -554,8 +560,8 @@ Sometimes I have trouble with rsync which is about the only thing that this snip
 </div>
 </div>
 
-<div id="outline-container-org019c39f" class="outline-3">
-<h3 id="org019c39f"><span class="section-number-3">3.11</span> Work setup</h3>
+<div id="outline-container-org75b12c7" class="outline-3">
+<h3 id="org75b12c7"><span class="section-number-3">3.11</span> Work setup</h3>
 <div class="outline-text-3" id="text-3-11">
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #51afef;">if</span> <span style="color: #51afef;">[</span><span style="color: #c678dd;">[</span> -f <span style="color: #98be65;">"</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">HOME</span><span style="color: #98be65;">/dotfiles/work/entrypoint.sh"</span> <span style="color: #c678dd;">]</span><span style="color: #51afef;">]</span>; <span style="color: #51afef;">then</span>
@@ -567,52 +573,66 @@ Sometimes I have trouble with rsync which is about the only thing that this snip
 </div>
 </div>
 
-<div id="outline-container-orgd0d965a" class="outline-2">
-<h2 id="orgd0d965a"><span class="section-number-2">4</span> Shortcuts</h2>
+<div id="outline-container-orgf010553" class="outline-2">
+<h2 id="orgf010553"><span class="section-number-2">4</span> Shortcuts</h2>
 <div class="outline-text-2" id="text-4">
 <div class="org-src-container">
-<pre class="src src-bash">alias <span style="color: #dcaeea;">ae</span>=<span style="color: #98be65;">"deactivate &amp;&gt; /dev/null; source ./venv/bin/activate"</span>
-alias <span style="color: #dcaeea;">de</span>=<span style="color: #98be65;">"deactivate &amp;&gt; /dev/null"</span>
-alias <span style="color: #dcaeea;">edit</span>=<span style="color: #98be65;">"</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">EDITOR</span><span style="color: #98be65;"> </span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">CONFIG_SRC</span><span style="color: #98be65;">"</span>
-alias <span style="color: #dcaeea;">gb</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> branch -v"</span>
-alias <span style="color: #dcaeea;">gbd</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> branch -D"</span>
-alias <span style="color: #dcaeea;">gbm</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> checkout master"</span>
-alias <span style="color: #dcaeea;">gcm</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> commit -Si"</span>
-alias <span style="color: #dcaeea;">gpom</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> pull origin master"</span>
-alias <span style="color: #dcaeea;">gpum</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> pull upstream master"</span>
-alias <span style="color: #dcaeea;">gr</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> remote -v"</span>
-alias <span style="color: #dcaeea;">gst</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> status"</span>
-alias <span style="color: #dcaeea;">pap</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> pull upstream master &amp;&amp; </span><span style="color: #98be65;">git</span><span style="color: #98be65;"> push origin master"</span>
-alias <span style="color: #dcaeea;">refresh</span>=<span style="color: #98be65;">"tangle-file </span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">CONFIG_SRC</span><span style="color: #98be65;"> &amp;&gt; /dev/null &amp;&amp; stow zsh -d ~/dotfiles &amp;&amp; source </span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">CONFIG_FILE</span><span style="color: #98be65;"> &amp;&amp; </span><span style="color: #98be65;">echo</span><span style="color: #98be65;"> 'Refreshed config'"</span>
-alias <span style="color: #dcaeea;">venv</span>=<span style="color: #98be65;">"python3 -m virtualenv venv &amp;&amp; ae"</span>
-alias <span style="color: #dcaeea;">vi</span>=<span style="color: #98be65;">"nvim"</span>
-alias <span style="color: #dcaeea;">view</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">less</span><span style="color: #98be65;"> </span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">CONFIG_FILE</span><span style="color: #98be65;">"</span>
-alias <span style="color: #dcaeea;">vim</span>=<span style="color: #98be65;">"nvim"</span>
-alias <span style="color: #dcaeea;">ws</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">cd</span><span style="color: #98be65;"> </span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">WORKSPACE</span><span style="color: #98be65;">"</span>
+<pre class="src src-bash"><span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">ae</span>=<span style="color: #98be65;">"deactivate &amp;&gt; /dev/null; source ./venv/bin/activate"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">de</span>=<span style="color: #98be65;">"deactivate &amp;&gt; /dev/null"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">edit</span>=<span style="color: #98be65;">"</span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">EDITOR</span><span style="color: #98be65;"> </span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">CONFIG_SRC</span><span style="color: #98be65;">"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">gb</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> branch -v"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">gbd</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> branch -D"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">gbm</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> checkout master"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">gcm</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> commit -Si"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">gpom</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> pull origin master"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">gpum</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> pull upstream master"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">gr</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> remote -v"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">gst</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> status"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">pap</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">git</span><span style="color: #98be65;"> pull upstream master &amp;&amp; </span><span style="color: #98be65;">git</span><span style="color: #98be65;"> push origin master"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">refresh</span>=<span style="color: #98be65;">"tangle-file </span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">CONFIG_SRC</span><span style="color: #98be65;"> &amp;&gt; /dev/null &amp;&amp; stow zsh -d </span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">HOME</span><span style="color: #98be65;">/dotfiles &amp;&amp; source </span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">CONFIG_FILE</span><span style="color: #98be65;"> &amp;&amp; </span><span style="color: #98be65;">echo</span><span style="color: #98be65;"> 'Refreshed config'"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">venv</span>=<span style="color: #98be65;">"python3 -m virtualenv venv &amp;&amp; ae"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">vi</span>=<span style="color: #98be65;">"nvim"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">view</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">less</span><span style="color: #98be65;"> </span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">CONFIG_FILE</span><span style="color: #98be65;">"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">vim</span>=<span style="color: #98be65;">"nvim"</span>
+<span style="color: #c678dd;">alias</span> <span style="color: #dcaeea;">ws</span>=<span style="color: #98be65;">"</span><span style="color: #98be65;">cd</span><span style="color: #98be65;"> </span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">WORKSPACE</span><span style="color: #98be65;">"</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org176c7ff" class="outline-2">
-<h2 id="org176c7ff"><span class="section-number-2">5</span> Functions</h2>
+<div id="outline-container-orga3b12e4" class="outline-2">
+<h2 id="orga3b12e4"><span class="section-number-2">5</span> Functions</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 These are some handly functions I use from time to time
 </p>
+</div>
 
+<div id="outline-container-org49f9cc2" class="outline-3">
+<h3 id="org49f9cc2"><span class="section-number-3">5.1</span> What is holding onto a port?</h3>
+<div class="outline-text-3" id="text-5-1">
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #51afef;">function</span> <span style="color: #c678dd;">whomport</span><span style="color: #51afef;">()</span> <span style="color: #51afef;">{</span> lsof -nP -i4TCP:$<span style="color: #da8548; font-weight: bold;">1</span> | <span style="color: #ECBE7B;">grep</span> LISTEN <span style="color: #51afef;">}</span>
 </pre>
 </div>
+</div>
+</div>
 
+<div id="outline-container-orge1ab29e" class="outline-3">
+<h3 id="orge1ab29e"><span class="section-number-3">5.2</span> Tangle an org-mode file</h3>
+<div class="outline-text-3" id="text-5-2">
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #51afef;">function</span> <span style="color: #c678dd;">tangle-file</span><span style="color: #51afef;">()</span> <span style="color: #51afef;">{</span>
   emacs --batch -l org $<span style="color: #dcaeea;">@</span> -f org-babel-tangle
 <span style="color: #51afef;">}</span>
 </pre>
 </div>
+</div>
+</div>
 
+<div id="outline-container-orge168c0c" class="outline-3">
+<h3 id="orge168c0c"><span class="section-number-3">5.3</span> What&rsquo;s inside that JWT?</h3>
+<div class="outline-text-3" id="text-5-3">
 <p>
 This function is used to display both encrypted and regular JWT tokens, as opposed to using an online service like <a href="https://jwt.io">https://jwt.io</a>
 </p>
@@ -653,9 +673,10 @@ If you&rsquo;d like to use a JWT stored as a file, you can do that pretty easily
 </div>
 </div>
 </div>
+</div>
 <div id="postamble" class="status">
-<p class="author">Author: Marcus Crane</p>
-<p class="date">Created: 2020-09-10 Thu 17:10</p>
+<p class="author">Author: John Doe</p>
+<p class="date">Created: 2020-09-15 Tue 14:00</p>
 </div>
 </body>
 </html>
