@@ -91,40 +91,6 @@ if [[ -f "$HOME/dotfiles/work/entrypoint.sh" ]]; then
 fi
 #+end_src
 
-* Languages
-** Erlang
-
-Whenever I compile ~erlang~ (using ~asdf~), I always use the same flags so it's easier to just set them within my shell
-
-#+begin_src bash
-export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac"
-export KERL_BUILD_DOCS="yes"
-#+end_src
-** go
-
-While I don't write much golang, it's kind of annoying to set it up each time so I just leave working configuration in each of my shells in the event that I decide to do anything golang related
-
-#+begin_src bash
-export GOPATH="$WORKSPACE/go"
-if [[ -a "$ASDF_DIR/plugins/golang" ]]; then
-  export GOROOT="$(asdf where golang)/go"
-fi
-export PATH="$GOPATH/bin:$GOROOT:$PATH"
-#+end_src
-** Python
-
-#+begin_src bash
-if [[ -a $(asdf where python) ]]; then
-  export PATH="$(asdf where python)/bin:$PATH"
-fi
-#+end_src
-** Rust
-
-#+begin_src bash
-if [[ -a "$ASDF_DIR/plugins/rust" ]]; then
-  export PATH="$(asdf where rust)/bin:$PATH"
-fi
-#+end_src
 * Applications
 ** asdf
 
@@ -185,7 +151,40 @@ if [[ -a "~/.nix-profile" ]]; then
   . ~/.nix-profile/etc/profile.d/nix.sh
 fi
 #+end_src
+* Languages
+** Erlang
 
+Whenever I compile ~erlang~ (using ~asdf~), I always use the same flags so it's easier to just set them within my shell
+
+#+begin_src bash
+export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac"
+export KERL_BUILD_DOCS="yes"
+#+end_src
+** go
+
+While I don't write much golang, it's kind of annoying to set it up each time so I just leave working configuration in each of my shells in the event that I decide to do anything golang related
+
+#+begin_src bash
+export GOPATH="$WORKSPACE/go"
+if [[ -a "$ASDF_DIR/plugins/golang" ]]; then
+  export GOROOT="$(asdf where golang)/go"
+fi
+export PATH="$GOPATH/bin:$GOROOT:$PATH"
+#+end_src
+** Python
+
+#+begin_src bash
+if [[ -a $(asdf where python) ]]; then
+  export PATH="$(asdf where python)/bin:$PATH"
+fi
+#+end_src
+** Rust
+
+#+begin_src bash
+if [[ -a "$ASDF_DIR/plugins/rust" ]]; then
+  export PATH="$(asdf where rust)/bin:$PATH"
+fi
+#+end_src
 * Shortcuts
 
 Admittedly most of the git related stuff could live inside of a ~.gitconfig~ file but I never get around to moving it
