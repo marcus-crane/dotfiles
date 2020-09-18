@@ -147,8 +147,11 @@ fi
 ** nix
 
 #+begin_src bash
-if [[ -a "~/.nix-profile" ]]; then
-  . ~/.nix-profile/etc/profile.d/nix.sh
+if [[ -a "$HOME/.nix-profile" ]]; then
+  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+fi
+if [[ -a "/etc/profile.d/nix.sh" ]]; then
+  . "/etc/profile.d/nix.sh"
 fi
 #+end_src
 * Languages
