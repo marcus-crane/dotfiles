@@ -2,7 +2,6 @@
 #+options: toc:2
 #+startup: content
 #+property: header-args :tangle config.el
-#+setupfile: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
 # Local variables:
 # eval: (add-hook 'after-save-hook 'org-html-export-to-html t t)
