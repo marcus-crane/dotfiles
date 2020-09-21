@@ -123,7 +123,7 @@ I'll probably configure this a fair bit more but for now, I just shorten the nam
 
 #+begin_src bash
 alias ec=$EDITOR
-export PATH="~/.emacs.d/bin:$PATH"
+export PATH="$HOME/.emacs.d/bin:$PATH"
 #+end_src
 
 ** git
@@ -149,9 +149,6 @@ fi
 #+begin_src bash
 if [[ -a "$HOME/.nix-profile" ]]; then
   . "$HOME/.nix-profile/etc/profile.d/nix.sh"
-fi
-if [[ -a "/etc/profile.d/nix.sh" ]]; then
-  . "/etc/profile.d/nix.sh"
 fi
 #+end_src
 * Languages
