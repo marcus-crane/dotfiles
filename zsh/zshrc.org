@@ -162,7 +162,9 @@ export KERL_BUILD_DOCS="yes"
 #+end_src
 ** go
 
-While I don't write much golang, it's kind of annoying to set it up each time so I just leave working configuration in each of my shells in the event that I decide to do anything golang related
+While I'm slowly getting better at writing Go these days, I think ~GOROOT~, to a certain extent, is redundant due to the introduction of ~GOMODULES~ which you can see I have enabled by default
+
+Don't quote me on that and not all project support ~GOMODULES~ of course
 
 #+begin_src bash
 export GOPATH="$WORKSPACE/go"
@@ -170,6 +172,7 @@ if [[ -a "$ASDF_DIR/plugins/golang" ]]; then
   export GOROOT="$(asdf where golang)/go"
 fi
 export PATH="$GOPATH/bin:$GOROOT:$PATH"
+export GO111MODULE="on"
 #+end_src
 ** Python
 
@@ -276,6 +279,7 @@ function get-all-resources() {
     kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n $@
 }
 #+end_src
+
 ** What functions have I defined?
 
 Often I'll forget what little shortcut functions I've made so here's a quick cheatsheet
