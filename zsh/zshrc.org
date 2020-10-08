@@ -53,7 +53,7 @@ export WORKSPACE="$HOME/Code"
 #+begin_src bash
 export CONFIG_FILE="~/.zshrc"
 export CONFIG_SRC="~/dotfiles/zsh/zshrc.org"
-export EDITOR="$(command -v emacs)client -c"
+export EDITOR="$(command -v nvim)"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
 export PROMPT='%B%F{green}>%f%b '
@@ -297,7 +297,18 @@ How's that for disorientation? Enough "functions" for ya?
 The extra ~grep~ is a bit of a hack because without it, the actual function body will match the search for ~grep "()"~
 
 It's quite interesting in a way, that it would recursively search itself so I added in a second grep to remove any lines that feature a double quote.
-
 Technically speaking, the second grep would potentially be filtering itself out recursively which I think is pretty interesting
 
 It also makes my head hurt a little bit for what you'd think would be a pretty basic function!
+
+** What's a quick way to archive backups?
+
+In order to save on cloud storage space, while still keeping a home for rarely used backups, I like to store things in [[https://backblaze.com/b2/cloud-storage][Backblaze B2]]
+
+While I could use the web UI, it's often just as fast to use [[https://rclone.org][rclone]] which is what this script is a wrapper around
+
+#+begin_src shell
+function archive() {
+    rclone copy "$(pwd)/$1" b2:long-term-backups --progress
+}
+#+end_src
