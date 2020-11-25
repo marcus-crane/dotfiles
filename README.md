@@ -28,7 +28,7 @@ cat <file> | codedown <language> > <output>
 A working example would be:
 
 ```bash
-cat ~/dotfiles/zsh/zshrc.md | codedown bash > ~/dotfiles/.zshrc && stow zsh -d ~/dotfiles
+cat ~/dotfiles/zsh/zshrc.md | codedown bash > ~/dotfiles/zsh/.zshrc && stow zsh -d ~/dotfiles
 ```
 
 This emulates the same functionality I had using `org-mode` for literate programming but without the dependency of installing `emacs` which can take a little while
