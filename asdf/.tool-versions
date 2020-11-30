@@ -11,6 +11,6 @@ python     3.9.0
 ruby       2.7.2
 rust       1.48.0
 shellcheck 0.7.1
-sqlite 3.33.0
+sqlite     3.33.0
 terraform  0.13.5
 tmux       3.1
