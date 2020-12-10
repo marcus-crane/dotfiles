@@ -1,0 +1,16 @@
+aria2      1.35.0
+elixir     1.11.2
+erlang     23.1.4
+gohugo     0.78.2
+golang     1.15.5
+helm       3.4.1
+lua        5.4.1
+neovim     stable
+nodejs     15.3.0
+python     3.9.0
+ruby       2.7.2
+rust       1.48.0
+shellcheck 0.7.1
+sqlite     3.33.0
+terraform  0.13.5
+tmux       3.1

@@ -47,8 +47,8 @@ export WORKSPACE="$HOME/Code"
 ### Setting various global constants
 
 ```bash
-export CONFIG_FILE="~/.zshrc"
-export CONFIG_SRC="~/dotfiles/zsh/zshrc.md"
+export CONFIG_FILE="$HOME/.zshrc"
+export CONFIG_SRC="$HOME/dotfiles/zsh/zshrc.md"
 export EDITOR="$(command -v nvim)"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
@@ -162,35 +162,8 @@ Don't quote me on that and not all project support `GOMODULES` of course
 
 ```bash
 export GOPATH="$WORKSPACE/go"
-if [[ -a "$ASDF_DIR/plugins/golang" ]]; then
-  export GOROOT="$(asdf where golang)/go"
-fi
 export PATH="$GOPATH/bin:$GOROOT:$PATH"
 export GO111MODULE="on"
-```
-
-### Node
-
-```bash
-if [[ -a "$ASDF_DIR/plugins/nodejs" ]]; then
-  export PATH="$(asdf where nodejs)/.npm/bin:$PATH"
-fi
-```
-
-### Python
-
-```bash
-if [[ -a $(asdf where python) ]]; then
-  export PATH="$(asdf where python)/bin:$PATH"
-fi
-```
-
-### Rust
-
-```bash
-if [[ -a "$ASDF_DIR/plugins/rust" ]]; then
-  export PATH="$(asdf where rust)/bin:$PATH"
-fi
 ```
 
 ## Shortcuts
@@ -214,7 +187,7 @@ alias gpum="git pull upstream master"
 alias gr="git remote -v"
 alias gst="git status"
 alias pap="git pull upstream master && git push origin master"
-alias refresh="tangle-md $CONFIG_SRC bash $(dirname $CONFIG_SRC)/.zshrc &> /dev/null && stow zsh -d ~/dotfiles && source $CONFIG_FILE && echo 'Refreshed config from $CONFIG_SRC'"
+alias refresh="tangle-md $CONFIG_SRC bash $(dirname $CONFIG_SRC)/.zshrc &> /dev/null && stow zsh -d ~/dotfiles --ignore='.*.md' && source $CONFIG_FILE && echo 'Refreshed config from $CONFIG_SRC'"
 alias venv="python3 -m virtualenv venv && ae"
 alias vi="nvim"
 alias view="less $CONFIG_FILE"
