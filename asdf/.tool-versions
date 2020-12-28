@@ -4,7 +4,7 @@ golang     1.16beta1
 helm       3.4.1
 lua        5.4.1
 neovim     stable
-nodejs     15.5.0
+nodejs     15.3.0
 python     3.9.1
 ruby       2.7.2
 rust       1.48.0
