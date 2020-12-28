@@ -111,6 +111,14 @@ alias ec=$EDITOR
 export PATH="$HOME/.emacs.d/bin:$PATH"
 ```
 
+### fzf
+
+A fuzzy finder which comes with some autocompletions
+
+```bash
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+```
+
 ### git
 
 To save me having to set up each machine, I just set my Git identifiers each time
