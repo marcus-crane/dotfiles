@@ -1,6 +1,6 @@
 aria2      1.35.0
 gohugo     0.79.1
-golang     1.15.5
+golang     1.16beta1
 helm       3.4.1
 lua        5.4.1
 neovim     stable
