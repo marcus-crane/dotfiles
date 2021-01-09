@@ -75,20 +75,6 @@ fi
 
 2. While I don't believe this actually works, I attempt to override the `BROWSER` environment variable to open links on the Windows host from within Emacs
 
-### Setting up my work-related aliases
-
-I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
-
-In reality, it's added as a git submodule but I never commit it as one.
-
-Anyway, I have a single `entrypoint.sh` script that does nothing but source any other scripts I might use, so that there is a fairly clean separation between my personal and work configuration
-
-```bash
-if [[ -f "$HOME/dotfiles/work/entrypoint.sh" ]]; then
-  . "$HOME/dotfiles/work/entrypoint.sh"
-fi
-```
-
 ## Applications
 
 ### asdf
@@ -125,6 +111,14 @@ alias ec=$EDITOR
 export PATH="$HOME/.emacs.d/bin:$PATH"
 ```
 
+### fzf
+
+A fuzzy finder which comes with some autocompletions
+
+```bash
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+```
+
 ### git
 
 To save me having to set up each machine, I just set my Git identifiers each time
@@ -150,6 +144,11 @@ fi
 if [[ -a "$HOME/.nix-profile" ]]; then
   . "$HOME/.nix-profile/etc/profile.d/nix.sh"
 fi
+```
+
+### Postgres
+```bash
+export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
 ```
 
 ## Languages
@@ -341,4 +340,20 @@ function demov() {
       print "It doesn't look like you have ffmpeg installed."
   fi
 }
+```
+
+## Work dotfiles
+
+I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
+
+In reality, it's added as a git submodule but I never commit it as one.
+
+Anyway, I have a single `entrypoint.sh` script that does nothing but source any other scripts I might use, so that there is a fairly clean separation between my personal and work configuration
+
+Due to their implementation revealing bits and pieces about how the internal network of my employer functions, these aren't open source
+
+```bash
+if [[ -f "$HOME/dotfiles/work/entrypoint.sh" ]]; then
+  . "$HOME/dotfiles/work/entrypoint.sh"
+fi
 ```
