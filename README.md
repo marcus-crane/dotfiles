@@ -49,3 +49,9 @@ A few prerequisite utilities are needed for a seamless install
 | gpg       | Node         | Install script |
 | jq        | Terraform    | Install script |
 | wxmac     | Erlang       | Optional       |
+
+## Installing with emacs
+
+```bash
+brew install emacs-plus@27 --HEAD --with-mailutils
+```
