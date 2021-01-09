@@ -328,3 +328,17 @@ function archive() {
     rclone copy "$(pwd)/$1" b2:long-term-backups --progress
 }
 ```
+
+### Quick convert screen recording to a more suitable format
+
+Often times, I find myself making screen recording with Quicktime but they export as `.mov` files. I much prefer having an `mp4` file as it's more universally accepted so this is a quick function to perform that convertion with ffmpeg.
+
+```bash
+function demov() {
+  if [[ $(command -v "ffmpeg") ]]; then
+      ffmpeg -i $1 -vcodec libx264 -acodec aac $(echo "$1" | rev | cut -f 2- -d '.' | rev).mp4
+  else
+      print "It doesn't look like you have ffmpeg installed."
+  fi
+}
+```
