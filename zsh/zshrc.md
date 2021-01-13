@@ -75,6 +75,14 @@ fi
 
 2. While I don't believe this actually works, I attempt to override the `BROWSER` environment variable to open links on the Windows host from within Emacs
 
+### Adding custom items to PATH
+
+I've got some scripts that are handy to have so let's add those to the PATH
+
+```bash
+export PATH=$HOME/scripts:$PATH
+```
+
 ## Applications
 
 ### asdf
@@ -205,7 +213,7 @@ alias ws="cd $WORKSPACE"
 
 ## Functions
 
-These are some handly functions I use from time to time
+These are some handy functions I use from time to time
 
 ### What application is listening on any given port?
 
@@ -339,6 +347,23 @@ function demov() {
   else
       print "It doesn't look like you have ffmpeg installed."
   fi
+}
+```
+
+### Pin Kubernetes namespace
+
+I often end up repeating the same namespace which gets annoying so this is a way to "pin" a namespace
+
+```bash
+function tack() {
+  alias kubectl="kubectl -n $1"
+  print "Tacked $1"
+}
+```
+
+```bash
+function untack() {
+  unalias kubectl
 }
 ```
 
