@@ -41,7 +41,7 @@ vnoremap K :m '<-2<CR>gv=gv
 " Load filetype detection and indentation
 filetype plugin indent on
 
-" Show existing tab as having a width of 4 spaces
+" Show existing tab as having a width of 2 spaces
 set tabstop=2
 
 " Use 2 spaces when indenting with `>`
@@ -109,3 +109,4 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " [move-blocks-visual]: https://vimrcfu.com/snippet/77
 " [no-arrow-keys]: https://tylercipriani.com/vim.html
 " [show-invisibles]: http://vimcasts.org/episodes/show-invisibles/
+
