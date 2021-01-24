@@ -368,6 +368,16 @@ function untack() {
 }
 ```
 
+### Extract emails from a webpage
+
+I recently discovered `html-xml-utils` which has some handy functionality so this is a basic script to try and extract mailto links from a webpage
+
+```bash
+function emails() {
+  curl -s "$1" | grep -s "mailto" | hxpipe | grep "mailto:" | cut -d ":" -f2
+}
+```
+
 ## Work dotfiles
 
 I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
