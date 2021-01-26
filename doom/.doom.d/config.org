@@ -260,33 +260,43 @@
 (setq user-full-name "Marcus Crane"
       user-mail-address "marcus@utf9k.net")
 #+end_src
-
-* Org mode
-** Setting up
-*** Where do my org files live?
-
+** Dropbox
 I store all of my org files using [[https://dropbox.com][Dropbox]] so that I can easily access them across multiple devices.
 
 It's nicer having them sync automatically too than having to automate Git commiting for example.
 
 Given that my Dropbox location may differ, especially between operating systems, I use the environment variable ~$DROPBOX_DIR~ as a base.
 
-Unfortunately, this will create a hard dependency on Dropbox existing so before we go any further, let's give the user a heads up if that variable doesn't exist.
+Unfortunately, this will create a hard dependency on Dropbox existing.
 
 #+begin_src emacs-lisp
-(setq dropbox       (getenv "DROPBOX_DIR")
-      org-directory (concat dropbox "/org/"))
+(setq dropbox     (getenv "DROPBOX_DIR")
+      dropbox-org (concat dropbox "/org/"))
 #+end_src
+
+* Org mode
+** Setting up
+*** Where do my org files live?
+
+While they always live in ~$DROPBOX_DIR/org~, the value of ~$DROPBOX_DIR~ may change at any time.
+
+Similarly, if I decide to ditch Dropbox in future, this should reduce the number of changes greatly.
+
+#+begin_src emacs-lisp
+(after! org (setq org-directory dropbox-org))
+#+end_src
+
 *** Where should org look for tasks?
 
 I keep my task lists in their own folder called ~gtd~, even if I'm not strictly practicing GTD.
 
 #+begin_src emacs-lisp
-(setq org-agenda-directory (concat org-directory "gtd/"))
-(setq org-agenda-files
-      `(,(concat org-agenda-directory "inbox.org")
-        ,(concat org-agenda-directory "gtd.org")
-        ,(concat org-agenda-directory "tickler.org")))
+(after! org
+  (setq org-agenda-directory (concat dropbox-org "gtd/")
+        org-agenda-files
+        `(,(concat org-agenda-directory "inbox.org")
+          ,(concat org-agenda-directory "gtd.org")
+          ,(concat org-agenda-directory "tickler.org"))))
 #+end_src
 
 *** What do we do with completed tasks?
@@ -294,10 +304,11 @@ I keep my task lists in their own folder called ~gtd~, even if I'm not strictly 
 Once a task is finished, it's nicer to keep it stored in an archive somewhere rather than just straight up deleting it.
 
 #+begin_src emacs-lisp
-(setq org-archive-location
-      (concat org-agenda-directory "archive/archive-"
-              (format-time-string "%Y%m" (current-time))
-              ".org::"))
+(after! org
+  (setq org-archive-location
+        (concat org-agenda-directory "archive/archive-"
+                (format-time-string "%Y%m" (current-time))
+                ".org::")))
 #+end_src
 ** Workflow
 *** What statuses can a task have?
@@ -305,14 +316,15 @@ Once a task is finished, it's nicer to keep it stored in an archive somewhere ra
 I try to keep this to a minimum for the sake of simplicity
 
 #+begin_src emacs-lisp
-(setq org-todo-keywords
-      '((sequence
-         "TODO(t)"
-         "NEXT(n)"
-         "|"
-         "DONE(d)")
-        (sequence
-         "WAITING(w@/!)")))
+(after! org
+  (setq org-todo-keywords
+        '((sequence
+           "TODO(t)"
+           "NEXT(n)"
+           "|"
+           "DONE(d)")
+          (sequence
+           "WAITING(w@/!)"))))
 #+end_src
 
 *** What tags can a task have?
@@ -320,20 +332,22 @@ I try to keep this to a minimum for the sake of simplicity
 As above, I also try to keep these as basic as possible
 
 #+begin_src emacs-lisp
-(setq org-tag-alist
-      '(("@errand" . ?e)
-        ("@home"   . ?h)
-        ("@office" . ?o)))
+(after! org
+  (setq org-tag-alist
+        '(("@errand" . ?e)
+          ("@home"   . ?h)
+          ("@office" . ?o))))
 #+end_src
 *** Where can tasks be refiled?
 It isn't too useful to allow refiling at more than a few levels of depth so we want to restrict some items to top level at most.
 
 #+begin_src emacs-lisp
-(setq org-refile-targets
-      `((,(concat org-agenda-directory "ideas.org") :level . 0)
-        (,(concat org-agenda-directory "gtd.org") :maxlevel . 1)
-        (,(concat org-agenda-directory "someday.org") :level . 0)
-        (,(concat org-agenda-directory "tickler.org") :maxlevel . 1)))
+(after! org
+  (setq org-refile-targets
+        `((,(concat org-agenda-directory "ideas.org") :level . 0)
+          (,(concat org-agenda-directory "gtd.org") :maxlevel . 2)
+          (,(concat org-agenda-directory "someday.org") :level . 0)
+          (,(concat org-agenda-directory "tickler.org") :maxlevel . 1))))
 #+end_src
 ** Quality of life
 *** How can I hide items scheduled for the future?
@@ -341,17 +355,25 @@ It isn't too useful to allow refiling at more than a few levels of depth so we w
 These aren't super useful as they tend to be too far off as to be unactionable
 
 #+begin_src emacs-lisp
-(setq org-agenda-todo-ignore-scheduled 'future)
+(after! org (setq org-agenda-todo-ignore-scheduled 'future))
 #+end_src
 *** How can I speed up item entry?
 We can use capture templates to speed up the process of saving items
 
 #+begin_src emacs-lisp
-(setq org-capture-templates
-      `(("i" "inbox" entry
-         (file ,(concat org-agenda-directory "inbox.org"))
-         "* TODO %i%?")
-        ))
+(after! org
+  (setq org-capture-templates
+        `(("i" "inbox" entry
+           (file ,(concat org-agenda-directory "inbox.org"))
+           "* TODO %i%?")
+          )))
+#+end_src
+** Modules
+*** How can I track habits with org?
+#+begin_src emacs-lisp
+(after! org
+  (require 'org-habit)
+  (add-to-list 'org-modules 'org-habit))
 #+end_src
 * Local variables
 In lieu of using Doom Emacs to automatically tangle this file, I instead just invoke ~org-babel-tangle~ anytime I save the file.
