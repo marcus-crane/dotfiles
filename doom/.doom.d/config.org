@@ -252,6 +252,7 @@
                                         ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
+(package! org-caldav)
 #+end_src
 
 ** Who am I?
@@ -375,6 +376,50 @@ We can use capture templates to speed up the process of saving items
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
 #+end_src
+* Calendar
+While macOS does support showing your local calendar inline, there are some benefits to having your calendar as an org file, such as the ability to associate notes or lists with events.
+
+Personally, I use [[https://fastmail.com][Fastmail]] which includes a caldav endpoint so I'm using ~org-caldav~
+
+Before we dive into configuration, I'll set up my actual calendars separately for readability
+
+** What calendars do I want to sync?
+#+begin_src emacs-lisp
+(setq org-cal-dir "~/netocean.utf9k.net/org/calendars/"
+      org-cal-list `(
+                     (:calendar-id "12a4af42-ca44-455a-a935-d10eb99b93aa"
+                      :sync 'twoway
+                      :inbox ,(concat org-cal-dir "adventures.org"))
+                     (:calendar-id "D43720AE-4BFE-4026-92E3-514FABD36D31"
+                      :sync 'twoway
+                      :inbox ,(concat org-cal-dir "errands.org"))
+                     (:calendar-id "571F4C73-A096-4293-B961-75391E213A87"
+                      :sync 'twoway
+                      :inbox ,(concat org-cal-dir "notices.org"))
+                     (:calendar-id "367e7e37-1def-4f23-aac7-3af7a6e87f76"
+                      :sync 'cal->org
+                      :inbox ,(concat org-cal-dir "pagerduty.org"))
+                     (:calendar-id "722b72a9-04ba-488b-93aa-4047f4a83018"
+                      :sync 'cal->org
+                      :inbox ,(concat org-cal-dir "work.org"))
+                     ))
+#+end_src
+
+** How do we sync them?
+
+#+begin_src emacs-lisp
+(setq org-cal-cache (concat org-cal-dir "cache/"))
+(use-package org-caldav
+  :defer 3
+  :after org
+  :config
+  (setq org-caldav-url "https://caldav.fastmail.com/dav/calendars/user/marcus@utf9k.net"
+        org-caldav-calendars org-cal-list
+        org-caldav-delete-org-entries 'never
+        org-caldav-resume-aborted 'never
+        org-caldav-save-directory org-cal-cache))
+#+end_src
+
 * Local variables
 In lieu of using Doom Emacs to automatically tangle this file, I instead just invoke ~org-babel-tangle~ anytime I save the file.
 # Local Variables:

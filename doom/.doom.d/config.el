@@ -56,3 +56,33 @@
 (after! org
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
+
+(setq org-cal-dir "~/netocean.utf9k.net/org/calendars/"
+      org-cal-list `(
+                     (:calendar-id "12a4af42-ca44-455a-a935-d10eb99b93aa"
+                      :sync 'twoway
+                      :inbox ,(concat org-cal-dir "adventures.org"))
+                     (:calendar-id "D43720AE-4BFE-4026-92E3-514FABD36D31"
+                      :sync 'twoway
+                      :inbox ,(concat org-cal-dir "errands.org"))
+                     (:calendar-id "571F4C73-A096-4293-B961-75391E213A87"
+                      :sync 'twoway
+                      :inbox ,(concat org-cal-dir "notices.org"))
+                     (:calendar-id "367e7e37-1def-4f23-aac7-3af7a6e87f76"
+                      :sync 'cal->org
+                      :inbox ,(concat org-cal-dir "pagerduty.org"))
+                     (:calendar-id "722b72a9-04ba-488b-93aa-4047f4a83018"
+                      :sync 'cal->org
+                      :inbox ,(concat org-cal-dir "work.org"))
+                     ))
+
+(setq org-cal-cache (concat org-cal-dir "cache/"))
+(use-package org-caldav
+  :defer 3
+  :after org
+  :config
+  (setq org-caldav-url "https://caldav.fastmail.com/dav/calendars/user/marcus@utf9k.net"
+        org-caldav-calendars org-cal-list
+        org-caldav-delete-org-entries 'never
+        org-caldav-resume-aborted 'never
+        org-caldav-save-directory org-cal-cache))
