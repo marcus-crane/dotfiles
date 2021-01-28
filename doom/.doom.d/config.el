@@ -15,7 +15,7 @@
           ,(concat org-agenda-directory "cal-errands.org")
           ,(concat org-agenda-directory "habits.org")
           ,(concat org-agenda-directory "inbox.org")
-          ,(concat org-agenda-directory "gtd.org")
+          ,(concat org-agenda-directory "projects.org")
           ,(concat org-agenda-directory "cal-notices.org")
           ,(concat org-agenda-directory "cal-pagerduty.org")
           ,(concat org-agenda-directory "someday.org")
@@ -48,7 +48,7 @@
 (after! org
   (setq org-refile-targets
         `((,(concat org-agenda-directory "ideas.org") :level . 0)
-          (,(concat org-agenda-directory "gtd.org") :maxlevel . 2)
+          (,(concat org-agenda-directory "projects.org") :maxlevel . 2)
           (,(concat org-agenda-directory "someday.org") :level . 0)
           (,(concat org-agenda-directory "tickler.org") :maxlevel . 1))))
 
