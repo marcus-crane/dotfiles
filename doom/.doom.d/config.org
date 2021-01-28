@@ -13,6 +13,174 @@
 #+begin_src emacs-lisp
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 #+end_src
+** Who am I?
+
+#+begin_src emacs-lisp
+(setq user-full-name "Marcus Crane"
+      user-mail-address "marcus@utf9k.net")
+#+end_src
+** Netocean
+I store all of my org files on a [[https://www.synology.com/en-nz/products/DS220j][Synology DS220j]] at my house, which has redudancy thanks to RAID and just to be extra safe, also syncs content with Dropbox as a backup point.
+
+The Synology NAS has a webdav server which is what I mount to my computers and then sync files locally, not unlike Dropbox, thanks to [[https://mountainduck.io/][Mountain Duck]].
+
+As for the name, Netocean is just the dorky name I use to refer to my personal file storage. It's short for network ocean (ie an ocean of files) and is [[https://wikimon.net/Net_Ocean][totally not taken from Digimon]].
+
+#+begin_src emacs-lisp
+(setq netocean "~/netocean")
+#+end_src
+
+* Org mode
+** Setting up
+*** Where do my org files live?
+#+begin_src emacs-lisp
+(after! org
+  (setq org-directory (concat netocean "/org/")))
+#+end_src
+
+*** Where should org look for tasks?
+
+I keep my task lists in their own folder called ~gtd~, even if I'm not strictly practicing GTD.
+
+#+begin_src emacs-lisp
+(after! org
+  (setq org-agenda-directory org-directory
+        org-agenda-files
+        `(,(concat org-agenda-directory "adventures.org")
+          ,(concat org-agenda-directory "cal-errands.org")
+          ,(concat org-agenda-directory "habits.org")
+          ,(concat org-agenda-directory "inbox.org")
+          ,(concat org-agenda-directory "gtd.org")
+          ,(concat org-agenda-directory "cal-notices.org")
+          ,(concat org-agenda-directory "cal-pagerduty.org")
+          ,(concat org-agenda-directory "someday.org")
+          ,(concat org-agenda-directory "tickler.org")
+          ,(concat org-agenda-directory "cal-work.org")
+          )))
+#+end_src
+
+*** What do we do with completed tasks?
+
+Once a task is finished, it's nicer to keep it stored in an archive somewhere rather than just straight up deleting it.
+
+#+begin_src emacs-lisp
+(after! org
+  (setq org-archive-location
+        (concat org-agenda-directory "archive/archive-"
+                (format-time-string "%Y%m" (current-time))
+                ".org::")))
+#+end_src
+** Workflow
+*** What statuses can a task have?
+
+I try to keep this to a minimum for the sake of simplicity
+
+#+begin_src emacs-lisp
+(after! org
+  (setq org-todo-keywords
+        '((sequence
+           "TODO(t)"
+           "NEXT(n)"
+           "|"
+           "DONE(d)")
+          (sequence
+           "WAITING(w@/!)"))))
+#+end_src
+
+*** What tags can a task have?
+
+As above, I also try to keep these as basic as possible
+
+#+begin_src emacs-lisp
+(after! org
+  (setq org-tag-alist
+        '(("@errand" . ?e)
+          ("@home"   . ?h)
+          ("@office" . ?o))))
+#+end_src
+*** Where can tasks be refiled?
+It isn't too useful to allow refiling at more than a few levels of depth so we want to restrict some items to top level at most.
+
+#+begin_src emacs-lisp
+(after! org
+  (setq org-refile-targets
+        `((,(concat org-agenda-directory "ideas.org") :level . 0)
+          (,(concat org-agenda-directory "gtd.org") :maxlevel . 2)
+          (,(concat org-agenda-directory "someday.org") :level . 0)
+          (,(concat org-agenda-directory "tickler.org") :maxlevel . 1))))
+#+end_src
+** Quality of life
+*** How can I hide items scheduled for the future?
+
+These aren't super useful as they tend to be too far off as to be unactionable
+
+#+begin_src emacs-lisp
+(after! org (setq org-agenda-todo-ignore-scheduled 'future))
+#+end_src
+*** How can I speed up item entry?
+We can use capture templates to speed up the process of saving items
+
+#+begin_src emacs-lisp
+(after! org
+  (setq org-capture-templates
+        `(("i" "inbox" entry
+           (file ,(concat org-agenda-directory "inbox.org"))
+           "* TODO %i%?")
+          )))
+#+end_src
+** Modules
+*** How can I track habits with org?
+#+begin_src emacs-lisp
+(after! org
+  (require 'org-habit)
+  (add-to-list 'org-modules 'org-habit))
+#+end_src
+* Calendar
+While macOS does support showing your local calendar inline, there are some benefits to having your calendar as an org file, such as the ability to associate notes or lists with events.
+
+Personally, I use [[https://fastmail.com][Fastmail]] which includes a caldav endpoint so I'm using ~org-caldav~
+
+Before we dive into configuration, I'll set up my actual calendars separately for readability
+
+** What calendars do I want to sync?
+#+begin_src emacs-lisp
+(after! org
+  (setq org-cal-cache (concat org-agenda-directory "caches/")
+        org-cal-list `(
+                       (:calendar-id "12a4af42-ca44-455a-a935-d10eb99b93aa"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-adventures.org"))
+                       (:calendar-id "D43720AE-4BFE-4026-92E3-514FABD36D31"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-errands.org"))
+                       (:calendar-id "571F4C73-A096-4293-B961-75391E213A87"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-notices.org"))
+                       (:calendar-id "367e7e37-1def-4f23-aac7-3af7a6e87f76"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-pagerduty.org"))
+                       (:calendar-id "95f79eb1-f737-48c2-9c14-0958a75d73a1"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-work.org"))
+                       )))
+#+end_src
+
+** How do we sync them?
+
+#+begin_src emacs-lisp
+(use-package org-caldav
+  :defer 3
+  :after org
+  :config
+  (setq org-caldav-url "https://caldav.fastmail.com/dav/calendars/user/marcus@utf9k.net"
+        org-caldav-calendars org-cal-list
+        org-caldav-delete-org-entries 'never
+        org-caldav-resume-aborted 'never
+        org-caldav-save-directory org-cal-cache))
+#+end_src
+* Extra Doom setup
+While still technically part of [[#core-setup][Core setup]], I've stuck this configuration at the bottom purely because of how long it is.
+
 ** What Doom modules do we want to initalise?
 #+begin_src emacs-lisp :tangle init.el
 ;;; init.el -*- lexical-binding: t; -*-
@@ -201,10 +369,6 @@
        (default +bindings +smartparens))
 #+end_src
 ** What extra packages do we want to install?
-#+begin_export html
-<details>
-<summary>packages.el</summary>
-#+end_export
 #+begin_src emacs-lisp :tangle packages.el
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
@@ -257,175 +421,6 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
 (package! org-caldav)
-#+end_src
-#+begin_export html
-</details>
-#+end_export
-
-** Who am I?
-
-#+begin_src emacs-lisp
-(setq user-full-name "Marcus Crane"
-      user-mail-address "marcus@utf9k.net")
-#+end_src
-** Netocean
-I store all of my org files on a [[https://www.synology.com/en-nz/products/DS220j][Synology DS220j]] at my house, which has redudancy thanks to RAID and just to be extra safe, also syncs content with Dropbox as a backup point.
-
-The Synology NAS has a webdav server which is what I mount to my computers and then sync files locally, not unlike Dropbox, thanks to [[https://mountainduck.io/][Mountain Duck]].
-
-As for the name, Netocean is just the dorky name I use to refer to my personal file storage. It's short for network ocean (ie an ocean of files) and is [[https://wikimon.net/Net_Ocean][totally not taken from Digimon]].
-
-#+begin_src emacs-lisp
-(setq netocean "~/netocean")
-#+end_src
-
-* Org mode
-** Setting up
-*** Where do my org files live?
-#+begin_src emacs-lisp
-(after! org
-  (setq org-directory (concat netocean "/org/")))
-#+end_src
-
-*** Where should org look for tasks?
-
-I keep my task lists in their own folder called ~gtd~, even if I'm not strictly practicing GTD.
-
-#+begin_src emacs-lisp
-(after! org
-  (setq org-agenda-directory org-directory
-        org-agenda-files
-        `(,(concat org-agenda-directory "adventures.org")
-          ,(concat org-agenda-directory "cal-errands.org")
-          ,(concat org-agenda-directory "habits.org")
-          ,(concat org-agenda-directory "inbox.org")
-          ,(concat org-agenda-directory "gtd.org")
-          ,(concat org-agenda-directory "cal-notices.org")
-          ,(concat org-agenda-directory "cal-pagerduty.org")
-          ,(concat org-agenda-directory "someday.org")
-          ,(concat org-agenda-directory "tickler.org")
-          ,(concat org-agenda-directory "cal-work.org")
-          )))
-#+end_src
-
-*** What do we do with completed tasks?
-
-Once a task is finished, it's nicer to keep it stored in an archive somewhere rather than just straight up deleting it.
-
-#+begin_src emacs-lisp
-(after! org
-  (setq org-archive-location
-        (concat org-agenda-directory "archive/archive-"
-                (format-time-string "%Y%m" (current-time))
-                ".org::")))
-#+end_src
-** Workflow
-*** What statuses can a task have?
-
-I try to keep this to a minimum for the sake of simplicity
-
-#+begin_src emacs-lisp
-(after! org
-  (setq org-todo-keywords
-        '((sequence
-           "TODO(t)"
-           "NEXT(n)"
-           "|"
-           "DONE(d)")
-          (sequence
-           "WAITING(w@/!)"))))
-#+end_src
-
-*** What tags can a task have?
-
-As above, I also try to keep these as basic as possible
-
-#+begin_src emacs-lisp
-(after! org
-  (setq org-tag-alist
-        '(("@errand" . ?e)
-          ("@home"   . ?h)
-          ("@office" . ?o))))
-#+end_src
-*** Where can tasks be refiled?
-It isn't too useful to allow refiling at more than a few levels of depth so we want to restrict some items to top level at most.
-
-#+begin_src emacs-lisp
-(after! org
-  (setq org-refile-targets
-        `((,(concat org-agenda-directory "ideas.org") :level . 0)
-          (,(concat org-agenda-directory "gtd.org") :maxlevel . 2)
-          (,(concat org-agenda-directory "someday.org") :level . 0)
-          (,(concat org-agenda-directory "tickler.org") :maxlevel . 1))))
-#+end_src
-** Quality of life
-*** How can I hide items scheduled for the future?
-
-These aren't super useful as they tend to be too far off as to be unactionable
-
-#+begin_src emacs-lisp
-(after! org (setq org-agenda-todo-ignore-scheduled 'future))
-#+end_src
-*** How can I speed up item entry?
-We can use capture templates to speed up the process of saving items
-
-#+begin_src emacs-lisp
-(after! org
-  (setq org-capture-templates
-        `(("i" "inbox" entry
-           (file ,(concat org-agenda-directory "inbox.org"))
-           "* TODO %i%?")
-          )))
-#+end_src
-** Modules
-*** How can I track habits with org?
-#+begin_src emacs-lisp
-(after! org
-  (require 'org-habit)
-  (add-to-list 'org-modules 'org-habit))
-#+end_src
-* Calendar
-While macOS does support showing your local calendar inline, there are some benefits to having your calendar as an org file, such as the ability to associate notes or lists with events.
-
-Personally, I use [[https://fastmail.com][Fastmail]] which includes a caldav endpoint so I'm using ~org-caldav~
-
-Before we dive into configuration, I'll set up my actual calendars separately for readability
-
-** What calendars do I want to sync?
-#+begin_src emacs-lisp
-(after! org
-  (setq org-cal-cache (concat org-agenda-directory "caches/")
-        org-cal-list `(
-                       (:calendar-id "12a4af42-ca44-455a-a935-d10eb99b93aa"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-adventures.org"))
-                       (:calendar-id "D43720AE-4BFE-4026-92E3-514FABD36D31"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-errands.org"))
-                       (:calendar-id "571F4C73-A096-4293-B961-75391E213A87"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-notices.org"))
-                       (:calendar-id "367e7e37-1def-4f23-aac7-3af7a6e87f76"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-pagerduty.org"))
-                       (:calendar-id "95f79eb1-f737-48c2-9c14-0958a75d73a1"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-work.org"))
-                       )))
-#+end_src
-
-** How do we sync them?
-
-#+begin_src emacs-lisp
-(use-package org-caldav
-  :defer 3
-  :after org
-  :config
-  (setq org-caldav-url "https://caldav.fastmail.com/dav/calendars/user/marcus@utf9k.net"
-        org-caldav-calendars org-cal-list
-        org-caldav-delete-org-entries 'never
-        org-caldav-resume-aborted 'never
-        org-caldav-save-directory org-cal-cache))
 #+end_src
 
 * Local variables
