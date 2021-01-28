@@ -20,7 +20,7 @@
       user-mail-address "marcus@utf9k.net")
 #+end_src
 ** Netocean
-I store all of my org files on a [[https://www.synology.com/en-nz/products/DS220j][Synology DS220j]] at my house, which has redudancy thanks to RAID and just to be extra safe, also syncs content with Dropbox as a backup point.
+I store all of my org files on a [[https://www.synology.com/en-nz/products/DS220j][Synology DS220j]] at my house, which has redundancy thanks to RAID and just to be extra safe, also syncs content with Dropbox as a backup point.
 
 The Synology NAS has a webdav server which is what I mount to my computers and then sync files locally, not unlike Dropbox, thanks to [[https://mountainduck.io/][Mountain Duck]].
 
@@ -181,7 +181,7 @@ Before we dive into configuration, I'll set up my actual calendars separately fo
 * Extra Doom setup
 While still technically part of [[#core-setup][Core setup]], I've stuck this configuration at the bottom purely because of how long it is.
 
-** What Doom modules do we want to initalise?
+** What Doom modules do we want to initialise?
 #+begin_src emacs-lisp :tangle init.el
 ;;; init.el -*- lexical-binding: t; -*-
 
