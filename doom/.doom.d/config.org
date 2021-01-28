@@ -261,30 +261,23 @@
 (setq user-full-name "Marcus Crane"
       user-mail-address "marcus@utf9k.net")
 #+end_src
-** Dropbox
-I store all of my org files using [[https://dropbox.com][Dropbox]] so that I can easily access them across multiple devices.
+** Netocean
+I store all of my org files on a [[https://www.synology.com/en-nz/products/DS220j][Synology DS220j]] at my house, which has redudancy thanks to RAID and just to be extra safe, also syncs content with Dropbox as a backup point.
 
-It's nicer having them sync automatically too than having to automate Git commiting for example.
+The Synology NAS has a webdav server which is what I mount to my computers and then sync files locally, not unlike Dropbox, thanks to [[https://mountainduck.io/][Mountain Duck]].
 
-Given that my Dropbox location may differ, especially between operating systems, I use the environment variable ~$DROPBOX_DIR~ as a base.
-
-Unfortunately, this will create a hard dependency on Dropbox existing.
+As for the name, Netocean is just the dorky name I use to refer to my personal file storage. It's short for network ocean (ie an ocean of files) and is [[https://wikimon.net/Net_Ocean][totally not taken from Digimon]].
 
 #+begin_src emacs-lisp
-(setq dropbox     (getenv "DROPBOX_DIR")
-      dropbox-org (concat dropbox "/org/"))
+(setq netocean "~/netocean")
 #+end_src
 
 * Org mode
 ** Setting up
 *** Where do my org files live?
-
-While they always live in ~$DROPBOX_DIR/org~, the value of ~$DROPBOX_DIR~ may change at any time.
-
-Similarly, if I decide to ditch Dropbox in future, this should reduce the number of changes greatly.
-
 #+begin_src emacs-lisp
-(after! org (setq org-directory dropbox-org))
+(after! org
+  (setq org-directory (concat netocean "/org/")))
 #+end_src
 
 *** Where should org look for tasks?
@@ -293,11 +286,19 @@ I keep my task lists in their own folder called ~gtd~, even if I'm not strictly 
 
 #+begin_src emacs-lisp
 (after! org
-  (setq org-agenda-directory (concat dropbox-org "gtd/")
+  (setq org-agenda-directory org-directory
         org-agenda-files
-        `(,(concat org-agenda-directory "inbox.org")
+        `(,(concat org-agenda-directory "adventures.org")
+          ,(concat org-agenda-directory "cal-errands.org")
+          ,(concat org-agenda-directory "habits.org")
+          ,(concat org-agenda-directory "inbox.org")
           ,(concat org-agenda-directory "gtd.org")
-          ,(concat org-agenda-directory "tickler.org"))))
+          ,(concat org-agenda-directory "cal-notices.org")
+          ,(concat org-agenda-directory "cal-pagerduty.org")
+          ,(concat org-agenda-directory "someday.org")
+          ,(concat org-agenda-directory "tickler.org")
+          ,(concat org-agenda-directory "cal-work.org")
+          )))
 #+end_src
 
 *** What do we do with completed tasks?
@@ -385,30 +386,30 @@ Before we dive into configuration, I'll set up my actual calendars separately fo
 
 ** What calendars do I want to sync?
 #+begin_src emacs-lisp
-(setq org-cal-dir "~/netocean.utf9k.net/org/calendars/"
-      org-cal-list `(
-                     (:calendar-id "12a4af42-ca44-455a-a935-d10eb99b93aa"
-                      :sync 'twoway
-                      :inbox ,(concat org-cal-dir "adventures.org"))
-                     (:calendar-id "D43720AE-4BFE-4026-92E3-514FABD36D31"
-                      :sync 'twoway
-                      :inbox ,(concat org-cal-dir "errands.org"))
-                     (:calendar-id "571F4C73-A096-4293-B961-75391E213A87"
-                      :sync 'twoway
-                      :inbox ,(concat org-cal-dir "notices.org"))
-                     (:calendar-id "367e7e37-1def-4f23-aac7-3af7a6e87f76"
-                      :sync 'cal->org
-                      :inbox ,(concat org-cal-dir "pagerduty.org"))
-                     (:calendar-id "722b72a9-04ba-488b-93aa-4047f4a83018"
-                      :sync 'cal->org
-                      :inbox ,(concat org-cal-dir "work.org"))
-                     ))
+(after! org
+  (setq org-cal-cache (concat org-agenda-directory "caches/")
+        org-cal-list `(
+                       (:calendar-id "12a4af42-ca44-455a-a935-d10eb99b93aa"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-adventures.org"))
+                       (:calendar-id "D43720AE-4BFE-4026-92E3-514FABD36D31"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-errands.org"))
+                       (:calendar-id "571F4C73-A096-4293-B961-75391E213A87"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-notices.org"))
+                       (:calendar-id "367e7e37-1def-4f23-aac7-3af7a6e87f76"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-pagerduty.org"))
+                       (:calendar-id "95f79eb1-f737-48c2-9c14-0958a75d73a1"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-work.org"))
+                       )))
 #+end_src
 
 ** How do we sync them?
 
 #+begin_src emacs-lisp
-(setq org-cal-cache (concat org-cal-dir "cache/"))
 (use-package org-caldav
   :defer 3
   :after org

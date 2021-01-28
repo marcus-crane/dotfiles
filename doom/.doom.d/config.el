@@ -3,17 +3,25 @@
 (setq user-full-name "Marcus Crane"
       user-mail-address "marcus@utf9k.net")
 
-(setq dropbox     (getenv "DROPBOX_DIR")
-      dropbox-org (concat dropbox "/org/"))
-
-(after! org (setq org-directory dropbox-org))
+(setq netocean "~/netocean")
 
 (after! org
-  (setq org-agenda-directory (concat dropbox-org "gtd/")
+  (setq org-directory (concat netocean "/org/")))
+
+(after! org
+  (setq org-agenda-directory org-directory
         org-agenda-files
-        `(,(concat org-agenda-directory "inbox.org")
+        `(,(concat org-agenda-directory "adventures.org")
+          ,(concat org-agenda-directory "cal-errands.org")
+          ,(concat org-agenda-directory "habits.org")
+          ,(concat org-agenda-directory "inbox.org")
           ,(concat org-agenda-directory "gtd.org")
-          ,(concat org-agenda-directory "tickler.org"))))
+          ,(concat org-agenda-directory "cal-notices.org")
+          ,(concat org-agenda-directory "cal-pagerduty.org")
+          ,(concat org-agenda-directory "someday.org")
+          ,(concat org-agenda-directory "tickler.org")
+          ,(concat org-agenda-directory "cal-work.org")
+          )))
 
 (after! org
   (setq org-archive-location
@@ -57,26 +65,26 @@
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
 
-(setq org-cal-dir "~/netocean.utf9k.net/org/calendars/"
-      org-cal-list `(
-                     (:calendar-id "12a4af42-ca44-455a-a935-d10eb99b93aa"
-                      :sync 'twoway
-                      :inbox ,(concat org-cal-dir "adventures.org"))
-                     (:calendar-id "D43720AE-4BFE-4026-92E3-514FABD36D31"
-                      :sync 'twoway
-                      :inbox ,(concat org-cal-dir "errands.org"))
-                     (:calendar-id "571F4C73-A096-4293-B961-75391E213A87"
-                      :sync 'twoway
-                      :inbox ,(concat org-cal-dir "notices.org"))
-                     (:calendar-id "367e7e37-1def-4f23-aac7-3af7a6e87f76"
-                      :sync 'cal->org
-                      :inbox ,(concat org-cal-dir "pagerduty.org"))
-                     (:calendar-id "722b72a9-04ba-488b-93aa-4047f4a83018"
-                      :sync 'cal->org
-                      :inbox ,(concat org-cal-dir "work.org"))
-                     ))
+(after! org
+  (setq org-cal-cache (concat org-agenda-directory "caches/")
+        org-cal-list `(
+                       (:calendar-id "12a4af42-ca44-455a-a935-d10eb99b93aa"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-adventures.org"))
+                       (:calendar-id "D43720AE-4BFE-4026-92E3-514FABD36D31"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-errands.org"))
+                       (:calendar-id "571F4C73-A096-4293-B961-75391E213A87"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-notices.org"))
+                       (:calendar-id "367e7e37-1def-4f23-aac7-3af7a6e87f76"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-pagerduty.org"))
+                       (:calendar-id "95f79eb1-f737-48c2-9c14-0958a75d73a1"
+                        :sync 'cal->org
+                        :inbox ,(concat org-agenda-directory "cal-work.org"))
+                       )))
 
-(setq org-cal-cache (concat org-cal-dir "cache/"))
 (use-package org-caldav
   :defer 3
   :after org
