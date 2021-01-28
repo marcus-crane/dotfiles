@@ -201,6 +201,8 @@
        (default +bindings +smartparens))
 #+end_src
 ** What extra packages do we want to install?
+<details>
+<summary>packages.el</summary>
 #+begin_src emacs-lisp :tangle packages.el
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
@@ -254,6 +256,7 @@
                                         ;(unpin! t)
 (package! org-caldav)
 #+end_src
+</details>
 
 ** Who am I?
 
