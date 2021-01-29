@@ -47,15 +47,15 @@ I keep my task lists in their own folder called ~gtd~, even if I'm not strictly 
   (setq org-agenda-directory org-directory
         org-agenda-files
         `(,(concat org-agenda-directory "adventures.org")
-          ,(concat org-agenda-directory "cal-errands.org")
+          ,(concat org-agenda-directory "errands.org")
           ,(concat org-agenda-directory "habits.org")
           ,(concat org-agenda-directory "inbox.org")
+          ,(concat org-agenda-directory "notices.org")
+          ,(concat org-agenda-directory "pagerduty.org")
           ,(concat org-agenda-directory "projects.org")
-          ,(concat org-agenda-directory "cal-notices.org")
-          ,(concat org-agenda-directory "cal-pagerduty.org")
           ,(concat org-agenda-directory "someday.org")
           ,(concat org-agenda-directory "tickler.org")
-          ,(concat org-agenda-directory "cal-work.org")
+          ,(concat org-agenda-directory "work.org")
           )))
 #+end_src
 
@@ -135,49 +135,6 @@ We can use capture templates to speed up the process of saving items
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
 #+end_src
-* Calendar
-While macOS does support showing your local calendar inline, there are some benefits to having your calendar as an org file, such as the ability to associate notes or lists with events.
-
-Personally, I use [[https://fastmail.com][Fastmail]] which includes a caldav endpoint so I'm using ~org-caldav~
-
-Before we dive into configuration, I'll set up my actual calendars separately for readability
-
-** What calendars do I want to sync?
-#+begin_src emacs-lisp
-(after! org
-  (setq org-cal-cache (concat org-agenda-directory "caches/")
-        org-cal-list `(
-                       (:calendar-id "12a4af42-ca44-455a-a935-d10eb99b93aa"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-adventures.org"))
-                       (:calendar-id "D43720AE-4BFE-4026-92E3-514FABD36D31"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-errands.org"))
-                       (:calendar-id "571F4C73-A096-4293-B961-75391E213A87"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-notices.org"))
-                       (:calendar-id "367e7e37-1def-4f23-aac7-3af7a6e87f76"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-pagerduty.org"))
-                       (:calendar-id "95f79eb1-f737-48c2-9c14-0958a75d73a1"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-work.org"))
-                       )))
-#+end_src
-
-** How do we sync them?
-
-#+begin_src emacs-lisp
-(use-package org-caldav
-  :defer 3
-  :after org
-  :config
-  (setq org-caldav-url "https://caldav.fastmail.com/dav/calendars/user/marcus@utf9k.net"
-        org-caldav-calendars org-cal-list
-        org-caldav-delete-org-entries 'never
-        org-caldav-resume-aborted 'never
-        org-caldav-save-directory org-cal-cache))
-#+end_src
 * Extra Doom setup
 While still technically part of [[#core-setup][Core setup]], I've stuck this configuration at the bottom purely because of how long it is.
 
@@ -211,7 +168,7 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
        ivy               ; a search engine for love and life
 
        :ui
-       ;;deft              ; notational velocity for Emacs
+       deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
@@ -270,9 +227,9 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
 
        :tools
        ;;ansible
-       ;;debugger          ; FIXME stepping through code, to help you add bugs
+       debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
-       ;;docker
+       docker
        editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
@@ -362,7 +319,7 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
        ;;calendar
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
-       ;;twitter           ; twitter client https://twitter.com/vnought
+       twitter           ; twitter client https://twitter.com/vnought
 
        :config
        ;;literate
@@ -420,7 +377,6 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
                                         ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
-(package! org-caldav)
 #+end_src
 
 * Local variables

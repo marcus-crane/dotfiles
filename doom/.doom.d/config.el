@@ -12,15 +12,15 @@
   (setq org-agenda-directory org-directory
         org-agenda-files
         `(,(concat org-agenda-directory "adventures.org")
-          ,(concat org-agenda-directory "cal-errands.org")
+          ,(concat org-agenda-directory "errands.org")
           ,(concat org-agenda-directory "habits.org")
           ,(concat org-agenda-directory "inbox.org")
+          ,(concat org-agenda-directory "notices.org")
+          ,(concat org-agenda-directory "pagerduty.org")
           ,(concat org-agenda-directory "projects.org")
-          ,(concat org-agenda-directory "cal-notices.org")
-          ,(concat org-agenda-directory "cal-pagerduty.org")
           ,(concat org-agenda-directory "someday.org")
           ,(concat org-agenda-directory "tickler.org")
-          ,(concat org-agenda-directory "cal-work.org")
+          ,(concat org-agenda-directory "work.org")
           )))
 
 (after! org
@@ -64,33 +64,3 @@
 (after! org
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
-
-(after! org
-  (setq org-cal-cache (concat org-agenda-directory "caches/")
-        org-cal-list `(
-                       (:calendar-id "12a4af42-ca44-455a-a935-d10eb99b93aa"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-adventures.org"))
-                       (:calendar-id "D43720AE-4BFE-4026-92E3-514FABD36D31"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-errands.org"))
-                       (:calendar-id "571F4C73-A096-4293-B961-75391E213A87"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-notices.org"))
-                       (:calendar-id "367e7e37-1def-4f23-aac7-3af7a6e87f76"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-pagerduty.org"))
-                       (:calendar-id "95f79eb1-f737-48c2-9c14-0958a75d73a1"
-                        :sync 'cal->org
-                        :inbox ,(concat org-agenda-directory "cal-work.org"))
-                       )))
-
-(use-package org-caldav
-  :defer 3
-  :after org
-  :config
-  (setq org-caldav-url "https://caldav.fastmail.com/dav/calendars/user/marcus@utf9k.net"
-        org-caldav-calendars org-cal-list
-        org-caldav-delete-org-entries 'never
-        org-caldav-resume-aborted 'never
-        org-caldav-save-directory org-cal-cache))
