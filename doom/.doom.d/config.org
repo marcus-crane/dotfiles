@@ -135,6 +135,35 @@ We can use capture templates to speed up the process of saving items
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
 #+end_src
+<<<<<<< Updated upstream
+=======
+* Agenda
+~org-agenda~ is a handy tool for getting a high level overview of my org tasks. Almost like a dashboard of sorts!
+
+#+begin_src emacs-lisp
+(use-package! org-agenda
+  :init
+  (map! "C-c a" #'switch-to-agenda)
+  (defun switch-to-agenda ()
+    (interactive)
+    (org-agenda nil " "))
+  :config
+  (setq org-columns-default-format "%40ITEM(Task) %Effort(EE){:} %CLOCKSUM(Time Spent) %SCHEDULED(Scheduled) %DEADLINE(Deadline)"
+        org-agenda-custom-commands `((" " "Agenda"
+                                      ((todo "NEXT"
+                                             ((org-agenda-overriding-header "Current Focus")
+                                              (org-agenda-files '(,(concat org-agenda-directory "projects.org")
+                                                                  ,(concat org-agenda-directory "inbox.org")))
+                                              ))
+                                       (agenda ""
+                                               ((org-agenda-span 'week)
+                                                (org-deadline-warning-days 365)))
+                                       (todo "TODO"
+                                             ((org-agenda-overriding-header "Inbox")
+                                              (org-agenda-files '(,(concat org-agenda-directory "inbox.org")))
+                                              ))
+                                       )))))
+#+end_src
 * Extra Doom setup
 While still technically part of [[#core-setup][Core setup]], I've stuck this configuration at the bottom purely because of how long it is.
 
@@ -190,7 +219,7 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
        vc-gutter         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
-       workspaces        ; tab emulation, persistence & separate workspaces
+       ;;workspaces        ; tab emulation, persistence & separate workspaces
        ;;zen               ; distraction-free coding or writing
 
        :editor

@@ -64,3 +64,26 @@
 (after! org
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
+
+(use-package! org-agenda
+  :init
+  (map! "C-c a" #'switch-to-agenda)
+  (defun switch-to-agenda ()
+    (interactive)
+    (org-agenda nil " "))
+  :config
+  (setq org-columns-default-format "%40ITEM(Task) %Effort(EE){:} %CLOCKSUM(Time Spent) %SCHEDULED(Scheduled) %DEADLINE(Deadline)"
+        org-agenda-custom-commands `((" " "Agenda"
+                                      ((todo "NEXT"
+                                             ((org-agenda-overriding-header "Current Focus")
+                                              (org-agenda-files '(,(concat org-agenda-directory "projects.org")
+                                                                  ,(concat org-agenda-directory "inbox.org")))
+                                              ))
+                                       (agenda ""
+                                               ((org-agenda-span 'week)
+                                                (org-deadline-warning-days 365)))
+                                       (todo "TODO"
+                                             ((org-agenda-overriding-header "Inbox")
+                                              (org-agenda-files '(,(concat org-agenda-directory "inbox.org")))
+                                              ))
+                                       )))))
