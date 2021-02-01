@@ -8,6 +8,10 @@
 (after! org
   (setq org-directory (concat netocean "/org/")))
 
-(after! org
-  (setq deft-directory org-directory
-        deft-extensions '("md" "org" "txt")))
+(use-package deft
+  :after org
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory org-directory))

@@ -38,13 +38,15 @@ As for the name, Netocean is just the dorky name I use to refer to my personal f
   (setq org-directory (concat netocean "/org/")))
 #+end_src
 ** Deft
-*** Where should Deft look for notes?
 #+begin_src emacs-lisp
-(after! org
-  (setq deft-directory org-directory
-        deft-extensions '("md" "org" "txt")))
+(use-package deft
+  :after org
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory org-directory))
 #+end_src
-
 * Extra Doom setup
 While still technically part of [[#core-setup][Core setup]], I've stuck this configuration at the bottom purely because of how long it is.
 
