@@ -37,133 +37,14 @@ As for the name, Netocean is just the dorky name I use to refer to my personal f
 (after! org
   (setq org-directory (concat netocean "/org/")))
 #+end_src
-
-*** Where should org look for tasks?
-
-I keep my task lists in their own folder called ~gtd~, even if I'm not strictly practicing GTD.
-
+** Deft
+*** Where should Deft look for notes?
 #+begin_src emacs-lisp
 (after! org
-  (setq org-agenda-directory org-directory
-        org-agenda-files
-        `(,(concat org-agenda-directory "adventures.org")
-          ,(concat org-agenda-directory "errands.org")
-          ,(concat org-agenda-directory "habits.org")
-          ,(concat org-agenda-directory "inbox.org")
-          ,(concat org-agenda-directory "notices.org")
-          ,(concat org-agenda-directory "pagerduty.org")
-          ,(concat org-agenda-directory "projects.org")
-          ,(concat org-agenda-directory "someday.org")
-          ,(concat org-agenda-directory "tickler.org")
-          ,(concat org-agenda-directory "work.org")
-          )))
+  (setq deft-directory org-directory
+        deft-extensions '("md" "org" "txt")))
 #+end_src
 
-*** What do we do with completed tasks?
-
-Once a task is finished, it's nicer to keep it stored in an archive somewhere rather than just straight up deleting it.
-
-#+begin_src emacs-lisp
-(after! org
-  (setq org-archive-location
-        (concat org-agenda-directory "archive/archive-"
-                (format-time-string "%Y%m" (current-time))
-                ".org::")))
-#+end_src
-** Workflow
-*** What statuses can a task have?
-
-I try to keep this to a minimum for the sake of simplicity
-
-#+begin_src emacs-lisp
-(after! org
-  (setq org-todo-keywords
-        '((sequence
-           "TODO(t)"
-           "NEXT(n)"
-           "|"
-           "DONE(d)")
-          (sequence
-           "WAITING(w@/!)"))))
-#+end_src
-
-*** What tags can a task have?
-
-As above, I also try to keep these as basic as possible
-
-#+begin_src emacs-lisp
-(after! org
-  (setq org-tag-alist
-        '(("@errand" . ?e)
-          ("@home"   . ?h)
-          ("@office" . ?o))))
-#+end_src
-*** Where can tasks be refiled?
-It isn't too useful to allow refiling at more than a few levels of depth so we want to restrict some items to top level at most.
-
-#+begin_src emacs-lisp
-(after! org
-  (setq org-refile-targets
-        `((,(concat org-agenda-directory "ideas.org") :level . 0)
-          (,(concat org-agenda-directory "projects.org") :maxlevel . 2)
-          (,(concat org-agenda-directory "someday.org") :level . 0)
-          (,(concat org-agenda-directory "tickler.org") :maxlevel . 1))))
-#+end_src
-** Quality of life
-*** How can I hide items scheduled for the future?
-
-These aren't super useful as they tend to be too far off as to be unactionable
-
-#+begin_src emacs-lisp
-(after! org (setq org-agenda-todo-ignore-scheduled 'future))
-#+end_src
-*** How can I speed up item entry?
-We can use capture templates to speed up the process of saving items
-
-#+begin_src emacs-lisp
-(after! org
-  (setq org-capture-templates
-        `(("i" "inbox" entry
-           (file ,(concat org-agenda-directory "inbox.org"))
-           "* TODO %i%?")
-          )))
-#+end_src
-** Modules
-*** How can I track habits with org?
-#+begin_src emacs-lisp
-(after! org
-  (require 'org-habit)
-  (add-to-list 'org-modules 'org-habit))
-#+end_src
-<<<<<<< Updated upstream
-=======
-* Agenda
-~org-agenda~ is a handy tool for getting a high level overview of my org tasks. Almost like a dashboard of sorts!
-
-#+begin_src emacs-lisp
-(use-package! org-agenda
-  :init
-  (map! "C-c a" #'switch-to-agenda)
-  (defun switch-to-agenda ()
-    (interactive)
-    (org-agenda nil " "))
-  :config
-  (setq org-columns-default-format "%40ITEM(Task) %Effort(EE){:} %CLOCKSUM(Time Spent) %SCHEDULED(Scheduled) %DEADLINE(Deadline)"
-        org-agenda-custom-commands `((" " "Agenda"
-                                      ((todo "NEXT"
-                                             ((org-agenda-overriding-header "Current Focus")
-                                              (org-agenda-files '(,(concat org-agenda-directory "projects.org")
-                                                                  ,(concat org-agenda-directory "inbox.org")))
-                                              ))
-                                       (agenda ""
-                                               ((org-agenda-span 'week)
-                                                (org-deadline-warning-days 365)))
-                                       (todo "TODO"
-                                             ((org-agenda-overriding-header "Inbox")
-                                              (org-agenda-files '(,(concat org-agenda-directory "inbox.org")))
-                                              ))
-                                       )))))
-#+end_src
 * Extra Doom setup
 While still technically part of [[#core-setup][Core setup]], I've stuck this configuration at the bottom purely because of how long it is.
 
