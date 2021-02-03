@@ -115,6 +115,11 @@ We don't need to see UTF-8 in the bottom bar all the time [[https://tecosaur.git
       org-agenda-compact-blocks t
       org-agenda-start-day nil
       org-agenda-span 1
+      org-agenda-time-grid
+      (quote
+       ((daily today remove-match)
+        (900 1100 1300 1500 1700)
+        "......" "----------------"))
       org-agenda-start-on-weekday nil)
 
 (setq org-agenda-custom-commands
@@ -124,12 +129,13 @@ We don't need to see UTF-8 in the bottom bar all the time [[https://tecosaur.git
                        '((:name "Today"
                           :time-grid t
                           :date today
+                          :scheduled today
                           :order 1)))))
           (alltodo "" ((org-agenda-overriding-header "")
                        (org-super-agenda-groups
                         '((:log t)
                           (:name "To refile"
-                           :file-path "refile\\.org")
+                           :file-path "inbox\\.org")
                           (:name "Next Up"
                            :todo "NEXT"
                            :order 1)
