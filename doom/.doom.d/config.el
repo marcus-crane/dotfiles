@@ -36,6 +36,8 @@
 
 (setq org-agenda-include-diary t)
 
+(setq org-agenda-dim-blocked-tasks t)
+
 (use-package deft
   :after org
   :custom
@@ -84,3 +86,7 @@
 
 (setq org-roam-directory (concat netocean "/brain/"))
 (use-package! org-mac-iCal)
+
+(after! org
+  (require 'org-habit)
+  (add-to-list 'org-modules 'org-habit))
