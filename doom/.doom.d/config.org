@@ -47,6 +47,10 @@ As for the name, Netocean is just the dorky name I use to refer to my personal f
   (deft-default-extension "org")
   (deft-directory org-directory))
 #+end_src
+** org-roam
+#+begin_src emacs-lisp
+(setq org-roam-directory (concat netocean "/brain/"))
+#+end_src
 * Extra Doom setup
 While still technically part of [[#core-setup][Core setup]], I've stuck this configuration at the bottom purely because of how long it is.
 
@@ -200,7 +204,8 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       org               ; organize your plain life in plain text
+       (org
+        +roam)       ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional

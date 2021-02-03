@@ -15,3 +15,5 @@
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
   (deft-directory org-directory))
+
+(setq org-roam-directory (concat netocean "/brain/"))
