@@ -34,20 +34,54 @@
   (setq org-agenda-directory org-directory
         org-agenda-files '("~/netocean/org")))
 
+(setq org-archive-location
+      (concat org-agenda-directory "archive/archive-"
+              (format-time-string "%Y%m" (current-time))
+              ".org::"))
+
 (setq org-agenda-include-diary t)
 
 (setq org-agenda-dim-blocked-tasks t)
 
-(use-package deft
-  :after org
-  :custom
-  (deft-recursive t)
-  (deft-use-filter-string-for-filename t)
-  (deft-default-extension "org")
-  (deft-directory org-directory))
+(setq org-todo-keywords
+      '((sequence
+         "TODO(t!)"
+         "NEXT(n)"
+         "SOMD(s)"
+         "WAIT(w@/!)"
+         "|"
+         "DONE(d!)"
+         "CANC(c!)")))
+
+(setq org-tag-alist
+      '(("@errand" . ?e)
+        ("@home"   . ?h)
+        ("@office" . ?o)))
+
+(setq org-refile-targets
+      `((,(concat org-agenda-directory "projects.org"))
+        (,(concat org-agenda-directory "bugs.org"))
+        (,(concat org-agenda-directory "tickler.org"))
+        (,(concat org-agenda-directory "ideas.org"))
+        (,(concat org-agenda-directory "work.org"))))
+
+(setq org-treat-insert-todo-heading-as-state-change t
+      org-log-into-drawer t)
+
+(setq org-inbox (concat org-agenda-directory "inbox.org")
+      org-capture-templates
+      `(("i" "inbox" entry
+         (file org-inbox)
+         "* TODO %i%?")
+        ))
 
 (use-package! org-super-agenda
-  :commands (org-super-agenda-mode))
+  :commands (org-super-agenda-mode)
+  :init
+  (map! "C-c a" #'switch-to-agenda)
+  (defun switch-to-agenda ()
+    (interactive)
+    (org-agenda nil "c")))
 (after! org-agenda
   (org-super-agenda-mode))
 
@@ -58,6 +92,11 @@
       org-agenda-compact-blocks t
       org-agenda-start-day nil
       org-agenda-span 1
+      org-agenda-time-grid
+      (quote
+       ((daily today remove-match)
+        (900 1100 1300 1500 1700)
+        "......" "----------------"))
       org-agenda-start-on-weekday nil)
 
 (setq org-agenda-custom-commands
@@ -67,12 +106,13 @@
                        '((:name "Today"
                           :time-grid t
                           :date today
+                          :scheduled today
                           :order 1)))))
           (alltodo "" ((org-agenda-overriding-header "")
                        (org-super-agenda-groups
                         '((:log t)
                           (:name "To refile"
-                           :file-path "refile\\.org")
+                           :file-path "inbox\\.org")
                           (:name "Next Up"
                            :todo "NEXT"
                            :order 1)
@@ -83,6 +123,14 @@
                            :deadline past
                            :order 7)
                           (:discard (:not (:todo "TODO")))))))))))
+
+(use-package deft
+  :after org
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory org-directory))
 
 (setq org-roam-directory (concat netocean "/brain/"))
 (use-package! org-mac-iCal)

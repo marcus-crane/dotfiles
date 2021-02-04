@@ -83,28 +83,75 @@ We don't need to see UTF-8 in the bottom bar all the time [[https://tecosaur.git
   (setq org-agenda-directory org-directory
         org-agenda-files '("~/netocean/org")))
 #+end_src
+*** What shall we do with completed tasks?
+#+begin_src emacs-lisp
+(setq org-archive-location
+      (concat org-agenda-directory "archive/archive-"
+              (format-time-string "%Y%m" (current-time))
+              ".org::"))
+#+end_src
 *** How can we include diary entries?
 #+begin_src emacs-lisp
 (setq org-agenda-include-diary t)
 #+end_src
-*** Dim tasks that can't be completed yet
+*** Can we dim tasks that can't be completed yet?
 #+begin_src emacs-lisp
 (setq org-agenda-dim-blocked-tasks t)
 #+end_src
-** Deft
+** Workflow
+*** What statuses can a task have?
 #+begin_src emacs-lisp
-(use-package deft
-  :after org
-  :custom
-  (deft-recursive t)
-  (deft-use-filter-string-for-filename t)
-  (deft-default-extension "org")
-  (deft-directory org-directory))
+(setq org-todo-keywords
+      '((sequence
+         "TODO(t!)"
+         "NEXT(n)"
+         "SOMD(s)"
+         "WAIT(w@/!)"
+         "|"
+         "DONE(d!)"
+         "CANC(c!)")))
 #+end_src
-** Super Agenda
+*** What tags can a task have?
+#+begin_src emacs-lisp
+(setq org-tag-alist
+      '(("@errand" . ?e)
+        ("@home"   . ?h)
+        ("@office" . ?o)))
+#+end_src
+*** Where can tasks be refiled?
+#+begin_src emacs-lisp
+(setq org-refile-targets
+      `((,(concat org-agenda-directory "projects.org"))
+        (,(concat org-agenda-directory "bugs.org"))
+        (,(concat org-agenda-directory "tickler.org"))
+        (,(concat org-agenda-directory "ideas.org"))
+        (,(concat org-agenda-directory "work.org"))))
+#+end_src
+*** Where are tasks logged?
+#+begin_src emacs-lisp
+(setq org-treat-insert-todo-heading-as-state-change t
+      org-log-into-drawer t)
+#+end_src
+** Quality of life
+*** How can I speed up capturing tasks?
+#+begin_src emacs-lisp
+(setq org-inbox (concat org-agenda-directory "inbox.org")
+      org-capture-templates
+      `(("i" "inbox" entry
+         (file org-inbox)
+         "* TODO %i%?")
+        ))
+#+end_src
+** Agenda
+~org-super-agenda~ is a handy tool for getting a high level overview of my org tasks. Almost like a dashboard of sorts!
 #+begin_src emacs-lisp
 (use-package! org-super-agenda
-  :commands (org-super-agenda-mode))
+  :commands (org-super-agenda-mode)
+  :init
+  (map! "C-c a" #'switch-to-agenda)
+  (defun switch-to-agenda ()
+    (interactive)
+    (org-agenda nil "c")))
 (after! org-agenda
   (org-super-agenda-mode))
 
@@ -146,6 +193,16 @@ We don't need to see UTF-8 in the bottom bar all the time [[https://tecosaur.git
                            :deadline past
                            :order 7)
                           (:discard (:not (:todo "TODO")))))))))))
+#+end_src
+** Deft
+#+begin_src emacs-lisp
+(use-package deft
+  :after org
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory org-directory))
 #+end_src
 ** org-roam
 #+begin_src emacs-lisp
