@@ -138,3 +138,6 @@
 (after! org
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
+
+(add-hook! 'elfeed-search-mode-hook 'elfeed-update)
+(setq elfeed-db-directory "~/netocean/org/.caches/elfeed")
