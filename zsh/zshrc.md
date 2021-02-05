@@ -7,7 +7,7 @@
 These paths generally exist on most every system so we'll set them seperately from other PATH additions.
 
 ```bash
-export PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/opt/X11/bin:$PATH"
+export PATH="/bin:/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/usr/local/sbin:/opt/X11/bin:$PATH"
 ```
 
 ## Initialisation

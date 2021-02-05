@@ -30,12 +30,10 @@
 (after! org
   (setq org-directory (concat netocean "/org/")))
 
-(after! org
-  (setq org-agenda-directory org-directory
-        org-agenda-files '("~/netocean/org")))
+(setq org-agenda-files '("~/netocean/org"))
 
 (setq org-archive-location
-      (concat org-agenda-directory "archive/archive-"
+      (concat org-directory "archive/archive-"
               (format-time-string "%Y%m" (current-time))
               ".org::"))
 
@@ -59,16 +57,16 @@
         ("@office" . ?o)))
 
 (setq org-refile-targets
-      `((,(concat org-agenda-directory "projects.org"))
-        (,(concat org-agenda-directory "bugs.org"))
-        (,(concat org-agenda-directory "tickler.org"))
-        (,(concat org-agenda-directory "ideas.org"))
-        (,(concat org-agenda-directory "work.org"))))
+      `((,(concat org-directory "projects.org"))
+        (,(concat org-directory "bugs.org"))
+        (,(concat org-directory "tickler.org"))
+        (,(concat org-directory "ideas.org"))
+        (,(concat org-directory "work.org"))))
 
 (setq org-treat-insert-todo-heading-as-state-change t
       org-log-into-drawer t)
 
-(setq org-inbox (concat org-agenda-directory "inbox.org")
+(setq org-inbox (concat org-directory "inbox.org")
       org-capture-templates
       `(("i" "inbox" entry
          (file org-inbox)
