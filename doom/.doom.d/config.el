@@ -130,8 +130,7 @@
   (deft-default-extension "org")
   (deft-directory org-directory))
 
-(setq org-roam-directory (concat netocean "/brain/"))
-(use-package! org-mac-iCal)
+(setq org-roam-directory (concat org-directory "/brain/"))
 
 (after! org
   (require 'org-checklist)
