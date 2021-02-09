@@ -219,12 +219,6 @@ We don't need to see UTF-8 in the bottom bar all the time [[https://tecosaur.git
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
 #+end_src
-* RSS
-It's a nice idea to update my RSS feeds when opening my feed reader
-#+begin_src emacs-lisp
-(add-hook! 'elfeed-search-mode-hook 'elfeed-update)
-(setq elfeed-db-directory "~/netocean/org/.caches/elfeed")
-#+end_src
 * Extra Doom setup
 While still technically part of [[#core-setup][Core setup]], I've stuck this configuration at the bottom purely because of how long it is.
 
