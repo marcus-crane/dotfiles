@@ -130,7 +130,7 @@
   (deft-default-extension "org")
   (deft-directory org-directory))
 
-(setq org-roam-directory (concat org-directory "/brain/"))
+(setq org-roam-directory "~/netocean/org/brain")
 
 (after! org
   (require 'org-checklist)

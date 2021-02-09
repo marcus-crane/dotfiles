@@ -204,7 +204,7 @@ We don't need to see UTF-8 in the bottom bar all the time [[https://tecosaur.git
 #+end_src
 ** org-roam
 #+begin_src emacs-lisp
-(setq org-roam-directory (concat org-directory "/brain/"))
+(setq org-roam-directory "~/netocean/org/brain/")
 #+end_src
 ** Checklists
 #+begin_src emacs-lisp
