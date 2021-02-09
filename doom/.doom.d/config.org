@@ -207,6 +207,12 @@ We don't need to see UTF-8 in the bottom bar all the time [[https://tecosaur.git
 (setq org-roam-directory (concat netocean "/brain/"))
 (use-package! org-mac-iCal)
 #+end_src
+** Checklists
+#+begin_src emacs-lisp
+(after! org
+  (require 'org-checklist)
+  (add-to-list 'org-modules 'org-checklist))
+#+end_src
 ** Habit tracking
 #+begin_src emacs-lisp
 (after! org
@@ -402,8 +408,9 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
 
        :app
        ;;calendar
+       everywhere        ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
-       (rss +org)        ; emacs as an RSS reader
+       ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config

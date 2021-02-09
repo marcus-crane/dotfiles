@@ -134,6 +134,10 @@
 (use-package! org-mac-iCal)
 
 (after! org
+  (require 'org-checklist)
+  (add-to-list 'org-modules 'org-checklist))
+
+(after! org
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
 
