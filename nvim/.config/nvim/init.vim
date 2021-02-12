@@ -21,6 +21,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nathangrigg/vim-beancount'
 
 " Initialize the plugin system
 call plug#end()
@@ -101,6 +102,10 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+""" Beancount """
+" Align commodities anytime a period is inserted
+inoremap . .<C-\><C-O>:AlignCommodity<CR>
 
 """ Footnotes """
 
