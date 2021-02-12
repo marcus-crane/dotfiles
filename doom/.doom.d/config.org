@@ -19,46 +19,21 @@
 (setq user-full-name "Marcus Crane"
       user-mail-address "marcus@utf9k.net")
 #+end_src
-** Netocean
-I store all of my org files on a [[https://www.synology.com/en-nz/products/DS220j][Synology DS220j]] at my house, which has redundancy thanks to RAID and just to be extra safe, also syncs content with Dropbox as a backup point.
-
-The Synology NAS has a webdav server which is what I mount to my computers and then sync files locally, not unlike Dropbox, thanks to [[https://mountainduck.io/][Mountain Duck]].
-
-As for the name, Netocean is just the dorky name I use to refer to my personal file storage. It's short for network ocean (ie an ocean of files) and is [[https://wikimon.net/Net_Ocean][totally not taken from Digimon]].
+** File Storage
+I store all of my org files in Dropbox
 
 #+begin_src emacs-lisp
-(setq netocean "~/netocean")
+(setq storage "~/Dropbox")
 #+end_src
 ** Useful bits
-
-Moving items to the trash? Nice
-Getting more granular undo? Nice
-Auto saving? Nice
-A nicer looking truncation? Nice
-#+begin_src emacs-lisp
-(setq-default
- delete-by-moving-to-trash t)
-
-(setq evil-want-fine-undo t
-      auto-save-default t
-      truncate-string-ellipsis "…")
-#+end_src
-
+*** Displaying the time
 Displaying the time in the bottom bar seems like a good idea
 
 #+begin_src emacs-lisp
 (display-time-mode 1)
 #+end_src
 
-Probably handy to display battery usage when I'm on a laptop
-
-#+begin_src emacs-lisp
-(if (equal "Battery status not available"
-           (battery))
-    (display-battery-mode 1)
-  (setq password-cache-expiry nil))
-#+end_src
-
+*** Hiding UTF-8 in the modeline bar
 We don't need to see UTF-8 in the bottom bar all the time [[https://tecosaur.github.io/emacs-config/config.html#theme-modeline][>>]]
 
 #+begin_src emacs-lisp
@@ -71,126 +46,10 @@ We don't need to see UTF-8 in the bottom bar all the time [[https://tecosaur.git
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 #+end_src
 * Org mode
-** Setting up
-*** Where do my org files live?
+** Where do my org files live?
 #+begin_src emacs-lisp
 (after! org
-  (setq org-directory (concat netocean "/org/")))
-#+end_src
-*** Where to look for org tasks?
-#+begin_src emacs-lisp
-(setq org-agenda-files '("~/netocean/org"))
-#+end_src
-*** What shall we do with completed tasks?
-#+begin_src emacs-lisp
-(setq org-archive-location
-      (concat org-directory "archive/archive-"
-              (format-time-string "%Y%m" (current-time))
-              ".org::"))
-#+end_src
-*** How can we include diary entries?
-#+begin_src emacs-lisp
-(setq org-agenda-include-diary t)
-#+end_src
-*** Can we dim tasks that can't be completed yet?
-#+begin_src emacs-lisp
-(setq org-agenda-dim-blocked-tasks t)
-#+end_src
-** Workflow
-*** What statuses can a task have?
-#+begin_src emacs-lisp
-(setq org-todo-keywords
-      '((sequence
-         "TODO(t!)"
-         "NEXT(n)"
-         "SOMD(s)"
-         "WAIT(w@/!)"
-         "|"
-         "DONE(d!)"
-         "CANC(c!)")))
-#+end_src
-*** What tags can a task have?
-#+begin_src emacs-lisp
-(setq org-tag-alist
-      '(("@errand" . ?e)
-        ("@home"   . ?h)
-        ("@office" . ?o)))
-#+end_src
-*** Where can tasks be refiled?
-#+begin_src emacs-lisp
-(setq org-refile-targets
-      `((,(concat org-directory "projects.org"))
-        (,(concat org-directory "bugs.org"))
-        (,(concat org-directory "tickler.org"))
-        (,(concat org-directory "ideas.org"))
-        (,(concat org-directory "work.org"))))
-#+end_src
-*** Where are tasks logged?
-#+begin_src emacs-lisp
-(setq org-treat-insert-todo-heading-as-state-change t
-      org-log-into-drawer t)
-#+end_src
-** Quality of life
-*** How can I speed up capturing tasks?
-#+begin_src emacs-lisp
-(setq org-inbox (concat org-directory "inbox.org")
-      org-capture-templates
-      `(("i" "inbox" entry
-         (file org-inbox)
-         "* TODO %i%?")
-        ))
-#+end_src
-** Agenda
-~org-super-agenda~ is a handy tool for getting a high level overview of my org tasks. Almost like a dashboard of sorts!
-#+begin_src emacs-lisp
-(use-package! org-super-agenda
-  :commands (org-super-agenda-mode)
-  :init
-  (map! "C-c a" #'switch-to-agenda)
-  (defun switch-to-agenda ()
-    (interactive)
-    (org-agenda nil "c")))
-(after! org-agenda
-  (org-super-agenda-mode))
-
-(setq org-agenda-skip-scheduled-if-done t
-      org-agenda-skip-deadline-if-done t
-      org-agenda-include-deadlines t
-      org-agenda-block-separator nil
-      org-agenda-compact-blocks t
-      org-agenda-start-day nil
-      org-agenda-span 1
-      org-agenda-time-grid
-      (quote
-       ((daily today remove-match)
-        (900 1100 1300 1500 1700)
-        "......" "----------------"))
-      org-agenda-start-on-weekday nil)
-
-(setq org-agenda-custom-commands
-      '(("c" "Super view"
-         ((agenda "" ((org-agenda-overriding-header "")
-                      (org-super-agenda-groups
-                       '((:name "Today"
-                          :time-grid t
-                          :date today
-                          :scheduled today
-                          :order 1)))))
-          (alltodo "" ((org-agenda-overriding-header "")
-                       (org-super-agenda-groups
-                        '((:log t)
-                          (:name "To refile"
-                           :file-path "inbox\\.org")
-                          (:name "Next Up"
-                           :todo "NEXT"
-                           :order 1)
-                          (:name "Coming Up"
-                           :scheduled future
-                           :order 8)
-                          (:name "Overdue"
-                           :deadline past
-                           :order 7)
-                          (:discard (:not (:todo "TODO")))))))))))
+  (setq org-directory (concat storage "/org/")))
 #+end_src
 ** Deft
 #+begin_src emacs-lisp
@@ -202,21 +61,9 @@ We don't need to see UTF-8 in the bottom bar all the time [[https://tecosaur.git
   (deft-default-extension "org")
   (deft-directory org-directory))
 #+end_src
-** org-roam
+* Beancount
 #+begin_src emacs-lisp
-(setq org-roam-directory "~/netocean/org/brain/")
-#+end_src
-** Checklists
-#+begin_src emacs-lisp
-(after! org
-  (require 'org-checklist)
-  (add-to-list 'org-modules 'org-checklist))
-#+end_src
-** Habit tracking
-#+begin_src emacs-lisp
-(after! org
-  (require 'org-habit)
-  (add-to-list 'org-modules 'org-habit))
+(add-hook 'beancount-mode-hook #'outline-minor-mode)
 #+end_src
 * Extra Doom setup
 While still technically part of [[#core-setup][Core setup]], I've stuck this configuration at the bottom purely because of how long it is.
@@ -342,22 +189,22 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
-       data              ; config/data formats
+       data                ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
-       emacs-lisp        ; drown in parentheses
+       emacs-lisp          ; drown in parentheses
        ;;erlang            ; an elegant language for a more civilized age
        ;;ess               ; emacs speaks statistics
        ;;faust             ; dsp, but you get to keep your soul
        ;;fsharp            ; ML stands for Microsoft's Language
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
-       (go +lsp)         ; the hipster dialect
+       (go +lsp)           ; the hipster dialect
        ;;(haskell +dante)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
-       json              ; At least it ain't XML
+       json                ; At least it ain't XML
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
        (javascript +lsp)   ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
@@ -365,14 +212,13 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
        ;;latex             ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
-       ledger            ; an accounting system in Emacs
+       ledger              ; an accounting system in Emacs
        ;;lua               ; one-based indices? one-based indices
-       markdown          ; writing docs for people to ignore
+       markdown            ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org
-        +roam)       ; organize your plain life in plain text
+       org                 ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -380,19 +226,19 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
-       rest              ; Emacs as a REST client
+       rest                ; Emacs as a REST client
        ;;rst               ; ReST in peace
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps
-       sh                ; she sells {ba,z,fi}sh shells on the C xor
+       sh                  ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       web               ; the tubes
-       yaml              ; JSON, but readable
+       web                 ; the tubes
+       yaml                ; JSON, but readable
 
        :email
        ;;(mu4e +gmail)
@@ -462,9 +308,8 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
                                         ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
-(package! org-mac-iCal
-  :recipe (:host github :repo "terjesannum/org-mac-iCal"))
-(package! org-super-agenda)
+(package! beancount
+  :recipe (:host github :repo "beancount/beancount-mode"))
 #+end_src
 
 * Local variables

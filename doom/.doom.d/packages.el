@@ -48,6 +48,5 @@
                                         ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
-(package! org-mac-iCal
-  :recipe (:host github :repo "terjesannum/org-mac-iCal"))
-(package! org-super-agenda)
+(package! beancount
+  :recipe (:host github :repo "beancount/beancount-mode"))
