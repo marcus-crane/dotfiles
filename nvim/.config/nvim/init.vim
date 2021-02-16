@@ -105,7 +105,7 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 """ Beancount """
 " Align commodities anytime a period is inserted
-inoremap . .<C-\><C-O>:AlignCommodity<CR>
+autocmd FileType beancount inoremap . .<C-\><C-O>:AlignCommodity<CR>
 
 """ Footnotes """
 
