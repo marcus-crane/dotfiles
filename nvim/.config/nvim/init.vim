@@ -5,16 +5,17 @@
 
 """ Plugins """
 
-" Load vim-plug or install it on first run if you don't have it
+" If vim-plug isn't installed, we can do that on the first run?
 if empty(glob('$HOME/.local/share/nvim/site/autoload/plug.vim'))
   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" This is where plugins will live
+" Where do our plugins live?
 call plug#begin('$HOME/.local/share/nvim/plugged')
 
+" What plugins do we want to install?
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
@@ -23,49 +24,54 @@ Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nathangrigg/vim-beancount'
 
-" Initialize the plugin system
+" Let's start up the plugin system
 call plug#end()
 
 """ Quality of Life """
 
-" Show the line numbers in the left gutter
+" Can you show me some line numbers on the left hand side?
 set number
-" Show matches while searching
+" Can I see results, live while I'm performing a search?
 set incsearch
-" Enable search highlighting
+" I'm blind. Can you highlight search results for me?
 set hlsearch
 
-" Rebind J and K to move blocks up and down in visual mode [footnotes#move-blocks-visual]
+" How can I use J and K to move blocks up and down in visual mode?
+" [footnotes#move-blocks-visual]
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-" Load filetype detection and indentation
+" How can we automatically detect filetype and set the appropriate level of
+" indentation?
 filetype plugin indent on
 
-" Show existing tab as having a width of 2 spaces
+" Can we set a tab to be 2 spaces wide?
 set tabstop=2
 
-" Use 2 spaces when indenting with `>`
+" Can we indent by 2 spaces when using `>`?
 set shiftwidth=2
 
-" Insert 2 spaces when pressing tab
+" Can we get the TAB key to insert 2 spaces?
 set expandtab
 
-" Insert 4 spaces for Python files to match PEP8
+" Can we get the TAB key to insert 4 spaces for Python files? PEP8 is a nice idea
 autocmd Filetype python setlocal ts=4 sw=4 sts=4
 
-" Set invisibles representation to be the same as TextMate [footnotes#show-invisibles]
-
+" TextMate has a nice way of showing invisibles. Can we have that too?
+" [footnotes#show-invisibles]
 set listchars=tab:▸\ ,eol:¬
-" Toggle invisibles using `\ + l` in NORMAL mode
+
+" Can we toggle invisibles on and off using `\ + l` in NORMAL mode?
 nmap <leader>l :set list!<CR>
 
-" Activate NERDTree with `Ctrl + n`
+" Can we get a list of files on the left hand side by hitting `Ctrl + n`?
 map <C-n> :NERDTreeToggle<CR>
 
 """ Get better at using vim """
 
-" Disable arrow keys, forcing hjkl only in both INSERT and NORMAL modes [footnotes#no-arrow-keys]
+" I really need to learn Vim keybindings. Can we disable the arrow keys, so
+" that only hjkl are usable in INSERT and NORMAL mode?
+" [footnotes#no-arrow-keys]
 inoremap <Up> <NOP>
 noremap <Up> <NOP>
 inoremap <Down> <NOP>
@@ -77,15 +83,14 @@ noremap <Right> <NOP>
 
 """ Makin' things look nice """
 
-" Theme -> Dracula [footnote#dracula]
+" Don't you think Dracula is a nice theme?
+" [footnote#dracula]
 syntax on
 let g:airline_theme='dracula'
 
 """ COC (autocompleter) configuration [footnote#coc] """
 
-set updatetime=300
-
-" Use tab to trigger completion
+" Can we press TAB to move through COC's autocompletion list?
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -104,7 +109,8 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 """ Beancount """
-" Align commodities anytime a period is inserted
+
+" How can we automatically align commities when the `.` key is pressed?
 autocmd FileType beancount inoremap . .<C-\><C-O>:AlignCommodity<CR>
 
 """ Footnotes """
