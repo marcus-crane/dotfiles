@@ -19,21 +19,21 @@
 (setq user-full-name "Marcus Crane"
       user-mail-address "marcus@utf9k.net")
 #+end_src
-** File Storage
+** Where do I store my files?
 I store all of my org files in Dropbox
 
 #+begin_src emacs-lisp
 (setq storage "~/Dropbox")
 #+end_src
 ** Useful bits
-*** Displaying the time
+*** I'd like to see the time while inside Emacs
 Displaying the time in the bottom bar seems like a good idea
 
 #+begin_src emacs-lisp
 (display-time-mode 1)
 #+end_src
 
-*** Hiding UTF-8 in the modeline bar
+*** I don't need to know that we're using UTF-8
 We don't need to see UTF-8 in the bottom bar all the time [[https://tecosaur.github.io/emacs-config/config.html#theme-modeline][>>]]
 
 #+begin_src emacs-lisp
@@ -46,24 +46,49 @@ We don't need to see UTF-8 in the bottom bar all the time [[https://tecosaur.git
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 #+end_src
 * Org mode
+In an attempt to stay sane, I've banned myself from configuring Emacs (especially org mode) to do anything interesting
+
+I might use TODOs in various files but I'm not using Emacs as a TODO list, zettelkasten, agenda or anything like that
+
+If you spot me doing doing that, please submit a pull request to delete my config
+
 ** Where do my org files live?
 #+begin_src emacs-lisp
 (after! org
   (setq org-directory (concat storage "/org/")))
 #+end_src
-** Deft
+** Which org files should be checked for TODOs?
+The answer is ideally all of them
+
+#+begin_src emacs-lisp
+(setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
+#+end_src
+** How can I search through my notes?
 #+begin_src emacs-lisp
 (use-package deft
   :after org
   :custom
   (deft-recursive t)
+  (deft-extensions '("org" "md" "markdown"))
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
   (deft-directory org-directory))
 #+end_src
+* Beacon
+I'm blind so I'd like to be reminded where my cursor is most of the time
+
+#+begin_src emacs-lisp
+(beacon-mode 1)
+#+end_src
 * Beancount
 #+begin_src emacs-lisp
 (add-hook 'beancount-mode-hook #'outline-minor-mode)
+#+end_src
+* Fish
+My current shell of choice but by default, Emacs reads its configuration as ~Fundamental~ mode
+
+#+begin_src emacs-lisp
+(add-hook 'fish-mode-hook (lambda () (add-hook 'before-save-hook 'fish-indent=before-save)))
 #+end_src
 * Extra Doom setup
 While still technically part of [[#core-setup][Core setup]], I've stuck this configuration at the bottom purely because of how long it is.
@@ -308,8 +333,10 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
                                         ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
+(package! beacon)
 (package! beancount
   :recipe (:host github :repo "beancount/beancount-mode"))
+(package! fish-mode)
 #+end_src
 
 * Local variables

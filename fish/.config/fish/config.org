@@ -2,26 +2,19 @@
 #+options: toc:2
 #+property: header-args :tangle config.fish
 
-
 Welcome to my configuration. It's always a work in progress.
 
 * Setting up PATHS
+
 ** Universal system folders
 
 These paths generally exist on most every system so we'll set them separate from other PATH additions.
 
 #+begin_src fish
-set -xg PATH /usr/local/bin /usr/bin /usr/sbin /sbin /bin /usr/local/sbin /opt/X11/bin $PATH
+set -xg PATH /bin /sbin /usr/local/bin /usr/bin /usr/sbin /usr/local/sbin /opt/X11/bin $PATH
 #+end_src
 
-** macOS specific items
-
-At first glance, having two references to ~Emacs.app~ seems silly but the ~emacs~ and ~emacsclient~ executables live in separate directories. How annoying!
-
-#+begin_src fish
-set -xg PATH /usr/local/opt /Applications/Emacs.app/Contents/MacOS/bin /Applications/Emacs.app/Contents/MacOS $PATH
-#+end_src
-* Initialisation
+** Initialisation
 
 This section consists of helpers functions and global variables used by various applications.
 
@@ -52,24 +45,19 @@ It's worth noting that the value of ~$OPSYS~ on ~macOS~ is ~darwin~. I could cha
 All of my development occurs in ~$HOME/Code~ regardless of what machine I'm on. One day I might change it though hence the variable.
 
 #+begin_src fish
-set -x WORKSPACE ~/Code
+set -x WORKSPACE "$HOME/Code"
 #+end_src
 
 ** Setting various global constants
 
 #+begin_src fish
-set -x CONFIG_FILE ~/.config/fish/config.fish
-set -x CONFIG_SRC  ~/.config/fish/config.org
-set -x EDITOR      (command -v emacs)client -c # (1)
-set -x GPG_TTY     (tty)
-set -x LANGUAGE    "en_NZ:en"
+set -x CONFIG_FILE    "$HOME/.config/fish/config.fish"
+set -x CONFIG_SRC     "$HOME/.config/fish/config.org"
+set -x EDITOR         (command -v nvim)
+set -x GPG_TTY        (tty)
+set -x LANGUAGE       "en_NZ:en"
+set -x LAST_MODIFIED  "(date)"
 #+end_src
-
-1. In some cases, when I compile Emacs, I'm not able to find the ~emacsclient~ executiable within my path.
-
-   This doesn't really make much sense given ~emacs~ and ~emacsclient~ tend to live side by side and I don't actually remember the specific details from last time I ran into that problem.
-
-   In the event that happens anyway, this quick hack (find ~emacs~ and append "client" on the end) works in the meantime
 
 ** Setting some Windows / WSL specific constants
 
@@ -90,19 +78,9 @@ I had to remind myself why this exists but it's just a convenience function to m
 #+begin_src fish
 alias scut="abbr -a -g"
 #+end_src
-** Bootstrapping Fisher
-[[https://github.com/jorgebucaran/fisher][Fisher]] is a package manager for the fish shell, which makes installing small plugins a lot easier
 
-I won't have it installed by default on any new machines so we can automatically correct that based on the suggestion [[https://github.com/jorgebucaran/fisher#bootstrap-installation][here]]
+* Applications
 
-#+begin_src fish
-if not functions -q fisher
-    set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
-    curl https://git.io/JJVwl --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
-    fish -c fisher
-end
-#+end_src
-* Applications and Languages
 ** [[https://github.com/asdf-vm/asdf][asdf]]
 
 The version manager to rule them all
@@ -110,69 +88,31 @@ The version manager to rule them all
 It wraps a number of existing language version managers into plugins that can be managed through one unified CLI tool
 
 #+begin_src fish
-set -x ASDF_DIR ~/.asdf
+set -x ASDF_DIR $HOME/.asdf
 if test -e $ASDF_DIR
     source $ASDF_DIR/asdf.fish
-    if not test -e ~/.config/fish/completions
-        mkdir -p ~/.config/fish/completions; and cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions # (2)
+    if not test -e $HOME/.config/fish/completions
+        mkdir -p $HOME/.config/fish/completions; and cp $HOME/.asdf/completions/asdf.fish $HOME/.config/fish/completions # (2)
     end
 end
 #+end_src
 
 1. Autocompletions aren't added to Fish so this step, provided by the asdf docs, configures them properly
 
-** Dart
-
-Google's language for building cross-platform applications
-
-#+begin_src fish
-if test -e $ASDF_DIR; and test -e $ASDF_DIR/plugins/dart
-    set -xg PATH (asdf where dart)/bin $PATH
-end
-#+end_src
 ** [[https://dropbox.com][Dropbox]]
 
 Depending on which computer I'm using, I'll often have my Dropbox in different places
 
-Historically, it would only be in a different place when using Emacs in WSL (I store my org stuff in Dropbox)
+At present, I don't have any machines where Dropbox isn't in my home directory, but this variable is handy to have in the event that changes.
 
-I'm currently in the process of moving to Dropbox within WSL though, which will mean that all version of Dropbox will live in ~$HOME/Dropbox~
-
-The reason for that is because file operations across WSL boundaries (ie anything on the C:\ Drive) is super slow compared to staying within the boundaries
+Any downstream configuration making use of it won't need to know about potentially breaking changes.
 
 #+begin_src fish
-if test $OPSYS = "windows"; and test $NAME != "epitaph"
-    set -x DROPBOX_DIR /mnt/c/Users/marcus.crane/Dropbox
-else
-    set -x DROPBOX_DIR ~/Dropbox
-end
+set -x DROPBOX_DIR $HOME/Dropbox
 #+end_src
 
-** Emacs
+** fzf
 
-I'll probably configure this a fair bit more but for now, I just shorten the name of ~emacsclient~
-
-#+begin_src fish
-scut ec $EDITOR
-set -xg PATH ~/.emacs.d/bin $PATH
-#+end_src
-** Erlang
-
-Whenever I compile ~erlang~ (using ~asdf~), I always use the same flags so it's easier to just set them within my shell
-
-#+begin_src fish
-set -x KERL_CONFIGURE_OPTIONS "--disable-debug --without-javac"
-set -x KERL_BUILD_DOCS "yes"
-#+end_src
-** Flutter
-
-Google's framework for building cross-platform applications
-
-#+begin_src fish
-if test -e $ASDF_DIR; and test -e $ASDF_DIR/plugins/flutter
-    set -xg PATH (asdf where flutter)/bin $PATH
-end
-#+end_src
 ** git
 
 To save me having to set up each machine, I just set my Git identifiers each time
@@ -182,17 +122,6 @@ git config --global user.name "Marcus Crane"
 git config --global user.email "marcus@utf9k.net"
 #+end_src
 
-** go
-
-While I don't write much golang, it's kind of annoying to set it up each time so I just leave working configuration in each of my shells in the event that I decide to do anything golang related
-
-#+begin_src fish
-set -x GOPATH $WORKSPACE/go
-if test -e $ASDF_DIR; and test -e $ASDF_DIR/plugins/golang
-    set -x GOROOT (asdf where golang)/go
-end
-set -xg PATH $GOPATH/bin $GOROOT $PATH
-#+end_src
 ** Homebrew
 
 Sometimes I have trouble with rsync which is about the only thing that this snippet fixes
@@ -202,31 +131,38 @@ if test $OPSYS = "darwin"
     set -xg PATH /usr/bin/local $PATH
 end
 #+end_src
-** nix
-#+begin_src fish
-. /Users/marcus/.nix-profile/etc/profile.d/nix.sh
-#+end_src
-** Python
+
+* Languages
+
+** Erlang
+
+Whenever I compile ~erlang~ (using ~asdf~), I always use the same flags so it's easier to set them once within my shell and be done with it.
 
 #+begin_src fish
-if test -e $ASDF_DIR; and test -e $ASDF_DIR/plugins/python
-    set -xg PATH (asdf where python)/bin $PATH
-end
+set -x KERL_CONFIGURE_OPTIONS "--disable-debug --without-javac"
+set -x KERL_BUILD_DOCS        "yes"
 #+end_src
 
-** Rust
+** go
+
+Some of these are arguably redundant with the advent of ~GOMODULES~ but you never know when they might be needed.
 
 #+begin_src fish
-if test -e $ASDF_DIR; and test -e $ASDF_DIR/plugins/rust
-    set -xg PATH (asdf where rust)/bin $PATH
-end
+set -x GOPATH      "$WORKSPACE/go"
+set -x PATH        $GOPATH/bin $GOROOT $PATH
+set -x GO111MODULE on
 #+end_src
+
+*** TODO GO111MODULE deprecation
+SCHEDULED: <2021-03-31 Wed>
+
+As of [[https://golang.org/doc/go1.16][Go 1.16]], ~GO111MODULE~ can be removed so this is a reminder to eventually get around to doing that:  
 
 ** Work setup
 
 #+begin_src fish
-if test -e ~/.work_aliases.fish
-    source ~/.work_aliases.fish
+if test -e $HOME/.work_aliases.fish
+    source $HOME/.work_aliases.fish
 end
 #+end_src
 
@@ -242,14 +178,10 @@ scut gcm     "git commit -Si"
 scut gr      "git remote -v"
 scut gst     "git status"
 scut pap     "git pull upstream master && git push origin master"
-scut refresh "tangle $CONFIG_SRC && stow fish -d ~/dotfiles && source $CONFIG_FILE"
+scut refresh "tangle $CONFIG_SRC && stow fish -d $HOME/dotfiles && source $CONFIG_FILE"
 scut venv    "python3 -m virtualenv venv && ae"
 scut vi      "nvim"
 scut view    "less $CONFIG_FILE"
 scut vim     "nvim"
 scut ws      "cd $WORKSPACE"
 #+end_src
-
-# Local variables:
-# eval: (add-hook 'after-save-hook 'org-html-export-to-html t t)
-# end:
