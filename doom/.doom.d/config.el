@@ -18,12 +18,19 @@
 (after! org
   (setq org-directory (concat storage "/org/")))
 
+(setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
+
 (use-package deft
   :after org
   :custom
   (deft-recursive t)
+  (deft-extensions '("org" "md" "markdown"))
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
   (deft-directory org-directory))
 
+(beacon-mode 1)
+
 (add-hook 'beancount-mode-hook #'outline-minor-mode)
+
+(add-hook 'fish-mode-hook (lambda () (add-hook 'before-save-hook 'fish-indent=before-save)))

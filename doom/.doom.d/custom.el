@@ -4,7 +4,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(safe-local-variable-values
-   '((eval add-hook 'after-save-hook
+   '((eval add-hook 'after-save-hook 'org-html-export-to-html t t)
+     (eval add-hook 'after-save-hook
            (lambda nil
              (org-babel-tangle))
            nil t))))

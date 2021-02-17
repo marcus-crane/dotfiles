@@ -48,5 +48,7 @@
                                         ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
+(package! beacon)
 (package! beancount
   :recipe (:host github :repo "beancount/beancount-mode"))
+(package! fish-mode)
