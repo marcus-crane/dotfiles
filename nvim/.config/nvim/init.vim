@@ -22,7 +22,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'nathangrigg/vim-beancount'
 
 " Let's start up the plugin system
 call plug#end()
@@ -66,6 +65,9 @@ nmap <leader>l :set list!<CR>
 
 " Can we get a list of files on the left hand side by hitting `Ctrl + n`?
 map <C-n> :NERDTreeToggle<CR>
+
+" How can I see invisible files by default in NERDTree?
+let NERDTreeShowHidden=1
 
 """ Get better at using vim """
 
