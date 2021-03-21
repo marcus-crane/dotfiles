@@ -50,8 +50,8 @@ if test -e $HOME/.work_aliases.fish
     source $HOME/.work_aliases.fish
 end
 
-scut ae      "deactivate &> /dev/null; source ./venv/bin/activate"
-scut de      "deactivate &> /dev/null"
+scut ae      "source ./venv/bin/activate.fish"
+scut de      "deactivate"
 scut edit    "$EDITOR $CONFIG_SRC"
 scut gb      "git branch -v"
 scut gcm     "git commit -Si"

@@ -170,8 +170,8 @@ end
 A whole bunch of shortcuts, or as fish calls them, "abbreviations"
 
 #+begin_src fish
-scut ae      "deactivate &> /dev/null; source ./venv/bin/activate"
-scut de      "deactivate &> /dev/null"
+scut ae      "source ./venv/bin/activate.fish"
+scut de      "deactivate"
 scut edit    "$EDITOR $CONFIG_SRC"
 scut gb      "git branch -v"
 scut gcm     "git commit -Si"
