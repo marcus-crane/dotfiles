@@ -161,6 +161,7 @@ As of [[https://golang.org/doc/go1.16][Go 1.16]], ~GO111MODULE~ can be removed s
 ** Work setup
 
 #+begin_src fish
+set -a fish_function_path $HOME/dotfiles/work
 if test -e $HOME/.work_aliases.fish
     source $HOME/.work_aliases.fish
 end

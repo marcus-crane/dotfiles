@@ -46,6 +46,7 @@ set -x GOPATH      "$WORKSPACE/go"
 set -x PATH        $GOPATH/bin $GOROOT $PATH
 set -x GO111MODULE on
 
+set -a fish_function_path $HOME/dotfiles/work
 if test -e $HOME/.work_aliases.fish
     source $HOME/.work_aliases.fish
 end
