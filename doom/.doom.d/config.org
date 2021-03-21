@@ -80,10 +80,6 @@ I'm blind so I'd like to be reminded where my cursor is most of the time
 #+begin_src emacs-lisp
 (beacon-mode 1)
 #+end_src
-* Beancount
-#+begin_src emacs-lisp
-(add-hook 'beancount-mode-hook #'outline-minor-mode)
-#+end_src
 * Fish
 My current shell of choice but by default, Emacs reads its configuration as ~Fundamental~ mode
 
@@ -237,7 +233,7 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
        ;;latex             ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
-       ledger              ; an accounting system in Emacs
+       ;;ledger              ; an accounting system in Emacs
        ;;lua               ; one-based indices? one-based indices
        markdown            ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
@@ -272,7 +268,7 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
 
        :app
        ;;calendar
-       everywhere        ; *leave* Emacs!? You must be joking
+       ;;everywhere        ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
@@ -333,9 +329,6 @@ While still technically part of [[#core-setup][Core setup]], I've stuck this con
                                         ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
-(package! beacon)
-(package! beancount
-  :recipe (:host github :repo "beancount/beancount-mode"))
 (package! fish-mode)
 #+end_src
 
