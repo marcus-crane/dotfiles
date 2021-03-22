@@ -13,7 +13,7 @@ set -x CONFIG_SRC     "$HOME/.config/fish/config.org"
 set -x EDITOR         (command -v nvim)
 set -x GPG_TTY        (tty)
 set -x LANGUAGE       "en_NZ:en"
-set -x LAST_MODIFIED  "(date)"
+set -x LAST_MODIFIED  (date)
 
 if test $OPSYS = "windows"
     set -x DISPLAY (cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 # (1)
@@ -65,3 +65,9 @@ scut vi      "nvim"
 scut view    "less $CONFIG_FILE"
 scut vim     "nvim"
 scut ws      "cd $WORKSPACE"
+
+if type -q starship
+  starship init fish | source
+else
+  echo "Looks like Starship isn't installed. You can install it with brew install starship"
+end

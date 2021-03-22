@@ -56,7 +56,7 @@ set -x CONFIG_SRC     "$HOME/.config/fish/config.org"
 set -x EDITOR         (command -v nvim)
 set -x GPG_TTY        (tty)
 set -x LANGUAGE       "en_NZ:en"
-set -x LAST_MODIFIED  "(date)"
+set -x LAST_MODIFIED  (date)
 #+end_src
 
 ** Setting some Windows / WSL specific constants
@@ -185,4 +185,16 @@ scut vi      "nvim"
 scut view    "less $CONFIG_FILE"
 scut vim     "nvim"
 scut ws      "cd $WORKSPACE"
+#+end_src
+
+* Starfish prompt
+
+This needs to go at the bottom
+
+#+begin_src fish
+if type -q starship
+  starship init fish | source
+else
+  echo "Looks like Starship isn't installed. You can install it with brew install starship"
+end
 #+end_src
