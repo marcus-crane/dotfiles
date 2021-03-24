@@ -111,6 +111,14 @@ Any downstream configuration making use of it won't need to know about potential
 set -x DROPBOX_DIR $HOME/Dropbox
 #+end_src
 
+** Emacs
+
+I use Doom Emacs sometimes and so it's nice to have the Emacs bin directory in my PATH
+
+#+begin_src fish
+set -xg PATH $HOME/.emacs.d/bin $PATH
+#+end_src
+
 ** fzf
 
 ** git
