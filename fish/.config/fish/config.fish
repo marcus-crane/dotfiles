@@ -41,6 +41,10 @@ if test $OPSYS = "darwin"
     set -xg PATH /usr/bin/local $PATH
 end
 
+if test -e "/Applications/Little Snitch.app"
+    set -xg PATH "/Applications/Little Snitch.app/Contents/Components" $PATH
+end
+
 set -x KERL_CONFIGURE_OPTIONS "--disable-debug --without-javac"
 set -x KERL_BUILD_DOCS        "yes"
 

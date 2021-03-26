@@ -140,6 +140,16 @@ if test $OPSYS = "darwin"
 end
 #+end_src
 
+** Little Snitch
+
+It features a CLI but it isn't in the PATH by default
+
+#+begin_src fish
+if test -e "/Applications/Little Snitch.app"
+    set -xg PATH "/Applications/Little Snitch.app/Contents/Components" $PATH
+end
+#+end_src
+
 * Languages
 
 ** Erlang
