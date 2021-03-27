@@ -28,7 +28,7 @@ lugh -f <file>
 A working example would be:
 
 ```bash
-lugh -f ~/dotfiles/zsh/zshrc.md && stow zsh -d ~/dotfiles
+lugh -f ~/dotfiles/zsh/zshrc.md && stow zsh -d ~/dotfiles --ignore '.*.md'
 ```
 
 This effectively emulates the same functionality I had using `org-mode` for literate programming but without the dependency of installing `emacs` which can take a little while
