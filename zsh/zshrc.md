@@ -1,3 +1,7 @@
+---
+output: .zshrc
+---
+
 # My zsh configuration
 
 ## Setting up PATHs
