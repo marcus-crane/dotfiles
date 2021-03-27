@@ -207,7 +207,7 @@ alias gr="git remote -v"
 alias gst="git status"
 alias org="cd $DROPBOX_DIR/org"
 alias pap="git pull upstream master && git push origin master"
-alias refresh="lugh -f $CONFIG_SRC && stow zsh -d ~/dotfiles --ignore='.*.md' && source $CONFIG_FILE && echo 'Refreshed config from $CONFIG_SRC'"
+alias refresh="tangle-md $CONFIG_SRC && stow zsh -d ~/dotfiles --ignore='.*.md' && source $CONFIG_FILE && echo 'Refreshed config from $CONFIG_SRC'"
 alias venv="python3 -m virtualenv venv && ae"
 alias vi="nvim"
 alias view="less $CONFIG_FILE"
@@ -237,18 +237,10 @@ Lastly, `pandoc` should be able to render this very file into an HTML page or re
 
 ```bash
 function tangle-md() {
-  if [[ $(command -v codedown) ]]; then
-    if [[ ! -n "$1" ]]; then
-      echo "Please supply a file to tangle"
-    elif [[ ! -n "$2" ]]; then
-      echo "Please supply a language"
-    elif [[ ! -n "$3" ]]; then
-      echo "Please supply an output file"
-    elif [[ -n "$1" && -n "$2" && -n "$3" ]]; then
-      cat "$1" | codedown "$2" > "$3"
-    fi
+  if [[ $(command -v lugh) ]]; then
+    lugh -f "$1"
   else
-    echo "Codedown isn't installed. You can find it at https://github.com/earldouglas/codedown"
+    echo "lugh isn't installed. You can find it at https://github.com/marcus-crane/lugh"
   fi
 }
 ```
