@@ -17,23 +17,21 @@ This is because a few, and in time most of, my config files are kept as "literat
 
 In short, all of the surrounding commentary is stripped and the correct file is generated off of the source code blocks.
 
-In order to "tangle" them into a proper config, you'll need to have [codedown](https://github.com/earldouglas/codedown) installed.
+In order to "tangle" them into a proper config, I use [lugh](https://github.com/marcus-crane/lugh), my custom made tool for tangling markdown.
 
 Assuming it's installed, you can "tangle" the file you're interested in like so:
 
 ```bash
-cat <file> | codedown <language> > <output>
+lugh -f <file>
 ```
 
 A working example would be:
 
 ```bash
-cat ~/dotfiles/zsh/zshrc.md | codedown bash > ~/dotfiles/zsh/.zshrc && stow zsh -d ~/dotfiles
+lugh -f ~/dotfiles/zsh/zshrc.md && stow zsh -d ~/dotfiles
 ```
 
-This emulates the same functionality I had using `org-mode` for literate programming but without the dependency of installing `emacs` which can take a little while
-
-In future, I look to replace `codedown` with something more lightweight as not only does it require `node/npm` installed but there's still a catch 22 aspect where you need your config installed to source codedown in the first place
+This effectively emulates the same functionality I had using `org-mode` for literate programming but without the dependency of installing `emacs` which can take a little while
 
 ## Installing languages with asdf
 
@@ -44,14 +42,10 @@ They are installed by running `stow asdf` followed by `asdf install` in the loca
 A few prerequisite utilities are needed for a seamless install 
 
 | Name      | Required for | Needed         |
+| --------- | ------------ | -------------- |
 | autoconf  | Erlang       | Yes            |
 | coreutils | Node         | Yes            |
 | gpg       | Node         | Install script |
 | jq        | Terraform    | Install script |
 | wxmac     | Erlang       | Optional       |
 
-## Installing with emacs
-
-```bash
-brew install emacs-plus@27 --HEAD --with-mailutils
-```
