@@ -1,8 +1,7 @@
 ---
+title: My zsh config
 output: .zshrc
 ---
-
-# My zsh configuration
 
 ## Setting up PATHs
 
@@ -208,7 +207,7 @@ alias gr="git remote -v"
 alias gst="git status"
 alias org="cd $DROPBOX_DIR/org"
 alias pap="git pull upstream master && git push origin master"
-alias refresh="tangle-md $CONFIG_SRC bash $(dirname $CONFIG_SRC)/.zshrc &> /dev/null && stow zsh -d ~/dotfiles --ignore='.*.md' && source $CONFIG_FILE && echo 'Refreshed config from $CONFIG_SRC'"
+alias refresh="lugh -f $CONFIG_SRC && stow zsh -d ~/dotfiles --ignore='.*.md' && source $CONFIG_FILE && echo 'Refreshed config from $CONFIG_SRC'"
 alias venv="python3 -m virtualenv venv && ae"
 alias vi="nvim"
 alias view="less $CONFIG_FILE"
