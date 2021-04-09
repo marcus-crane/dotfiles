@@ -397,6 +397,20 @@ function emails() {
 }
 ```
 
+### Change Kubernetes context quickly
+
+This is a small script I [found on Hacker News](https://news.ycombinator.com/item?id=26636675) which uses fzf to quick switch contexts
+
+```bash
+function kc () {
+  if [[ $(command -v "fzf") ]]; then
+    kubectl config get-contexts | tail -n +2 | fzf | cut -c 2- | awk '{print $1}' | xargs kubectl config use-context
+  else
+    print "It doesn't look like you have fzf installed."
+  fi
+}
+```
+
 ## Work dotfiles
 
 I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
