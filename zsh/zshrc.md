@@ -10,7 +10,15 @@ output: .zshrc
 These paths generally exist on most every system so we'll set them seperately from other PATH additions.
 
 ```bash
-export PATH="/bin:/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/usr/local/sbin:/opt/X11/bin:$PATH"
+path+=('/bin'
+       '/sbin'
+       '/usr/local/bin'
+       '/usr/bin'
+       '/usr/sbin'
+       '/usr/local/sbin'
+       '/opt/X11/bin'
+       $path)
+export PATH
 ```
 
 ## Initialisation
@@ -160,6 +168,14 @@ fi
 ### Postgres
 ```bash
 export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
+```
+
+### Sublime Text
+
+Sublime ships with a helper tool called `subl` which, on macOS lives within the application bundle. It isn't registered by default so let's add it to the `PATH`.
+
+```bash
+export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin/:$PATH"
 ```
 
 ## Languages
@@ -395,4 +411,12 @@ Due to their implementation revealing bits and pieces about how the internal net
 if [[ -f "$HOME/dotfiles/work/entrypoint.sh" ]]; then
   . "$HOME/dotfiles/work/entrypoint.sh"
 fi
+```
+
+## iTerm 2 integration
+
+I used iTerm 2 on my various devices as a terminal and so, there are some shell integrations that are handy to use
+
+```bash
+source /Users/marcus/.iterm2_shell_integration.zsh
 ```
