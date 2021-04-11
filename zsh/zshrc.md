@@ -10,7 +10,7 @@ output: .zshrc
 These paths generally exist on most every system so we'll set them seperately from other PATH additions.
 
 ```bash
-path+=('/bin'
+path=('/bin'
        '/sbin'
        '/usr/local/bin'
        '/usr/bin'
@@ -214,7 +214,6 @@ alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
 alias de="deactivate &> /dev/null"
 alias edit="$EDITOR $CONFIG_SRC"
 alias gb="git branch -v"
-alias gbd="git branch -D"
 alias gbm="git checkout master"
 alias gcm="git commit -Si"
 alias gpom="git pull origin master"
@@ -418,6 +417,18 @@ Often times, it can be useful to put service uptime into minutes and hours. Than
 ```bash
 function nines() {
   curl -s https://uptime.is/$1 | jq
+}
+```
+
+### Delete Git branches interactively with fzf
+
+```bash
+function gbd() {
+  git branch |
+    grep --invert-match --extended-regexp 'master|main' |
+    cut -c 3- |
+    fzf --multi --preview="git log {} --" |
+    xargs git branch --delete --force
 }
 ```
 
