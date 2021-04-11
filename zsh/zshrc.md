@@ -432,6 +432,17 @@ function gbd() {
 }
 ```
 
+### View and delete pods interactively with fzf
+
+```bash
+function pods() {
+  kubectl get pods -o=custom-columns=NAME:.metadata.name |
+    tail -n +2 |
+    fzf --multi --preview="kubectl describe pod {} --" |
+    xargs kubectl delete pod
+}
+```
+
 ## Work dotfiles
 
 I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
