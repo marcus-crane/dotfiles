@@ -422,6 +422,14 @@ function nines() {
 
 ### Delete Git branches interactively with fzf
 
+This function was quite shamelessly taken from [this very good post](https://seb.jambor.dev/posts/improving-shell-workflows-with-fzf/) by Sebastian Jambor.
+
+It opens an interactive fzf window which shows a list of git branches, with their relevant history on the side as a preview pane.
+
+You can press TAB to select multiple branches and ENTER to delete them.
+
+If you decide to back out, you can press ESC to cancel.
+
 ```bash
 function gbd() {
   git branch |
@@ -433,6 +441,10 @@ function gbd() {
 ```
 
 ### View and delete pods interactively with fzf
+
+Inspired by the git branches function, I decided to apply the same idea to viewing and deleting pods.
+
+It takes a little bit longer as it relies on network API calls of course but it's fairly handy.
 
 ```bash
 function pods() {
