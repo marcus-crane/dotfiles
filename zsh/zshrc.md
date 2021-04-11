@@ -395,6 +395,16 @@ function kc () {
 }
 ```
 
+### Calculating nines
+
+Often times, it can be useful to put service uptime into minutes and hours. Thankfully [uptime.is](https://uptime.is) is a handy tool for this plus it reserves JSON too!
+
+```bash
+function nines() {
+  curl -s https://uptime.is/$1 | jq
+}
+```
+
 ## Work dotfiles
 
 I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
