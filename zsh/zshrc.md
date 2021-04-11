@@ -442,5 +442,9 @@ fi
 I used iTerm 2 on my various devices as a terminal and so, there are some shell integrations that are handy to use
 
 ```bash
-source /Users/marcus/.iterm2_shell_integration.zsh
+if [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
+  . $HOME/.iterm2_shell_integration.zsh
+else
+  echo "You should install the iTerm 2 shell integration. It's under the iTerm2 menu."
+fi
 ```
