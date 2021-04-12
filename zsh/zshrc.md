@@ -10,7 +10,15 @@ output: .zshrc
 These paths generally exist on most every system so we'll set them seperately from other PATH additions.
 
 ```bash
-export PATH="/bin:/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/usr/local/sbin:/opt/X11/bin:$PATH"
+path=('/bin'
+       '/sbin'
+       '/usr/local/bin'
+       '/usr/bin'
+       '/usr/sbin'
+       '/usr/local/sbin'
+       '/opt/X11/bin'
+       $path)
+export PATH
 ```
 
 ## Initialisation
@@ -162,6 +170,14 @@ fi
 export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
 ```
 
+### Sublime Text
+
+Sublime ships with a helper tool called `subl` which, on macOS lives within the application bundle. It isn't registered by default so let's add it to the `PATH`.
+
+```bash
+export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin/:$PATH"
+```
+
 ## Languages
 
 ### Erlang
@@ -198,7 +214,6 @@ alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
 alias de="deactivate &> /dev/null"
 alias edit="$EDITOR $CONFIG_SRC"
 alias gb="git branch -v"
-alias gbd="git branch -D"
 alias gbm="git checkout master"
 alias gcm="git commit -Si"
 alias gpom="git pull origin master"
@@ -373,6 +388,88 @@ function emails() {
 }
 ```
 
+### Change Kubernetes context quickly
+
+This is a small script I [found on Hacker News](https://news.ycombinator.com/item?id=26636675) which uses fzf to quick switch contexts
+
+```bash
+function kc () {
+  if [[ $(command -v "fzf") ]]; then
+    kubectl config get-contexts | tail -n +2 | fzf | cut -c 2- | awk '{print $1}' | xargs kubectl config use-context
+  else
+    print "It doesn't look like you have fzf installed."
+  fi
+}
+```
+
+### Calculating nines
+
+Often times, it can be useful to put service uptime into minutes and hours. Thankfully [uptime.is](https://uptime.is) is a handy tool for this plus it reserves JSON too!
+
+```bash
+function nines() {
+  curl -s https://uptime.is/$1 | jq
+}
+```
+
+### Delete Git branches interactively with fzf
+
+This function was quite shamelessly taken from [this very good post](https://seb.jambor.dev/posts/improving-shell-workflows-with-fzf/) by Sebastian Jambor.
+
+It opens an interactive fzf window which shows a list of git branches, with their relevant history on the side as a preview pane.
+
+You can press TAB to select multiple branches and ENTER to delete them.
+
+If you decide to back out, you can press ESC to cancel.
+
+```bash
+function gbd() {
+  git branch |
+    grep --invert-match --extended-regexp 'master|main' |
+    cut -c 3- |
+    fzf --multi --preview="git log {} --" |
+    xargs git branch --delete --force
+}
+```
+
+### View and delete pods interactively with fzf
+
+Inspired by the git branches function, I decided to apply the same idea to viewing and deleting pods.
+
+It takes a little bit longer as it relies on network API calls of course but it's fairly handy.
+
+```bash
+function pods() {
+  kubectl get pods -o=custom-columns=NAME:.metadata.name |
+    tail -n +2 |
+    fzf --multi --preview="kubectl describe pod {} --" |
+    xargs kubectl delete pod
+}
+```
+
+### Create an internet bookmark file
+
+```bash
+function bookmark() {
+  local bookmarkName
+  local bookmarkURL
+  vared -p "Bookmark name: " bookmarkName
+  vared -p "Bookmark URL: " bookmarkURL
+  echo "[InternetShortcut]\nURL=$bookmarkURL\nIconIndex=0\n" > $HOME/Bookmarks/$bookmarkName.url
+}
+```
+
+### View and open internet bookmarks
+
+```bash
+function site() {
+  fd . ~/Bookmarks |
+    fzf --multi --preview="cat {} | grep URL | cut -c 5- | xargs curl --head --location --max-time 10" |
+    sed 's/ /\\ /g' |
+    xargs open
+}
+```
+
 ## Work dotfiles
 
 I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
@@ -386,5 +483,17 @@ Due to their implementation revealing bits and pieces about how the internal net
 ```bash
 if [[ -f "$HOME/dotfiles/work/entrypoint.sh" ]]; then
   . "$HOME/dotfiles/work/entrypoint.sh"
+fi
+```
+
+## iTerm 2 integration
+
+I used iTerm 2 on my various devices as a terminal and so, there are some shell integrations that are handy to use
+
+```bash
+if [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
+  . $HOME/.iterm2_shell_integration.zsh
+else
+  echo "You should install the iTerm 2 shell integration. It's under the iTerm2 menu."
 fi
 ```
