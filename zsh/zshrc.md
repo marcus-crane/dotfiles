@@ -455,6 +455,29 @@ function pods() {
 }
 ```
 
+### Create an internet bookmark file
+
+```bash
+function bookmark() {
+  local bookmarkName
+  local bookmarkURL
+  vared -p "Bookmark name: " bookmarkName
+  vared -p "Bookmark URL: " bookmarkURL
+  echo "[InternetShortcut]\nURL=$bookmarkURL\nIconIndex=0\n" > $HOME/Bookmarks/$bookmarkName.url
+}
+```
+
+### View and open internet bookmarks
+
+```bash
+function site() {
+  fd . ~/Bookmarks |
+    fzf --multi --preview="cat {} | grep URL | cut -c 5- | xargs curl --head --location --max-time 10" |
+    sed 's/ /\\ /g' |
+    xargs open
+}
+```
+
 ## Work dotfiles
 
 I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
