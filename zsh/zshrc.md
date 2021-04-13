@@ -157,6 +157,20 @@ if [[ $OPSYS == "darwin" ]]; then
 fi
 ```
 
+### less
+
+Less is great by default but it'd be even nicer with syntax highlighting!
+
+```bash
+if [[ ! $(which src-hilite-lesspipe.sh) ]]; then
+  print("If you want source highlighting, you should run brew install source-highlight")
+else
+  LESSPIPE=`which src-hilite-lesspipe.sh`
+  export LESSOPEN="| ${LESSPIPE} %s"
+  export LESS=' -R -X -F '
+fi
+```
+
 ### nix
 
 ```bash
