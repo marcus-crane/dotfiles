@@ -470,6 +470,23 @@ function site() {
 }
 ```
 
+### View unread Pinboard items
+
+```bash
+function pinboard() {
+  if [[ ! $OP_SESSION_my ]]; then
+    echo "Please log in using the op cli | eval (op signin my)"
+  else
+    export pinboardToken=$(op get item Pinboard --fields "API Token")
+    curl "https://api.pinboard.in/v1/posts/all?auth_token=$pinboardToken&format=json" |
+      jq 'map(select(.toread == "yes")) | .[].href' |
+      tr -d '"' |
+      fzf --multi --preview="curl -L -I {}" |
+      xargs open
+  fi
+}
+```
+
 ## Work dotfiles
 
 I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
