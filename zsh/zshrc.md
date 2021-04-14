@@ -456,8 +456,26 @@ It takes a little bit longer as it relies on network API calls of course but it'
 function pods() {
   kubectl get pods -o=custom-columns=NAME:.metadata.name |
     tail -n +2 |
-    fzf --multi --preview="kubectl describe pod {} --" |
+    fzf --multi --preview-window down --preview="kubectl describe pod {} --" |
     xargs kubectl delete pod
+}
+```
+
+### View Kubernetes container logs interactively with fzf
+
+This one took me a little while to throw together since fzf is designed to only work with one input for the preview.
+
+It seems if you attempt to use `xargs -I {}`, the value of `{}` will always refer to the single preview input, rather than whatever value you have piped into `xargs`. As long as you don't use the `-I` flag, you can split the original `{}` value into multiple lines and using xarg, create a multi-line command.
+
+The only catch of course is that you can't use `xargs -I` to format those. In this case, `kubectl logs $1 $2` happens to be a valid way to specify container name and pod name but if a `-c` was enforced, this command wouldn't work.
+
+Also clearly breaking the model of what fzf expects and arguably introducing some unnecessary complexity.
+
+```bash
+function logs() {
+  kubectl get pods -o json |
+    jq -r '.items[] as $item | $item.spec.containers[] | [$item.metadata.name, .name] | join(" ~ ")' |
+    fzf --preview-window down:follow --preview="echo {} | tr ' ~ ' '\n' | xargs kubectl logs --tail 20 --follow"
 }
 ```
 
