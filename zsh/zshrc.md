@@ -17,7 +17,7 @@ path=('/bin'
        '/usr/sbin'
        '/usr/local/sbin'
        '/opt/X11/bin'
-       $path)
+       )
 export PATH
 ```
 
@@ -64,7 +64,7 @@ export EDITOR="$(command -v nvim)"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
 export LAST_MODIFIED="$(date)"
-export PROMPT='%B%F{green}>%f%b '
+export PROMPT=' ' # Installing iTerm helpers adds an arrow prompt
 ```
 
 In some cases, when I compile Emacs, I'm not able to find the `emacsclient` executiable within my path.
@@ -94,6 +94,15 @@ I've got some scripts that are handy to have so let's add those to the PATH
 export PATH=$HOME/scripts:$PATH
 ```
 
+### Setting up the diagnosis function
+
+If you're not sure what this is about, see the section called `## Doctor` towards the bottom of this config
+
+```bash
+unset deps
+declare -A deps
+```
+
 ## Applications
 
 ### asdf
@@ -104,30 +113,12 @@ It wraps a number of existing language version managers into plugins that can be
 
 ```bash
 export ASDF_DIR=$HOME/.asdf
-. $ASDF_DIR/asdf.sh
-```
-
-### Dropbox
-
-Depending on which computer I'm using, I'll often have my Dropbox in different places
-
-Historically, it would only be in a different place when using Emacs in WSL (I store my org stuff in Dropbox)
-
-I'm currently in the process of moving to Dropbox within WSL though, which will mean that all version of Dropbox will live in `$HOME/Dropbox`
-
-The reason for that is because file operations across WSL boundaries (ie anything on the C:\ Drive) is super slow compared to staying within the boundaries
-
-```bash
-export DROPBOX_DIR=~/Dropbox
-```
-
-### Emacs
-
-I'll probably configure this a fair bit more but for now, I just shorten the name of `emacsclient`
-
-```bash
-alias ec=$EDITOR
-export PATH="$HOME/.emacs.d/bin:$PATH"
+if [[ -f $ASDF_DIR/asdf.sh ]]; then
+  . $ASDF_DIR/asdf.sh
+  deps[asdf]="Y"
+else
+  deps[asdf]="git clone git@github.com:asdf-vm/asdf ~/.asdf"
+fi
 ```
 
 ### fzf
@@ -135,7 +126,12 @@ export PATH="$HOME/.emacs.d/bin:$PATH"
 A fuzzy finder which comes with some autocompletions
 
 ```bash
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [[ $(command -v fzf) ]]; then
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+  deps[fzf]="Y"
+else
+  deps[fzf]="brew install fzf"
+fi
 ```
 
 ### git
@@ -162,20 +158,13 @@ fi
 Less is great by default but it'd be even nicer with syntax highlighting!
 
 ```bash
-if [[ ! $(which src-hilite-lesspipe.sh) ]]; then
-  print("If you want source highlighting, you should run brew install source-highlight")
-else
+if [[ $(which src-hilite-lesspipe.sh) ]]; then
   LESSPIPE=`which src-hilite-lesspipe.sh`
   export LESSOPEN="| ${LESSPIPE} %s"
   export LESS=' -R -X -F '
-fi
-```
-
-### nix
-
-```bash
-if [[ -a "$HOME/.nix-profile" ]]; then
-  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+  deps[srchilite]="Y"
+else
+  deps[srchilite]="brew install source-highlight (optional)"
 fi
 ```
 
@@ -542,7 +531,37 @@ I used iTerm 2 on my various devices as a terminal and so, there are some shell 
 ```bash
 if [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
   . $HOME/.iterm2_shell_integration.zsh
+  deps[iterm2]="Y"
 else
   echo "You should install the iTerm 2 shell integration. It's under the iTerm2 menu."
+  deps[iterm2]="Look under the iTerm2 menu"
 fi
 ```
+
+## Doctor
+
+A handy function that simply outputs what bits of my configuration are inactive on any given machine.
+
+To do this, we create an [associative array](https://scriptingosx.com/2019/11/associative-arrays-in-zsh/) at the start of my config and then append to it as we progress through each invocation.
+
+The short version is that for each given step, if it isn't enabled, we provide instructions on how to install any given dependencies.
+
+```bash
+function doctor() {
+  for key value in ${(kv)deps}; do
+    if [[ $value == "Y" ]]; then
+      echo "$key is installed"
+    else
+      echo "$key is not installed. Try running '$value'"
+    fi
+  done
+}
+```
+
+This implementation isn't really that great but is a basic first start. I should really have a static list defined at the start rather than coupling checks to various exports and functions themselves.
+
+Also, functions can't use this given they aren't executed until... well, they get executed!
+
+Obviously the golden land is something declarative like nix but we're not there yet and macOS only tends to lock down more over time.
+
+Plus it's just confusing
