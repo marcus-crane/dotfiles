@@ -168,6 +168,27 @@ else
 fi
 ```
 
+### nix
+
+I don't use it yet but Home Manager is promising
+
+Setup is:
+
+  - sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
+  - nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+  - nix-channel --update
+  - nix-shell '<home-manager>' -A install
+
+```bash
+if [[ $(which nix) ]]; then
+  export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
+  . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+  deps[nix]="Y"
+else
+  deps[nix]="See nix portion of zshrc for instructions"
+fi
+```
+
 ### Postgres
 ```bash
 export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
