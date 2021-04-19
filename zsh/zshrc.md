@@ -180,7 +180,7 @@ Setup is:
   - nix-shell '<home-manager>' -A install
 
 ```bash
-if [[ $(which nix) ]]; then
+if [[ $(command -v nix) ]]; then
   export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
   . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
   deps[nix]="Y"
