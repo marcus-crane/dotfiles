@@ -711,6 +711,44 @@
             }
           }
         }
+      },
+      "speedtest-cli": {
+        "version": "2.1.3",
+        "bottle": false
+      },
+      "thefuck": {
+        "version": "3.30_1",
+        "bottle": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_big_sur": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/thefuck/blobs/sha256:3bc7586bc2ff253689bfe24ff35af100c6659605dddaefbec92cec29e2a25389",
+              "sha256": "3bc7586bc2ff253689bfe24ff35af100c6659605dddaefbec92cec29e2a25389"
+            },
+            "big_sur": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/thefuck/blobs/sha256:00fb2bb9fbd724cf47c75e99ffc44a356587cd34d423feefe21ec1b57f954133",
+              "sha256": "00fb2bb9fbd724cf47c75e99ffc44a356587cd34d423feefe21ec1b57f954133"
+            },
+            "catalina": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/thefuck/blobs/sha256:7f8ecd031ae58cc414d695058d7332b4b93c8e2959cf5114c82609d5676b24a7",
+              "sha256": "7f8ecd031ae58cc414d695058d7332b4b93c8e2959cf5114c82609d5676b24a7"
+            },
+            "mojave": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/thefuck/blobs/sha256:b7ff0b5553c12c27d3311d557604b708e0e4ea0c315b03198f354667b057a1c8",
+              "sha256": "b7ff0b5553c12c27d3311d557604b708e0e4ea0c315b03198f354667b057a1c8"
+            },
+            "high_sierra": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/thefuck/blobs/sha256:e2d94b4c4d959f39370227a2a029956f85b5ef6e739bb0b55969ca2b0c034bb5",
+              "sha256": "e2d94b4c4d959f39370227a2a029956f85b5ef6e739bb0b55969ca2b0c034bb5"
+            }
+          }
+        }
       }
     },
     "cask": {
@@ -845,6 +883,24 @@
         "options": {
           "full_name": "wireshark"
         }
+      },
+      "aerial": {
+        "version": "2.2.6",
+        "options": {
+          "full_name": "aerial"
+        }
+      },
+      "bartender": {
+        "version": "4.0.48,40048",
+        "options": {
+          "full_name": "bartender"
+        }
+      },
+      "iterm2": {
+        "version": "3.4.5",
+        "options": {
+          "full_name": "iterm2"
+        }
       }
     },
     "tap": {
@@ -887,7 +943,7 @@
   "system": {
     "macos": {
       "big_sur": {
-        "HOMEBREW_VERSION": "3.1.3",
+        "HOMEBREW_VERSION": "3.1.3-34-g3476ca7",
         "HOMEBREW_PREFIX": "/usr/local",
         "Homebrew/homebrew-core": "bf3cc1388d68d829bfbeb7f9cdfb71ac57b4692c",
         "CLT": "12.4.0.0.1.1610135815",
