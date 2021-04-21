@@ -529,6 +529,20 @@ function pinboard() {
 }
 ```
 
+### View homebrew casks
+
+I find that the Homebrew cask search doesn't provide enough information to make an informed decision so I'm using fzf instead to help
+
+```bash
+function casks() {
+  curl "https://formulae.brew.sh/api/cask.json" |
+    jq '.[].token' |
+    tr -d '"' |
+    fzf --multi --preview="curl https://formulae.brew.sh/api/cask/{}.json | jq '.'" |
+    xargs brew install --cask
+}
+```
+
 ## Work dotfiles
 
 I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
