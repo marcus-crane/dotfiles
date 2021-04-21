@@ -66,10 +66,10 @@ export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
 export LAST_MODIFIED="$(date)"
 
-if [[ $TMUX ]]; then
-  export PROMPT='%B%F{green}>%f%b ' # I don't use iTerm2's tmux integration so I just end up with no prompt
-else
+if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
   export PROMPT=' ' # Installing iTerm helpers adds an arrow prompt
+else
+  export PROMPT='%B%F{green}>%f%b ' # I'd like a prompt in every other terminal
 fi
 ```
 
