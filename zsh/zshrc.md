@@ -17,6 +17,7 @@ path=('/bin'
        '/usr/sbin'
        '/usr/local/sbin'
        '/opt/X11/bin'
+       '~/bin'
        )
 export PATH
 ```
@@ -64,7 +65,12 @@ export EDITOR="$(command -v nvim)"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
 export LAST_MODIFIED="$(date)"
-export PROMPT=' ' # Installing iTerm helpers adds an arrow prompt
+
+if [[ $TMUX ]]; then
+  export PROMPT='%B%F{green}>%f%b ' # I don't use iTerm2's tmux integration so I just end up with no prompt
+else
+  export PROMPT=' ' # Installing iTerm helpers adds an arrow prompt
+fi
 ```
 
 In some cases, when I compile Emacs, I'm not able to find the `emacsclient` executiable within my path.
