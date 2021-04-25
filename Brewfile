@@ -81,6 +81,7 @@ mas "Paprika Recipe Manager", id: 1303222628
 mas "Parcel", id: 639968404
 mas "Playgrounds", id: 1496833156
 mas "Reeder", id: 1529448980
+mas "Session", id: 1521432881
 mas "Shazam", id: 897118787
 mas "Tailscale", id: 1475387142
 mas "Things", id: 904280696
