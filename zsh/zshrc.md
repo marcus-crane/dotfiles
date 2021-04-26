@@ -136,6 +136,7 @@ if [[ -f $ASDF_DIR/asdf.sh ]]; then
 else
   deps[asdf]="git clone git@github.com:asdf-vm/asdf ~/.asdf"
 fi
+export PATH=$HOME/.asdf/installs/nodejs/$(asdf current nodejs | awk '{print $2}')/.npm/bin:$PATH
 ```
 
 ### fzf
