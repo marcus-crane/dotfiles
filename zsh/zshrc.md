@@ -30,7 +30,7 @@ An example is if I have a folder called `dotfiles` in `$HOME/Code` and I add `$H
 
 ```bash
 setopt auto_cd
-cdpath=($HOME $HOME/dotfiles $HOME/Code)
+cdpath=($HOME $HOME/dotfiles $HOME/Code $HOME/utf9k)
 ```
 
 ## Initialisation
