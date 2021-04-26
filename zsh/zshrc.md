@@ -17,9 +17,20 @@ path=('/bin'
        '/usr/sbin'
        '/usr/local/sbin'
        '/opt/X11/bin'
-       '~/bin'
+       '$HOME/bin'
        )
 export PATH
+```
+
+### Setting CD directories
+
+These are paths that cd will look for.
+
+An example is if I have a folder called `dotfiles` in `$HOME/Code` and I add `$HOME/Code` to my `CDPATH` then I can just simply run `cd dotfiles` anywhere and it will work as if I was already in the `$HOME/Code` folder
+
+```bash
+setopt auto_cd
+cdpath=($HOME $HOME/dotfiles $HOME/Code)
 ```
 
 ## Initialisation
@@ -221,13 +232,11 @@ export KERL_BUILD_DOCS="yes"
 
 ### go
 
-While I'm slowly getting better at writing Go these days, I think `GOROOT`, to a certain extent, is redundant due to the introduction of `GOMODULES` which you can see I have enabled by default
-
-Don't quote me on that and not all project support `GOMODULES` of course
+I don't explicitly set `GOROOT` as it is defined by `asdf` generally.
 
 ```bash
 export GOPATH="$WORKSPACE/go"
-export PATH="$GOPATH/bin:$GOROOT:$PATH"
+export PATH="$GOPATH/bin:$PATH"
 export GO111MODULE="on"
 ```
 
@@ -252,6 +261,7 @@ alias gr="git remote -v"
 alias gst="git status"
 alias org="cd $DROPBOX_DIR/org"
 alias pap="git pull upstream master && git push origin master"
+alias rebrew="brew bundle --file=$HOME/dotfiles/Brewfile"
 alias refresh="tangle-md $CONFIG_SRC && stow zsh -d ~/dotfiles --ignore='.*.md' && source $CONFIG_FILE && echo 'Refreshed config from $CONFIG_SRC'"
 alias venv="python3 -m virtualenv venv && ae"
 alias vi="nvim"
