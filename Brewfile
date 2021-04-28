@@ -73,6 +73,7 @@ cask "visual-studio-code"
 cask "vlc"
 cask "wireshark"
 cask "wkhtmltopdf"
+cask "xscreensaver"
 cask "yacreader"
 
 mas "1Password 7", id: 1333542190
