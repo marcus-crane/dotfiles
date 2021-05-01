@@ -17,6 +17,7 @@ path=('/bin'
        '/usr/sbin'
        '/usr/local/sbin'
        '/opt/X11/bin'
+       '/opt/homebrew/bin'
        '$HOME/bin'
        )
 export PATH
@@ -103,6 +104,12 @@ fi
 
 2. While I don't believe this actually works, I attempt to override the `BROWSER` environment variable to open links on the Windows host from within Emacs
 
+### Setting up Homebrew
+
+```bash
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
+
 ### Adding custom items to PATH
 
 I've got some scripts that are handy to have so let's add those to the PATH
@@ -159,16 +166,6 @@ To save me having to set up each machine, I just set my Git identifiers each tim
 ```bash
 git config --global user.name "Marcus Crane"
 git config --global user.email "marcus@utf9k.net"
-```
-
-### Homebrew
-
-Sometimes I have trouble with rsync which is about the only thing that this snippet fixes
-
-```bash
-if [[ $OPSYS == "darwin" ]]; then
-  export PATH="/usr/bin/local:$PATH"
-fi
 ```
 
 ### less

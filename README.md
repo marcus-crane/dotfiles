@@ -9,6 +9,16 @@ For example, let's say you used `stow` on `mopidy/.config/mopidy`. It would igno
 
 The nice thing about it is that everything is kept organised in one folder but you don't have to worry about conflicts since you need to explicitly use stow on each folder.
 
+## Bootstrapping zsh config first time after installing Homebrew
+
+Assuming `lugh` is installed in `/usr/local/bin` (or in PATH):
+
+```bash
+export PATH=/opt/bin/brew:$PATH
+brew install stow
+refresh
+```
+
 ## A note on tangling files
 
 You may notice that some configuration files are seemingly missing with `.md` files in their place.
