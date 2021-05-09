@@ -17,7 +17,7 @@ path=('/bin'
        '/usr/sbin'
        '/usr/local/sbin'
        '/opt/X11/bin'
-       '/opt/homebrew/bin'
+       '$(brew --prefix)/bin'
        '$HOME/bin'
        )
 export PATH
@@ -103,12 +103,6 @@ fi
 1. If I'm running on a Windows machine, I run Emacs by starting a daemon inside my terminal and connecting with `emacsclient`. Doing so spawns a new frame using the X display server running on the Windows host itself
 
 2. While I don't believe this actually works, I attempt to override the `BROWSER` environment variable to open links on the Windows host from within Emacs
-
-### Setting up Homebrew
-
-```bash
-eval "$(/opt/homebrew/bin/brew shellenv)"
-```
 
 ### Adding custom items to PATH
 
