@@ -190,6 +190,7 @@ Setup is:
   - nix-shell '<home-manager>' -A install
 
 ```bash
+export NIX_SSL_CERT_FILE=/etc/ssl/cert.pem
 if [[ $(command -v nix) ]]; then
   export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
   . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
