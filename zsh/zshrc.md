@@ -10,16 +10,17 @@ output: .zshrc
 These paths generally exist on most every system so we'll set them seperately from other PATH additions.
 
 ```bash
-path=('/bin'
-       '/sbin'
-       '/usr/local/bin'
-       '/usr/bin'
-       '/usr/sbin'
-       '/usr/local/sbin'
-       '/opt/X11/bin'
-       '$(brew --prefix)/bin'
-       '$HOME/bin'
-       )
+path=(/bin
+      /sbin
+      /usr/local/bin
+      /usr/bin
+      /usr/sbin
+      /usr/local/sbin
+      /opt/X11/bin
+      $(brew --prefix)/bin
+      $HOME/bin
+      $HOME/.nix-profile/bin
+    )
 export PATH
 ```
 
