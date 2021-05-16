@@ -553,6 +553,16 @@ function casks() {
 }
 ```
 
+### View all ingress domain names found in a cluster
+
+```bash
+function ingresses() {
+  kubectl get ingresses --all-namespaces -o json |
+    jq -r '.items[].spec.rules[].host' | 
+    fzf --preview="curl -I -L https://{}"
+}
+```
+
 ## Work dotfiles
 
 I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
