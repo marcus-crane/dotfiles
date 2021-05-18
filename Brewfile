@@ -38,7 +38,8 @@ brew "zsh"
 # fonts
 cask "font-hack-nerd-font"
 
-mas "1Password 7", id: 1333542190
+# 1password from mac store can't do OTP code scanning
+# don't install from mac store
 mas "iA Writer", id: 775737590
 mas "Craft", id: 1487937127
 mas "Day One", id: 1055511498
