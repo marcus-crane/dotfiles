@@ -31,7 +31,7 @@
         }
       },
       "bash": {
-        "version": "HEAD-ce23728",
+        "version": "5.1.8",
         "bottle": {
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
@@ -520,7 +520,7 @@
         }
       },
       "tmux": {
-        "version": "HEAD-6c2bf0e",
+        "version": "3.2",
         "bottle": {
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
@@ -1236,10 +1236,10 @@
     },
     "tap": {
       "homebrew/cask": {
-        "revision": "1a73e6f9f5b673a56948691998cda445e35157fb"
+        "revision": "fb7d3dc20434c137e50eaf1f0f4f5ca37f0b75af"
       },
       "homebrew/cask-fonts": {
-        "revision": "690cd1484e830f0e0aeb2afce4da92aeb6e21847"
+        "revision": "0a077de554c8d2ddc055f6c92012291105c0eb5e"
       }
     },
     "mas": {
@@ -1308,12 +1308,12 @@
   "system": {
     "macos": {
       "big_sur": {
-        "HOMEBREW_VERSION": "3.1.7-72-g1b1990d",
+        "HOMEBREW_VERSION": "3.1.7",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "68bbba9239f4705493682b70042016e9f3bed775",
+        "Homebrew/homebrew-core": "f710c309a0010834ad186ff9b8e10e8a1acbf4e4",
         "CLT": "12.4.0.0.1.1610135815",
-        "Xcode": "12.4",
-        "macOS": "11.2.1"
+        "Xcode": "12.5",
+        "macOS": "11.2.3"
       }
     }
   }
