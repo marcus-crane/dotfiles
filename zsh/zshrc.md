@@ -249,13 +249,10 @@ alias edit="$EDITOR $CONFIG_SRC"
 alias gb="git branch -v"
 alias gbm="git checkout master"
 alias gcm="git commit -Si"
-alias gpom="git pull origin master"
-alias gpum="git pull upstream master"
 alias gr="git remote -v"
 alias gs="git status"
 alias gst="git status"
 alias org="cd $DROPBOX_DIR/org"
-alias pap="git pull upstream master && git push origin master"
 alias rebrew="brew bundle --file=$HOME/dotfiles/Brewfile"
 alias refresh="tangle-md $CONFIG_SRC && stow zsh -d ~/dotfiles --ignore='.*.md' && source $CONFIG_FILE && echo 'Refreshed config from $CONFIG_SRC'"
 alias venv="python3 -m virtualenv venv && ae"
@@ -268,6 +265,18 @@ alias ws="cd $WORKSPACE"
 ## Functions
 
 These are some handy functions I use from time to time
+
+### Quick shortcuts to push and pull the current branch
+
+While I can just do `git pull`, setting tracking branches is annoying because I always call them the same as their upstream branch.
+
+These commands just push to and pull from the current branch explicitly.
+
+```bash
+function gpl { git branch | grep '*' | cut -c3- | xargs -I git pull origin {} }
+function gps { git branch | grep '*' | cut -c3- | xargs -I git push origin {} }
+function pap { git branch | grep '*' | cut -c3- | xargs -I git pull upstream {} && git push origin {} }
+```
 
 ### What application is listening on any given port?
 
