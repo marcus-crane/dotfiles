@@ -564,6 +564,19 @@ function ingresses() {
 }
 ```
 
+### Regenerate a secret key that has the same length as the input
+
+Something I commonly do is regenerate secret keys between environments when deploying software. These keys aren't necessarily secret in themselves so much as they are just used to provide extra entropy.
+
+I can never remember which keys require a specific length so this is a short function to take a key and regenerate a key that is the exact same length.
+
+```bash
+function secretregen() {
+  local SECRET_LENGTH=$(echo -n $1 | wc -m | awk '{$1=$1};1')
+  LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c $SECRET_LENGTH ; echo ''
+}
+```
+
 ## Work dotfiles
 
 I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
