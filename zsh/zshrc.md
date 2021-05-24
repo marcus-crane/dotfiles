@@ -273,9 +273,9 @@ While I can just do `git pull`, setting tracking branches is annoying because I 
 These commands just push to and pull from the current branch explicitly.
 
 ```bash
-function gpl { git branch | grep '*' | cut -c3- | xargs -I git pull origin {} }
-function gps { git branch | grep '*' | cut -c3- | xargs -I git push origin {} }
-function pap { git branch | grep '*' | cut -c3- | xargs -I git pull upstream {} && git push origin {} }
+function gpl { git branch | grep '*' | cut -c3- | xargs -I{} git pull origin {} }
+function gps { git branch | grep '*' | cut -c3- | xargs -I{} git push origin {} }
+function pap { git branch | grep '*' | cut -c3- | xargs -I{} git pull upstream {} && git push origin {} }
 ```
 
 ### What application is listening on any given port?
