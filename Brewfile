@@ -6,6 +6,7 @@ brew "bash"
 brew "chezmoi"
 brew "cmake"
 brew "curl"
+brew "emacs-plus@28", args: ["with-native-comp", "with-xwidgets", "with-modern-doom3-icon"]
 brew "fd"
 brew "ffmpeg"
 brew "fzf"
