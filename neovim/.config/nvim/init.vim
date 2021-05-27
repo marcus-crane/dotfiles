@@ -23,6 +23,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
+Plug 'neovim/nvim-lspconfig'
 
 " Let's start up the plugin system
 call plug#end()
@@ -111,10 +112,21 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Use <cr> to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-""" Beancount """
+" Prefer Python 3
+let pyx=3
+let g:python3_host_prog='$HOME/.asdf/shims/python3'
 
-" How can we automatically align commities when the `.` key is pressed?
-autocmd FileType beancount inoremap . .<C-\><C-O>:AlignCommodity<CR>
+""" NERDTree """
+nnoremap <C-t> :NERDTreeToggle<CR>
+
+""" LSP configuration """
+lua << EOF
+require'lspconfig'.bashls.setup{}
+require'lspconfig'.gopls.setup{}
+require'lspconfig'.jsonls.setup{}
+require'lspconfig'.pyright.setup{}
+require'lspconfig'.yamlls.setup{}
+EOF
 
 """ Footnotes """
 
