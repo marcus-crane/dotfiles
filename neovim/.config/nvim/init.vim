@@ -24,6 +24,12 @@ Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+Plug 'hrsh7th/nvim-compe'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 " Let's start up the plugin system
 call plug#end()
@@ -127,6 +133,9 @@ require'lspconfig'.jsonls.setup{}
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.yamlls.setup{}
 EOF
+
+""" nvim-compe """
+set completeopt=menuone,noselect
 
 """ Footnotes """
 
