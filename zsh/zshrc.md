@@ -74,7 +74,7 @@ export WORKSPACE="$HOME/Code"
 ```bash
 export CONFIG_FILE="$HOME/.zshrc"
 export CONFIG_SRC="$HOME/dotfiles/zsh/zshrc.md"
-export EDITOR="$(command -v nvim)"
+export EDITOR="/Users/marcran/.asdf/shims/nvim"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
 export LAST_MODIFIED="$(date)"
@@ -233,6 +233,23 @@ export GOPATH="$WORKSPACE/go"
 export PATH="$GOPATH/bin:$PATH"
 export GO111MODULE="on"
 ```
+### node
+
+There's no native functionality for keeping globally installed packages in sync, to my knowledge, so this is going to be a hack for that!
+
+```bash
+global_packages=(
+  bash-language-server
+  neovim
+  pkgparse
+  pyright
+  vscode-json-languageserver
+  yaml-language-server
+)
+function globalsync() {
+  yarn global add $global_packages
+}
+```
 
 ## Shortcuts
 
@@ -256,9 +273,9 @@ alias org="cd $DROPBOX_DIR/org"
 alias rebrew="brew bundle --file=$HOME/dotfiles/Brewfile"
 alias refresh="tangle-md $CONFIG_SRC && stow zsh -d ~/dotfiles --ignore='.*.md' && source $CONFIG_FILE && echo 'Refreshed config from $CONFIG_SRC'"
 alias venv="python3 -m virtualenv venv && ae"
-alias vi="nvim"
+alias vi="$EDITOR"
 alias view="less $CONFIG_FILE"
-alias vim="nvim"
+alias vim="$EDITOR"
 alias ws="cd $WORKSPACE"
 ```
 
