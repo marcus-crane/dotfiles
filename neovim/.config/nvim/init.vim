@@ -26,7 +26,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
-Plug 'hrsh7th/nvim-compe'
+" Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -135,7 +135,7 @@ require'lspconfig'.yamlls.setup{}
 EOF
 
 """ nvim-compe """
-set completeopt=menuone,noselect
+" set completeopt=menuone,noselect
 
 """ Footnotes """
 
