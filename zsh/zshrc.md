@@ -74,7 +74,7 @@ export WORKSPACE="$HOME/Code"
 ```bash
 export CONFIG_FILE="$HOME/.zshrc"
 export CONFIG_SRC="$HOME/dotfiles/zsh/zshrc.md"
-export EDITOR="/Users/marcran/.asdf/shims/nvim"
+export EDITOR="$HOME/.asdf/shims/nvim"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
 export LAST_MODIFIED="$(date)"
@@ -249,6 +249,16 @@ global_packages=(
 function globalsync() {
   yarn global add $global_packages
 }
+```
+
+### perl
+
+```bash
+PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 ```
 
 ## Shortcuts
