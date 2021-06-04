@@ -3,6 +3,7 @@ tap "homebrew/cask-fonts"
 
 brew "azure-cli"
 brew "bash"
+brew "bat"
 brew "chezmoi"
 brew "cmake"
 brew "curl"

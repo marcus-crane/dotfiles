@@ -251,16 +251,6 @@ function globalsync() {
 }
 ```
 
-### perl
-
-```bash
-PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
-```
-
 ## Shortcuts
 
 Admittedly most of the git related stuff could live inside of a `.gitconfig` file but I never get around to moving it
@@ -271,6 +261,14 @@ You know... when I get around to doing that...
 
 ```bash
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
+func cat() {
+  if [[ $(command -v "bat") ]]; then
+    bat $1
+  else
+    /bin/cat $1
+    print "\n By the way, you should install bat"
+  fi
+}
 alias de="deactivate &> /dev/null"
 alias edit="$EDITOR $CONFIG_SRC"
 alias gb="git branch -v"
@@ -280,6 +278,7 @@ alias gr="git remote -v"
 alias gs="git status"
 alias gst="git status"
 alias org="cd $DROPBOX_DIR/org"
+alias neovim="nvim"
 alias rebrew="brew bundle --file=$HOME/dotfiles/Brewfile"
 alias refresh="tangle-md $CONFIG_SRC && stow zsh -d ~/dotfiles --ignore='.*.md' && source $CONFIG_FILE && echo 'Refreshed config from $CONFIG_SRC'"
 alias venv="python3 -m virtualenv venv && ae"
