@@ -265,7 +265,7 @@ func cat() {
   if [[ $(command -v "bat") ]]; then
     bat $1
   else
-    /bin/cat $1
+    command cat $1
     print "\n By the way, you should install bat"
   fi
 }
