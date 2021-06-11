@@ -4,6 +4,7 @@ crystal    1.0.0
 gohugo     0.83.1
 golang     1.16.4
 helm       3.5.4
+kubectl    1.21.1
 lua        5.4.1
 neovim     nightly
 nodejs     16.2.0
