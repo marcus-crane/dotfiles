@@ -184,10 +184,10 @@ I don't use it yet but Home Manager is promising
 
 Setup is:
 
-  - sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
-  - nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-  - nix-channel --update
-  - nix-shell '<home-manager>' -A install
+  - `sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume`
+  - `nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager`
+  - `nix-channel --update`
+  - `nix-shell '<home-manager>' -A install`
 
 ```bash
 export NIX_SSL_CERT_FILE=/etc/ssl/cert.pem
