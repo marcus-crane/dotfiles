@@ -616,6 +616,22 @@ function secretregen() {
 }
 ```
 
+### Decode URLs with percentage decoded values
+
+Often times, it can be more useful to inspect the API calls made by a web application, than using the API documentation supplies but this can get a little annoying when you need to decode HTML entities.
+
+As a result, this little function will decode a URL parameter like `team_ids%5B%5D=ABC123` into `team_ids[]=ABC123`.
+
+There are other types of HTML encoding of course but I only ever seem to run into percentage decoding on a day to day basis.
+
+Remember to quote your input so that `&` symbols and the like aren't interpreted as shell commands.
+
+```bash
+function percentdecode() {
+  echo $1 | python3 -c 'import sys,urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()),end="")'
+}
+```
+
 ## Work dotfiles
 
 I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
