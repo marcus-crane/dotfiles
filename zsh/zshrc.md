@@ -184,16 +184,15 @@ I don't use it yet but Home Manager is promising
 
 Setup is:
 
-  - sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
-  - nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-  - nix-channel --update
-  - nix-shell '<home-manager>' -A install
+  - `sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume`
+  - `nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager`
+  - `nix-channel --update`
+  - `nix-shell '<home-manager>' -A install`
 
 ```bash
 export NIX_SSL_CERT_FILE=/etc/ssl/cert.pem
 if [[ $(command -v nix) ]]; then
   export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
-  . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
   deps[nix]="Y"
 else
   deps[nix]="See nix portion of zshrc for instructions"
@@ -280,6 +279,8 @@ alias gcm="git commit -Si"
 alias gr="git remote -v"
 alias gs="git status"
 alias gst="git status"
+alias ipv4="dig @resolver4.opendns.com myip.opendns.com +short -4"
+alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6"
 alias org="cd $DROPBOX_DIR/org"
 alias neovim="nvim"
 alias rebrew="brew bundle --file=$HOME/dotfiles/Brewfile"
