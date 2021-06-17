@@ -27,6 +27,10 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-telescope/telescope.nvim'
+" Dependencies for Telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+" End of Telescope dependencies
 
 " Let's start up the plugin system
 call plug#end()
@@ -172,7 +176,11 @@ vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 EOF
 
-verbose set completeopt?
+""" Telescope shortcuts """
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 """ Footnotes """
 
