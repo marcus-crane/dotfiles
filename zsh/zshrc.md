@@ -233,9 +233,11 @@ export GOPATH="$WORKSPACE/go"
 export PATH="$GOPATH/bin:$PATH"
 export GO111MODULE="on"
 ```
-### node
+### Language servers (lsp)
 
 There's no native functionality for keeping globally installed packages in sync, to my knowledge, so this is going to be a hack for that!
+
+This installs a range of language servers in a very hacky way
 
 ```bash
 global_packages=(
@@ -246,8 +248,9 @@ global_packages=(
   vscode-json-languageserver
   yaml-language-server
 )
-function globalsync() {
+function lspsync() {
   yarn global add $global_packages
+  GO111MODULE=on go get golang.org/x/tools/gopls@latest
 }
 ```
 
