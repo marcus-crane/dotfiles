@@ -458,7 +458,17 @@ I recently discovered `html-xml-utils` which has some handy functionality so thi
 
 ```bash
 function emails() {
-  curl -s "$1" | grep -s "mailto" | hxpipe | grep "mailto:" | cut -d ":" -f2
+  wget --spider --recursive --level=2 --execute robots=off --user-agent="Mozilla/5.0 Firefox/4.0.1" $1 2>&1 |
+    egrep -o 'https?://[^ ]+' |
+    sed -e 's/^.*"\([^"]\+\)".*$/\1/g' |
+    uniq |
+    xargs curl -s |
+    grep -s "mailto" |
+    hxpipe |
+    grep "mailto:" |
+    cut -d ":" -f2 |
+    sort |
+    uniq
 }
 ```
 
