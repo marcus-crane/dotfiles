@@ -286,6 +286,7 @@ alias org="cd $DROPBOX_DIR/org"
 alias neovim="nvim"
 alias rebrew="brew bundle --file=$HOME/dotfiles/Brewfile"
 alias refresh="tangle-md $CONFIG_SRC && stow zsh -d ~/dotfiles --ignore='.*.md' && source $CONFIG_FILE && echo 'Refreshed config from $CONFIG_SRC'"
+alias utd="cd ~/utf9k && yarn start"
 alias venv="python3 -m venv venv && ae"
 alias vi="$EDITOR"
 alias view="less $CONFIG_FILE"
@@ -640,6 +641,29 @@ Remember to quote your input so that `&` symbols and the like aren't interpreted
 ```bash
 function percentdecode() {
   echo $1 | python3 -c 'import sys,urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()),end="")'
+}
+```
+
+### Create a new blog post for my site
+
+Hugo archetypes are the way to do this but I'm not sure if I have my folders configured properly.
+
+```bash
+function newpost() {
+  local SLUG=$(echo $1 | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+  mkdir -p ~/utf9k/content/blog/20xx--$SLUG
+  cp ~/utf9k/archetypes/blog.md ~/utf9k/content/blog/20xx--$SLUG/index.md
+  sed -i '' -e "s/<TITLE>/$1/g" ~/utf9k/content/blog/20xx--$SLUG/index.md
+  sed -i '' -e "s/<SLUG>/$SLUG/g" ~/utf9k/content/blog/20xx--$SLUG/index.md
+  echo "Created a new post at ~/utf9k/content/blog/20xx--$SLUG/index.md"
+  echo "Would you like to start writing?"
+  select ynd in "Yes" "No" "Delete"; do
+    case $ynd in
+      Yes ) nvim ~/utf9k/content/blog/20xx--$SLUG/index.md; echo "Nice work!"; break;;
+      No ) break;;
+      Delete ) rm -rf ~/utf9k/content/blog/20xx--$SLUG; echo "Deleted"; break;;
+    esac
+  done
 }
 ```
 
