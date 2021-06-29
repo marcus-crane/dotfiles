@@ -20,6 +20,7 @@ path=(/bin
       $(brew --prefix)/bin
       $HOME/bin
       $HOME/.nix-profile/bin
+      /usr/local/MacGPG2/bin
     )
 export PATH
 ```
