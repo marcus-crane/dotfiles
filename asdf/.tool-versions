@@ -1,6 +1,8 @@
 aria2      1.35.0
 clojure    1.10.2.774
 crystal    1.0.0
+elixir     1.12.1
+erlang     24.0.3
 gohugo     0.83.1
 golang     1.16.4
 helm       3.5.4
