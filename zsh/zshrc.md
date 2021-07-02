@@ -667,6 +667,23 @@ function newpost() {
 }
 ```
 
+### Envy
+
+A small helper function for sourcing the contents of `.env` files into my shell
+
+```bash
+envy() {
+  if [ -f ".env" ]; then
+    set -o allexport
+    source .env
+    set +o allexport
+  else
+    echo "No env file located"
+    return 1
+  fi
+}
+```
+
 ## Work dotfiles
 
 I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
