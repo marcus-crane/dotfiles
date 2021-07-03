@@ -684,6 +684,27 @@ envy() {
 }
 ```
 
+### fly.io logs
+
+I find myself checking fly logs (and sshing into them) a lot since some of my personal projects live there.
+
+We can use fzf to make this easier, and faster without too much hassle.
+
+There's some data munging due to the CLI output being a little non-standard but nothing impossible
+
+```bash
+flogs() {
+  fly apps list |
+    tail -r |
+    tail -n +2 |
+    tail -r |
+    tail -n +2 |
+    awk '{ print $1 }' |
+    fzf --preview="fly logs -a {}" --preview-window=80%,follow |
+    xargs fly ssh console -a
+}
+```
+
 ## Work dotfiles
 
 I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
