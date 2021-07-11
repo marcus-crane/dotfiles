@@ -4,7 +4,6 @@
 " See footnotes for relevant links and notes
 
 """ Plugins """
-
 " If vim-plug isn't installed, we can do that on the first run?
 if empty(glob('$HOME/.local/share/nvim/site/autoload/plug.vim'))
   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
@@ -23,6 +22,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'hrsh7th/nvim-compe'
@@ -106,13 +106,26 @@ let g:python3_host_prog='$HOME/.asdf/shims/python3'
 """ NERDTree """
 nnoremap <C-t> :NERDTreeToggle<CR>
 
+
 """ LSP configuration """
 lua << EOF
-require'lspconfig'.bashls.setup{}
-require'lspconfig'.gopls.setup{}
-require'lspconfig'.jsonls.setup{}
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.yamlls.setup{}
+local function setup_servers()
+  local required_servers = { "bash", "css", "dockerfile", "go", "html", "json", "lua", "python", "tailwindcss", "typescript", "vim", "yaml" }
+  local installed_servers = require'lspinstall'.installed_servers()
+  for _, server in pairs(required_servers) do
+    if not vim.tbl_contains(installed_servers, server) then
+      require'lspinstall'.install_server(server)
+    end
+  end
+end
+
+setup_servers()
+
+---- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require'lspinstall'.post_install_hook = function ()
+  setup_servers() -- reload installed servers
+  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
 EOF
 
 """ nvim-compe """
