@@ -5,9 +5,8 @@
 [pull]
 	rebase = false
 [commit]
-	gpgSign = true
-[gpg]
-	program = /usr/local/MacGPG2/bin/gpg2
   gpgSign = true
+[gpg]
+  program = /usr/local/MacGPG2/bin/gpg2
 [init]
   defaultBranch = "main"
