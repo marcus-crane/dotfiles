@@ -43,10 +43,6 @@ brew "zsh"
 # fonts
 cask "font-hack-nerd-font"
 
-# apps
-cask "1password" # 1password from mac store can't do OTP code scanning
-cask "raycast"
-
 # mac app store
 mas "iA Writer", id: 775737590
 mas "Craft", id: 1487937127

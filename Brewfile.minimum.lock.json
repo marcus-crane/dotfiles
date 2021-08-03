@@ -355,6 +355,8 @@
             }
           }
         }
+      },
+      "raycast": {
       }
     },
     "cask": {
@@ -369,6 +371,11 @@
         "options": {
           "full_name": "raycast"
         }
+      }
+    },
+    "tap": {
+      "homebrew/cask": {
+        "revision": "631a864af6ea8fae1387e164ceb89615b06c24d4"
       }
     }
   },
