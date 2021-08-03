@@ -1,6 +1,6 @@
-tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 
+# cli tools
 brew "azure-cli"
 brew "bash"
 brew "bat"
@@ -43,8 +43,11 @@ brew "zsh"
 # fonts
 cask "font-hack-nerd-font"
 
-# 1password from mac store can't do OTP code scanning
-# don't install from mac store
+# apps
+cask "1password" # 1password from mac store can't do OTP code scanning
+cask "raycast"
+
+# mac app store
 mas "iA Writer", id: 775737590
 mas "Craft", id: 1487937127
 mas "Developer", id: 640199958
