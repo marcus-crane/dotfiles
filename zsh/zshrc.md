@@ -79,6 +79,7 @@ export EDITOR="$HOME/.asdf/shims/nvim"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
 export LAST_MODIFIED="$(date)"
+export REPORTTIME=5
 
 if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
   export PROMPT=' ' # Installing iTerm helpers adds an arrow prompt
