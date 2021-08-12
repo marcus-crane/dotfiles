@@ -21,6 +21,7 @@ path=(/bin
       $HOME/bin
       $HOME/.nix-profile/bin
       /usr/local/MacGPG2/bin
+      /Applications/Postgres.app/Contents/Versions/13/bin
     )
 export PATH
 ```
