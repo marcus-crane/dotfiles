@@ -21,6 +21,7 @@ path=(/bin
       $HOME/bin
       $HOME/.nix-profile/bin
       /usr/local/MacGPG2/bin
+      /Applications/Postgres.app/Contents/Versions/13/bin
     )
 export PATH
 ```
@@ -79,6 +80,7 @@ export EDITOR="$HOME/.asdf/shims/nvim"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
 export LAST_MODIFIED="$(date)"
+REPORTTIME=5
 
 if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
   export PROMPT=' ' # Installing iTerm helpers adds an arrow prompt
@@ -233,24 +235,23 @@ export GOPATH="$WORKSPACE/go"
 export PATH="$GOPATH/bin:$PATH"
 export GO111MODULE="on"
 ```
-### Language servers (lsp)
+## Globally installed packages
 
 There's no native functionality for keeping globally installed packages in sync, to my knowledge, so this is going to be a hack for that!
 
 This installs a range of language servers in a very hacky way
 
 ```bash
-global_packages=(
-  bash-language-server
-  neovim
-  pkgparse
-  pyright
-  vscode-json-languageserver
-  yaml-language-server
-)
-function lspsync() {
-  yarn global add $global_packages
-  GO111MODULE=on go get golang.org/x/tools/gopls@latest
+function gsync() {
+  global_npm_packages=(
+    neovim
+    pkgparse
+  )
+  global_ruby_packages=(
+    neovim
+  )
+  yarn global add $global_npm_packages
+  gem install $global_ruby_packages
 }
 ```
 
@@ -286,6 +287,7 @@ alias org="cd $DROPBOX_DIR/org"
 alias neovim="nvim"
 alias rebrew="brew bundle --file=$HOME/dotfiles/Brewfile"
 alias refresh="tangle-md $CONFIG_SRC && stow zsh -d ~/dotfiles --ignore='.*.md' && source $CONFIG_FILE && echo 'Refreshed config from $CONFIG_SRC'"
+alias tabcheck="/bin/cat -e -t -v"
 alias utd="cd ~/utf9k && yarn start"
 alias venv="python3 -m venv venv && ae"
 alias vi="$EDITOR"
@@ -681,6 +683,27 @@ envy() {
     echo "No env file located"
     return 1
   fi
+}
+```
+
+### fly.io logs
+
+I find myself checking fly logs (and sshing into them) a lot since some of my personal projects live there.
+
+We can use fzf to make this easier, and faster without too much hassle.
+
+There's some data munging due to the CLI output being a little non-standard but nothing impossible
+
+```bash
+flogs() {
+  fly apps list |
+    tail -r |
+    tail -n +2 |
+    tail -r |
+    tail -n +2 |
+    awk '{ print $1 }' |
+    fzf --preview="fly logs -a {}" --preview-window=80%,follow |
+    xargs fly ssh console -a
 }
 ```
 
