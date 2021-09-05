@@ -273,6 +273,7 @@ func cat() {
     print "\n By the way, you should install bat"
   fi
 }
+alias crush="pngcrush -ow"
 alias de="deactivate &> /dev/null"
 alias edit="$EDITOR $CONFIG_SRC"
 alias gb="git branch -v"
