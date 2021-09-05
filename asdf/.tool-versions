@@ -16,6 +16,6 @@ ruby       3.0.1
 rust       1.54.0
 shellcheck 0.7.2
 sqlite     3.36.0
-terraform  0.15.4
+terraform  1.0.6
 tmux       3.2
 yarn       1.22.10
