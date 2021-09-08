@@ -20,6 +20,7 @@ path=(/bin
       $(brew --prefix)/bin
       $HOME/bin
       $HOME/.nix-profile/bin
+      $HOME/.emacs.d/bin
       /usr/local/MacGPG2/bin
       /Applications/Postgres.app/Contents/Versions/13/bin
     )
