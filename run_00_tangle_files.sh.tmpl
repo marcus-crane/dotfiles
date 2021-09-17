@@ -1,5 +1,5 @@
-{{- if (eq .chezmoi.os "darwin") -}}
 #!/bin/bash
 
-brew bundle --no-lock --file=$(chezmoi source-path)/Brewfile
-{{ end -}}
+for i in $( find $(chezmoi source-path) -type f -name '*.md' ! -name 'README.md' ); do
+  lugh -f "$i"
+done
