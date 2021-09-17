@@ -31,11 +31,9 @@ export PATH
 
 These are paths that cd will look for.
 
-An example is if I have a folder called `dotfiles` in `$HOME/Code` and I add `$HOME/Code` to my `CDPATH` then I can just simply run `cd dotfiles` anywhere and it will work as if I was already in the `$HOME/Code` folder
-
 ```bash
 setopt auto_cd
-cdpath=($HOME $HOME/dotfiles $HOME/Code $HOME/utf9k)
+cdpath=($HOME $HOME/Code $HOME/utf9k)
 ```
 
 ## Initialisation
@@ -287,7 +285,7 @@ alias ipv4="dig @resolver4.opendns.com myip.opendns.com +short -4"
 alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6"
 alias org="cd $DROPBOX_DIR/org"
 alias neovim="nvim"
-alias rebrew="brew bundle --file=$HOME/dotfiles/Brewfile"
+alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
 alias refresh="tangle-md $CONFIG_SRC && stow zsh -d ~/dotfiles --ignore='.*.md' && source $CONFIG_FILE && echo 'Refreshed config from $CONFIG_SRC'"
 alias tabcheck="/bin/cat -e -t -v"
 alias utd="cd ~/utf9k && yarn start"
