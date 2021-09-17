@@ -1,4 +1,3 @@
 LICENSE
-README.md
-zshrc.md
+*.md
 Brewfile

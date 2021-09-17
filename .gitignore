@@ -1,6 +1,2 @@
 .DS_Store
-.gitmodules
-output
-work
-zsh/.zshrc
-.netrwhist
+dot_zshrc.tmpl
