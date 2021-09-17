@@ -1,6 +1,6 @@
 ---
 title: My zsh config
-output: .zshrc
+output: dot_zshrc
 ---
 
 ## Setting up PATHs
@@ -76,7 +76,7 @@ export WORKSPACE="$HOME/Code"
 
 ```bash
 export CONFIG_FILE="$HOME/.zshrc"
-export CONFIG_SRC="$HOME/dotfiles/zsh/zshrc.md"
+export CONFIG_SRC="$(chezmoi source-path)/zshrc.md"
 export EDITOR="$HOME/.asdf/shims/nvim"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"

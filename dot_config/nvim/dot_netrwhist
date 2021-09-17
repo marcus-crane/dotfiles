@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/Users/marcus/utf9k/layouts/partials'
+let g:netrw_dirhist_4='/Users/marcus/utf9k/layouts'
+let g:netrw_dirhist_3='/Users/marcus/Code/utf9k/content/blog/2021-02-21--address-book-sorting'
+let g:netrw_dirhist_2='/Users/marcus/Code/utf9k/content/blog/2021-02-13--emacs-probably-isnt-right-for-me'
+let g:netrw_dirhist_1='/Users/marcus/Code/utf9k/content/blog/2021-04-18--starbucks-ecosystem'
