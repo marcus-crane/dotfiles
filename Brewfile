@@ -3,7 +3,6 @@ tap "homebrew/cask-fonts"
 # cli tools
 brew "azure-cli"
 brew "bash"
-brew "bat"
 brew "chezmoi"
 brew "cmake"
 brew "curl"
@@ -54,6 +53,5 @@ mas "LINE", id: 539883307
 mas "Paprika", id: 1303222628
 mas "Parcel", id: 639968404
 mas "Playgrounds", id: 1496833156
-mas "Reeder", id: 1529448980
 mas "Shazam", id: 897118787
 mas "Tailscale", id: 1475387142
