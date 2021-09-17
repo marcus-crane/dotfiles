@@ -1,6 +1,6 @@
 ---
 title: My zsh config
-output: dot_zshrc
+output: dot_zshrc.tmpl
 ---
 
 ## Setting up PATHs
@@ -163,8 +163,8 @@ fi
 To save me having to set up each machine, I just set my Git identifiers each time
 
 ```bash
-git config --global user.name "Marcus Crane"
-git config --global user.email "marcus@utf9k.net"
+git config --global user.name "{{ .name }}"
+git config --global user.email "{{ .email }}"
 ```
 
 ### less

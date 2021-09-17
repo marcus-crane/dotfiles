@@ -2,8 +2,8 @@
 set folder = ~/mail
 
 # Set sender details
-set from = "marcus@thingsima.de"
-set realname = "Marcus Crane"
+set from = "{{ .email }}"
+set realname = "{{ .name }}"
 
 # Paths
 set folder = ~/Mail
@@ -94,7 +94,7 @@ bind attach <return> view-mailcap
 macro pager \Cu "|urlview<enter>" "call urlview to open links"
 
 # Compose view options
-set realname = "Marcus Crane"        # who am i?
+set realname = "{{ .name }}"         # who am i?
 set envelope_from                    # which from?
 set sig_dashes                       # dashes before sig
 set edit_headers                     # show headers when composing
@@ -112,7 +112,7 @@ set forward_quote                    # include message in forwards
 set editor = "nvim"
 
 # Sending
-set from = "marcus@thingsima.de"
+set from = "{{ .email }}"
 set sendmail = "/usr/local/bin/msmtp"
 set sendmail_wait = 0
 unset record

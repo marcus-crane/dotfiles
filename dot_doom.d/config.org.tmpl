@@ -5,8 +5,8 @@
 :END:
 
 #+title: Doom Emacs config
-#+author: Marcus Crane
-#+email: marcus@utf9k.net
+#+author: {{ .name }}
+#+email: {{ .email }}
 
 * Core setup
 ** [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Lexical-Binding.html][Lexical binding]]
@@ -16,8 +16,8 @@
 ** Who am I?
 
 #+begin_src emacs-lisp
-(setq user-full-name "Marcus Crane"
-      user-mail-address "marcus@utf9k.net")
+(setq user-full-name "{{ .name }}"
+      user-mail-address "{{ .email }}")
 #+end_src
 ** Where do I store my files?
 I store all of my org files in Dropbox

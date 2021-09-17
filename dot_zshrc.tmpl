@@ -65,8 +65,8 @@ else
   deps[fzf]="brew install fzf"
 fi
 
-git config --global user.name "Marcus Crane"
-git config --global user.email "marcus@utf9k.net"
+git config --global user.name "{{ .name }}"
+git config --global user.email "{{ .email }}"
 
 if [[ $(which src-hilite-lesspipe.sh) ]]; then
   LESSPIPE=`which src-hilite-lesspipe.sh`
