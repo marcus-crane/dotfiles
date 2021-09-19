@@ -264,14 +264,6 @@ You know... when I get around to doing that...
 
 ```bash
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
-func cat() {
-  if [[ $(command -v "bat") ]]; then
-    bat $1
-  else
-    command cat $1
-    print "\n By the way, you should install bat"
-  fi
-}
 alias crush="pngcrush -ow"
 alias de="deactivate &> /dev/null"
 alias edit="$EDITOR $CONFIG_SRC"
@@ -283,10 +275,10 @@ alias gs="git status"
 alias gst="git status"
 alias ipv4="dig @resolver4.opendns.com myip.opendns.com +short -4"
 alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6"
-alias org="cd $DROPBOX_DIR/org"
 alias neovim="nvim"
+alias path="echo -e ${PATH//:/\\n}"
 alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
-alias refresh="chezmoi apply"
+alias refresh="chezmoi apply && source $CONFIG_FILE"
 alias tabcheck="/bin/cat -e -t -v"
 alias utd="cd ~/utf9k && yarn start"
 alias venv="python3 -m venv venv && ae"
