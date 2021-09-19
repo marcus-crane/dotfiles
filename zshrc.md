@@ -286,7 +286,7 @@ alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short
 alias org="cd $DROPBOX_DIR/org"
 alias neovim="nvim"
 alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
-alias refresh="tangle-md $CONFIG_SRC && stow zsh -d ~/dotfiles --ignore='.*.md' && source $CONFIG_FILE && echo 'Refreshed config from $CONFIG_SRC'"
+alias refresh="chezmoi apply"
 alias tabcheck="/bin/cat -e -t -v"
 alias utd="cd ~/utf9k && yarn start"
 alias venv="python3 -m venv venv && ae"
