@@ -3,7 +3,7 @@ on: [push]
 jobs:
   lint:
     name: Run shellcheck
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run Shellcheck
