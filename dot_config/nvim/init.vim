@@ -15,6 +15,7 @@ endif
 call plug#begin('$HOME/.local/share/nvim/plugged')
 
 " What plugins do we want to install?
+Plug 'lewis6991/impatient.nvim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
@@ -34,6 +35,8 @@ Plug 'nvim-lua/plenary.nvim'
 
 " Let's start up the plugin system
 call plug#end()
+
+lua require('impatient')
 
 """ Quality of Life """
 
