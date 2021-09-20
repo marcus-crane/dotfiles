@@ -1,5 +1,5 @@
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/bin/bash
-
-cd /tmp && wget -q https://github.com/marcus-crane/lugh/releases/download/v0.0.2/lugh-macos-latest-v0.0.2.tar.gz -O lugh.tar.gz && tar -xf lugh.tar.gz && mv bin/lugh /usr/local/bin && rm lugh.tar.gz && rm -rf bin && echo "Lugh installed"
+VERSION=v0.0.2
+cd /tmp && wget -q https://github.com/marcus-crane/lugh/releases/download/v0.0.2/lugh-macos-latest-$VERSION.tar.gz -O lugh.tar.gz && tar -xf lugh.tar.gz && mv bin/lugh /usr/local/bin && rm lugh.tar.gz && rm -rf bin && echo "Lugh $VERSION installed"
 {{ end -}}
