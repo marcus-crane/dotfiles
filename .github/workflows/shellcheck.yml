@@ -1,0 +1,12 @@
+name: Run shellcheck on shell scripts
+on: [push]
+jobs:
+  lint:
+    name: Run shellcheck
+    runs_on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Shellcheck
+        uses: ludeeus/action-shellcheck@master
+        env:
+          SHELLCHECK_OPTS: -P **/*.sh
