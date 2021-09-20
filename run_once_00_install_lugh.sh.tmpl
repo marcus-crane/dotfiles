@@ -1,0 +1,11 @@
+#!/bin/bash
+
+VERSION=v0.0.2
+{{ if (eq .chezmoi.os "darwin") }}
+SYSTEM=macos
+{{ else }}
+SYSTEM=linux
+{{ end }}
+
+cd /tmp && wget -q https://github.com/marcus-crane/lugh/releases/download/v0.0.2/lugh-$SYSTEM-latest-$VERSION.tar.gz -O lugh.tar.gz && tar -xf lugh.tar.gz && mv bin/lugh /usr/local/bin && rm lugh.tar.gz && rm -rf bin && echo "Lugh $VERSION for $SYSTEM installed"
+
