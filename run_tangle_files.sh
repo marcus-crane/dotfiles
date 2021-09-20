@@ -1,5 +1,6 @@
 #!/bin/bash
 
-for i in $( find $(chezmoi source-path) -type f -name '*.md' ! -name 'README.md' ); do
-  lugh -f "$i"
-done
+while IFS= read -r -d '' file
+do
+  lugh -f "$file"
+done <   <(find "$(chezmoi source-path)" -type f -name '*.md' ! -name 'README.md' -print0)
