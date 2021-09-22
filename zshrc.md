@@ -23,6 +23,7 @@ path=(/bin
       $HOME/.emacs.d/bin
       /usr/local/MacGPG2/bin
       /Applications/Postgres.app/Contents/Versions/13/bin
+      $(asdf where python)/bin
     )
 export PATH
 ```
