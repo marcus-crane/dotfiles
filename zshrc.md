@@ -277,7 +277,6 @@ alias gst="git status"
 alias ipv4="dig @resolver4.opendns.com myip.opendns.com +short -4"
 alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6"
 alias neovim="nvim"
-alias path="echo -e ${PATH//:/\\n}"
 alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
 alias refresh="chezmoi apply && source $CONFIG_FILE"
 alias tabcheck="/bin/cat -e -t -v"
@@ -697,6 +696,14 @@ flogs() {
     awk '{ print $1 }' |
     fzf --preview="fly logs -a {}" --preview-window=80%,follow |
     xargs fly ssh console -a
+}
+```
+
+### Pretty print PATH
+
+```bash
+path() {
+  echo -e "${PATH//:/\\n}"
 }
 ```
 
