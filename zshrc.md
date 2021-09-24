@@ -23,7 +23,6 @@ path=(/bin
       $HOME/.emacs.d/bin
       /usr/local/MacGPG2/bin
       /Applications/Postgres.app/Contents/Versions/13/bin
-      $(asdf where python)/bin
     )
 export PATH
 ```
@@ -141,7 +140,8 @@ if [[ -f $ASDF_DIR/asdf.sh ]]; then
 else
   deps[asdf]="git clone git@github.com:asdf-vm/asdf ~/.asdf"
 fi
-export PATH=$HOME/.asdf/installs/nodejs/$(asdf current nodejs | awk '{print $2}')/.npm/bin:$PATH
+export PATH=$(asdf where nodejs)/.npm/bin:$PATH
+export PATH=$(asdf where python)/bin:$PATH
 ```
 
 ### fzf
