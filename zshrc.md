@@ -3,24 +3,6 @@ title: My zsh config
 output: dot_zshrc.tmpl
 ---
 
-## Setting up asdf
-
-While it seems counter intuitive to do this so early, I reference some aspects of asdf in my PATH so in order to cut down on code, I can set up asdf first and avoid some race conditions while I'm at it.
-
-### asdf
-
-The version manager to rule them all
-
-It wraps a number of existing language version managers into plugins that can be managed through one unified CLI tool
-
-```bash
-export ASDF_DIR=$HOME/.asdf
-if [[ -f $ASDF_DIR/asdf.sh ]]; then
-  . $ASDF_DIR/asdf.sh
-fi
-```
-
-
 ## Setting up PATHs
 
 ### Universal system folders
@@ -42,7 +24,6 @@ path=(/bin
       /usr/local/MacGPG2/bin
       /Applications/Postgres.app/Contents/Versions/13/bin
       $(asdf where python)/bin
-      $(asdf where nodejs)/.npm/bin
     )
 export PATH
 ```
@@ -145,6 +126,23 @@ declare -A deps
 ```
 
 ## Applications
+
+### asdf
+
+The version manager to rule them all
+
+It wraps a number of existing language version managers into plugins that can be managed through one unified CLI tool
+
+```bash
+export ASDF_DIR=$HOME/.asdf
+if [[ -f $ASDF_DIR/asdf.sh ]]; then
+  . $ASDF_DIR/asdf.sh
+  deps[asdf]="Y"
+else
+  deps[asdf]="git clone git@github.com:asdf-vm/asdf ~/.asdf"
+fi
+export PATH=$HOME/.asdf/installs/nodejs/$(asdf current nodejs | awk '{print $2}')/.npm/bin:$PATH
+```
 
 ### fzf
 
