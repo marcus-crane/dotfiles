@@ -686,6 +686,16 @@ path() {
 }
 ```
 
+### Kumamon on demand
+
+I like [Kumamon](https://en.wikipedia.org/wiki/Kumamon) but I don't watch Kumamon videos enough so this is a small function that opens a random Kumamon YouTube video using mpv
+
+```bash
+kumamon() {
+  mpv https://www.youtube.com/c/KumamonTV/videos --shuffle --geometry=100%:0% --autofit=20% --ytdl-format="bestvideo[height<=480]+bestaudio/best[height<=480]"
+}
+```
+
 ## Work dotfiles
 
 I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
