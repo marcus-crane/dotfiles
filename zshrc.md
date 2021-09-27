@@ -410,6 +410,18 @@ function demov() {
 }
 ```
 
+### Quick convert h265 to 8 bit 264
+
+```bash
+function de265() {
+  if [[ $(command -v "ffmpeg") ]]; then
+      ffmpeg -i $1 -map 0 -c:v libx264 -crf 18 -vf format=yuv420p -c:a copy $(echo "$1" | rev | cut -f 2- -d '.' | rev).mp4
+  else
+      print "It doesn't look like you have ffmpeg installed."
+  fi
+}
+```
+
 ### Pin Kubernetes namespace
 
 I often end up repeating the same namespace which gets annoying so this is a way to "pin" a namespace
