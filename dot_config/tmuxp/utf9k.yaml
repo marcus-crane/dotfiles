@@ -1,0 +1,15 @@
+session_name: utf9k
+windows:
+- window_name: content
+  shell_command_before:
+    - cd ~/utf9k
+  panes:
+    - shell_command:
+      - clear
+- window_name: dev
+  shell_command_before:
+    - cd ~/utf9k
+  panes:
+    - shell_command:
+      - yarn start
+      
