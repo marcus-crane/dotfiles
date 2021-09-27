@@ -4,11 +4,12 @@ directories=(
   "$HOME/.ssh-sockets"
   "$HOME/Code"
   "$HOME/tmp"
+  "$HOME/.tmux/plugins"
 )
 
 for i in "${directories[@]}"; do
   if ! [ -d "$i" ]; then
-    mkdir "$i"
+    mkdir -p "$i"
     echo "Creating $i"
   fi
 done
