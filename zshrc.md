@@ -705,7 +705,7 @@ I like [Kumamon](https://en.wikipedia.org/wiki/Kumamon) but I don't watch Kumamo
 
 ```bash
 kumamon() {
-  mpv https://www.youtube.com/c/KumamonTV/videos --shuffle --geometry=100%:0% --autofit=20% --ytdl-format="bestvideo[height<=480]+bestaudio/best[height<=480]"
+  mpv https://www.youtube.com/c/KumamonTV/videos --shuffle --geometry=100%:0% --autofit=20% --ytdl-format="bestvideo[height<=480]+bestaudio/best[height<=480]" --ontop
 }
 ```
 
