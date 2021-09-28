@@ -292,13 +292,7 @@ function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 
 ### I'd like to tangle a markdown file please
 
-As an intermediary step to migrate off of `org-mode`, I'm using codedown to extract markdown blocks
-
-The primary motivation is that when setting up a new laptop, between the installation time for `emacs` and general setup, there are quite a few dependencies
-
-My ideal end state is something easy to install (likely a go binary) that does the same job as codedown, perhaps with support for inline attributes like the path to render out
-
-Lastly, `pandoc` should be able to render this very file into an HTML page or render it as a static site using the markdown file
+I have my own little Markdown tangling tool which you can read about [here](https://github.com/marcus-crane/dotfiles#a-note-on-tangling-files)
 
 ```bash
 function tangle-md() {
@@ -318,6 +312,8 @@ function tangle-file() {
 }
 ```
 
+### What's inside that JWT?
+
 This function is used to display both encrypted and regular JWT tokens, as opposed to using an online service like https://jwt.io
 
 It's taken almost verbatim from [this post](https://www.jvt.me/posts/2019/06/13/pretty-printing-jwt-openssl/) except the original `exit 0` would cause my terminal session to exit so I swapped it for a `break` instead.
@@ -325,8 +321,6 @@ It's taken almost verbatim from [this post](https://www.jvt.me/posts/2019/06/13/
 To pretty print a JWT line, just use it like so: `jwt <token>`
 
 If you'd like to use a JWT stored as a file, you can do that pretty easily too: `jwt $(cat a_saved_jwt)`
-
-### What's inside that JWT?
 
 ```bash
 function jwt() {
@@ -707,22 +701,6 @@ I like [Kumamon](https://en.wikipedia.org/wiki/Kumamon) but I don't watch Kumamo
 kumamon() {
   mpv https://www.youtube.com/c/KumamonTV/videos --shuffle --geometry=100%:0% --autofit=20% --ytdl-format="bestvideo[height<=480]+bestaudio/best[height<=480]" --ontop
 }
-```
-
-## Work dotfiles
-
-I've got some work related [dotfiles](https://github.com/marcus-crane/dotfiles) that live in a folder called "work"
-
-In reality, it's added as a git submodule but I never commit it as one.
-
-Anyway, I have a single `entrypoint.sh` script that does nothing but source any other scripts I might use, so that there is a fairly clean separation between my personal and work configuration
-
-Due to their implementation revealing bits and pieces about how the internal network of my employer functions, these aren't open source
-
-```bash
-if [[ -f "$HOME/dotfiles/work/entrypoint.sh" ]]; then
-  . "$HOME/dotfiles/work/entrypoint.sh"
-fi
 ```
 
 ## iTerm 2 integration
