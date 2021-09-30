@@ -703,6 +703,21 @@ kumamon() {
 }
 ```
 
+### defaults plist viewer
+
+This is probably my weightiest command to date
+
+```bash
+viewdefaults() {
+  defaults domains |
+    sed 's/$/, NSGlobalDomain/' |
+    tr -d ',' |
+    tr ' ' '\n' |
+    fzf --preview="defaults export {} - | python3 -c \"import sys,plistlib,pprint; pprint.pprint(plistlib.loads(sys.stdin.read().encode('utf-8')))\"" |
+    xargs -n1 -I{} sh -c 'defaults export $1 - > $1.plist' -- {}
+}
+```
+
 ## iTerm 2 integration
 
 I used iTerm 2 on my various devices as a terminal and so, there are some shell integrations that are handy to use
