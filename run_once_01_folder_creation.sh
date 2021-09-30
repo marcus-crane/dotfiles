@@ -3,6 +3,7 @@
 directories=(
   "$HOME/.ssh-sockets"
   "$HOME/Code"
+  "$HOME/Pictures/Screenshots"
   "$HOME/tmp"
   "$HOME/.tmux/plugins"
 )
