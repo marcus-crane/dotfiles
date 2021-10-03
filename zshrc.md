@@ -28,15 +28,6 @@ path=(/bin
 export PATH
 ```
 
-### Setting CD directories
-
-These are paths that cd will look for.
-
-```bash
-setopt auto_cd
-cdpath=($HOME $HOME/Code $HOME/utf9k)
-```
-
 ## Initialisation
 
 This section consists of helpers functions and global variables used by various applications.
@@ -116,6 +107,15 @@ I've got some scripts that are handy to have so let's add those to the PATH
 export PATH=$HOME/scripts:$PATH
 ```
 
+### Module autoloading
+
+Currently, this is just used for kubectl shell completion
+
+```bash
+autoload -Uz compinit
+compinit
+```
+
 ## Applications
 
 ### asdf
@@ -150,6 +150,14 @@ To save me having to set up each machine, I just set my Git identifiers each tim
 ```bash
 git config --global user.name "{{ .name }}"
 git config --global user.email "{{ .email }}"
+```
+
+### kubectl
+
+Kubectl comes with some shell completions for zsh
+
+```bash
+source <(kubectl completion zsh)
 ```
 
 ### less
