@@ -86,17 +86,23 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- end
 
 -- set a formatter if you want to override the default lsp one (if it exists)
--- lvim.lang.python.formatters = {
---   {
---     exe = "black",
---   }
--- }
+lvim.lang.python.formatters = {
+  {
+    exe = "black",
+  }
+}
 -- set an additional linter
--- lvim.lang.python.linters = {
---   {
---     exe = "flake8",
---   }
--- }
+lvim.lang.python.linters = {
+  {
+    exe = "flake8",
+  }
+}
+
+lvim.lang.sh.linters = {
+  {
+    exe = "shellcheck",
+  }
+}
 
 -- Additional Plugins
 lvim.plugins = {
