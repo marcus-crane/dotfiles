@@ -55,6 +55,9 @@ cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
 
 # mac app store
+# removed under macOS monterey due to a bug
+# https://github.com/mas-cli/mas/issues/417
+{{- if (ne (output "sw_vers" "-ProductVersion" | trim) "12.0") }}
 mas "iA Writer", id: 775737590
 mas "Craft", id: 1487937127
 mas "LINE", id: 539883307
@@ -63,5 +66,6 @@ mas "Parcel", id: 639968404
 mas "Playgrounds", id: 1496833156
 mas "Shazam", id: 897118787
 mas "Tailscale", id: 1475387142
+{{- end }}
 EOF
 {{ end -}}
