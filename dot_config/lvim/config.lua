@@ -92,6 +92,12 @@ lvim.lang.python.formatters = {
   }
 }
 -- set an additional linter
+lvim.lang.dockerfile.linters = {
+  {
+    exe = "hadolint",
+  }
+}
+
 lvim.lang.python.linters = {
   {
     exe = "flake8",
