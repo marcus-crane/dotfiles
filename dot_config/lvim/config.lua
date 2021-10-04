@@ -117,6 +117,10 @@ lvim.plugins = {
       "folke/trouble.nvim",
       cmd = "TroubleToggle",
     },
+    {
+      "ellisonleao/glow.nvim",
+      run = "GlowInstall",
+    },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
