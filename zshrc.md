@@ -18,7 +18,6 @@ output: dot_zshrc.tmpl
 	- [Setting my workspace](#setting-my-workspace)
 	- [Setting various global constants](#setting-various-global-constants)
 	- [Setting some Windows / WSL specific constants](#setting-some-windows--wsl-specific-constants)
-	- [Adding custom items to PATH](#adding-custom-items-to-path)
 	- [Module autoloading](#module-autoloading)
 - [Applications](#applications)
   - [asdf](#asdf)
@@ -27,8 +26,6 @@ output: dot_zshrc.tmpl
   - [kubectl](#kubectl)
   - [less](#less)
   - [nix](#nix)
-  - [Postgres](#postgres)
-  - [Sublime Text](#sublime-text)
 - [Languages](#languages)
   - [Erlang](#erlang)
   - [go](#go)
@@ -85,8 +82,11 @@ path=(/bin
       $HOME/.nix-profile/bin
       $HOME/.emacs.d/bin
       $HOME/.local/bin
+      $HOME/scripts
       /usr/local/MacGPG2/bin
+      /usr/local/opt/postgresql@10/bin
       /Applications/Postgres.app/Contents/Versions/13/bin
+      /Applications/Sublime Text.app/Contents/SharedSupport/bin
     )
 export PATH
 ```
@@ -143,12 +143,6 @@ else
 fi
 ```
 
-In some cases, when I compile Emacs, I'm not able to find the `emacsclient` executiable within my path.
-
-This doesn't really make much sense given `emacs` and `emacsclient` tend to live side by side and I don't actually remember the specific details from last time I ran into that problem.
-
-In the event that happens anyway, this quick hack (find `emacs` and append "client" on the end) works in the meantime
-
 ### Setting some Windows / WSL specific constants
 
 ```bash
@@ -161,14 +155,6 @@ fi
 1. If I'm running on a Windows machine, I run Emacs by starting a daemon inside my terminal and connecting with `emacsclient`. Doing so spawns a new frame using the X display server running on the Windows host itself
 
 2. While I don't believe this actually works, I attempt to override the `BROWSER` environment variable to open links on the Windows host from within Emacs
-
-### Adding custom items to PATH
-
-I've got some scripts that are handy to have so let's add those to the PATH
-
-```bash
-export PATH=$HOME/scripts:$PATH
-```
 
 ### Module autoloading
 
@@ -251,19 +237,6 @@ export NIX_SSL_CERT_FILE=/etc/ssl/cert.pem
 if [[ $(command -v nix) ]]; then
   export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
 fi
-```
-
-### Postgres
-```bash
-export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
-```
-
-### Sublime Text
-
-Sublime ships with a helper tool called `subl` which, on macOS lives within the application bundle. It isn't registered by default so let's add it to the `PATH`.
-
-```bash
-export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin/:$PATH"
 ```
 
 ## Languages
