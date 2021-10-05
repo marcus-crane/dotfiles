@@ -8,16 +8,26 @@ output: dot_zshrc.tmpl
 <h1>Welcome to my zsh config</h1>
 </div>
 
-## Table of contents
+<details>
+<summary>Table of contents</summary>
 
 - [Setting up PATHs](#setting-up-paths)
+	- [Universal system folders](#universal-system-folders)
 - [Initialisation](#initialisation)
+	- [Determining the current OS](#determining-the-current-os)
+	- [Setting my workspace](#setting-my-workspace)
+	- [Setting various global constants](#setting-various-global-constants)
+	- [Setting some Windows / WSL specific constants](#setting-some-windows--wsl-specific-constants)
+	- [Adding custom items to PATH](#adding-custom-items-to-path)
+	- [Module autoloading](#module-autoloading)
 - [Applications](#applications)
 - [Languages](#languages)
 - [Global packages](#global-packages)
 - [Shortcuts](#shortcuts)
 - [Functions](#functions)
 - [iTerm 2 integration](#iterm-2-integration)
+
+</details>
 
 ## Setting up PATHs
 
