@@ -30,9 +30,18 @@ output: dot_zshrc.tmpl
   - [Postgres](#postgres)
   - [Sublime Text](#sublime-text)
 - [Languages](#languages)
+  - [Erlang](#erlang)
+  - [go](#go)
 - [Global packages](#global-packages)
 - [Shortcuts](#shortcuts)
 - [Functions](#functions)
+  - [Quick shortcuts to push and pull the current branch](#quick-shortcuts-to-push-and-pull-the-current-branch)
+  - [What application is listening on any given port?](#what-application-is-listening-on-any-given-port)
+  - [I'd like to tangle a markdown file please](#id-like-to-tangle-a-markdown-file-please)
+  - [I'd like to tangle an org file please](#id-like-to-tangle-an-org-file-please)
+  - [What's inside that JWT?](#whats-inside-that-jwt)
+  - [I'd like to see all resources in any given namespace](#id-like-to-see-all-resources-in-any-given-namespace)
+  - [What functions have I defined?](#what-functions-have-i-defined)
 - [iTerm 2 integration](#iterm-2-integration)
 
 </details>
