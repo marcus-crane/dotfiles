@@ -732,6 +732,18 @@ viewdefaults() {
 }
 ```
 
+### params
+
+Using the previously defined `percentdecode` function, this makes it easy to visualise request params in a URL
+
+```bash
+params() {
+  percentdecode $1 |
+    tr "?" "\n" |
+    tr "&" "\n"
+}
+```
+
 ## iTerm 2 integration
 
 I used iTerm 2 on my various devices as a terminal and so, there are some shell integrations that are handy to use
