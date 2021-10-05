@@ -27,21 +27,22 @@ output: dot_zshrc.tmpl
 These paths generally exist on most every system so we'll set them seperately from other PATH additions.
 
 ```bash
-path=(/bin
-      /sbin
-      /usr/local/bin
-      /usr/bin
-      /usr/sbin
-      /usr/local/sbin
-      /opt/X11/bin
-      $(brew --prefix)/bin
-      $HOME/bin
-      $HOME/.nix-profile/bin
-      $HOME/.emacs.d/bin
-      $HOME/.local/bin
-      /usr/local/MacGPG2/bin
-      /Applications/Postgres.app/Contents/Versions/13/bin
-    )
+path=(
+  /bin
+  /sbin
+  /usr/local/bin
+  /usr/bin
+  /usr/sbin
+  /usr/local/sbin
+  /opt/X11/bin
+  $(brew --prefix)/bin
+  $HOME/bin
+  $HOME/.nix-profile/bin
+  $HOME/.emacs.d/bin
+  $HOME/.local/bin
+  /usr/local/MacGPG2/bin
+  /Applications/Postgres.app/Contents/Versions/13/bin
+)
 export PATH
 ```
 
