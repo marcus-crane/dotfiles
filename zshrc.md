@@ -21,32 +21,28 @@ output: dot_zshrc.tmpl
 
 ## Setting up PATHs
 
-<details>
-<summary>Universal system folders</summary>
+### Universal system folders
 
 These paths generally exist on most every system so we'll set them seperately from other PATH additions.
 
 ```bash
-path=(
-  /bin
-  /sbin
-  /usr/local/bin
-  /usr/bin
-  /usr/sbin
-  /usr/local/sbin
-  /opt/X11/bin
-  $(brew --prefix)/bin
-  $HOME/bin
-  $HOME/.nix-profile/bin
-  $HOME/.emacs.d/bin
-  $HOME/.local/bin
-  /usr/local/MacGPG2/bin
-  /Applications/Postgres.app/Contents/Versions/13/bin
-)
+path=(/bin
+      /sbin
+      /usr/local/bin
+      /usr/bin
+      /usr/sbin
+      /usr/local/sbin
+      /opt/X11/bin
+      $(brew --prefix)/bin
+      $HOME/bin
+      $HOME/.nix-profile/bin
+      $HOME/.emacs.d/bin
+      $HOME/.local/bin
+      /usr/local/MacGPG2/bin
+      /Applications/Postgres.app/Contents/Versions/13/bin
+    )
 export PATH
 ```
-
-</details>
 
 ## Initialisation
 
@@ -56,8 +52,7 @@ A few of the helper functions are intended to make sure my configuration acts mo
 
 Whether that statement holds true is... debatable :)
 
-<details>
-<summary>Determining the current OS</summary>
+### Determining the current OS
 
 In order to save having to remember how to use `uname` and all that, I just have my own little configuration within my shell that I can reference
 
@@ -75,9 +70,7 @@ Functionally, I can treat WSL and Linux the same (and I do) but there are some m
 
 It's worth noting that the value of `$OPSYS` on `macOS` is `darwin`. I could change it to be clearer but [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system)) is technically the correct name for the base operating system
 
-</details>
-<details>
-<summary>Setting my workspace</summary>
+### Setting my workspace
 
 All of my development occurs in `$HOME/Code` regardless of what machine I'm on. One day I might change it though hence the variable.
 
@@ -85,9 +78,7 @@ All of my development occurs in `$HOME/Code` regardless of what machine I'm on. 
 export WORKSPACE="$HOME/Code"
 ```
 
-</details>
-<details>
-<summary>Setting various global constants</summary>
+### Setting various global constants
 
 ```bash
 export CONFIG_FILE="$HOME/.zshrc"
@@ -111,9 +102,7 @@ This doesn't really make much sense given `emacs` and `emacsclient` tend to live
 
 In the event that happens anyway, this quick hack (find `emacs` and append "client" on the end) works in the meantime
 
-</details>
-<details>
-<summary>Setting some Windows / WSL specific constants</summary>
+### Setting some Windows / WSL specific constants
 
 ```bash
 if [[ $OPSYS == "windows" ]]; then
@@ -126,9 +115,7 @@ fi
 
 2. While I don't believe this actually works, I attempt to override the `BROWSER` environment variable to open links on the Windows host from within Emacs
 
-</details>
-<details>
-<summary>Adding custom items to PATH</summary>
+### Adding custom items to PATH
 
 I've got some scripts that are handy to have so let's add those to the PATH
 
@@ -136,9 +123,7 @@ I've got some scripts that are handy to have so let's add those to the PATH
 export PATH=$HOME/scripts:$PATH
 ```
 
-</details>
-<details>
-<summary>Module autoloading</summary>
+### Module autoloading
 
 Currently, this is just used for kubectl shell completion
 
@@ -147,12 +132,9 @@ autoload -Uz compinit
 compinit
 ```
 
-</details>
-
 ## Applications
 
-<details>
-<summary>asdf</summary>
+### asdf
 
 The version manager to rule them all
 
@@ -167,9 +149,7 @@ export PATH=$(asdf where nodejs)/.npm/bin:$PATH
 export PATH=$(asdf where python)/bin:$PATH
 ```
 
-</details>
-<details>
-<summary>fzf</summary>
+### fzf
 
 A fuzzy finder which comes with some autocompletions
 
@@ -179,9 +159,7 @@ if [[ $(command -v fzf) ]]; then
 fi
 ```
 
-</details>
-<details>
-<summary>git</summary>
+### git
 
 To save me having to set up each machine, I just set my Git identifiers each time
 
@@ -190,9 +168,7 @@ git config --global user.name "{{ .name }}"
 git config --global user.email "{{ .email }}"
 ```
 
-</details>
-<details>
-<summary>kubectl</summary>
+### kubectl
 
 Kubectl comes with some shell completions for zsh
 
@@ -200,9 +176,7 @@ Kubectl comes with some shell completions for zsh
 source <(kubectl completion zsh)
 ```
 
-</details>
-<details>
-<summary>less</summary>
+### less
 
 Less is great by default but it'd be even nicer with syntax highlighting!
 
@@ -214,9 +188,7 @@ if [[ $(which src-hilite-lesspipe.sh) ]]; then
 fi
 ```
 
-</details>
-<details>
-<summary>nix</summary>
+### nix
 
 I don't use it yet but Home Manager is promising
 
@@ -234,17 +206,12 @@ if [[ $(command -v nix) ]]; then
 fi
 ```
 
-</details>
-<details>
-<summary>Postgres</summary>
-
+### Postgres
 ```bash
 export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
 ```
 
-</details>
-<details>
-<summary>Sublime Text</summary>
+### Sublime Text
 
 Sublime ships with a helper tool called `subl` which, on macOS lives within the application bundle. It isn't registered by default so let's add it to the `PATH`.
 
@@ -252,12 +219,9 @@ Sublime ships with a helper tool called `subl` which, on macOS lives within the 
 export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin/:$PATH"
 ```
 
-</details>
-
 ## Languages
 
-<details>
-<summary>Erlang</summary>
+### Erlang
 
 Whenever I compile `erlang` (using `asdf`), I always use the same flags so it's easier to just set them within my shell
 
@@ -266,9 +230,7 @@ export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac"
 export KERL_BUILD_DOCS="yes"
 ```
 
-</details>
-<details>
-<summary>go</summary>
+### go
 
 I don't explicitly set `GOROOT` as it is defined by `asdf` generally.
 
@@ -277,9 +239,6 @@ export GOPATH="$WORKSPACE/go"
 export PATH="$GOPATH/bin:$PATH"
 export GO111MODULE="on"
 ```
-
-</details>
-
 ## Global packages
 
 There's no native functionality for keeping globally installed packages in sync, to my knowledge, so this is going to be a hack for that!
@@ -337,8 +296,7 @@ alias ws="cd $WORKSPACE"
 
 These are some handy functions I use from time to time
 
-<details>
-<summary>Quick shortcuts to push and pull the current branch</summary>
+### Quick shortcuts to push and pull the current branch
 
 While I can just do `git pull`, setting tracking branches is annoying because I always call them the same as their upstream branch.
 
@@ -350,17 +308,13 @@ function gps { git branch | grep '*' | cut -c3- | xargs -I{} git push origin {} 
 function pap { git branch | grep '*' | cut -c3- | xargs -I{} git pull upstream {} && git push origin {} }
 ```
 
-</details>
-<details>
-<summary>What application is listening on any given port?</summary>
+### What application is listening on any given port?
 
 ```bash
 function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 ```
 
-</details>
-<details>
-<summary>I'd like to tangle a markdown file please</summary>
+### I'd like to tangle a markdown file please
 
 I have my own little Markdown tangling tool which you can read about [here](https://github.com/marcus-crane/dotfiles#a-note-on-tangling-files)
 
@@ -374,9 +328,7 @@ function tangle-md() {
 }
 ```
 
-</details>
-<details>
-<summary>I'd like to tangle an org file please</summary>
+### I'd like to tangle an org file please
 
 ```bash
 function tangle-file() {
@@ -384,9 +336,7 @@ function tangle-file() {
 }
 ```
 
-</details>
-<details>
-<summary>What's inside that JWT?</summary>
+### What's inside that JWT?
 
 This function is used to display both encrypted and regular JWT tokens, as opposed to using an online service like https://jwt.io
 
@@ -417,9 +367,7 @@ function jwt() {
 }
 ```
 
-</details>
-<details>
-<summary>I'd like to see all resources in any given namespace</summary>
+### I'd like to see all resources in any given namespace
 
 Annoyingly, the `kubectl get all` command doesn't actually do what it says on the tin.
 
@@ -433,9 +381,7 @@ function get-all-resources() {
 }
 ```
 
-</details>
-<details>
-<summary>What functions have I defined?</summary>
+### What functions have I defined?
 
 Often I'll forget what little shortcut functions I've made so here's a quick cheatsheet
 
@@ -457,9 +403,7 @@ Technically speaking, the second grep would potentially be filtering itself out 
 
 It also makes my head hurt a little bit for what you'd think would be a pretty basic function!
 
-</details>
-<details>
-<summary>What's a quick way to archive backups?</summary>
+### What's a quick way to archive backups?
 
 In order to save on cloud storage space, while still keeping a home for rarely used backups, I like to store things in [Backblaze B2](https://backblaze.com/b2/cloud-storage)
 
@@ -471,9 +415,7 @@ function archive() {
 }
 ```
 
-</details>
-<details>
-<summary>Quick convert screen recording to a more suitable format</summary>
+### Quick convert screen recording to a more suitable format
 
 Often times, I find myself making screen recording with Quicktime but they export as `.mov` files. I much prefer having an `mp4` file as it's more universally accepted so this is a quick function to perform that convertion with ffmpeg.
 
@@ -487,9 +429,7 @@ function demov() {
 }
 ```
 
-</details>
-<details>
-<summary>Quick convert h265 to 8 bit 264</summary>
+### Quick convert h265 to 8 bit 264
 
 ```bash
 function de265() {
@@ -501,9 +441,7 @@ function de265() {
 }
 ```
 
-</details>
-<details>
-<summary>Pin Kubernetes namespace</summary>
+### Pin Kubernetes namespace
 
 I often end up repeating the same namespace which gets annoying so this is a way to "pin" a namespace
 
@@ -520,9 +458,7 @@ function untack() {
 }
 ```
 
-</details>
-<details>
-<summary>Extract emails from a webpage</summary>
+### Extract emails from a webpage
 
 I recently discovered `html-xml-utils` which has some handy functionality so this is a basic script to try and extract mailto links from a webpage
 
@@ -542,9 +478,7 @@ function emails() {
 }
 ```
 
-</details>
-<details>
-<summary>Change Kubernetes context quickly</summary>
+### Change Kubernetes context quickly
 
 This is a small script I [found on Hacker News](https://news.ycombinator.com/item?id=26636675) which uses fzf to quick switch contexts
 
@@ -558,9 +492,7 @@ function kc () {
 }
 ```
 
-</details>
-<details>
-<summary>Calculating nines</summary>
+### Calculating nines
 
 Often times, it can be useful to put service uptime into minutes and hours. Thankfully [uptime.is](https://uptime.is) is a handy tool for this plus it reserves JSON too!
 
@@ -570,9 +502,7 @@ function nines() {
 }
 ```
 
-</details>
-<details>
-<summary>Delete Git branches interactively with fzf</summary>
+### Delete Git branches interactively with fzf
 
 This function was quite shamelessly taken from [this very good post](https://seb.jambor.dev/posts/improving-shell-workflows-with-fzf/) by Sebastian Jambor.
 
@@ -592,9 +522,7 @@ function gbd() {
 }
 ```
 
-</details>
-<details>
-<summary>View and delete pods interactively with fzf</summary>
+### View and delete pods interactively with fzf
 
 Inspired by the git branches function, I decided to apply the same idea to viewing and deleting pods.
 
@@ -609,9 +537,7 @@ function pods() {
 }
 ```
 
-</details>
-<details>
-<summary>View Kubernetes container logs interactively with fzf</summary>
+### View Kubernetes container logs interactively with fzf
 
 This one took me a little while to throw together since fzf is designed to only work with one input for the preview.
 
@@ -629,9 +555,7 @@ function logs() {
 }
 ```
 
-</details>
-<details>
-<summary>Create an internet bookmark file</summary>
+### Create an internet bookmark file
 
 ```bash
 function bookmark() {
@@ -643,9 +567,7 @@ function bookmark() {
 }
 ```
 
-</details>
-<details>
-<summary>View and open internet bookmarks</summary>
+### View and open internet bookmarks
 
 ```bash
 function site() {
@@ -656,9 +578,7 @@ function site() {
 }
 ```
 
-</details>
-<details>
-<summary>View unread Pinboard items</summary>
+### View unread Pinboard items
 
 ```bash
 function pinboard() {
@@ -675,9 +595,7 @@ function pinboard() {
 }
 ```
 
-</details>
-<details>
-<summary>View homebrew casks</summary>
+### View homebrew casks
 
 I find that the Homebrew cask search doesn't provide enough information to make an informed decision so I'm using fzf instead to help
 
@@ -691,9 +609,7 @@ function casks() {
 }
 ```
 
-</details>
-<details>
-<summary>View all ingress domain names found in a cluster</summary>
+### View all ingress domain names found in a cluster
 
 ```bash
 function ingresses() {
@@ -703,9 +619,7 @@ function ingresses() {
 }
 ```
 
-</details>
-<details>
-<summary>Regenerate a secret key that has the same length as the input</summary>
+### Regenerate a secret key that has the same length as the input
 
 Something I commonly do is regenerate secret keys between environments when deploying software. These keys aren't necessarily secret in themselves so much as they are just used to provide extra entropy.
 
@@ -718,9 +632,7 @@ function secretregen() {
 }
 ```
 
-</details>
-<details>
-<summary>Decode URLs with percentage decoded values</summary>
+### Decode URLs with percentage decoded values
 
 Often times, it can be more useful to inspect the API calls made by a web application, than using the API documentation supplies but this can get a little annoying when you need to decode HTML entities.
 
@@ -736,9 +648,7 @@ function percentdecode() {
 }
 ```
 
-</details>
-<details>
-<summary>Create a new blog post for my site</summary>
+### Create a new blog post for my site
 
 Hugo archetypes are the way to do this but I'm not sure if I have my folders configured properly.
 
@@ -761,9 +671,7 @@ function newpost() {
 }
 ```
 
-</details>
-<details>
-<summary>Envy</summary>
+### Envy
 
 A small helper function for sourcing the contents of `.env` files into my shell
 
@@ -780,9 +688,7 @@ envy() {
 }
 ```
 
-</details>
-<details>
-<summary>fly.io logs</summary>
+### fly.io logs
 
 I find myself checking fly logs (and sshing into them) a lot since some of my personal projects live there.
 
@@ -803,9 +709,7 @@ flogs() {
 }
 ```
 
-</details>
-<details>
-<summary>Pretty print PATH</summary>
+### Pretty print PATH
 
 ```bash
 path() {
@@ -813,9 +717,7 @@ path() {
 }
 ```
 
-</details>
-<details>
-<summary>Kumamon on demand</summary>
+### Kumamon on demand
 
 I like [Kumamon](https://en.wikipedia.org/wiki/Kumamon) but I don't watch Kumamon videos enough so this is a small function that opens a random Kumamon YouTube video using mpv
 
@@ -831,9 +733,7 @@ kumamon() {
 }
 ```
 
-</details>
-<details>
-<summary>defaults plist viewer</summary>
+### defaults plist viewer
 
 This is probably my weightiest command to date
 
@@ -848,9 +748,7 @@ viewdefaults() {
 }
 ```
 
-</details>
-<details>
-<summary>pretty print url params</summary>
+### params
 
 Using the previously defined `percentdecode` function, this makes it easy to visualise request params in a URL
 
