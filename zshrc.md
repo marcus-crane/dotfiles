@@ -4,7 +4,7 @@ output: dot_zshrc.tmpl
 ---
 
 <center>
-![](./assets/zsh.gif)
+<img src="assets/zsh.gif" />
 <h1>Welcome to my zsh config</h1>
 </center>
 
