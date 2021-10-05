@@ -17,7 +17,7 @@ output: dot_zshrc.tmpl
 - [Global packages](#global-packages)
 - [Shortcuts](#shortcuts)
 - [Functions](#functions)
-- [iTerm 2 integration](#iterm2-integration)
+- [iTerm 2 integration](#iterm-2-integration)
 
 ## Setting up PATHs
 
