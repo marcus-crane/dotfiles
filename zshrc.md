@@ -19,10 +19,10 @@ output: dot_zshrc.tmpl
 - [Functions](#functions)
 - [iTerm 2 integration](#iterm2-integration)
 
-<details>
-<summary>Setting up PATHs</summary>
+## Setting up PATHs
 
-### Universal system folders
+<details>
+<summary>Universal system folders</summary>
 
 These paths generally exist on most every system so we'll set them seperately from other PATH additions.
 
