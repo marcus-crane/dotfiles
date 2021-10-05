@@ -60,3 +60,7 @@ A few prerequisite utilities are needed for a seamless install
 | wxmac     | Erlang       | Optional       |
 
 In future, I intend to make this all automated via chezmoi
+
+## Extras to be manually installed
+
+Wallpaper - [evangelion-clock-screensaver](https://github.com/Wandmalfarbe/evangelion-clock-screensaver)
