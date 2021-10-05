@@ -775,7 +775,7 @@ viewdefaults() {
 }
 ```
 
-### params
+### Pretty print URL params
 
 Using the previously defined `percentdecode` function, this makes it easy to visualise request params in a URL
 
