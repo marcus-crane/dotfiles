@@ -5,7 +5,7 @@ output: dot_zshrc.tmpl
 
 <div align="center">
 <img src="assets/zsh.gif" />
-<h1 style="border-bottom: none;">Welcome to my zsh config</h1>
+<h1>Welcome to my zsh config</h1>
 </div>
 
 ## Table of contents
@@ -19,7 +19,8 @@ output: dot_zshrc.tmpl
 - [Functions](#functions)
 - [iTerm 2 integration](#iterm2-integration)
 
-## Setting up PATHs
+<details>
+<summary>Setting up PATHs</summary>
 
 ### Universal system folders
 
@@ -43,6 +44,8 @@ path=(/bin
     )
 export PATH
 ```
+
+</details>
 
 ## Initialisation
 
