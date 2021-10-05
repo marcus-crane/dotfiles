@@ -5,7 +5,7 @@ output: dot_zshrc.tmpl
 
 <div align="center">
 <img src="assets/zsh.gif" />
-<h1>Welcome to my zsh config</h1>
+<h1 style="border-bottom: none;">Welcome to my zsh config</h1>
 </div>
 
 ## Table of contents
