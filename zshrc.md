@@ -3,10 +3,10 @@ title: My zsh config
 output: dot_zshrc.tmpl
 ---
 
-<center>
+<div align="center">
 <img src="assets/zsh.gif" />
 <h1>Welcome to my zsh config</h1>
-</center>
+</div>
 
 ## Table of contents
 
