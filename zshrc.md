@@ -42,6 +42,26 @@ output: dot_zshrc.tmpl
   - [What's inside that JWT?](#whats-inside-that-jwt)
   - [I'd like to see all resources in any given namespace](#id-like-to-see-all-resources-in-any-given-namespace)
   - [What functions have I defined?](#what-functions-have-i-defined)
+  - [What's a quick way to archive backups?](#whats-a-quick-way-to-archive-backups)
+  - [Quick convert screen recording to a more suitable format](#quick-convert-screen-recording-to-a-more-suitable-format)
+  - [Quick convert h265 to 8 bit 264](#quick-convert-h265-to-8-bit-264)
+  - [Extract emails from a webpage](#extract-emails-from-a-webpage)
+  - [Calculating nines](#calculating-nines)
+  - [Delete Git branches interactively with fzf](#delete-git-branches-interactively-with-fzf)
+  - [Create an internet bookmark file](#create-an-internet-bookmark-file)
+  - [View and open internet bookmarks](#view-and-open-internet-bookmarks)
+  - [View unread Pinboard items](#view-unread-pinboard-items)
+  - [View homebrew casks](#view-homebrew-casks)
+  - [View all ingress domain names found in a cluster](#view-all-ingress-domain-names-found-in-a-cluster)
+  - [Regenerate a secret key that has the same length as the input](#regenerate-a-secret-key-that-has-the-same-length-as-the-input)
+  - [Decode URLs with percentage decoded values](#decode-urls-with-percentage-decoded-values)
+  - [Create a new blog post for my site](#create-a-new-blog-post-for-my-site)
+  - [Envy](#envy)
+  - [fly.io logs](#flyio-logs)
+  - [Pretty print PATH](#pretty-print-path)
+  - [Kumamon on demand](#kumamon-on-demand)
+  - [defaults plist viewer](#defaults-plist-viewer)
+  - [Pretty print URL params](#pretty-print-url-params)
 - [iTerm 2 integration](#iterm-2-integration)
 
 </details>
@@ -468,23 +488,6 @@ function de265() {
 }
 ```
 
-### Pin Kubernetes namespace
-
-I often end up repeating the same namespace which gets annoying so this is a way to "pin" a namespace
-
-```bash
-function tack() {
-  alias kubectl="kubectl -n $1"
-  print "Tacked $1"
-}
-```
-
-```bash
-function untack() {
-  unalias kubectl
-}
-```
-
 ### Extract emails from a webpage
 
 I recently discovered `html-xml-utils` which has some handy functionality so this is a basic script to try and extract mailto links from a webpage
@@ -502,20 +505,6 @@ function emails() {
     cut -d ":" -f2 |
     sort |
     uniq
-}
-```
-
-### Change Kubernetes context quickly
-
-This is a small script I [found on Hacker News](https://news.ycombinator.com/item?id=26636675) which uses fzf to quick switch contexts
-
-```bash
-function kc () {
-  if [[ $(command -v "fzf") ]]; then
-    kubectl config get-contexts | tail -n +2 | fzf | cut -c 2- | awk '{print $1}' | xargs kubectl config use-context
-  else
-    print "It doesn't look like you have fzf installed."
-  fi
 }
 ```
 
@@ -546,39 +535,6 @@ function gbd() {
     cut -c 3- |
     fzf --multi --preview="git log {} --" |
     xargs git branch --delete --force
-}
-```
-
-### View and delete pods interactively with fzf
-
-Inspired by the git branches function, I decided to apply the same idea to viewing and deleting pods.
-
-It takes a little bit longer as it relies on network API calls of course but it's fairly handy.
-
-```bash
-function pods() {
-  kubectl get pods -o=custom-columns=NAME:.metadata.name |
-    tail -n +2 |
-    fzf --multi --preview-window down --preview="kubectl describe pod {} --" |
-    xargs kubectl delete pod
-}
-```
-
-### View Kubernetes container logs interactively with fzf
-
-This one took me a little while to throw together since fzf is designed to only work with one input for the preview.
-
-It seems if you attempt to use `xargs -I {}`, the value of `{}` will always refer to the single preview input, rather than whatever value you have piped into `xargs`. As long as you don't use the `-I` flag, you can split the original `{}` value into multiple lines and using xarg, create a multi-line command.
-
-The only catch of course is that you can't use `xargs -I` to format those. In this case, `kubectl logs $1 $2` happens to be a valid way to specify container name and pod name but if a `-c` was enforced, this command wouldn't work.
-
-Also clearly breaking the model of what fzf expects and arguably introducing some unnecessary complexity.
-
-```bash
-function logs() {
-  kubectl get pods -o json |
-    jq -r '.items[] as $item | $item.spec.containers[] | [$item.metadata.name, .name] | join(" ~ ")' |
-    fzf --preview-window down:follow --preview="echo {} | tr ' ~ ' '\n' | xargs kubectl logs --tail 20 --follow"
 }
 ```
 
@@ -690,7 +646,7 @@ function newpost() {
   echo "Would you like to start writing?"
   select ynd in "Yes" "No" "Delete"; do
     case $ynd in
-      Yes ) nvim ~/utf9k/content/blog/20xx--$SLUG/index.md; echo "Nice work!"; break;;
+      Yes ) $EDITOR ~/utf9k/content/blog/20xx--$SLUG/index.md; echo "Nice work!"; break;;
       No ) break;;
       Delete ) rm -rf ~/utf9k/content/blog/20xx--$SLUG; echo "Deleted"; break;;
     esac
