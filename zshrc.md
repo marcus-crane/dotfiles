@@ -3,6 +3,22 @@ title: My zsh config
 output: dot_zshrc.tmpl
 ---
 
+<center>
+![](./assets/zsh.gif)
+<h1>Welcome to my zsh config</h1>
+</center>
+
+## Table of contents
+
+- [Setting up PATHs](#setting-up-paths)
+- [Initialisation](#initialisation)
+- [Applications](#applications)
+- [Languages](#languages)
+- [Global packages](#global-packages)
+- [Shortcuts](#shortcuts)
+- [Functions](#functions)
+- [iTerm 2 integration](#iterm2-integration)
+
 ## Setting up PATHs
 
 ### Universal system folders
@@ -223,7 +239,7 @@ export GOPATH="$WORKSPACE/go"
 export PATH="$GOPATH/bin:$PATH"
 export GO111MODULE="on"
 ```
-## Globally installed packages
+## Global packages
 
 There's no native functionality for keeping globally installed packages in sync, to my knowledge, so this is going to be a hack for that!
 
