@@ -87,7 +87,7 @@ path=(/bin
       /usr/local/MacGPG2/bin
       /usr/local/opt/postgresql@10/bin
       /Applications/Postgres.app/Contents/Versions/13/bin
-      /Applications/Sublime Text.app/Contents/SharedSupport/bin
+      "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
     )
 export PATH
 ```
