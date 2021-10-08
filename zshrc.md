@@ -1,5 +1,7 @@
 ---
 title: My zsh config
+slug: zsh
+category: dotfiles
 output: dot_zshrc.tmpl
 ---
 
