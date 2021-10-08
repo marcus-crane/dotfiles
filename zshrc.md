@@ -59,6 +59,7 @@ output: dot_zshrc.tmpl
   - [Kumamon on demand](#kumamon-on-demand)
   - [defaults plist viewer](#defaults-plist-viewer)
   - [Pretty print URL params](#pretty-print-url-params)
+  - [master to main](#master-to-main)
 - [iTerm 2 integration](#iterm-2-integration)
 
 </details>
@@ -713,6 +714,19 @@ params() {
   percentdecode $1 |
     tr "?" "\n" |
     tr "&" "\n"
+}
+```
+
+### master to main
+
+From time to time, I'll update a repo's branch for consistency and forget the steps to update my local
+
+```bash
+master2main() {
+  git branch -m master main
+  git fetch origin
+  git branch -u origin/main main
+  git remote set-head origin -a
 }
 ```
 
