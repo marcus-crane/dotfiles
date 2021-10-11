@@ -1,6 +1,6 @@
 ---
 title: My zsh config
-slug: zsh
+slug: zshrc
 category: dotfiles
 description: "My personal zsh configuration, now available in literate form."
 output: dot_zshrc.tmpl
