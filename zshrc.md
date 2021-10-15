@@ -684,6 +684,7 @@ kumamon() {
     https://www.youtube.com/c/KumamonTV/videos
     https://www.youtube.com/channel/UCHZQHTjxwQ5fa9Fiosp6orw/videos
     https://www.youtube.com/channel/UCZ4jjYAi4BI1-aU7Tg4HliQ/videos
+    https://www.youtube.com/channel/UCrw3-jkioIlt7JtvtrrbPFg/videos
   )
   channel=${channels[$(( $RANDOM % ${#channels[@]} +1 ))]}
   mpv $channel --shuffle --geometry=100%:0% --autofit=20% --ytdl-format="bestvideo[height<=480]+bestaudio/best[height<=480]" --ontop
