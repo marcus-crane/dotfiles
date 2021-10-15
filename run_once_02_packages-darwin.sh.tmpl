@@ -50,6 +50,15 @@ brew "wget"
 brew "youtube-dl"
 brew "zsh"
 
+# quicklook extensions
+cask "gltfquicklook"
+cask "provisionql"
+cask "qladdict"
+cask "qlcommonmark"
+cask "qlstephen"
+cask "quickgeojson"
+cask "quicklook-csv"
+
 # fonts
 cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
@@ -68,4 +77,8 @@ mas "Shazam", id: 897118787
 mas "Tailscale", id: 1475387142
 {{- end }}
 EOF
+
+xattr -r -d com.apple.quarantine ~/Library/QuickLook/*.qlgenerator
+qlmanage -r
+
 {{ end -}}
