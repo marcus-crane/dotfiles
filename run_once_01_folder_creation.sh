@@ -5,7 +5,7 @@ directories=(
   "$HOME/Code"
   "$HOME/Pictures/Screenshots"
   "$HOME/tmp"
-  "$HOME/.tmux/plugins"
+  "$HOME/.tmux/plugins/tpm"
 )
 
 for i in "${directories[@]}"; do
