@@ -21,6 +21,7 @@ output: dot_zshrc.tmpl
   - [asdf](#asdf)
   - [fzf](#fzf)
   - [git](#git)
+  - [Homebrew](#homebrew)
   - [kubectl](#kubectl)
   - [less](#less)
   - [nix](#nix)
@@ -198,6 +199,14 @@ To save me having to set up each machine, I just set my Git identifiers each tim
 ```bash
 git config --global user.name "{{ .name }}"
 git config --global user.email "{{ .email }}"
+```
+
+### Homebrew
+
+It can take quite some time if Homebrew decides to automatically update everything so let's turn that off
+
+```bash
+export HOMEBREW_NO_AUTO_UPDATE=1
 ```
 
 ### kubectl
