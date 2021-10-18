@@ -1,9 +1,0 @@
-Host *
-  ControlMaster auto
-  ControlPath ~/.ssh-sockets/%r
-  ControlPersist 600
-  ServerAliveInterval 30
-  ServerAliveCountMax 3
-  AddKeysToAgent yes
-  UseKeychain yes
-  Compression yes
