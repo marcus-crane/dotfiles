@@ -1,5 +1,5 @@
 [user]
-  email = {{ (index (index (onepassword "p3hnubkz36afcatdymratbqr6a").details.sections 2).fields 3).v }}
+  email = {{ .work.email }}
   name = {{ .name }}
   signingkey = 15DC6AC2068B5E35827845D20066202F5187A0C8
 [pull]
