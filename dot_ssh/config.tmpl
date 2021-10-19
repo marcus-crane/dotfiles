@@ -8,8 +8,10 @@ Host *
   UseKeychain yes
   Compression yes
 
+{{- if eq .chezmoi.hostname "ikaruga" }}
 {{- $rawPaT := (onepassword "kyftkfkjyauqyz4ycq4nppr7jy").details.password }}
 {{- $workConfigPath := (onepassword "zwfqkblgcczne3alxf6orsh5uy").details }}
 {{- $authHeader := (cat "Authorization: token" $rawPaT) }}
 {{ $fileURL := (index (index (onepassword "zwfqkblgcczne3alxf6orsh5uy").details.sections 0).fields 0).v }}
 {{ output "curl" "-H" $authHeader $fileURL }}
+{{- end }}
