@@ -1,0 +1,32 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ $apps := list
+  "/Applications/Brave Browser.app"
+  "/System/Applications/Calendar.app"
+  "/Applications/iTerm.app"
+  "/Applications/Craft.app"
+  "/Applications/TickTick.app"
+  "/Applications/Spotify.app"
+  "/Applications/Discord.app"
+  "/Applications/Slack.app"
+  "/Applications/LINE.app"
+}}
+
+defaults delete com.apple.dock persistent-apps
+
+{{ range ($apps | uniq) -}}
+defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>{{ . }}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+{{ end -}}
+
+defaults delete com.apple.dock persistent-others
+
+defaults write com.apple.dock persistent-others -array-add "<dict><key>tile-data</key><dict><key>label</key><string>utf9k</string><key>url</key><dict><key>_CFURLString</key><string>https://utf9k.net</string><key>_CFURLStringType</key><integer>15</integer></dict></dict><key>tile-type</key><string>url-tile</string></dict>"
+
+defaults write com.apple.dock persistent-others -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Users/marcus/Pictures/Screenshots/</string><key>_CFURLStringType</key><integer>0</integer></dict></dict><key>tile-type</key><string>directory-tile</string></dict>"
+
+killall Dock
+
+{{ end -}}
