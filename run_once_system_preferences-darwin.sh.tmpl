@@ -43,25 +43,28 @@ defaults write com.apple.Safari AutoFillCreditCardData -bool false
 defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false
 
 # Only use Plain Text for TextEdit documents
-defaults write com.apple.TextEdit "RichText" -bool "false"
+defaults write com.apple.TextEdit "RichText" -bool false
 
 # Don't try to quarantine downloaded applications
-defaults write com.apple.LaunchServices "LSQuarantine" -bool "false"
+defaults write com.apple.LaunchServices "LSQuarantine" -bool false
 
 # Always save to disk over iCloud
-defaults write NSGlobalDomain "NSDocumentSaveNewDocumentsToCloud" -bool "false"
+defaults write NSGlobalDomain "NSDocumentSaveNewDocumentsToCloud" -bool false
 
 # Hide thumbnails when taking a screenshot
-defaults write com.apple.screencapture "show-thumbnail" -bool "false"
+defaults write com.apple.screencapture "show-thumbnail" -bool false
 
 # Place screenshots in ~/Pictures/Screenshots
 defaults write com.apple.screencapture "location" -string "~/Pictures/Screenshots"
 
 # Don't show recently opened applications in Dock
-defaults write com.apple.dock "show-recents" -bool "false"
+defaults write com.apple.dock "show-recents" -bool false
 
 # Autohide Dock
-defaults write com.apple.dock "autohide" -bool "true"
+defaults write com.apple.dock "autohide" -bool true
+
+# Set Dock to a relatively small size
+defaults write com.apple.dock tilesize -int 30
 
 echo "Done. Note that some of these changes require a logout/restart to take effect."
 {{ end -}}
