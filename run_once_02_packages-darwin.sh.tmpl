@@ -65,9 +65,21 @@ cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
 
 # cask apps
-cask "1password-cli"
-cask "aws-vault"
-cask "slack"
+# force is used here to overwrite any applications
+# manually installed outside of brew. without force,
+# these commands will fail otherwise
+cask "1password-cli", args: { force: true }
+cask "aws-vault", args: { force: true }
+cask "brave-browser", args: { force: true }
+cask "discord", args: { force: true }
+cask "goland", args: { force: true }
+cask "gpg-suite-no-mail", args: { force: true }
+cask "iterm2", args: { force: true }
+cask "raycast", args: { force: true }
+cask "slack", args: { force: true }
+cask "spotify", args: { force: true }
+cask "sublime-text", args: { force: true }
+cask "ticktick", args: { force: true }
 
 # mac app store
 # removed under macOS monterey due to a bug
