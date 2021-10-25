@@ -8,6 +8,10 @@ Host *
   UseKeychain yes
   Compression yes
 
+Host netocean
+  HostName 192.168.1.111
+  User marcus
+
 {{- if eq .chezmoi.hostname "ikaruga" }}
 {{- $rawPaT := (onepassword "kyftkfkjyauqyz4ycq4nppr7jy").details.password }}
 {{- $workConfigPath := (onepassword "zwfqkblgcczne3alxf6orsh5uy").details }}
