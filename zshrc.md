@@ -738,6 +738,14 @@ master2main() {
 }
 ```
 
+## Temp work stuff
+
+```bash
+source $HOME/Code/work/home/aliases.sh
+source $HOME/Code/work/home/functions.sh
+export PATH=$PATH:$HOME/Code/work/home/bin
+```
+
 ## iTerm 2 integration
 
 I used iTerm 2 on my various devices as a terminal and so, there are some shell integrations that are handy to use
