@@ -122,7 +122,11 @@ It's worth noting that the value of `$OPSYS` on `macOS` is `darwin`. I could cha
 All of my development occurs in `$HOME/Code` regardless of what machine I'm on. One day I might change it though hence the variable.
 
 ```bash
+{{- if eq (output "sysctl" "-n" "hw.model") "MacBookPro16,4" }}
+export WORKSPACE="$HOME/Code/work"
+{{ else }}
 export WORKSPACE="$HOME/Code"
+{{- end }}
 ```
 
 ### Setting various global constants
@@ -298,6 +302,7 @@ You know... when I get around to doing that...
 ```bash
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
 alias crush="pngcrush -ow"
+alias cz="chezmoi cd"
 alias de="deactivate &> /dev/null"
 alias edit="$EDITOR $CONFIG_SRC"
 alias gb="git branch -v"
@@ -312,6 +317,7 @@ alias nvim="$EDITOR"
 alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
 alias refresh="chezmoi apply && source $CONFIG_FILE"
 alias tabcheck="/bin/cat -e -t -v"
+alias ut="cd ~/utf9k"
 alias utd="cd ~/utf9k && yarn start"
 alias venv="python3 -m venv venv && ae"
 alias vi="$EDITOR"
@@ -738,12 +744,14 @@ master2main() {
 }
 ```
 
-## Temp work stuff
+## Import work related shell scripts
 
 ```bash
+{{- if eq (output "sysctl" "-n" "hw.model") "MacBookPro16,4" }}
 source $HOME/Code/work/home/aliases.sh
 source $HOME/Code/work/home/functions.sh
 export PATH=$PATH:$HOME/Code/work/home/bin
+{{- end }}
 ```
 
 ## iTerm 2 integration
