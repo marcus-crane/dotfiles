@@ -16,13 +16,11 @@ output: dot_zshrc.tmpl
 	- [Setting my workspace](#setting-my-workspace)
 	- [Setting various global constants](#setting-various-global-constants)
 	- [Setting some Windows / WSL specific constants](#setting-some-windows--wsl-specific-constants)
-	- [Module autoloading](#module-autoloading)
 - [Applications](#applications)
   - [asdf](#asdf)
   - [fzf](#fzf)
   - [git](#git)
   - [Homebrew](#homebrew)
-  - [kubectl](#kubectl)
   - [less](#less)
   - [nix](#nix)
 - [Languages](#languages)
@@ -160,15 +158,6 @@ fi
 
 2. While I don't believe this actually works, I attempt to override the `BROWSER` environment variable to open links on the Windows host from within Emacs
 
-### Module autoloading
-
-Currently, this is just used for kubectl shell completion
-
-```bash
-autoload -Uz compinit
-compinit
-```
-
 ## Applications
 
 ### asdf
@@ -211,14 +200,6 @@ It can take quite some time if Homebrew decides to automatically update everythi
 
 ```bash
 export HOMEBREW_NO_AUTO_UPDATE=1
-```
-
-### kubectl
-
-Kubectl comes with some shell completions for zsh
-
-```bash
-source <(kubectl completion zsh)
 ```
 
 ### less
