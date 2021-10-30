@@ -1,12 +1,13 @@
 Host *
   ControlMaster auto
-  ControlPath ~/.ssh-sockets/%r
-  ControlPersist 600
+  ControlPath /tmp/SSH-%r-%n-%p
+  ControlPersist 720
   ServerAliveInterval 30
   ServerAliveCountMax 3
   AddKeysToAgent yes
   UseKeychain yes
-  Compression yes
+  StrictHostKeyChecking no
+  PreferredAuthentications=publickey
 
 Host netocean
   HostName 192.168.1.111
