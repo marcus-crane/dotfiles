@@ -26,7 +26,6 @@ output: dot_zshrc.tmpl
 - [Languages](#languages)
   - [Erlang](#erlang)
   - [go](#go)
-- [Global packages](#global-packages)
 - [Shortcuts](#shortcuts)
 - [Functions](#functions)
   - [Quick shortcuts to push and pull the current branch](#quick-shortcuts-to-push-and-pull-the-current-branch)
@@ -253,25 +252,6 @@ export GOPATH="$WORKSPACE/go"
 export PATH="$GOPATH/bin:$PATH"
 export GO111MODULE="on"
 ```
-## Global packages
-
-There's no native functionality for keeping globally installed packages in sync, to my knowledge, so this is going to be a hack for that!
-
-This installs a range of language servers in a very hacky way
-
-```bash
-function gsync() {
-  global_npm_packages=(
-    neovim
-    pkgparse
-  )
-  global_ruby_packages=(
-    neovim
-  )
-  yarn global add $global_npm_packages
-  gem install $global_ruby_packages
-}
-```
 
 ## Shortcuts
 
@@ -296,7 +276,6 @@ alias gst="git status"
 alias ipv4="dig @resolver4.opendns.com myip.opendns.com +short -4"
 alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6"
 alias nvim="$EDITOR"
-alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
 alias refresh="chezmoi apply && source $CONFIG_FILE"
 alias tabcheck="/bin/cat -e -t -v"
 alias ut="cd ~/utf9k"
@@ -336,11 +315,7 @@ I have my own little Markdown tangling tool which you can read about [here](http
 
 ```bash
 function tangle-md() {
-  if [[ $(command -v lugh) ]]; then
-    lugh -f "$1"
-  else
-    echo "lugh isn't installed. You can find it at https://github.com/marcus-crane/lugh"
-  fi
+  lugh -f "$1"
 }
 ```
 
@@ -437,11 +412,7 @@ Often times, I find myself making screen recording with Quicktime but they expor
 
 ```bash
 function demov() {
-  if [[ $(command -v "ffmpeg") ]]; then
-      ffmpeg -i $1 -vcodec libx264 -acodec aac $(echo "$1" | rev | cut -f 2- -d '.' | rev).mp4
-  else
-      print "It doesn't look like you have ffmpeg installed."
-  fi
+  ffmpeg -i $1 -vcodec libx264 -acodec aac $(echo "$1" | rev | cut -f 2- -d '.' | rev).mp4
 }
 ```
 
@@ -449,11 +420,7 @@ function demov() {
 
 ```bash
 function de265() {
-  if [[ $(command -v "ffmpeg") ]]; then
-      ffmpeg -i $1 -map 0 -c:v libx264 -crf 18 -vf format=yuv420p -c:a copy $(echo "$1" | rev | cut -f 2- -d '.' | rev).mp4
-  else
-      print "It doesn't look like you have ffmpeg installed."
-  fi
+  ffmpeg -i $1 -map 0 -c:v libx264 -crf 18 -vf format=yuv420p -c:a copy $(echo "$1" | rev | cut -f 2- -d '.' | rev).mp4
 }
 ```
 
