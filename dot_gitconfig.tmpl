@@ -2,22 +2,22 @@
 	email = {{ .email }}
 	name = {{ .name }}
 	signingkey = 15DC6AC2068B5E35827845D20066202F5187A0C8
-  useConfigOnly = true
+	useConfigOnly = true
 [pull]
 	rebase = false
 [commit]
-  gpgSign = true
+	gpgSign = true
 [status]
-  showStash = true
+	showStash = true
 [checkout]
-  workers = 0
+	workers = 0
 [gpg]
-  program = /usr/local/MacGPG2/bin/gpg2
+	program = /usr/local/MacGPG2/bin/gpg2
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
 [init]
-  defaultBranch = "main"
+	defaultBranch = "main"
 {{- if eq (output "sysctl" "-n" "hw.model") "MacBookPro16,4" }}
 [includeIf "gitdir:~/Code/work/"]
-  path = ~/.work.gitconfig
+	path = ~/.work.gitconfig
 {{- end }}
