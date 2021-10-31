@@ -70,6 +70,7 @@ These paths generally exist on most every system so we'll set them seperately fr
 ```bash
 path=(/bin
       /sbin
+      /usr/local/opt/gnu-tar/libexec/gnubin
       /usr/local/bin
       /usr/bin
       /usr/sbin

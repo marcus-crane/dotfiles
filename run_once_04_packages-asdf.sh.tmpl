@@ -1,0 +1,49 @@
+#!/bin/bash
+
+{{ $plugins := dict
+  "aria2"      "1.35.0"
+  "crystal"    "1.2.1"
+  "exa"        "0.10.1"
+  "gohugo"     "0.88.1"
+  "golang"     "1.17.2"
+  "lua"        "5.4.0"
+  "neovim"     "0.5.1"
+  "nodejs"     "17.0.1"
+  "python"     "3.10.0"
+  "rust"       "nightly"
+  "shellcheck" "0.7.2"
+  "sqlite"     "3.36.0"
+  "tmux"       "3.2"
+  "upx"        "3.96"
+}}
+
+{{- if eq (output "sysctl" "-n" "hw.model") "MacBookPro16,4" }}
+  {{ $_ := set $plugins "ruby" "2.7.2" }}
+  {{ $_ := set $plugins "terraform" "0.13.7" }}
+{{ else }}
+  {{ $_ := set $plugins "ruby" "3.0.2" }}
+  {{ $_ := set $plugins "terraform" "1.0.10"}}
+{{ end -}}
+
+asdf update
+
+{{ range sortAlpha (keys $plugins) -}}
+  asdf plugin-add {{ . }} || true
+  asdf install {{ . }} {{ get $plugins . }} || true
+  asdf global {{ . }} {{ get $plugins . }} || true
+{{ end -}}
+
+{{ $npmPackages := list "neovim" "npm" "pkgparse" }}
+{{ range sortAlpha $npmPackages -}}
+  npm install -g {{ . }}
+{{ end -}}
+
+{{ $pythonPackages := list "black" "flake8" "pip" }}
+{{ range sortAlpha $pythonPackages -}}
+  pip install -U {{ . }}
+{{ end -}}
+
+{{ $rubyPackages := list "bundler" "neovim" }}
+{{ range sortAlpha $rubyPackages }}
+  gem install {{ . }}
+{{ end -}}
