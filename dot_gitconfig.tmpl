@@ -17,7 +17,7 @@
 	insteadOf = https://github.com/
 [init]
 	defaultBranch = "main"
-{{- if eq (output "sysctl" "-n" "hw.model") "MacBookPro16,4" }}
+{{- if eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" }}
 [includeIf "gitdir:~/Code/work/"]
 	path = ~/.work.gitconfig
 {{- end }}

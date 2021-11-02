@@ -17,7 +17,7 @@
   "upx"        "3.96"
 }}
 
-{{- if eq (output "sysctl" "-n" "hw.model") "MacBookPro16,4" }}
+{{- if eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" }}
   {{ $_ := set $plugins "ruby" "2.7.2" }}
   {{ $_ := set $plugins "terraform" "0.13.7" }}
 {{ else }}
