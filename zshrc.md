@@ -114,6 +114,8 @@ if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
 else
   export PROMPT='%B%F{green}>%f%b ' # I'd like a prompt in every other terminal
 fi
+
+export RPROMPT='%t / %? / %L'
 ```
 
 ## Applications
