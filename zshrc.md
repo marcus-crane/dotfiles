@@ -115,7 +115,7 @@ else
   export PROMPT='%B%F{green}>%f%b ' # I'd like a prompt in every other terminal
 fi
 
-export RPROMPT='%t / %? / %L'
+export RPROMPT='%(?.%F{green}.%F{red})%t / %? / %L%f'
 ```
 
 ## Applications
