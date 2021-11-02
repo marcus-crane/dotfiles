@@ -17,6 +17,6 @@ Host izumo
   HostName 192.168.1.244
   User marcus
 
-{{- if eq (output "sysctl" "-n" "hw.model") "MacBookPro16,4" }}
+{{ if eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" -}}
 Include ~/Code/work/home/.ssh/config
 {{- end }}
