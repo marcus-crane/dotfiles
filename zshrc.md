@@ -516,6 +516,9 @@ master2main() {
 source $HOME/Code/work/home/aliases.sh
 source $HOME/Code/work/home/functions.sh
 export PATH=$PATH:$HOME/Code/work/home/bin
+
+export TF_VAR_datadog_api_key={{- (onepasswordDetailsFields "62n7qafj3crbjqtunwktgzoguq" "3rs5ui53xhp5zfe63vltdpb6o4" "vendhq").username.value -}}
+export TF_VAR_datadog_app_key={{- (onepasswordDetailsFields "62n7qafj3crbjqtunwktgzoguq" "3rs5ui53xhp5zfe63vltdpb6o4" "vendhq").password.value -}}
 {{- end }}
 ```
 
