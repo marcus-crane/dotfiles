@@ -141,6 +141,8 @@ if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
 else
   export PROMPT='%B%F{green}>%f%b ' # I'd like a prompt in every other terminal
 fi
+
+export RPROMPT='%(?.%F{green}.%F{red})%t / %? / %L%f'
 ```
 
 ### Setting some Windows / WSL specific constants
