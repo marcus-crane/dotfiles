@@ -12,34 +12,48 @@ output: dot_zshrc.tmpl
 - [Setting up PATHs](#setting-up-paths)
 	- [Universal system folders](#universal-system-folders)
 - [Initialisation](#initialisation)
+	- [Determining the current OS](#determining-the-current-os)
 	- [Setting my workspace](#setting-my-workspace)
 	- [Setting various global constants](#setting-various-global-constants)
+	- [Setting some Windows / WSL specific constants](#setting-some-windows--wsl-specific-constants)
+	- [Module autoloading](#module-autoloading)
 - [Applications](#applications)
   - [asdf](#asdf)
   - [fzf](#fzf)
   - [git](#git)
   - [Homebrew](#homebrew)
+  - [kubectl](#kubectl)
   - [less](#less)
   - [nix](#nix)
 - [Languages](#languages)
   - [Erlang](#erlang)
   - [go](#go)
+- [Global packages](#global-packages)
 - [Shortcuts](#shortcuts)
 - [Functions](#functions)
+  - [Quick shortcuts to push and pull the current branch](#quick-shortcuts-to-push-and-pull-the-current-branch)
   - [What application is listening on any given port?](#what-application-is-listening-on-any-given-port)
   - [I'd like to tangle a markdown file please](#id-like-to-tangle-a-markdown-file-please)
   - [I'd like to tangle an org file please](#id-like-to-tangle-an-org-file-please)
   - [What's inside that JWT?](#whats-inside-that-jwt)
+  - [I'd like to see all resources in any given namespace](#id-like-to-see-all-resources-in-any-given-namespace)
   - [What functions have I defined?](#what-functions-have-i-defined)
   - [What's a quick way to archive backups?](#whats-a-quick-way-to-archive-backups)
   - [Quick convert screen recording to a more suitable format](#quick-convert-screen-recording-to-a-more-suitable-format)
   - [Quick convert h265 to 8 bit 264](#quick-convert-h265-to-8-bit-264)
+  - [Extract emails from a webpage](#extract-emails-from-a-webpage)
   - [Calculating nines](#calculating-nines)
   - [Delete Git branches interactively with fzf](#delete-git-branches-interactively-with-fzf)
+  - [Create an internet bookmark file](#create-an-internet-bookmark-file)
+  - [View and open internet bookmarks](#view-and-open-internet-bookmarks)
+  - [View unread Pinboard items](#view-unread-pinboard-items)
   - [View homebrew casks](#view-homebrew-casks)
+  - [View all ingress domain names found in a cluster](#view-all-ingress-domain-names-found-in-a-cluster)
   - [Regenerate a secret key that has the same length as the input](#regenerate-a-secret-key-that-has-the-same-length-as-the-input)
   - [Decode URLs with percentage decoded values](#decode-urls-with-percentage-decoded-values)
+  - [Create a new blog post for my site](#create-a-new-blog-post-for-my-site)
   - [Envy](#envy)
+  - [fly.io logs](#flyio-logs)
   - [Pretty print PATH](#pretty-print-path)
   - [Kumamon on demand](#kumamon-on-demand)
   - [defaults plist viewer](#defaults-plist-viewer)
@@ -58,7 +72,6 @@ These paths generally exist on most every system so we'll set them seperately fr
 ```bash
 path=(/bin
       /sbin
-      /usr/local/opt/gnu-tar/libexec/gnubin
       /usr/local/bin
       /usr/bin
       /usr/sbin
@@ -86,16 +99,30 @@ A few of the helper functions are intended to make sure my configuration acts mo
 
 Whether that statement holds true is... debatable :)
 
+### Determining the current OS
+
+In order to save having to remember how to use `uname` and all that, I just have my own little configuration within my shell that I can reference
+
+```bash
+if [[ $(uname -r) =~ 'microsoft' ]]; then
+  export OPSYS="windows"
+else
+  export OPSYS=${(L)$(uname -s)}
+fi
+```
+
+Windows is a bit of a misnomer here because what I'm really checking for is whether the shell is running inside of [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/about)
+
+Functionally, I can treat WSL and Linux the same (and I do) but there are some minor alterations I make use of, such as pointing the `DISPLAY` environment variable at an X display server on my host system
+
+It's worth noting that the value of `$OPSYS` on `macOS` is `darwin`. I could change it to be clearer but [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system)) is technically the correct name for the base operating system
+
 ### Setting my workspace
 
 All of my development occurs in `$HOME/Code` regardless of what machine I'm on. One day I might change it though hence the variable.
 
 ```bash
-{{- if eq (output "sysctl" "-n" "hw.model") "MacBookPro16,4" }}
-export WORKSPACE="$HOME/Code/work"
-{{ else }}
 export WORKSPACE="$HOME/Code"
-{{- end }}
 ```
 
 ### Setting various global constants
@@ -114,6 +141,28 @@ if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
 else
   export PROMPT='%B%F{green}>%f%b ' # I'd like a prompt in every other terminal
 fi
+```
+
+### Setting some Windows / WSL specific constants
+
+```bash
+if [[ $OPSYS == "windows" ]]; then
+  export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
+  export BROWSER="/mnt/c/Windows/explorer.exe"
+fi
+```
+
+1. If I'm running on a Windows machine, I run Emacs by starting a daemon inside my terminal and connecting with `emacsclient`. Doing so spawns a new frame using the X display server running on the Windows host itself
+
+2. While I don't believe this actually works, I attempt to override the `BROWSER` environment variable to open links on the Windows host from within Emacs
+
+### Module autoloading
+
+Currently, this is just used for kubectl shell completion
+
+```bash
+autoload -Uz compinit
+compinit
 ```
 
 ## Applications
@@ -158,6 +207,14 @@ It can take quite some time if Homebrew decides to automatically update everythi
 
 ```bash
 export HOMEBREW_NO_AUTO_UPDATE=1
+```
+
+### kubectl
+
+Kubectl comes with some shell completions for zsh
+
+```bash
+source <(kubectl completion zsh)
 ```
 
 ### less
@@ -210,6 +267,25 @@ export GOPATH="$WORKSPACE/go"
 export PATH="$GOPATH/bin:$PATH"
 export GO111MODULE="on"
 ```
+## Global packages
+
+There's no native functionality for keeping globally installed packages in sync, to my knowledge, so this is going to be a hack for that!
+
+This installs a range of language servers in a very hacky way
+
+```bash
+function gsync() {
+  global_npm_packages=(
+    neovim
+    pkgparse
+  )
+  global_ruby_packages=(
+    neovim
+  )
+  yarn global add $global_npm_packages
+  gem install $global_ruby_packages
+}
+```
 
 ## Shortcuts
 
@@ -222,7 +298,6 @@ You know... when I get around to doing that...
 ```bash
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
 alias crush="pngcrush -ow"
-alias cz="chezmoi cd"
 alias de="deactivate &> /dev/null"
 alias edit="$EDITOR $CONFIG_SRC"
 alias gb="git branch -v"
@@ -234,9 +309,9 @@ alias gst="git status"
 alias ipv4="dig @resolver4.opendns.com myip.opendns.com +short -4"
 alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6"
 alias nvim="$EDITOR"
+alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
 alias refresh="chezmoi apply && source $CONFIG_FILE"
 alias tabcheck="/bin/cat -e -t -v"
-alias ut="cd ~/utf9k"
 alias utd="cd ~/utf9k && yarn start"
 alias venv="python3 -m venv venv && ae"
 alias vi="$EDITOR"
@@ -249,6 +324,18 @@ alias ws="cd $WORKSPACE"
 
 These are some handy functions I use from time to time
 
+### Quick shortcuts to push and pull the current branch
+
+While I can just do `git pull`, setting tracking branches is annoying because I always call them the same as their upstream branch.
+
+These commands just push to and pull from the current branch explicitly.
+
+```bash
+function gpl { git branch | grep '*' | cut -c3- | xargs -I{} git pull origin {} }
+function gps { git branch | grep '*' | cut -c3- | xargs -I{} git push origin {} }
+function pap { git branch | grep '*' | cut -c3- | xargs -I{} git pull upstream {} && git push origin {} }
+```
+
 ### What application is listening on any given port?
 
 ```bash
@@ -260,13 +347,21 @@ function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 I have my own little Markdown tangling tool which you can read about [here](https://github.com/marcus-crane/dotfiles#a-note-on-tangling-files)
 
 ```bash
-function tangle-md() { lugh -f "$1" }
+function tangle-md() {
+  if [[ $(command -v lugh) ]]; then
+    lugh -f "$1"
+  else
+    echo "lugh isn't installed. You can find it at https://github.com/marcus-crane/lugh"
+  fi
+}
 ```
 
 ### I'd like to tangle an org file please
 
 ```bash
-function tangle-file() { emacs --batch -l org $@ -f org-babel-tangle }
+function tangle-file() {
+  emacs --batch -l org $@ -f org-babel-tangle
+}
 ```
 
 ### What's inside that JWT?
@@ -297,6 +392,20 @@ function jwt() {
         break
     fi
   done
+}
+```
+
+### I'd like to see all resources in any given namespace
+
+Annoyingly, the `kubectl get all` command doesn't actually do what it says on the tin.
+
+Specifically, "all" in this case only includes a couple of different resources like `pods` and `services`.
+
+As a workaround, it's a bit slow but we can just enumerate through all of the supported resources and see what we get back.
+
+```bash
+function get-all-resources() {
+    kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n $@
 }
 ```
 
@@ -340,7 +449,11 @@ Often times, I find myself making screen recording with Quicktime but they expor
 
 ```bash
 function demov() {
-  ffmpeg -i $1 -vcodec libx264 -acodec aac $(echo "$1" | rev | cut -f 2- -d '.' | rev).mp4
+  if [[ $(command -v "ffmpeg") ]]; then
+      ffmpeg -i $1 -vcodec libx264 -acodec aac $(echo "$1" | rev | cut -f 2- -d '.' | rev).mp4
+  else
+      print "It doesn't look like you have ffmpeg installed."
+  fi
 }
 ```
 
@@ -348,7 +461,31 @@ function demov() {
 
 ```bash
 function de265() {
-  ffmpeg -i $1 -map 0 -c:v libx264 -crf 18 -vf format=yuv420p -c:a copy $(echo "$1" | rev | cut -f 2- -d '.' | rev).mp4
+  if [[ $(command -v "ffmpeg") ]]; then
+      ffmpeg -i $1 -map 0 -c:v libx264 -crf 18 -vf format=yuv420p -c:a copy $(echo "$1" | rev | cut -f 2- -d '.' | rev).mp4
+  else
+      print "It doesn't look like you have ffmpeg installed."
+  fi
+}
+```
+
+### Extract emails from a webpage
+
+I recently discovered `html-xml-utils` which has some handy functionality so this is a basic script to try and extract mailto links from a webpage
+
+```bash
+function emails() {
+  wget --spider --recursive --level=2 --execute robots=off --user-agent="Mozilla/5.0 Firefox/4.0.1" $1 2>&1 |
+    egrep -o 'https?://[^ ]+' |
+    sed -e 's/^.*"\([^"]\+\)".*$/\1/g' |
+    uniq |
+    xargs curl -s |
+    grep -s "mailto" |
+    hxpipe |
+    grep "mailto:" |
+    cut -d ":" -f2 |
+    sort |
+    uniq
 }
 ```
 
@@ -382,6 +519,46 @@ function gbd() {
 }
 ```
 
+### Create an internet bookmark file
+
+```bash
+function bookmark() {
+  local bookmarkName
+  local bookmarkURL
+  vared -p "Bookmark name: " bookmarkName
+  vared -p "Bookmark URL: " bookmarkURL
+  echo "[InternetShortcut]\nURL=$bookmarkURL\nIconIndex=0\n" > $HOME/Bookmarks/$bookmarkName.url
+}
+```
+
+### View and open internet bookmarks
+
+```bash
+function site() {
+  fd . ~/Bookmarks |
+    fzf --multi --preview="cat {} | grep URL | cut -c 5- | xargs curl --head --location --max-time 10" |
+    sed 's/ /\\ /g' |
+    xargs open
+}
+```
+
+### View unread Pinboard items
+
+```bash
+function pinboard() {
+  if [[ ! $OP_SESSION_my ]]; then
+    echo "Please log in using the op cli | eval (op signin my)"
+  else
+    export pinboardToken=$(op get item Pinboard --fields "API Token")
+    curl "https://api.pinboard.in/v1/posts/all?auth_token=$pinboardToken&format=json" |
+      jq 'map(select(.toread == "yes")) | .[].href' |
+      tr -d '"' |
+      fzf --multi --preview="curl -L -I {}" |
+      xargs open
+  fi
+}
+```
+
 ### View homebrew casks
 
 I find that the Homebrew cask search doesn't provide enough information to make an informed decision so I'm using fzf instead to help
@@ -393,6 +570,16 @@ function casks() {
     tr -d '"' |
     fzf --multi --preview="curl https://formulae.brew.sh/api/cask/{}.json | jq '.'" |
     xargs brew install --cask
+}
+```
+
+### View all ingress domain names found in a cluster
+
+```bash
+function ingresses() {
+  kubectl get ingresses --all-namespaces -o json |
+    jq -r '.items[].spec.rules[].host' | 
+    fzf --preview="curl -I -L https://{}"
 }
 ```
 
@@ -425,6 +612,29 @@ function percentdecode() {
 }
 ```
 
+### Create a new blog post for my site
+
+Hugo archetypes are the way to do this but I'm not sure if I have my folders configured properly.
+
+```bash
+function newpost() {
+  local SLUG=$(echo $1 | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+  mkdir -p ~/utf9k/content/blog/20xx--$SLUG
+  cp ~/utf9k/archetypes/blog.md ~/utf9k/content/blog/20xx--$SLUG/index.md
+  sed -i '' -e "s/<TITLE>/$1/g" ~/utf9k/content/blog/20xx--$SLUG/index.md
+  sed -i '' -e "s/<SLUG>/$SLUG/g" ~/utf9k/content/blog/20xx--$SLUG/index.md
+  echo "Created a new post at ~/utf9k/content/blog/20xx--$SLUG/index.md"
+  echo "Would you like to start writing?"
+  select ynd in "Yes" "No" "Delete"; do
+    case $ynd in
+      Yes ) $EDITOR ~/utf9k/content/blog/20xx--$SLUG/index.md; echo "Nice work!"; break;;
+      No ) break;;
+      Delete ) rm -rf ~/utf9k/content/blog/20xx--$SLUG; echo "Deleted"; break;;
+    esac
+  done
+}
+```
+
 ### Envy
 
 A small helper function for sourcing the contents of `.env` files into my shell
@@ -439,6 +649,27 @@ envy() {
     echo "No env file located"
     return 1
   fi
+}
+```
+
+### fly.io logs
+
+I find myself checking fly logs (and sshing into them) a lot since some of my personal projects live there.
+
+We can use fzf to make this easier, and faster without too much hassle.
+
+There's some data munging due to the CLI output being a little non-standard but nothing impossible
+
+```bash
+flogs() {
+  fly apps list |
+    tail -r |
+    tail -n +2 |
+    tail -r |
+    tail -n +2 |
+    awk '{ print $1 }' |
+    fzf --preview="fly logs -a {}" --preview-window=80%,follow |
+    xargs fly ssh console -a
 }
 ```
 
@@ -507,10 +738,10 @@ master2main() {
 }
 ```
 
-## Import work related shell scripts
+## Temp work stuff
 
 ```bash
-{{- if eq (output "sysctl" "-n" "hw.model") "MacBookPro16,4" }}
+{{- if eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" }}
 source $HOME/Code/work/home/aliases.sh
 source $HOME/Code/work/home/functions.sh
 export PATH=$PATH:$HOME/Code/work/home/bin

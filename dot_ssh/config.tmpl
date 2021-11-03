@@ -1,3 +1,7 @@
+{{ if eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" -}}
+Include ~/Code/work/home/.ssh/config
+{{- end }}
+
 Host *
   ControlMaster auto
   ControlPath /tmp/SSH-%r-%n-%p
@@ -8,6 +12,7 @@ Host *
   UseKeychain yes
   StrictHostKeyChecking no
   PreferredAuthentications=publickey
+  {{ if eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" -}}User marcus.crane{{- end }}
 
 Host netocean
   HostName 192.168.1.111
@@ -17,6 +22,3 @@ Host izumo
   HostName 192.168.1.244
   User marcus
 
-{{ if eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" -}}
-Include ~/Code/work/home/.ssh/config
-{{- end }}
