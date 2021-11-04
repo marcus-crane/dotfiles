@@ -43,24 +43,6 @@ lugh -f zshrc.md
 
 Instead of anything fancy, I just "tangle" the contents into a file that chezmoi expects and since it's a `.tmpl` file, it can also make use of chezmoi's built in variables.
 
-## Installing languages with asdf
-
-I used [asdf](https://asdf-vm.com) to manage language installs, with versioning stored in `asdf/.tool-versions`
-
-They are installed by running `asdf install` in the location that `.tool-versions` is symlinked to. By default, that's `$HOME/.tool-versions`
-
-A few prerequisite utilities are needed for a seamless install 
-
-| Name      | Required for | Needed         |
-| --------- | ------------ | -------------- |
-| autoconf  | Erlang       | Yes            |
-| coreutils | Node         | Yes            |
-| gpg       | Node         | Install script |
-| jq        | Terraform    | Install script |
-| wxmac     | Erlang       | Optional       |
-
-In future, I intend to make this all automated via chezmoi
-
 ## Extras to be manually installed
 
 Wallpaper - [evangelion-clock-screensaver](https://github.com/Wandmalfarbe/evangelion-clock-screensaver)
