@@ -59,9 +59,19 @@ output: dot_zshrc.tmpl
   - [defaults plist viewer](#defaults-plist-viewer)
   - [Pretty print URL params](#pretty-print-url-params)
   - [master to main](#master-to-main)
+  - [Sign in with 1Password CLI](#sign-in-with-1password-cli)
+- [Work configuration](#work-configuration)
 - [iTerm 2 integration](#iterm-2-integration)
 
 </details>
+
+## Detect work mode
+
+This is used in chezmoi land to see which aspects of my config should be flipped on and off.
+
+```bash
+{{ $workMode := (eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4") }}
+```
 
 ## Setting up PATHs
 
@@ -312,7 +322,7 @@ alias ipv4="dig @resolver4.opendns.com myip.opendns.com +short -4"
 alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6"
 alias nvim="$EDITOR"
 alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
-alias refresh="chezmoi apply && source $CONFIG_FILE"
+alias refresh="{{ if $workMode }}opauth vendhq && {{ end }}chezmoi apply && source $CONFIG_FILE"
 alias tabcheck="/bin/cat -e -t -v"
 alias utd="cd ~/utf9k && yarn start"
 alias venv="python3 -m venv venv && ae"
@@ -740,10 +750,39 @@ master2main() {
 }
 ```
 
-## Temp work stuff
+### Sign in with 1Password CLI
+
+At this point, my work config is intertwined with my 1Password installation and shortly the same will probably be true of my work config.
+
+It's a hassle manually entering in my password each time so instead, here's a shortcut to automatically log me in to the `op` cli tool
+
+It requires your password being stored in at `$HOME/.op`
+
+Also note that if you have a `printf` formatting symbol such as `%` in your master password, you'll need to escape it so eg; `abc12%` becomes `abc12%%`
+
+Does this mean my master password is stored on my machine? Yes but realistically, it isn't much of a threat.
+
+You still need to a) unlock my laptop and b) have my security key to access my vault on a new machine
+
+You could physically access my machine of course but that's no less of a threat than it is at present so always remember to lock your devices!
 
 ```bash
-{{- if eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" }}
+opauth() {
+  export OP_SESSION_$1=$(cat $HOME/.op | xargs printf | op signin $1 --raw | head -n 1)
+  echo "~ Signed in to $1 vault"
+}
+```
+
+## Work configuration
+
+Usually most people maintain a separate configuration between their personal and work lives.
+
+I've opted to maintain mine in public to show that it's possible to have the best of both worlds without leaking credentials.
+
+In the case of my employer, not only are the referenced tools the usual suspects but you can easily verify on Github that we use them internally in the form of public repos so this can't be considered as leaking metadata in that sense.
+
+```bash
+{{ if $workMode }}
 source $HOME/Code/work/home/aliases.sh
 source $HOME/Code/work/home/functions.sh
 export PATH=$PATH:$HOME/Code/work/home/bin

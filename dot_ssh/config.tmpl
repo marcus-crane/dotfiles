@@ -1,4 +1,5 @@
-{{ if eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" -}}
+{{ $workMode := eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" }}
+{{ if $workMode -}}
 Include ~/Code/work/home/.ssh/config
 {{- end }}
 
