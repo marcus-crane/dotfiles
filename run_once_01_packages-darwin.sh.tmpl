@@ -5,9 +5,11 @@ brew bundle --no-lock --file=/dev/stdin <<EOF
 tap "homebrew/cask-fonts"
 
 # cli tools
+brew "autoconf"
 brew "bash"
 brew "chezmoi"
 brew "cmake"
+brew "coreutils"
 brew "curl"
 brew "fd"
 brew "ffmpeg"
@@ -40,7 +42,9 @@ brew "terminal-notifier"
 brew "tree"
 brew "tmuxp"
 brew "w3m"
+brew "watch"
 brew "wget"
+brew "wxmac"
 brew "youtube-dl"
 brew "zsh"
 
@@ -74,9 +78,6 @@ cask "sublime-text", args: { force: true }
 cask "ticktick", args: { force: true }
 
 # mac app store
-# removed under macOS monterey due to a bug
-# https://github.com/mas-cli/mas/issues/417
-{{- if (ne (output "sw_vers" "-productVersion" | trim) "12.0") }}
 mas "iA Writer", id: 775737590
 mas "Craft", id: 1487937127
 mas "LINE", id: 539883307
@@ -85,7 +86,6 @@ mas "Parcel", id: 639968404
 mas "Playgrounds", id: 1496833156
 mas "Shazam", id: 897118787
 mas "Tailscale", id: 1475387142
-{{- end }}
 EOF
 
 xattr -r -d com.apple.quarantine ~/Library/QuickLook/*.qlgenerator
