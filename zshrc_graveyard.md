@@ -32,6 +32,12 @@ else
 fi
 ```
 
+Windows is a bit of a misnomer here because what I'm really checking for is whether the shell is running inside of [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/about)
+
+Functionally, I can treat WSL and Linux the same (and I do) but there are some minor alterations I make use of, such as pointing the `DISPLAY` environment variable at an X display server on my host system
+
+It's worth noting that the value of `$OPSYS` on `macOS` is `darwin`. I could change it to be clearer but [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system)) is technically the correct name for the base operating system
+
 ## Setting some Windows / WSL specific constants
 
 As mentioned above, it can be handy to set the DISPLAY variable as Windows proper treats WSL as an entirely different networked computer.
@@ -46,6 +52,10 @@ if [[ $OPSYS == "windows" ]]; then
   export BROWSER="/mnt/c/Windows/explorer.exe"
 fi
 ```
+
+1. If I'm running on a Windows machine, I run Emacs by starting a daemon inside my terminal and connecting with `emacsclient`. Doing so spawns a new frame using the X display server running on the Windows host itself
+
+2. While I don't believe this actually works, I attempt to override the `BROWSER` environment variable to open links on the Windows host from within Emacs
 
 ## Functions
 
