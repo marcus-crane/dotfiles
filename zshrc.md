@@ -19,7 +19,6 @@ output: dot_zshrc.tmpl
   - [fzf](#fzf)
   - [git](#git)
   - [Homebrew](#homebrew)
-  - [kubectl](#kubectl)
   - [less](#less)
   - [nix](#nix)
 - [Languages](#languages)
@@ -107,7 +106,7 @@ export WORKSPACE="$HOME/Code"
 ```bash
 export CONFIG_FILE="$HOME/.zshrc"
 export CONFIG_SRC="$(chezmoi source-path)/zshrc.md"
-export EDITOR="lvim"
+export EDITOR="nvim"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
 export LAST_MODIFIED="$(date)"
