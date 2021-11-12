@@ -4,6 +4,7 @@
 brew bundle --no-lock --file=/dev/stdin <<EOF
 tap "homebrew/cask-fonts"
 tap "benwebber/tunnelblickctl"
+tap "d12frosted/emacs-plus"
 
 # cli tools
 brew "autoconf"
@@ -12,6 +13,7 @@ brew "chezmoi"
 brew "cmake"
 brew "coreutils"
 brew "curl"
+brew "emacs-plus@28", args: ["with-mailutils", "with-native-comp", "with-nobu417-big-sur-icon"]
 brew "fd"
 brew "ffmpeg"
 brew "fzf"
@@ -90,7 +92,9 @@ mas "Parcel", id: 639968404
 mas "Playgrounds", id: 1496833156
 mas "Shazam", id: 897118787
 mas "Tailscale", id: 1475387142
-mas "TestFlight", id: 899247664
+# TestFlight is only available on macOS 12+
+{{- if (ne (output "sw_vers" "-productVersion" | trim) "12.0") }}mas "TestFlight", id: 899247664{{ end }}
+
 EOF
 
 xattr -r -d com.apple.quarantine ~/Library/QuickLook/*.qlgenerator
