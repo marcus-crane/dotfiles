@@ -31,7 +31,10 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 # Column view is my preferred style when using Finder
-defaults write com.apple.finder FXPreferredViewStyle "Flwv"
+defaults write com.apple.finder FXPreferredViewStyle "clmv"
+
+# Open Finder to my home directory (to be confirmed)
+defaults write com.apple.finder file:/{{ .chezmoi.homeDir }}
 
 # Disable Quick Note which is set by default on macOS Monterey and above
 defaults write com.apple.dock wvous-tr-corner -int 0
