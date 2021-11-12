@@ -33,8 +33,15 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 # Column view is my preferred style when using Finder
 defaults write com.apple.finder FXPreferredViewStyle "clmv"
 
-# Open Finder to my home directory (to be confirmed)
-defaults write com.apple.finder file:/{{ .chezmoi.homeDir }}
+# Open Finder to my home directory by default
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
+
+# Show absolute path in Finder
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+# Don't try to reopen windows when logging back in / restarting
+defaults write com.apple.loginwindow TALLogoutSavesState -bool false
 
 # Disable Quick Note which is set by default on macOS Monterey and above
 defaults write com.apple.dock wvous-tr-corner -int 0
@@ -68,6 +75,15 @@ defaults write com.apple.dock "autohide" -bool true
 
 # Set Dock to a relatively small size
 defaults write com.apple.dock tilesize -int 30
+
+# Kill affected applications
+    for app in "cfprefsd" \
+        "ControlCenter" \
+        "Dock" \
+        "Finder" \
+        "SystemUIServer"; do
+        killall "${app}"  > /dev/null 2>&1
+    done
 
 echo "Done. Note that some of these changes require a logout/restart to take effect."
 {{ end -}}
