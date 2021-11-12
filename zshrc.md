@@ -78,6 +78,7 @@ path=(/bin
       /usr/bin
       /usr/sbin
       /usr/local/sbin
+      /usr/libexec
       /opt/X11/bin
       $(brew --prefix)/bin
       $HOME/bin
