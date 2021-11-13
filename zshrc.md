@@ -12,6 +12,7 @@ output: dot_zshrc.tmpl
 - [Initialisation](#initialisation)
   - [Detecting work mode](#detecting-work-mode)
   - [Setting up PATH](#setting-up-path)
+  - [Setting up build flags](#setting-up-build-flags)
 	- [Setting my workspace](#setting-my-workspace)
 	- [Setting various global constants](#setting-various-global-constants)
 - [Applications](#applications)
@@ -92,6 +93,19 @@ path=(/bin
       "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
     )
 export PATH
+```
+
+### Setting up build flags
+
+Compiling some things can end in failure on macOS when using a version of OpenSSL installed using Homebrew.
+
+This ensures that the right folders are scanned for development libraries.
+
+Pretty boring stuff.
+
+```
+export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
 ```
 
 ### Setting my workspace
