@@ -36,17 +36,52 @@ asdf update
   asdf global {{ . }} {{ get $plugins . }} || true
 {{ end -}}
 
-{{ $npmPackages := list "neovim" "npm" "pkgparse" }}
+# -- Globally installed packages -- #
+
+{{ $goPackages := list
+   "github.com/cweill/gotests/...@latest"
+   "github.com/fatih/gomodifytags@latest"
+   "github.com/mdempsky/gocode@latest"
+   "github.com/x-motemen/gore/cmd/gore@latest"
+   "golang.org/x/tools/cmd/guru@latest"
+}}
+
+{{ $npmPackages := list
+   "js-beautify"
+   "neovim"
+   "npm"
+   "pkgparse"
+   "stylelint"
+}}
+
+{{ $pythonPackages := list
+   "ansible"
+   "black"
+   "flake8"
+   "isort"
+   "nose"
+   "pip"
+   "pipenv"
+}}
+
+{{ $rubyPackages := list
+   "bundler"
+   "neovim"
+}}
+
+# --- Install packages --- #
+{{ range sortAlpha $goPackages }}
+  go install {{ . }}
+{{ end -}}
+
 {{ range sortAlpha $npmPackages -}}
   npm install -g {{ . }}
 {{ end -}}
 
-{{ $pythonPackages := list "black" "flake8" "pip" }}
 {{ range sortAlpha $pythonPackages -}}
   pip install -U {{ . }}
 {{ end -}}
 
-{{ $rubyPackages := list "bundler" "neovim" }}
 {{ range sortAlpha $rubyPackages }}
   gem install {{ . }}
 {{ end -}}
