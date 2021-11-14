@@ -244,6 +244,7 @@ alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
 alias crush="pngcrush -ow"
 alias de="deactivate &> /dev/null"
 alias edit="$EDITOR $CONFIG_SRC"
+alias emacs='emacsclient -c -a "" -e "(select-frame-set-input-focus (selected-frame))" &'
 alias gb="git branch -v"
 alias gbm="git checkout master"
 alias gcm="git commit -Si"
