@@ -17,6 +17,7 @@ output: dot_zshrc.tmpl
 	- [Setting various global constants](#setting-various-global-constants)
 - [Applications](#applications)
   - [asdf](#asdf)
+  - [Emacs](#emacs)
   - [fzf](#fzf)
   - [git](#git)
   - [Homebrew](#homebrew)
@@ -151,6 +152,14 @@ if [[ -f $ASDF_DIR/asdf.sh ]]; then
 fi
 export PATH=$(asdf where nodejs)/.npm/bin:$PATH
 export PATH=$(asdf where python)/bin:$PATH
+```
+
+### Emacs
+
+Given that I use chezmoi, I can't have Doom Emacs editing the default config in `$HOME` so we need to overwrite that.
+
+```
+export DOOMDIR=$(chezmoi source-path)/dot_doom.d
 ```
 
 ### fzf
