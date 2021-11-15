@@ -53,3 +53,46 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+(display-time-mode 1)
+
+(after! org
+  (setq org-todo-keywords
+        '((sequence
+           "TODO(t)"
+           "NEXT(n)"
+           "|"
+           "DONE(d)")
+          (sequence
+           "WAITING(w@/!)"))))
+
+(after! org
+  (setq org-capture-templates
+        `(("i" "inbox" entry
+           (file ,(concat org-directory "inbox.org"))
+           "* TODO %i%?")
+          )))
+
+(after! org
+  (setq org-agenda-files
+        `(,(concat org-directory "habits.org")
+          ,(concat org-directory "inbox.org")
+          ,(concat org-directory "projects.org")
+          ,(concat org-directory "tickler.org")
+          )))
+
+(after! org
+  (setq org-archive-location
+        (concat org-directory "archive/archive-"
+                (format-time-string "%Y%m" (current-time))
+                ".org::")))
+
+(after! org
+  (setq org-refile-targets
+        `((,(concat org-directory "ideas.org") :level . 0)
+          (,(concat org-directory "projects.org") :maxlevel . 2)
+          (,(concat org-directory "someday.org") :level . 0)
+          (,(concat org-directory "tickler.org") :maxlevel . 1))))
+
+(after! org
+  (require 'org-habit)
+  (add-to-list 'org-modules 'org-habit))
