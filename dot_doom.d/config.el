@@ -58,12 +58,12 @@
 (after! org
   (setq org-todo-keywords
         '((sequence
-           "TODO(t)"
+           "TODO(t!)"
            "NEXT(n)"
+           "WAITING(w@/!)")
            "|"
-           "DONE(d)")
-          (sequence
-           "WAITING(w@/!)"))))
+           "DONE(d!)"
+           "CANC(c!)")))
 
 (after! org
   (setq org-capture-templates
@@ -96,3 +96,6 @@
 (after! org
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit))
+
+(setq org-treat-insert-todo-heading-as-state-change t)
+(setq org-log-into-drawer t)
