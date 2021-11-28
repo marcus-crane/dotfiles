@@ -108,7 +108,6 @@ mas "Shazam", id: 897118787
 mas "Tailscale", id: 1475387142
 # TestFlight is only available on macOS 12+
 {{- if (ne (output "sw_vers" "-productVersion" | trim) "12.0") }}mas "TestFlight", id: 899247664{{ end }}
-mas "Xcode", id: 497799835
 
 EOF
 
