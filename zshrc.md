@@ -228,13 +228,13 @@ For example, [zsh-histdb](https://github.com/larkery/zsh-histdb) lets you store 
 
 ```bash
 HISTDB_TABULATE_CMD=(sed -e $'s/\x1f/\t/g')
-source $HOME/.zsh-plugins/sqlite-history.zsh &> /dev/null
+source $HOME/.zsh_plugins/zsh-histdb/sqlite-history.zsh &> /dev/null
 autoload -Uz add-zsh-hook
 ```
 
 Sourcing `sqlite-history.zsh` is piped to `/dev/null` because it throws the following error that I don't care about. Despite the error, it works as expected.
 
-`/Users/marcus/.zsh-plugins/sqlite-history.zsh:typeset:17: HISTDB_INODE: inconsistent type for assignment`
+`/Users/marcus/.zsh_plugins/zsh-histdb/sqlite-history.zsh:typeset:17: HISTDB_INODE: inconsistent type for assignment`
 
 ## Languages
 
