@@ -592,6 +592,16 @@ opauth() {
 }
 ```
 
+### mkd
+
+It's often handy to change into a folder you've just created so this is a handy way to do that.
+
+```bash
+mkd() {
+  mkdir -p $1 && cd $_
+}
+```
+
 ## Work configuration
 
 Usually most people maintain a separate configuration between their personal and work lives.
