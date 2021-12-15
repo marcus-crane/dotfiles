@@ -91,7 +91,7 @@ path=(/bin
       $HOME/scripts
       /usr/local/MacGPG2/bin
       /usr/local/opt/postgresql@10/bin
-      /Applications/Postgres.app/Contents/Versions/13/bin
+      /Applications/Postgres.app/Contents/Versions/latest/bin
       "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
     )
 export PATH
@@ -105,9 +105,12 @@ This ensures that the right folders are scanned for development libraries.
 
 Pretty boring stuff.
 
+Crystal on macOS Silicon fails with an architecture error for me without this `PKG_CONFIG_PATH` as an example
+
 ```
 export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
 export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
 ```
 
 ### Setting my workspace

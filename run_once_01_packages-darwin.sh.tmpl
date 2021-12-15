@@ -9,6 +9,7 @@ tap "d12frosted/emacs-plus"
 # cli tools
 brew "autoconf"
 brew "bash"
+brew "bison"
 brew "chezmoi"
 brew "cmake"
 brew "coreutils"
@@ -26,17 +27,20 @@ brew "hey"
 brew "html-xml-utils"
 brew "htop"
 brew "jq"
+brew "libzip" # php
 brew "mpv"
 brew "neomutt"
 brew "nmap"
 brew "notmuch"
 brew "oha"
+brew "openssl@1.1"
 brew "overmind"
 brew "pandoc"
 brew "pngcrush"
 brew "pngpaste"
 brew "pwgen"
 brew "rclone"
+brew "re2c" # php
 brew "ripgrep"
 brew "saml2aws"
 brew "shellcheck"
@@ -93,6 +97,7 @@ cask "slack", args: { force: true }
 cask "spotify", args: { force: true }
 cask "sublime-text", args: { force: true }
 cask "ticktick", args: { force: true }
+cask "trackerzapper", args: { force: true }
 cask "vlc", args: { force: true }
 
 # mac app store
@@ -113,5 +118,8 @@ EOF
 
 xattr -r -d com.apple.quarantine ~/Library/QuickLook/*.qlgenerator
 qlmanage -r
+
+# Used to fix a PHP compilation issue
+ln -sf /Applications/Postgres.app/Contents/Versions/latest/bin/pg_config  /usr/local/bin/pg_config
 
 {{ end -}}
