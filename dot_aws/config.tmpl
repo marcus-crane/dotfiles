@@ -1,4 +1,4 @@
 {{ $workMode := eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" }}
 {{- if $workMode }}
-{{- (onepassword "ajhc3dpvy6v77qdc7rnma6ay4m" "3rs5ui53xhp5zfe63vltdpb6o4" "vendhq").details.notesPlain -}}
+{{- include "/Users/marcus/Code/work/home/.aws/config" -}}
 {{- end }}
