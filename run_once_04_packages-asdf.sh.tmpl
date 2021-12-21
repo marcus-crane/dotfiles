@@ -9,7 +9,7 @@
   "lua"        "5.4.0"
   "neovim"     "0.6.0"
   "nodejs"     "17.0.1"
-  "python"     "3.10.0"
+  "python"     "3.9.9"
   "rust"       "nightly"
   "shellcheck" "0.7.2"
   "sqlite"     "3.36.0"
@@ -57,11 +57,13 @@ asdf update
 {{ $pythonPackages := list
    "ansible"
    "black"
+   "Django"
    "flake8"
    "isort"
    "nose"
    "pip"
    "pipenv"
+   "poetry"
 }}
 
 {{ $rubyPackages := list
