@@ -256,8 +256,9 @@ I don't explicitly set `GOROOT` as it is defined by `asdf` generally.
 
 ```bash
 export GOPATH="$WORKSPACE/go"
+ASDF_GO_VERSION=$(asdf current golang | awk '{ print $2 }')
+export GOROOT="$HOME/.asdf/installs/golang/$ASDF_GO_VERSION/go"
 export PATH="$GOPATH/bin:$PATH"
-export GO111MODULE="on"
 ```
 
 ## Shortcuts
