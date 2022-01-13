@@ -624,5 +624,7 @@ fi
 Nothing to see here!
 
 ```bash
+{{ if $workMode }}
 . $HOME/Code/work/home/variables.sh
+{{ end }}
 ```
