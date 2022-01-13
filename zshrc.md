@@ -619,3 +619,10 @@ if [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
 fi
 ```
 
+## Work related variables
+
+Nothing to see here!
+
+```bash
+. $HOME/Code/work/home/variables.sh
+```
