@@ -263,6 +263,8 @@ alias gb="git branch -v"
 alias gbm="git checkout master"
 alias gcm="git commit -Si"
 alias gr="git remote -v"
+# Taken from https://twitter.com/flakpaket/status/1445751410331586568
+alias grip='grep -oE "([0-9]{1,3}[.]){3}[0-9]{1,3}"'
 alias gs="git status"
 alias gst="git status"
 alias ipv4="dig @resolver4.opendns.com myip.opendns.com +short -4"
