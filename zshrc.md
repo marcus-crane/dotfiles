@@ -608,6 +608,16 @@ ecrrecurse() {
 }
 ```
 
+### Show env with values redacted
+
+Sometimes it's useful to illustrate some env values but you don't actually want to show the content 
+
+```bash
+redactenv() {
+  sed -E 's/=.*/=•••/g;t' <<< $(env | grep "$1")
+}
+```
+
 ## Work configuration
 
 Usually most people maintain a separate configuration between their personal and work lives.
