@@ -596,15 +596,34 @@ mkd() {
 
 ```bash
 ecrrecurse() {
-  aws ecr batch-get-image --repository-name=$1 --image-id imageTag=$2 --output json |
-  jq -r '.images[].imageManifest' |
-  jq '.manifests[0].digest' |
-  xargs -I{} aws ecr batch-get-image --repository-name=$1 --image-id imageDigest={} |
-  jq -r '.images[].imageManifest' | jq '.config.digest' |
-  xargs -I{} aws ecr get-download-url-for-layer --repository-name=$1 --layer-digest={} |
-  jq '.downloadUrl' |
-  xargs curl -s |
-  jq '.'
+  REPOSITORY_NAME=$1
+  IMAGE_TAG=$2
+
+  if [[ $REPOSITORY_NAME == "" || $IMAGE_TAG == "" ]]; then
+    echo "Please enter both a repository name and an image tag"
+    echo "Usage: ecrrecurse myservice abc1234"
+    exit 1
+  fi
+
+  MANIFEST=$(aws ecr batch-get-image --repository-name=$REPOSITORY_NAME --image-id imageTag=$IMAGE_TAG --region=us-west-2 --output json | jq -r '.images[].imageManifest')
+
+  if [[ $MANIFEST == "" ]]; then
+    echo "No results found for that Docker manifest"
+    exit 1
+  fi
+
+  MEDIA_TYPE=$(jq '.mediaType' <<< "${MANIFEST}")
+
+  if [[ $MEDIA_TYPE == '"application/vnd.docker.distribution.manifest.list.v2+json"' ]]; then
+    INNER_DIGEST=$(jq '.manifests[0].digest' <<< "${MANIFEST}")
+    MANIFEST=$(aws ecr batch-get-image --repository-name=$REPOSITORY_NAME --image-id imageDigest=$INNER_DIGEST | jq -r '.images[].imageManifest')
+  fi
+
+  CONFIG_DIGEST=$(jq '.config.digest' <<< "${MANIFEST}")
+  DOWNLOAD_URL=$(xargs -I{} aws ecr get-download-url-for-layer --repository-name=$REPOSITORY_NAME --layer-digest={} <<< "${CONFIG_DIGEST}" | jq '.downloadUrl')
+  CONTENT=$(xargs curl -s <<< "${DOWNLOAD_URL}")
+
+  echo $CONTENT | jq '.config.Labels'
 }
 ```
 
