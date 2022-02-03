@@ -592,6 +592,32 @@ mkd() {
 }
 ```
 
+### Pull an image from ECR and recurse
+
+```bash
+ecrrecurse() {
+  aws ecr batch-get-image --repository-name=$1 --image-id imageTag=$2 --output json |
+  jq -r '.images[].imageManifest' |
+  jq '.manifests[0].digest' |
+  xargs -I{} aws ecr batch-get-image --repository-name=$1 --image-id imageDigest={} |
+  jq -r '.images[].imageManifest' | jq '.config.digest' |
+  xargs -I{} aws ecr get-download-url-for-layer --repository-name=$1 --layer-digest={} |
+  jq '.downloadUrl' |
+  xargs curl -s |
+  jq '.'
+}
+```
+
+### Show env with values redacted
+
+Sometimes it's useful to illustrate some env values but you don't actually want to show the content 
+
+```bash
+redactenv() {
+  sed -E 's/=.*/=•••/g;t' <<< $(env | grep "$1")
+}
+```
+
 ## Work configuration
 
 Usually most people maintain a separate configuration between their personal and work lives.
@@ -604,6 +630,7 @@ In the case of my employer, not only are the referenced tools the usual suspects
 {{ if $workMode }}
 source $HOME/Code/work/home/aliases.sh
 source $HOME/Code/work/home/functions.sh
+source $HOME/Code/work/home/variables.sh
 export PATH=$PATH:$HOME/Code/work/home/bin
 
 export TF_VAR_datadog_api_key={{ (onepasswordDetailsFields "62n7qafj3crbjqtunwktgzoguq" "3rs5ui53xhp5zfe63vltdpb6o4" "vendhq").username.value }}
@@ -619,14 +646,4 @@ I used iTerm 2 on my various devices as a terminal and so, there are some shell 
 if [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
   . $HOME/.iterm2_shell_integration.zsh
 fi
-```
-
-## Work related variables
-
-Nothing to see here!
-
-```bash
-{{ if $workMode }}
-. $HOME/Code/work/home/variables.sh
-{{ end }}
 ```
