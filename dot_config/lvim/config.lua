@@ -143,6 +143,9 @@ lvim.builtin.treesitter.highlight.enabled = true
 --       cmd = "TroubleToggle",
 --     },
 -- }
+lvim.plugins = {
+  {"alker0/chezmoi.vim"},
+}
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- lvim.autocommands.custom_groups = {
