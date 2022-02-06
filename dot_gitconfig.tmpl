@@ -18,7 +18,8 @@
 [init]
 	defaultBranch = "main"
 {{ $workMode := eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" }}
-{{- if $workMode }}
+{{ $workLite := (eq (env "WORK_MODE") "1") }}
+{{- if (or $workMode $workLite) }}
 [includeIf "gitdir:~/Code/work/"]
 	path = ~/.work.gitconfig
 {{- end }}
