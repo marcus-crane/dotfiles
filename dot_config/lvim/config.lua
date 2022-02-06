@@ -103,28 +103,21 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 lvim.lang.python.formatters = {
-  {
-    exe = "black",
-  }
+  { exe = "black", },
+  { exe = "isort", },
 }
 
 -- -- set additional linters
 lvim.lang.dockerfile.linters = {
-  {
-    exe = "hadolint",
-  }
+  { exe = "hadolint", }
 }
 
 lvim.lang.python.linters = {
-  {
-    exe = "flake8",
-  }
+  { exe = "flake8", }
 }
 
 lvim.lang.sh.linters = {
-  {
-    exe = "shellcheck",
-  }
+  { exe = "shellcheck", }
 }
 
 -- Additional Plugins
