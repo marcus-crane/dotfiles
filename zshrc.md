@@ -279,6 +279,7 @@ alias vi="$EDITOR"
 alias view="less $CONFIG_FILE"
 alias vim="$EDITOR"
 alias ws="cd $WORKSPACE"
+alias youtube-dl="yt-dlp --add-metadata"
 ```
 
 ## Functions
