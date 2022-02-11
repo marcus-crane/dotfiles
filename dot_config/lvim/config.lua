@@ -11,7 +11,7 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "onedarker"
+lvim.colorscheme = "dracula"
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -102,22 +102,18 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- end
 
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
-lvim.lang.python.formatters = {
-  { exe = "black", },
-  { exe = "isort", },
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+  { command = "black", filetypes = { "python" } },
+  { command = "isort", filetypes = { "python" } },
 }
 
 -- -- set additional linters
-lvim.lang.dockerfile.linters = {
-  { exe = "hadolint", }
-}
-
-lvim.lang.python.linters = {
-  { exe = "flake8", }
-}
-
-lvim.lang.sh.linters = {
-  { exe = "shellcheck", }
+local linters = require "lvim.lsp.null-ls.linters"
+linters.setup {
+  { command = "hadolint", filetypes = { "dockerfile" } },
+  { command = "flake8", filetypes = { "python" } },
+  { command = "shellcheck", filetypes = { "sh" } },
 }
 
 -- Additional Plugins
@@ -125,6 +121,7 @@ lvim.plugins = {
   {"alker0/chezmoi.vim"},
   {"ellisonleao/glow.nvim", run = "GlowInstall",},
   {"folke/trouble.nvim", cmd = "TroubleToggle",},
+  {"Mofiqul/dracula.nvim"},
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
