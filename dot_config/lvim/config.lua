@@ -11,7 +11,7 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "dracula"
+lvim.colorscheme = "onedarker"
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -125,7 +125,6 @@ lvim.plugins = {
   {"alker0/chezmoi.vim"},
   {"ellisonleao/glow.nvim", run = "GlowInstall",},
   {"folke/trouble.nvim", cmd = "TroubleToggle",},
-  {"Mofiqul/dracula.nvim"},
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
