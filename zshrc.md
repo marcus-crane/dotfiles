@@ -638,6 +638,14 @@ redactenv() {
 }
 ```
 
+### Set AWS_PROFILE interactively
+
+```bash
+awsp() {
+  export AWS_PROFILE=$(grep "profile" ~/.aws/config | awk '{ print $2 }' | sed 's/.$//' | fzf)
+}
+```
+
 ## Work configuration
 
 Usually most people maintain a separate configuration between their personal and work lives.
