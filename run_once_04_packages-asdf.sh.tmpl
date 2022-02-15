@@ -4,12 +4,13 @@
   "aria2"      "1.35.0"
   "crystal"    "1.2.1"
   "exa"        "0.10.1"
-  "gohugo"     "0.91.2"
+  "gohugo"     "0.92.2"
   "golang"     "1.17.2"
   "lua"        "5.4.0"
   "neovim"     "0.6.1"
   "nodejs"     "17.0.1"
   "python"     "3.9.9"
+  "ruby"       "3.0.2"
   "rust"       "nightly"
   "shellcheck" "0.7.2"
   "sqlite"     "3.36.0"
@@ -21,10 +22,8 @@
 {{ $workMode := eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" }}
 
 {{- if $workMode }}
-  {{ $_ := set $plugins "ruby" "2.7.2" }}
   {{ $_ := set $plugins "terraform" "0.13.7" }}
 {{ else }}
-  {{ $_ := set $plugins "ruby" "3.0.2" }}
   {{ $_ := set $plugins "terraform" "1.0.10"}}
 {{ end -}}
 
