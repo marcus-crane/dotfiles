@@ -65,6 +65,7 @@ lvim.builtin.treesitter.ensure_installed = {
   "bash",
   "c",
   "css",
+  "hcl",
   "java",
   "javascript",
   "json",
@@ -104,16 +105,20 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { command = "black", filetypes = { "python" } },
-  { command = "isort", filetypes = { "python" } },
+  { command = "black",     filetypes = { "python" } },
+  { command = "isort",     filetypes = { "python" } },
+  { command = "terrafmt",  filetypes = { "markdown"} },
+  { command = "terraform", filetypes = { "markdown"} },
 }
 
 -- -- set additional linters
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
-  { command = "hadolint", filetypes = { "dockerfile" } },
-  { command = "flake8", filetypes = { "python" } },
-  { command = "shellcheck", filetypes = { "sh" } },
+  { command = "eslint",        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact"} }
+  { command = "golangci-lint", filetypes = { "go" } },
+  { command = "flake8",        filetypes = { "python" } },
+  { command = "hadolint",      filetypes = { "dockerfile" } },
+  { command = "shellcheck",    filetypes = { "sh" } },
 }
 
 -- Additional Plugins
