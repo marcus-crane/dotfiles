@@ -273,6 +273,7 @@ alias nvim="$EDITOR"
 alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
 alias refresh="{{ if $workMode }}opauth vendhq && {{ end }}chezmoi apply && source $CONFIG_FILE"
 alias tabcheck="/bin/cat -e -t -v"
+alias tsc="transmission-remote netocean"
 alias utd="cd ~/utf9k && yarn start"
 alias venv="python3 -m venv venv && ae"
 alias vi="$EDITOR"
@@ -643,6 +644,21 @@ redactenv() {
 ```bash
 awsp() {
   export AWS_PROFILE=$(grep "profile" ~/.aws/config | awk '{ print $2 }' | sed 's/.$//' | fzf)
+}
+```
+
+### Remotely remove torrents
+
+Sometimes it's nice to be able to remove Linux distro ISO torrents from across the room
+
+```bash
+tsd() {
+  tsc -l |
+    awk 'NR>2 {print last} {last=$0}' |
+    awk '{ $2=$3=$4=$5=$6=$7=$8=$9=""; print $0 }' |
+    sed 's/        //g' |
+    fzf --multi --preview="awk '{ print $1 }' | transmission-remote netocean -t {} -i" | awk '{ print $1 }' |
+    xargs -I{} transmission-remote netocean -t {} -r
 }
 ```
 
