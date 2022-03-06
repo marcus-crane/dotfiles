@@ -75,7 +75,8 @@ This is used in chezmoi land to see which aspects of my config should be flipped
 These paths generally exist on most every system so we'll set them seperately from other PATH additions.
 
 ```bash
-path=(/bin
+path=($(brew --prefix)/bin
+      /bin
       /sbin
       /usr/local/bin
       /usr/bin
@@ -83,7 +84,6 @@ path=(/bin
       /usr/local/sbin
       /usr/libexec
       /opt/X11/bin
-      $(brew --prefix)/bin
       $HOME/bin
       $HOME/.nix-profile/bin
       $HOME/.emacs.d/bin
@@ -269,6 +269,7 @@ alias gs="git status"
 alias gst="git status"
 alias ipv4="dig @resolver4.opendns.com myip.opendns.com +short -4"
 alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6"
+alias lidclosed="ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState"
 alias nvim="$EDITOR"
 alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
 alias refresh="{{ if $workMode }}opauth vendhq && {{ end }}chezmoi apply && source $CONFIG_FILE"
@@ -643,6 +644,16 @@ redactenv() {
 ```bash
 awsp() {
   export AWS_PROFILE=$(grep "profile" ~/.aws/config | awk '{ print $2 }' | sed 's/.$//' | fzf)
+}
+```
+
+### Mass unset environment items
+
+```bash
+massunset() {
+  name=$(env | fzf --multi | tr "=" " " | awk '{ print $1 }')
+  spacedName=$(echo $name | tr "\n" " ")
+  unset $spacedName
 }
 ```
 
