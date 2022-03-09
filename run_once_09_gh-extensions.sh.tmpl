@@ -1,0 +1,13 @@
+#!/bin/bash
+
+{{ $ghExtensions := list
+  "mislav/gh-branch"
+  "vilmibm/gh-screensaver"
+  "vilmibm/gh-user-status"
+}}
+
+{{ range sortAlpha $ghExtensions }}
+  gh extension install {{ . }} > /dev/null 2>&1
+{{ end -}}
+
+echo "- Installed Github CLI extensions"
