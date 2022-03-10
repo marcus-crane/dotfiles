@@ -6,6 +6,7 @@ nav:
   - Home: 'README.md'
   - zshrc: 'zshrc.md'
   - zshrc graveyard: 'zshrc-graveyard.md'
+  - Playground: 'playground.md'
 
 markdown_extensions:
   - toc:
