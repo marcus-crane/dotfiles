@@ -9,5 +9,4 @@ tar -xf lugh.tar.gz && \
 mv bin/lugh /usr/local/bin && \
 rm lugh.tar.gz && \
 rm -rf bin && \
-echo "Lugh $VERSION for $SYSTEM installed"
-
+echo "~ lugh $VERSION has been installed"

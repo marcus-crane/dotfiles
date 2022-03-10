@@ -222,7 +222,7 @@ alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short
 alias lidclosed="ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState"
 alias nvim="$EDITOR"
 alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
-alias refresh="{{ if $workMode }}opauth vendhq && {{ end }}chezmoi apply && source $CONFIG_FILE"
+alias refresh="{{ if $workMode }}opauth vendhq && echo '~ logged into 1password vault' && {{ end }}chezmoi apply && source $CONFIG_FILE && echo '~ refreshed shell config'"
 alias tabcheck="/bin/cat -e -t -v"
 alias tsc="transmission-remote netocean"
 alias utd="cd ~/utf9k && yarn start"

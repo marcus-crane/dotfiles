@@ -25,6 +25,6 @@ defaults delete com.apple.dock persistent-others
 
 defaults write com.apple.dock persistent-others -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Users/marcus/Screenshots/</string><key>_CFURLStringType</key><integer>0</integer></dict></dict><key>tile-type</key><string>directory-tile</string></dict>"
 
-killall Dock
+killall Dock >/dev/null 2>&1 || true && echo "~ macOS dock has been configured"
 
 {{ end -}}

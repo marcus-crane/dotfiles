@@ -1,7 +1,7 @@
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/bin/bash
 
-brew bundle --no-lock --file=/dev/stdin <<EOF
+brew bundle --quiet --no-lock --file=/dev/stdin <<EOF  >/dev/null 2>&1 || true && echo "~ brew packages have been updated"
 tap "homebrew/cask-fonts"
 tap "benwebber/tunnelblickctl"
 tap "d12frosted/emacs-plus"
@@ -140,7 +140,7 @@ mas "Tailscale", id: 1475387142
 EOF
 
 xattr -r -d com.apple.quarantine ~/Library/QuickLook/*.qlgenerator
-qlmanage -r
+qlmanage -r >/dev/null 2>&1 || true && echo "~ quicklook extensions have been configured"
 
 # Used to fix a PHP compilation issue
 ln -sf /Applications/Postgres.app/Contents/Versions/latest/bin/pg_config  /usr/local/bin/pg_config

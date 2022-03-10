@@ -27,12 +27,14 @@
   {{ $_ := set $plugins "terraform" "1.0.10"}}
 {{ end -}}
 
-asdf update
+asdf update >/dev/null 2>&1 || true && echo "~ asdf has been updated"
+
+echo "~ Language (installations)"
 
 {{ range sortAlpha (keys $plugins) -}}
-  asdf plugin-add {{ . }} || true
-  asdf install {{ . }} {{ get $plugins . }} || true
-  asdf global {{ . }} {{ get $plugins . }} || true
+  asdf plugin-add {{ . }} >/dev/null 2>&1 || true
+  asdf install {{ . }} {{ get $plugins . }} >/dev/null 2>&1 || true && echo "~~ {{ . }} v{{ get $plugins . }} is installed"
+  asdf global {{ . }} {{ get $plugins . }} >/dev/null 2>&1 || true
 {{ end -}}
 
 # -- Globally installed packages -- #
@@ -87,19 +89,25 @@ asdf update
    "neovim"
 }}
 
+echo "~ Language (packages)"
+
 # --- Install packages --- #
+echo "~~ Go packages"
 {{ range sortAlpha $goPackages }}
-  go install {{ . }}
+  go install {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
 {{ end -}}
 
+echo "~~ NPM packages"
 {{ range sortAlpha $npmPackages -}}
-  npm install -g {{ . }}
+  npm install -g {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
 {{ end -}}
 
+echo "~~ Python packages"
 {{ range sortAlpha $pythonPackages -}}
-  pip install -U {{ . }}
+  pip install -U {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
 {{ end -}}
 
+echo "~~ Ruby packages"
 {{ range sortAlpha $rubyPackages }}
-  gem install {{ . }}
+  gem install {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
 {{ end -}}
