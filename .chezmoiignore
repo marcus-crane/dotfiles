@@ -2,3 +2,6 @@ LICENSE
 *.md
 Brewfile
 assets
+mkdocs.yml
+netlify.toml
+docs
