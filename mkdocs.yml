@@ -1,12 +1,12 @@
 site_name: dotfiles
-site_url: dotfiles.utf9k.net
+site_url: https://dotfiles.utf9k.net
 repo_url: https://github.com/marcus-crane/dotfiles
 site_author: Marcus Crane <marcus@utf9k.net>
 
 nav:
   - Home: 'README.md'
   - 'Shell Configuration':
-      - zshrc: 'zshrc.md'
+      - .zshrc: 'zshrc.md'
   - Archives:
     - zshrc graveyard: 'zshrc-graveyard.md'
   - Playground: 'playground.md'
