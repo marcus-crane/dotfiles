@@ -1,6 +1,6 @@
 [build]
 publish = "site"
-command = "mkdir docs && find . -name '*.md' | xargs -I{} mv '{}' docs && pip install mkdocs mkdocs-techdocs-core && mkdocs build"
+command = "find . -name '*.md' -not -path './README.md' -not -path './docs/*' | xargs -I{} mv '{}' docs && pip install mkdocs mkdocs-techdocs-core && mkdocs build"
 
 [build.environment]
 PYTHON_VERSION = "3.8"
