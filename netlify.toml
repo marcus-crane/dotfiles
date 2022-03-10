@@ -1,6 +1,6 @@
 [build]
 publish = "site"
-command = "mkdir docs && cp **/*.md docs && pip install mkdocs mkdocs-techdocs-core && mkdocs build"
+command = "mkdir docs && find . -name '*.md' -exec mv '{}' docs/ \; && pip install mkdocs mkdocs-techdocs-core && mkdocs build"
 
 [build.environment]
 PYTHON_VERSION = "3.8"
