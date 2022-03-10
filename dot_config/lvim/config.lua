@@ -105,10 +105,10 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { command = "black",     filetypes = { "python" } },
-  { command = "isort",     filetypes = { "python" } },
-  { command = "terrafmt",  filetypes = { "markdown"} },
-  { command = "terraform", filetypes = { "markdown"} },
+  { command = "black",         filetypes = { "python" } },
+  { command = "isort",         filetypes = { "python" } },
+  { command = "terrafmt",      filetypes = { "markdown"} },
+  { command = "terraform",     filetypes = { "hcl", "tf" } },
 }
 
 -- -- set additional linters
