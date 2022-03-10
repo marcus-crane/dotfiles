@@ -1,0 +1,15 @@
+site_name: dotfiles
+
+repo_url: https://github.com/marcus-crane/dotfiles
+
+nav:
+  - Home: 'README.md'
+  - zshrc: 'zshrc.md'
+  - zshrc graveyard: 'zshrc-graveyard.md'
+
+markdown_extensions:
+  - toc:
+      baselevel: 3
+
+plugins:
+  - techdocs-core

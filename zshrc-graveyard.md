@@ -1,9 +1,4 @@
----
-title: zsh graveyard
-slug: zshrc-graveyard
-category: dotfiles
-description: "Bits of my zshrc that are unused but useful to keep for future reference"
----
+> Bits of my zshrc that are unused but useful to keep for future reference"
 
 ## Explainer
 
