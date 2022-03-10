@@ -4,7 +4,6 @@ repo_url: https://github.com/marcus-crane/dotfiles
 site_author: Marcus Crane <marcus@utf9k.net>
 
 nav:
-  - Home: 'README.md'
   - 'Shell Configuration':
       - .zshrc: 'zshrc.md'
   - Archives:
