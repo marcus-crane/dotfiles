@@ -56,27 +56,21 @@
 (display-time-mode 1)
 
 (after! org
-  (setq org-todo-keywords
-        '((sequence
-           "TODO(t!)"
-           "NEXT(n)"
-           "WAITING(w@/!)")
-           "|"
-           "DONE(d!)"
-           "CANC(c!)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
 
 (after! org
-  (setq org-capture-templates
-        `(("i" "inbox" entry
-           (file ,(concat org-directory "inbox.org"))
-           "* TODO %i%?")
-          )))
+  (setq org-capture-templates '(("t" "Todo [inbox]" entry
+                               (file+headline "~/gtd/inbox.org" "Tasks")
+                               "* TODO %i%?")
+                              ("T" "Tickler" entry
+                               (file+headline "~/gtd/tickler.org" "Tickler")
+                               "* %i%? \n %U"))))
 
 (after! org
   (setq org-agenda-files
         `(,(concat org-directory "habits.org")
           ,(concat org-directory "inbox.org")
-          ,(concat org-directory "projects.org")
+          ,(concat org-directory "gtd.org")
           ,(concat org-directory "tickler.org")
           )))
 
@@ -88,10 +82,9 @@
 
 (after! org
   (setq org-refile-targets
-        `((,(concat org-directory "ideas.org") :level . 0)
-          (,(concat org-directory "projects.org") :maxlevel . 2)
-          (,(concat org-directory "someday.org") :level . 0)
-          (,(concat org-directory "tickler.org") :maxlevel . 1))))
+        `((,(concat org-directory "gtd.org") :maxlevel . 3)
+          (,(concat org-directory "someday.org") :level . 1)
+          (,(concat org-directory "tickler.org") :maxlevel . 2))))
 
 (after! org
   (require 'org-habit)
