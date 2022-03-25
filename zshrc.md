@@ -261,7 +261,7 @@ alias edit="$EDITOR $CONFIG_SRC"
 alias emacs='emacsclient -c -a "" -e "(select-frame-set-input-focus (selected-frame))" &'
 alias gb="git branch -v"
 alias gbm="git checkout master"
-alias gcm="git commit -Si"
+alias gcm="git commit -Ssi"
 alias gr="git remote -v"
 # Taken from https://twitter.com/flakpaket/status/1445751410331586568
 alias grip='grep -oE "([0-9]{1,3}[.]){3}[0-9]{1,3}"'
