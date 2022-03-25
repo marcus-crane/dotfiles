@@ -1,5 +1,7 @@
 # dotfiles
 
+> View my dotfiles rendered over at [dotfiles.utf9k.net](https://dotfiles.utf9k.net)
+
 Currently, I use [chezmoi](https://github.com/twpayne/chezmoi) as a dotfile manager which runs a bunch of preinstallation scripts and then applies all dotfiles in this repo to `$HOME`.
 
 This differs quite a bit from my previous setup which used [GNU Stow](https://www.gnu.org/software/stow/) to symlink files to `$HOME` but so far, I like it a lot and it makes the setup process mostly automatic between machines.

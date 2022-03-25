@@ -1,58 +1,8 @@
 ---
-title: My zsh config
-slug: zshrc
-category: dotfiles
-description: "My personal zsh configuration, now available in literate form."
 output: dot_zshrc.tmpl
 ---
 
-<details>
-<summary>Table of contents</summary>
-
-- [Initialisation](#initialisation)
-  - [Detecting work mode](#detecting-work-mode)
-  - [Setting up PATH](#setting-up-path)
-  - [Setting up build flags](#setting-up-build-flags)
-	- [Setting my workspace](#setting-my-workspace)
-	- [Setting various global constants](#setting-various-global-constants)
-- [Applications](#applications)
-  - [asdf](#asdf)
-  - [Emacs](#emacs)
-  - [fzf](#fzf)
-  - [git](#git)
-  - [Homebrew](#homebrew)
-  - [less](#less)
-  - [nix](#nix)
-  - [zsh](#zsh)
-- [Languages](#languages)
-  - [Erlang](#erlang)
-  - [go](#go)
-- [Shortcuts](#shortcuts)
-- [Functions](#functions)
-  - [What application is listening on any given port?](#what-application-is-listening-on-any-given-port)
-  - [I'd like to tangle a markdown file please](#id-like-to-tangle-a-markdown-file-please)
-  - [I'd like to tangle an org file please](#id-like-to-tangle-an-org-file-please)
-  - [What's inside that JWT?](#whats-inside-that-jwt)
-  - [What functions have I defined?](#what-functions-have-i-defined)
-  - [What's a quick way to archive backups?](#whats-a-quick-way-to-archive-backups)
-  - [Quick convert screen recording to a more suitable format](#quick-convert-screen-recording-to-a-more-suitable-format)
-  - [Quick convert h265 to 8 bit 264](#quick-convert-h265-to-8-bit-264)
-  - [Calculating nines](#calculating-nines)
-  - [Delete Git branches interactively with fzf](#delete-git-branches-interactively-with-fzf)
-  - [View homebrew casks](#view-homebrew-casks)
-  - [Regenerate a secret key that has the same length as the input](#regenerate-a-secret-key-that-has-the-same-length-as-the-input)
-  - [Decode URLs with percentage decoded values](#decode-urls-with-percentage-decoded-values)
-  - [Envy](#envy)
-  - [Pretty print PATH](#pretty-print-path)
-  - [Kumamon on demand](#kumamon-on-demand)
-  - [defaults plist viewer](#defaults-plist-viewer)
-  - [Pretty print URL params](#pretty-print-url-params)
-  - [master to main](#master-to-main)
-  - [Sign in with 1Password CLI](#sign-in-with-1password-cli)
-- [Work configuration](#work-configuration)
-- [iTerm 2 integration](#iterm-2-integration)
-
-</details>
+> My personal zsh configuration, now available in literate form.
 
 ## Initialisation
 
@@ -272,7 +222,7 @@ alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short
 alias lidclosed="ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState"
 alias nvim="$EDITOR"
 alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
-alias refresh="{{ if $workMode }}opauth vendhq && {{ end }}chezmoi apply && source $CONFIG_FILE"
+alias refresh="{{ if $workMode }}opauth vendhq && echo '~ logged into 1password vault' && {{ end }}chezmoi apply && source $CONFIG_FILE && echo '~ refreshed shell config'"
 alias tabcheck="/bin/cat -e -t -v"
 alias tsc="transmission-remote netocean"
 alias utd="cd ~/utf9k && yarn start"

@@ -7,7 +7,7 @@
 }}
 
 {{ range sortAlpha $ghExtensions }}
-  gh extension install {{ . }} > /dev/null 2>&1
+  gh extension install {{ . }} > /dev/null 2>&1 || true
 {{ end -}}
 
-echo "- Installed Github CLI extensions"
+echo "~ github cli extensions have been installed"
