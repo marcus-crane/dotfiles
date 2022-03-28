@@ -76,6 +76,10 @@ defaults write com.apple.dock "autohide" -bool true
 # Set Dock to a relatively small size
 defaults write com.apple.dock tilesize -int 30
 
+# Enable Developer Tools for some Webviews
+defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+defaults write -g WebKitDeveloperExtras -bool YES
+
 # Kill affected applications
     for app in "cfprefsd" \
         "ControlCenter" \
