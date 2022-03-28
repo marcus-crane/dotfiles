@@ -101,6 +101,10 @@ lvim.builtin.treesitter.highlight.enabled = true
 --   --Enable completion triggered by <c-x><c-o>
 --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
+local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+parser_configs.hcl = {
+  filetype = "hcl", "terraform",
+}
 
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
@@ -127,6 +131,35 @@ lvim.plugins = {
   {"ellisonleao/glow.nvim", run = "GlowInstall",},
   {"folke/trouble.nvim", cmd = "TroubleToggle",},
   {"Mofiqul/dracula.nvim"},
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "BufRead",
+    config = function()
+      require "lsp_signature".setup()
+    end
+  },
+  {
+    "pwntester/octo.nvim",
+    event = "BufRead",
+  },
+  {
+    "f-person/git-blame.nvim",
+    event = "BufRead",
+    config = function()
+      vim.cmd "highlight default link gitblame SpecialComment"
+      vim.g.gitblame_enabled = 0
+    end,
+  },
+  {
+    'wfxr/minimap.vim',
+    run = "cargo install --locked code-minimap",
+    -- cmd = {"Minimap", "MinimapClose", "MinimapToggle", "MinimapRefresh", "MinimapUpdateHighlight"},
+    config = function ()
+      vim.cmd ("let g:minimap_width = 10")
+      vim.cmd ("let g:minimap_auto_start = 1")
+      vim.cmd ("let g:minimap_auto_start_win_enter = 1")
+    end,
+  },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
