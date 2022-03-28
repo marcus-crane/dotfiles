@@ -244,6 +244,15 @@ These are some handy functions I use from time to time
 function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 ```
 
+<details><summary>Example</summary>
+
+```bash
+> lsof -nP -i4TCP:1313 | grep LISTEN
+hugo    64740 marcus  466u  IPv4 0x76ace186a77b90b9      0t0  TCP 127.0.0.1:1313 (LISTEN)
+```
+
+</details>
+
 ### I'd like to tangle a markdown file please
 
 I have my own little Markdown tangling tool which you can read about [here](https://github.com/marcus-crane/dotfiles#a-note-on-tangling-files)
@@ -297,6 +306,23 @@ function jwt() {
 }
 ```
 
+<details><summary>Example</summary>
+
+```bash
+> jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+{
+    "alg": "HS256",
+    "typ": "JWT"
+}
+{
+    "sub": "1234567890",
+    "name": "John Doe",
+    "iat": 1516239022
+}
+```
+
+</details>
+
 ### What functions have I defined?
 
 Often I'll forget what little shortcut functions I've made so here's a quick cheatsheet
@@ -308,6 +334,18 @@ function funcs() {
     functions | grep "()" | grep -v '"'
 }
 ```
+
+<details><summary>Example</summary>
+
+```bash
+> funcs
+kumamon () {
+massunset () {
+master2main () {
+mkd () {
+```
+
+</details>
 
 How's that for disorientation? Enough "functions" for ya?
 
@@ -367,6 +405,29 @@ function nines() {
 }
 ```
 
+<details><summary>Example</summary>
+
+```bash
+> nines 99.95
+{
+  "SLA": 99.95,
+  "dailyDown": "43s",
+  "dailyDownSecs": 43,
+  "weeklyDown": "5m 2s",
+  "weeklyDownSecs": 302,
+  "monthlyDown": "21m 54s",
+  "monthlyDownSecs": 1314,
+  "quarterlyDown": "1h 5m 44s",
+  "quarterlyDownSecs": 3944,
+  "yearlyDown": "4h 22m 58s",
+  "yearlyDownSecs": 15778,
+  "uptimeURL": "https://uptime.is/99.95",
+  "runtimeSecs": 0.001
+}
+```
+
+</details>
+
 ### Delete Git branches interactively with fzf
 
 This function was quite shamelessly taken from [this very good post](https://seb.jambor.dev/posts/improving-shell-workflows-with-fzf/) by Sebastian Jambor.
@@ -414,6 +475,19 @@ function secretregen() {
 }
 ```
 
+<details><summary>Example</summary>
+
+```bash
+> secretregen ABC123
+0qbTGG
+> secretregen 0qbTGG
+LUhxAp
+> secretregen LUhxAp
+S5VkqQ
+```
+
+</details>
+
 ### Decode URLs with percentage decoded values
 
 Often times, it can be more useful to inspect the API calls made by a web application, than using the API documentation supplies but this can get a little annoying when you need to decode HTML entities.
@@ -429,6 +503,15 @@ function percentdecode() {
   echo $1 | python3 -c 'import sys,urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()),end="")'
 }
 ```
+
+<details><summary>Example</summary>
+
+```bash
+> percentdecode "https://example.com?repo=marcus%2Dcrane%2Fdotfiles"
+https://example.com?repo=marcus-crane/dotfiles
+```
+
+</details>
 
 ### Envy
 
@@ -498,6 +581,18 @@ params() {
     tr "&" "\n"
 }
 ```
+
+<details><summary>Example</summary>
+
+```bash
+> params "http://localhost:1313?test=hi&nice=cool&wow=great"
+http://localhost:1313
+test=hi
+nice=cool
+wow=great
+```
+
+</details>
 
 ### master to main
 
@@ -589,6 +684,17 @@ redactenv() {
   sed -E 's/=.*/=•••/g;t' <<< $(env | grep "$1")
 }
 ```
+
+<details><summary>Example</summary>
+
+```bash
+> env | grep SHELL
+SHELL=/bin/zsh
+> redactenv SHELL
+SHELL=•••
+```
+
+</details>
 
 ### Set AWS_PROFILE interactively
 
