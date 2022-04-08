@@ -57,7 +57,7 @@ Pretty boring stuff.
 
 Crystal on macOS Silicon fails with an architecture error for me without this `PKG_CONFIG_PATH` as an example
 
-```
+```bash
 export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
 export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
 export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
@@ -246,10 +246,10 @@ function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 
 <details><summary>Example</summary>
 
-```bash
+<code>
 > lsof -nP -i4TCP:1313 | grep LISTEN
 hugo    64740 marcus  466u  IPv4 0x76ace186a77b90b9      0t0  TCP 127.0.0.1:1313 (LISTEN)
-```
+</code>
 
 </details>
 
@@ -308,7 +308,7 @@ function jwt() {
 
 <details><summary>Example</summary>
 
-```bash
+<code>
 > jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 {
     "alg": "HS256",
@@ -319,7 +319,7 @@ function jwt() {
     "name": "John Doe",
     "iat": 1516239022
 }
-```
+</code>
 
 </details>
 
@@ -337,13 +337,13 @@ function funcs() {
 
 <details><summary>Example</summary>
 
-```bash
+<code>
 > funcs
 kumamon () {
 massunset () {
 master2main () {
 mkd () {
-```
+</code>
 
 </details>
 
@@ -407,7 +407,7 @@ function nines() {
 
 <details><summary>Example</summary>
 
-```bash
+<code>
 > nines 99.95
 {
   "SLA": 99.95,
@@ -424,7 +424,7 @@ function nines() {
   "uptimeURL": "https://uptime.is/99.95",
   "runtimeSecs": 0.001
 }
-```
+</code>
 
 </details>
 
@@ -477,14 +477,14 @@ function secretregen() {
 
 <details><summary>Example</summary>
 
-```bash
+<code>
 > secretregen ABC123
 0qbTGG
 > secretregen 0qbTGG
 LUhxAp
 > secretregen LUhxAp
 S5VkqQ
-```
+</code>
 
 </details>
 
@@ -506,10 +506,10 @@ function percentdecode() {
 
 <details><summary>Example</summary>
 
-```bash
+<code>
 > percentdecode "https://example.com?repo=marcus%2Dcrane%2Fdotfiles"
 https://example.com?repo=marcus-crane/dotfiles
-```
+</code>
 
 </details>
 
@@ -584,13 +584,13 @@ params() {
 
 <details><summary>Example</summary>
 
-```bash
+<code>
 > params "http://localhost:1313?test=hi&nice=cool&wow=great"
 http://localhost:1313
 test=hi
 nice=cool
 wow=great
-```
+</code>
 
 </details>
 
@@ -687,12 +687,12 @@ redactenv() {
 
 <details><summary>Example</summary>
 
-```bash
+<code>
 > env | grep SHELL
 SHELL=/bin/zsh
 > redactenv SHELL
 SHELL=•••
-```
+</code>
 
 </details>
 
@@ -726,6 +726,19 @@ tsd() {
     sed 's/        //g' |
     fzf --multi --preview="awk '{ print $1 }' | transmission-remote netocean -t {} -i" | awk '{ print $1 }' |
     xargs -I{} transmission-remote netocean -t {} -r
+}
+```
+
+### Quick view asdf plugin versions
+
+This function is handy for quickly viewing plugin versions for asdf
+
+It'll try to install the plugin and ignore the error that results from trying to install an already installed plugin.
+
+```bash
+asdfv() {
+  asdf plugin-add $1 || true && asdf list-all $1 |
+    fzf --tac
 }
 ```
 

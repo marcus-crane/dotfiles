@@ -1,11 +1,15 @@
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/bin/bash
 
-brew bundle --quiet --no-lock --file=/dev/stdin <<EOF  >/dev/null 2>&1 || true && echo "~ brew packages have been updated"
+echo "~ homebrew"
+
+brew bundle --quiet --no-lock --file=/dev/stdin <<EOF  >/dev/null 2>&1 || true && echo "~~ brew packages have been updated"
 tap "homebrew/cask-fonts"
 tap "benwebber/tunnelblickctl"
 tap "d12frosted/emacs-plus"
 tap "marcus-crane/tap"
+tap "yt-dlp/taps"
+tap "go-task/tap"
 
 # my own projects
 brew "khinsider"
@@ -20,14 +24,13 @@ brew "cmake"
 brew "coreutils"
 brew "curl"
 brew "docker-credential-helper-ecr"
-brew "emacs-plus@27", args: ["with-elrumo2-icon"]
 brew "fd"
 brew "ffmpeg"
 brew "fzf"
 brew "gh"
 brew "git"
 brew "glow"
-brew "go-task/tap/go-task"
+brew "go-task"
 brew "golangci-lint"
 brew "goreleaser"
 brew "graphicsmagick"
@@ -72,7 +75,7 @@ brew "w3m"
 brew "watch"
 brew "wget"
 brew "wxmac"
-brew "yt-dlp/taps/yt-dlp"
+brew "yt-dlp"
 brew "zsh"
 
 # install this after php is ready
@@ -109,15 +112,16 @@ cask "iterm2", args: { force: true }
 cask "keka", args: { force: true }
 cask "kekaexternalhelper", args: { force: true }
 cask "macdown", args: { force: true }
+cask "marvin", args: { force: true }
 cask "monodraw", args: { force: true }
 cask "obs", args: { force: true }
 cask "obsidian", args: { force: true }
 cask "postgres-unofficial", args: { force: true }
 cask "plexamp", args: { force: true }
+cask "pycharm", args: { force: true }
 cask "raycast", args: { force: true }
 cask "sidequest", args: { force: true }
 cask "slack", args: { force: true }
-cask "spotify", args: { force: true }
 cask "sublime-text", args: { force: true }
 cask "ticktick", args: { force: true }
 cask "trackerzapper", args: { force: true }
@@ -125,10 +129,8 @@ cask "vlc", args: { force: true }
 
 # mac app store
 mas "iA Writer", id: 775737590
-mas "Craft", id: 1487937127
 mas "Discovery", id: 1381004916
 mas "Jira", id: 1475897096
-mas "LINE", id: 539883307
 mas "Paprika Recipe Manager 3", id: 1303222628
 mas "Parcel", id: 639968404
 mas "Playgrounds", id: 1496833156
@@ -140,12 +142,9 @@ mas "Tailscale", id: 1475387142
 EOF
 
 xattr -r -d com.apple.quarantine ~/Library/QuickLook/*.qlgenerator
-qlmanage -r >/dev/null 2>&1 || true && echo "~ quicklook extensions have been configured"
+qlmanage -r >/dev/null 2>&1 || true && echo "~~ quicklook extensions have been configured"
 
 # Used to fix a PHP compilation issue
 ln -sf /Applications/Postgres.app/Contents/Versions/latest/bin/pg_config  /usr/local/bin/pg_config
-
-# brew services
-brew services restart d12frosted/emacs-plus/emacs-plus@27 >/dev/null 2>&1 || true && echo "~ emacs daemon has been started"
 
 {{ end -}}

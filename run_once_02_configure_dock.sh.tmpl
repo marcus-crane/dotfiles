@@ -7,11 +7,9 @@ set -eufo pipefail
   "/Applications/Brave Browser.app"
   "/System/Applications/Calendar.app"
   "/Applications/iTerm.app"
-  "/Applications/TickTick.app"
-  "/Applications/Beeper.app"
+  "/Applications/Marvin.app"
   "/Applications/Plexamp.app"
   "/Applications/Obsidian.app"
-  "/Applications/Discord.app"
   "/Applications/Slack.app"
 }}
 
@@ -25,6 +23,6 @@ defaults delete com.apple.dock persistent-others
 
 defaults write com.apple.dock persistent-others -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Users/marcus/Screenshots/</string><key>_CFURLStringType</key><integer>0</integer></dict></dict><key>tile-type</key><string>directory-tile</string></dict>"
 
-killall Dock >/dev/null 2>&1 || true && echo "~ macOS dock has been configured"
+killall Dock >/dev/null 2>&1 || true && echo "~ macos dock has been configured"
 
 {{ end -}}

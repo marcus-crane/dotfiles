@@ -1,22 +1,23 @@
 #!/bin/bash
 
 {{ $plugins := dict
-  "aria2"      "1.35.0"
-  "crystal"    "1.3.1"
-  "exa"        "0.10.1"
-  "gohugo"     "0.93.0"
-  "golang"     "1.17.2"
-  "lua"        "5.4.0"
-  "neovim"     "0.6.1"
-  "nodejs"     "lts"
-  "python"     "3.9.9"
-  "ruby"       "3.0.2"
-  "rust"       "nightly"
-  "shellcheck" "0.7.2"
-  "sqlite"     "3.36.0"
-  "tmux"       "3.2"
-  "upx"        "3.96"
-  "yarn"       "1.22.17"
+  "1password-cli" "1.12.4"
+  "aria2"         "1.36.0"
+  "crystal"       "1.4.0"
+  "exa"           "0.10.1"
+  "gohugo"        "0.96.0"
+  "golang"        "1.18"
+  "lua"           "5.4.3"
+  "neovim"        "0.6.1"
+  "nodejs"        "lts"
+  "python"        "3.9.9"
+  "ruby"          "3.0.2"
+  "rust"          "nightly"
+  "shellcheck"    "0.8.0"
+  "sqlite"        "3.38.2"
+  "tmux"          "3.2"
+  "upx"           "3.96"
+  "yarn"          "1.22.18"
 }}
 
 {{ $workMode := eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" }}
@@ -29,11 +30,11 @@
 
 asdf update >/dev/null 2>&1 || true && echo "~ asdf has been updated"
 
-echo "~ Language (installations)"
+echo "~ languages (installations)"
 
 {{ range sortAlpha (keys $plugins) -}}
   asdf plugin-add {{ . }} >/dev/null 2>&1 || true
-  asdf install {{ . }} {{ get $plugins . }} >/dev/null 2>&1 || true && echo "~~ {{ . }} v{{ get $plugins . }} is installed"
+  asdf install {{ . }} {{ get $plugins . }} >/dev/null 2>&1 || true && echo "~~ {{ . }} {{ get $plugins . }} is installed"
   asdf global {{ . }} {{ get $plugins . }} >/dev/null 2>&1 || true
 {{ end -}}
 
@@ -68,6 +69,7 @@ echo "~ Language (installations)"
 
 {{ $pythonPackages := list
    "ansible"
+   "beautifulsoup4"
    "beets"
    "black"
    "Django"
@@ -80,8 +82,12 @@ echo "~ Language (installations)"
    "pip"
    "pipenv"
    "poetry"
+   "PyGithub"
    "pylast"
    "pynvim"
+   "pyusb"
+   "pyyaml"
+   "requests"
 }}
 
 {{ $rubyPackages := list
@@ -89,25 +95,25 @@ echo "~ Language (installations)"
    "neovim"
 }}
 
-echo "~ Language (packages)"
+echo "~ languages (libraries)"
 
-# --- Install packages --- #
-echo "~~ Go packages"
+# --- Install libraries --- #
+echo "~~ go libraries"
 {{ range sortAlpha $goPackages }}
   go install {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
 {{ end -}}
 
-echo "~~ NPM packages"
+echo "~~ npm libraries"
 {{ range sortAlpha $npmPackages -}}
   npm install -g {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
 {{ end -}}
 
-echo "~~ Python packages"
+echo "~~ python libraries"
 {{ range sortAlpha $pythonPackages -}}
   pip install -U {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
 {{ end -}}
 
-echo "~~ Ruby packages"
+echo "~~ ruby libraries"
 {{ range sortAlpha $rubyPackages }}
   gem install {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
 {{ end -}}
