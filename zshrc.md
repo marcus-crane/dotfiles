@@ -737,6 +737,10 @@ It'll try to install the plugin and ignore the error that results from trying to
 
 ```bash
 asdfv() {
+  if [[ ! $1 ]]; then
+    echo "You must enter a plugin name"
+    exit 1
+  fi
   asdf plugin-add $1 || true && asdf list-all $1 |
     fzf --tac
 }
