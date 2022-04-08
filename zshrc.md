@@ -76,7 +76,7 @@ export WORKSPACE="$HOME/Code"
 ```bash
 export CONFIG_FILE="$HOME/.zshrc"
 export CONFIG_SRC="$(chezmoi source-path)/zshrc.md"
-export EDITOR="lvim"
+export EDITOR="code"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
 export LAST_MODIFIED="$(date)"
@@ -112,7 +112,7 @@ export PATH=$(asdf where python)/bin:$PATH
 
 Given that I use chezmoi, I can't have Doom Emacs editing the default config in `$HOME` so we need to overwrite that.
 
-```
+```bash
 export DOOMDIR=$(chezmoi source-path)/dot_doom.d
 ```
 
