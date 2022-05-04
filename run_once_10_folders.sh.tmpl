@@ -1,0 +1,17 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/bash
+
+{{ $folders := list
+  "$HOME/Code"
+  "$HOME/Library/Caches/terraform"
+}}
+
+{{ range sortAlpha $folders }}
+    if [[ ! -d {{ . }} ]]; then
+        mkdir -p {{ . }}
+        echo "~ created {{ . }}"
+    fi
+{{ end }}
+
+{{ end -}}
+
