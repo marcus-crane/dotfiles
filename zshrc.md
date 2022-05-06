@@ -12,6 +12,12 @@ A few of the helper functions are intended to make sure my configuration acts mo
 
 Whether that statement holds true is... debatable :)
 
+### Handy credentials
+
+```bash
+export GITHUB_TOKEN={{ (onepassword "gupafjpzbp67i4evkrzv5quos4" "wiikjuo2a5lhi6gpaesnmjvcmy" "my").details.password }}
+```
+
 ### Detecting work mode
 
 This is used in chezmoi land to see which aspects of my config should be flipped on and off.
@@ -222,7 +228,7 @@ alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short
 alias lidclosed="ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState"
 alias nvim="$EDITOR"
 alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
-alias refresh="{{ if $workMode }}opauth vendhq && echo '~ logged into 1password vault' && {{ end }}chezmoi apply && source $CONFIG_FILE && echo '~ refreshed shell config'"
+alias refresh="{{ if $workMode }}opauth vendhq && {{ end }}opauth my && chezmoi apply && source $CONFIG_FILE && echo '~ refreshed shell config'"
 alias tabcheck="/bin/cat -e -t -v"
 alias tsc="transmission-remote netocean"
 alias utd="cd ~/utf9k && yarn start"
