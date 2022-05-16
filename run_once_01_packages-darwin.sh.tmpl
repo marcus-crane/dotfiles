@@ -4,14 +4,18 @@
 echo "~ homebrew"
 
 brew bundle --quiet --no-lock --file=/dev/stdin <<EOF  >/dev/null 2>&1 || true && echo "~~ brew packages have been updated"
+
+# Official taps
 tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
+
+# Community taps
 tap "benwebber/tunnelblickctl"
-tap "d12frosted/emacs-plus"
-tap "marcus-crane/tap"
-tap "yt-dlp/taps"
 tap "go-task/tap"
+tap "yt-dlp/taps"
 
 # my own projects
+tap "marcus-crane/tap"
 brew "khinsider"
 brew "spanner"
 
@@ -95,7 +99,7 @@ cask "font-hack-nerd-font"
 # force is used here to overwrite any applications
 # manually installed outside of brew. without force,
 # these commands will fail otherwise
-cask "1password-cli", args: { force: true }
+cask "1password-cli-beta", args: { force: true }
 cask "beeper", args: { force: true }
 cask "brave-browser", args: { force: true }
 cask "calibre", args: { force: true }

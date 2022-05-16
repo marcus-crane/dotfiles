@@ -15,7 +15,7 @@ Whether that statement holds true is... debatable :)
 ### Handy credentials
 
 ```bash
-export GITHUB_TOKEN={{ (onepassword "gupafjpzbp67i4evkrzv5quos4" "wiikjuo2a5lhi6gpaesnmjvcmy" "my").details.password }}
+export GITHUB_TOKEN={{ (onepasswordDetailsFields "gupafjpzbp67i4evkrzv5quos4" "wiikjuo2a5lhi6gpaesnmjvcmy" "my").password.value }}
 ```
 
 ### Detecting work mode
@@ -621,6 +621,8 @@ It's a hassle manually entering in my password each time so instead, here's a sh
 
 It requires your password being stored in at `$HOME/.op`
 
+Also note that if you have a `printf` formatting symbol such as `%` in your master password, you'll need to escape it so eg; `abc12%` becomes `abc12%%`
+
 Does this mean my master password is stored on my machine? Yes but realistically, it isn't much of a threat.
 
 You still need to a) unlock my laptop and b) have my security key to access my vault on a new machine
@@ -629,7 +631,7 @@ You could physically access my machine of course but that's no less of a threat 
 
 ```bash
 opauth() {
-  export OP_SESSION_$1=$(cat $HOME/.op | op signin $1 --raw)
+  eval $(op signin --account $1.1password.com)
   echo "~ Signed in to $1 vault"
 }
 ```
