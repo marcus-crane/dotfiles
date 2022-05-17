@@ -76,6 +76,10 @@ defaults write com.apple.dock "autohide" -bool true
 # Set Dock to a relatively small size
 defaults write com.apple.dock tilesize -int 30
 
+# Add ability to drag windows with Ctrl + Cmd + <drag>
+# https://mmazzarolo.com/blog/2022-04-16-drag-window-by-clicking-anywhere-on-macos/
+defaults write -g NSWindowShouldDragOnGesture -bool true
+
 # Enable Developer Tools for some Webviews
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 defaults write -g WebKitDeveloperExtras -bool YES
