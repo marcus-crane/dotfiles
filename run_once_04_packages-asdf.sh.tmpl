@@ -1,47 +1,30 @@
 #!/bin/bash
 
-{{ $plugins := dict
-  "aria2"         "1.36.0"
-  "cue"           "0.4.2"
-  "crystal"       "1.4.0"
-  "dive"          "0.10.0"
-  "exa"           "0.10.1"
-  "gohugo"        "0.97.3"
-  "golang"        "1.18"
-  "goreleaser"    "1.7.0"
-  "hadolint"      "v2.10.0"
-  "lua"           "5.4.3"
-  "mitmproxy"     "8.0.0"
-  "neovim"        "0.6.1"
-  "nodejs"        "lts"
-  "python"        "3.9.9"
-  "ruby"          "3.0.2"
-  "rust"          "nightly"
-  "saml2aws"      "2.34.0"
-  "shellcheck"    "0.8.0"
-  "shellspec"     "0.28.1"
-  "sqlite"        "3.38.2"
-  "tmux"          "3.2"
-  "upx"           "3.96"
-  "yarn"          "1.22.18"
-}}
-
 {{ $workMode := eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" }}
-
-{{- if $workMode }}
-  {{ $_ := set $plugins "terraform" "0.13.7" }}
-{{ else }}
-  {{ $_ := set $plugins "terraform" "1.0.10"}}
-{{ end -}}
 
 asdf update >/dev/null 2>&1 || true && echo "~ asdf has been updated"
 
 echo "~ languages (installations)"
 
-{{ range sortAlpha (keys $plugins) -}}
-  asdf plugin-add {{ . }} >/dev/null 2>&1 || true
-  asdf install {{ . }} {{ get $plugins . }} >/dev/null 2>&1 || true && echo "~~ {{ . }} {{ get $plugins . }} is installed"
-  asdf global {{ . }} {{ get $plugins . }} >/dev/null 2>&1 || true
+# TODO: Move some of this into Chezmoi templates for readability
+{{ range sortAlpha (keys .languages) -}}
+  {{ $version := get $.languages . }}
+  {{- if eq (kindOf $version) "map" }}
+    {{ $env := "home" }}
+    {{- if $workMode }}
+      {{ $env = "work" }}
+    {{ end -}}
+    {{ $version = get $version $env }}
+  {{ end -}}
+  {{ if ne (kindOf $version) "invalid" }}
+    # You can skip a language by setting it to null for an environment
+    # which is parsed internally as "invalid" weirdly
+    # I use this to cut down the install time by skipping languages
+    # I only use at home and vice versa
+    asdf plugin-add {{ . }} >/dev/null 2>&1 || true
+    asdf install {{ . }} {{ $version }} >/dev/null 2>&1 || true && echo "~~ {{ . }} {{ $version }} is installed"
+    asdf global {{ . }} {{ $version }} >/dev/null 2>&1 || true
+  {{ end -}}
 {{ end -}}
 
 # -- Globally installed packages -- #
