@@ -1,0 +1,23 @@
+{
+  "name": "dotfiles",
+  "version": "1.0.0",
+  "description": "Global packages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@datadog/datadog-ci": "^1.7.0",
+    "eslint": "^8.16.0",
+    "js-beautify": "^1.14.3",
+    "neovim": "^4.10.1",
+    "npm": "^8.10.0",
+    "pkgparse": "^2.1.1",
+    "pnpm": "^7.1.2",
+    "stylelint": "^14.8.2",
+    "tree-sitter-cli": "^0.20.6",
+    "yarn": "^1.22.18"
+  }
+}

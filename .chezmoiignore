@@ -5,3 +5,4 @@ assets
 mkdocs.yml
 netlify.toml
 docs
+packages
