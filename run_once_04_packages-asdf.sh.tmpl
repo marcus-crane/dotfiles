@@ -4,7 +4,28 @@
 
 asdf update >/dev/null 2>&1 || true && echo "~ asdf has been updated"
 
+# TODO: Make a template for getting environment
+{{ range sortAlpha (keys .libraries) -}}
+  echo "~~ {{ . }} libraries"
+  {{ $langLibMap := (get $.libraries .) }}
+  {{ $installer := $langLibMap.installer }}
+  {{ $libs := $langLibMap.global }}
+  {{ $env := "home" }}
+  {{- if $workMode }}
+    {{ $env = "work" }}
+  {{ end -}}
+  {{ $envLibs := get $langLibMap $env }}
+  {{- if $envLibs }}
+    {{ $libs = concat $libs $envLibs }}
+  {{ end -}}
+  {{ range sortAlpha $libs -}}
+    {{ $installer }} {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
+  {{ end -}}
+{{ end -}}
+
 echo "~ languages (installations)"
+
+# -- Globally installed packages -- #
 
 # TODO: Move some of this into Chezmoi templates for readability
 {{ range sortAlpha (keys .languages) -}}
@@ -25,84 +46,4 @@ echo "~ languages (installations)"
     asdf install {{ . }} {{ $version }} >/dev/null 2>&1 || true && echo "~~ {{ . }} {{ $version }} is installed"
     asdf global {{ . }} {{ $version }} >/dev/null 2>&1 || true
   {{ end -}}
-{{ end -}}
-
-# -- Globally installed packages -- #
-
-{{ $goPackages := list
-   "github.com/cweill/gotests/...@latest"
-   "github.com/fatih/gomodifytags@latest"
-   "github.com/go-delve/delve/cmd/dlv@latest"
-   "github.com/golang/mock/mockgen@v1.6.0"
-   "github.com/mdempsky/gocode@latest"
-   "github.com/segmentio/golines@latest"
-   "github.com/wailsapp/wails/v2/cmd/wails@latest"
-   "github.com/x-motemen/gore/cmd/gore@latest"
-   "golang.org/x/tools/cmd/goimports@latest"
-   "golang.org/x/tools/cmd/guru@latest"
-   "mvdan.cc/gofumpt@latest"
-}}
-
-{{ $npmPackages := list
-   "@datadog/datadog-ci"
-   "eslint"
-   "js-beautify"
-   "neovim"
-   "npm"
-   "pkgparse"
-   "pnpm"
-   "stylelint"
-   "tree-sitter-cli"
-   "yarn"
-}}
-
-{{ $pythonPackages := list
-   "ansible"
-   "beautifulsoup4"
-   "beets"
-   "black"
-   "Django"
-   "dnspython"
-   "flake8"
-   "isort"
-   "mkdocs"
-   "mkdocs-techdocs-core"
-   "nose"
-   "pip"
-   "pipenv"
-   "poetry"
-   "PyGithub"
-   "pylast"
-   "pynvim"
-   "pyusb"
-   "pyyaml"
-   "requests"
-}}
-
-{{ $rubyPackages := list
-   "bundler"
-   "neovim"
-}}
-
-echo "~ languages (libraries)"
-
-# --- Install libraries --- #
-echo "~~ go libraries"
-{{ range sortAlpha $goPackages }}
-  go install {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
-{{ end -}}
-
-echo "~~ npm libraries"
-{{ range sortAlpha $npmPackages -}}
-  npm install -g {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
-{{ end -}}
-
-echo "~~ python libraries"
-{{ range sortAlpha $pythonPackages -}}
-  pip install -U {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
-{{ end -}}
-
-echo "~~ ruby libraries"
-{{ range sortAlpha $rubyPackages }}
-  gem install {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
 {{ end -}}
