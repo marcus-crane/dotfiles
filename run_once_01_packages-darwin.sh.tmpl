@@ -135,11 +135,15 @@ cask "vlc", args: { force: true }
 
 # mac app store
 mas "iA Writer", id: 775737590
+mas "Baking Soda", id: 1601151613
 mas "Book Track", id: 1496543317
 mas "Paprika Recipe Manager 3", id: 1303222628
 mas "Parcel", id: 639968404
 mas "Shazam", id: 897118787
 mas "Tailscale", id: 1475387142
+mas "Things", id: 904280696
+mas "Vinegar", id: 1591303229
+
 # TestFlight is only available on macOS 12+
 {{- if (ne (output "sw_vers" "-productVersion" | trim) "12.0") }}mas "TestFlight", id: 899247664{{ end }}
 
