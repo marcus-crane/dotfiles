@@ -1,0 +1,61 @@
+decks:
+- name: devdeck.decks.single_page_deck_controller.SinglePageDeckController
+  serial_number: AL46K2C75850
+  settings:
+    controls:
+    - key: 0
+      name: devdeck.controls.clock_control.ClockControl
+    - name: 'devdeck_slack.slack_deck.SlackDeck'
+      key: 1
+      settings:
+        api_key: '{{ (onepasswordDetailsFields "sf5xjz3rdsvp6c2gt4emwykqmq" "wiikjuo2a5lhi6gpaesnmjvcmy" "my").password.value }}'
+        actions:
+          - action: online
+            key: 0
+          - action: away
+            key: 1
+          - action: status
+            key: 2
+            text: At my desk
+            emoji: ':desktop_computer:'
+            clear_dnd: true
+          - action: status
+            key: 3
+            text: nice nice nice
+            emoji: ':heppythonk:'
+          - action: status
+            key: 4
+            text: ah yes
+            emoji: ':happyfrog2:'
+          - action: status
+            key: 5
+            text: In a meeting
+            emoji: ':calendar:'
+          - action: status
+            key: 6
+            text: Lunch
+            emoji: ':sandwich:'
+          - action: status
+            key: 7
+            text: Off sick
+            emoji: ':face_with_thermometer:'
+            until: tomorrow at 8am
+          - action: status
+            key: 8
+            text: On holiday
+            emoji: ':palm_tree:'
+          - action: dnd
+            key: 10
+            duration: 15
+          - action: dnd
+            key: 11
+            duration: 30
+          - action: dnd
+            key: 12
+            duration: 45
+          - action: dnd
+            key: 13
+            duration: 60
+          - action: dnd
+            key: 14
+            duration: 120
