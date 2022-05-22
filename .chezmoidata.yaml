@@ -73,9 +73,13 @@ libraries:
   python:
     installer: pip install -U
     global:
+      - Django
+      - PyGithub
       - beautifulsoup4
       - black
-      - Django
+      - devdeck
+      - devdeck-macos
+      - devdeck-slack
       - dnspython
       - flake8
       - isort
@@ -83,7 +87,6 @@ libraries:
       - nose
       - pip
       - poetry
-      - PyGithub
       - pynvim
       - pyyaml
       - requests
