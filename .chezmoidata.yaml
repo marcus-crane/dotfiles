@@ -8,10 +8,11 @@ work:
   website: https://www.vendhq.com/nz/
 languages:
   aria2: 1.36.0
-  cue: 0.4.2
+  chezmoi: 2.16.0
   crystal:
     home: 1.4.0
     work: null
+  cue: 0.4.2
   dive: 0.10.0
   exa: 0.10.1
   gohugo: 0.97.3
