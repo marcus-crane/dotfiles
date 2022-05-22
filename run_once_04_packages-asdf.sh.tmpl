@@ -4,28 +4,7 @@
 
 asdf update >/dev/null 2>&1 || true && echo "~ asdf has been updated"
 
-# TODO: Make a template for getting environment
-{{ range sortAlpha (keys .libraries) -}}
-  echo "~~ {{ . }} libraries"
-  {{ $langLibMap := (get $.libraries .) }}
-  {{ $installer := $langLibMap.installer }}
-  {{ $libs := $langLibMap.global }}
-  {{ $env := "home" }}
-  {{- if $workMode }}
-    {{ $env = "work" }}
-  {{ end -}}
-  {{ $envLibs := get $langLibMap $env }}
-  {{- if $envLibs }}
-    {{ $libs = concat $libs $envLibs }}
-  {{ end -}}
-  {{ range sortAlpha $libs -}}
-    {{ $installer }} {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
-  {{ end -}}
-{{ end -}}
-
 echo "~ languages (installations)"
-
-# -- Globally installed packages -- #
 
 # TODO: Move some of this into Chezmoi templates for readability
 {{ range sortAlpha (keys .languages) -}}
@@ -45,5 +24,26 @@ echo "~ languages (installations)"
     asdf plugin-add {{ . }} >/dev/null 2>&1 || true
     asdf install {{ . }} {{ $version }} >/dev/null 2>&1 || true && echo "~~ {{ . }} {{ $version }} is installed"
     asdf global {{ . }} {{ $version }} >/dev/null 2>&1 || true
+  {{ end -}}
+{{ end -}}
+
+# -- Globally installed packages -- #
+
+# TODO: Make a template for getting environment
+{{ range sortAlpha (keys .libraries) -}}
+  echo "~~ {{ . }} libraries"
+  {{ $langLibMap := (get $.libraries .) }}
+  {{ $installer := $langLibMap.installer }}
+  {{ $libs := $langLibMap.global }}
+  {{ $env := "home" }}
+  {{- if $workMode }}
+    {{ $env = "work" }}
+  {{ end -}}
+  {{ $envLibs := get $langLibMap $env }}
+  {{- if $envLibs }}
+    {{ $libs = concat $libs $envLibs }}
+  {{ end -}}
+  {{ range sortAlpha $libs -}}
+    {{ $installer }} {{ . }} >/dev/null 2>&1 || true && echo "~~~ {{ . }} is installed"
   {{ end -}}
 {{ end -}}
