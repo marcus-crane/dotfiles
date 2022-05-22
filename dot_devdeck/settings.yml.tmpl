@@ -5,8 +5,10 @@ decks:
     controls:
     - key: 0
       name: devdeck.controls.clock_control.ClockControl
+    - key: 1
+      name: devdeck_macos.controls.mic_mute_control.MicMuteControl
     - name: 'devdeck_slack.slack_deck.SlackDeck'
-      key: 1
+      key: 2
       settings:
         api_key: '{{ (onepasswordDetailsFields "sf5xjz3rdsvp6c2gt4emwykqmq" "wiikjuo2a5lhi6gpaesnmjvcmy" "my").password.value }}'
         actions:
