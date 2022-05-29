@@ -27,6 +27,12 @@ languages:
   nodejs:
     home: 18.2.0
     work: lts
+  ocaml:
+    home: 4.14.0
+    work: null
+  opam:
+    home: 2.1.2
+    work: null
   python:
     home: 3.11-dev
     work: 3.9.9
@@ -76,6 +82,10 @@ libraries:
       - yarn
     work:
       - "@datadog/datadog-ci"
+  ocaml:
+    installer: opam install
+    global:
+      - soupault
   python:
     installer: pip install -U
     global:

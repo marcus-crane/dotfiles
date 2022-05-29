@@ -179,6 +179,14 @@ if [[ $(command -v nix) ]]; then
 fi
 ```
 
+### opam
+
+The package manager for OCaml
+
+```bash
+[[ ! -r /Users/marcus/.opam/opam-init/init.zsh ]] || source /Users/marcus/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+```
+
 ## Languages
 
 ### Erlang
