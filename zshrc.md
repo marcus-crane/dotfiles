@@ -44,6 +44,7 @@ path=($(brew --prefix)/bin
       $HOME/.nix-profile/bin
       $HOME/.emacs.d/bin
       $HOME/.local/bin
+      $HOME/.opam/default/bin
       $HOME/scripts
       /usr/local/MacGPG2/bin
       /usr/local/opt/postgresql@10/bin
@@ -187,6 +188,14 @@ The package manager for OCaml
 [[ ! -r /Users/marcus/.opam/opam-init/init.zsh ]] || source /Users/marcus/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 ```
 
+### z
+
+A handy tool for traversing directories by "frecency"
+
+```bash
+[[ ! -r /usr/local/etc/profile.d/z.sh ]] || source /usr/local/etc/profile.d/z.sh  > /dev/null 2> /dev/null
+```
+
 ## Languages
 
 ### Erlang
@@ -245,6 +254,7 @@ alias vi="$EDITOR"
 alias view="less $CONFIG_FILE"
 alias vim="$EDITOR"
 alias ws="cd $WORKSPACE"
+alias wsd="chezmoi cd"
 alias youtube-dl="yt-dlp --add-metadata"
 ```
 
