@@ -33,9 +33,7 @@ languages:
   opam:
     home: 2.1.2
     work: null
-  python:
-    home: 3.11-dev
-    work: 3.9.9
+  python: 3.9.9
   ruby: 3.0.2
   rust: nightly
   saml2aws:
