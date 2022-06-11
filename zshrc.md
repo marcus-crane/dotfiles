@@ -465,7 +465,9 @@ If you decide to back out, you can press ESC to cancel.
 ```bash
 function gbd() {
   git branch |
-    grep --invert-match --extended-regexp 'master|main' |
+    sed 's/* //g' |
+    sed 's/  //g' |
+    grep --invert-match --extended-regexp '^(master|main)$' |
     cut -c 3- |
     fzf --multi --preview="git log {} --" |
     xargs git branch --delete --force
