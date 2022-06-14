@@ -1,6 +1,18 @@
-[".zsh_plugins/zsh-histdb"]
-  type = "archive"
-  url = "https://github.com/larkery/zsh-histdb/archive/refs/heads/master.zip"
-  exact = true
-  stripComponents = 1
-  refreshPeriod = "168h"
+[".oh-my-zsh"]
+    type = "archive"
+    url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+[".oh-my-zsh/custom/plugins/fzf-tab"]
+    type = "archive"
+    url = "https://github.com/Aloxaf/fzf-tab/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+[".oh-my-zsh/custom/plugins/zsh-histdb"]
+    type = "archive"
+    url = "https://github.com/larkery/zsh-histdb/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"

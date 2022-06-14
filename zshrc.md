@@ -12,6 +12,26 @@ A few of the helper functions are intended to make sure my configuration acts mo
 
 Whether that statement holds true is... debatable :)
 
+### OMZ
+
+```bash
+export ZSH="$HOME/.oh-my-zsh"
+DISABLE_AUTO_UPDATE="true" # Updates are handled by chezmoi
+ZSH_THEME="agnoster"
+plugins=(
+  asdf
+  aws
+  # fzf
+  fzf-tab
+  git
+  golang
+  macos
+  ripgrep
+  z
+)
+source $ZSH/oh-my-zsh.sh
+```
+
 ### Handy credentials
 
 ```bash
@@ -88,14 +108,6 @@ export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
 export LAST_MODIFIED="$(date)"
 REPORTTIME=5
-
-if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
-  export PROMPT=' ' # Installing iTerm helpers adds an arrow prompt
-else
-  export PROMPT='%B%F{green}>%f%b ' # I'd like a prompt in every other terminal
-fi
-
-export RPROMPT='%(?.%F{green}.%F{red})%t / %? / %L%f'
 ```
 
 ## Applications
@@ -186,14 +198,6 @@ The package manager for OCaml
 
 ```bash
 [[ ! -r /Users/marcus/.opam/opam-init/init.zsh ]] || source /Users/marcus/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
-```
-
-### z
-
-A handy tool for traversing directories by "frecency"
-
-```bash
-[[ ! -r /usr/local/etc/profile.d/z.sh ]] || source /usr/local/etc/profile.d/z.sh  > /dev/null 2> /dev/null
 ```
 
 ## Languages
@@ -765,10 +769,10 @@ It'll try to install the plugin and ignore the error that results from trying to
 asdfv() {
   if [[ ! $1 ]]; then
     echo "You must enter a plugin name"
-    exit 1
+  else
+    asdf plugin-add $1 || true && asdf list-all $1 |
+      fzf --tac
   fi
-  asdf plugin-add $1 || true && asdf list-all $1 |
-    fzf --tac
 }
 ```
 
