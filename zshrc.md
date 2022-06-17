@@ -21,9 +21,9 @@ ZSH_THEME="agnoster"
 plugins=(
   asdf
   aws
-  # fzf
-  fzf-tab
-  git
+  fzf
+  # fzf-tab
+  # git
   golang
   macos
   ripgrep
@@ -232,6 +232,8 @@ You know... when I get around to doing that...
 
 ```bash
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
+alias ccd="chezmoi cd"
+alias cce="chezmoi edit"
 alias crush="pngcrush -ow"
 alias de="deactivate &> /dev/null"
 alias edit="$EDITOR $CONFIG_SRC"
@@ -249,7 +251,7 @@ alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short
 alias lidclosed="ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState"
 alias nvim="$EDITOR"
 alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
-alias refresh="{{ if $workMode }}opauth vendhq && {{ end }}opauth my && chezmoi apply && source $CONFIG_FILE && echo '~ refreshed shell config'"
+alias refresh="chezmoi apply && source $CONFIG_FILE && echo '~ refreshed shell config'"
 alias tabcheck="/bin/cat -e -t -v"
 alias tsc="transmission-remote netocean"
 alias utd="cd ~/utf9k && yarn start"
