@@ -200,6 +200,13 @@ The package manager for OCaml
 [[ ! -r /Users/marcus/.opam/opam-init/init.zsh ]] || source /Users/marcus/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 ```
 
+### pnpm
+
+```bash
+export PNPM_HOME="$HOME/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+```
+
 ## Languages
 
 ### Erlang
