@@ -1,0 +1,7 @@
+connection "slack" {
+  plugin = "slack"
+
+  # The Slack app token used to connect to the API.
+  # Can also be set with the SLACK_TOKEN environment variable.
+  token = "{{ (onepasswordDetailsFields "zli6ysnwxd3i4hcoc3z7f7hsjq" "3rs5ui53xhp5zfe63vltdpb6o4" "vendhq").password.value }}"
+}
