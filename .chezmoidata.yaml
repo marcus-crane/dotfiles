@@ -44,6 +44,7 @@ languages:
     work: 2.35.0
   shellcheck: 0.8.0
   shellspec: 0.28.1
+  steampipe: 0.15.4
   sqlite: 3.38.5
   terraform:
     home: 1.2.0
