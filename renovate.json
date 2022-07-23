@@ -1,7 +1,0 @@
-{
-  "extends": [
-    "config:base",
-    ":assignee(marcus-crane)",
-    "group:allNonMajor"
-  ]
-}
