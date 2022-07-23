@@ -6,3 +6,4 @@ mkdocs.yml
 netlify.toml
 docs
 .oh-my-zsh/cache
+**/*.md
