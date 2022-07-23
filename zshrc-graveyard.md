@@ -1,4 +1,4 @@
-> Bits of my zshrc that are unused but useful to keep for future reference"
+> Bits of my zshrc that are unused but useful to keep for future reference
 
 ## Explainer
 

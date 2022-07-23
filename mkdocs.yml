@@ -8,8 +8,8 @@ nav:
   - .zshrc: zshrc.md
   - ssh:
     - authorized_keys: authorized_keys.tmpl.md
-  - Archives:
-    - zshrc graveyard: zshrc-graveyard.md
+  - Graveyard:
+    - .zshrc: zshrc-graveyard.md
   - Playground: playground.md
 
 markdown_extensions:
