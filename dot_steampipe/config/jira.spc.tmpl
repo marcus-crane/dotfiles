@@ -2,11 +2,11 @@ connection "jira" {
   plugin = "jira"
 
   # The baseUrl of your Jira Instance API
-  base_url = "{{ (onepasswordItemFields "2zocp4xayjb5nksccd6vs4lrmq" "3rs5ui53xhp5zfe63vltdpb6o4" "vendhq").url.value }}"
+  base_url = "{{ onepasswordRead "op://Private/Atlassian Steampipe/url" "lightspeedhq" }}"
 
   # The user name to access the jira cloud instance
   username = "{{ .work.email }}"
 
   # Access Token for which to use for the API
-  token = "{{ (onepasswordDetailsFields "2zocp4xayjb5nksccd6vs4lrmq" "3rs5ui53xhp5zfe63vltdpb6o4" "vendhq").credential.value }}"
+  token = "{{ onepasswordRead "op://Private/Atlassian Steampipe/credential" "lightspeedhq" }}"
 }

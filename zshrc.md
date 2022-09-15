@@ -35,7 +35,7 @@ source $ZSH/oh-my-zsh.sh
 ### Handy credentials
 
 ```bash
-export GITHUB_TOKEN={{ (onepasswordDetailsFields "gupafjpzbp67i4evkrzv5quos4" "wiikjuo2a5lhi6gpaesnmjvcmy" "my").password.value }}
+export GITHUB_TOKEN={{ onepasswordRead "op://Personal/Chezmoi Github Token/password" "my" }}
 ```
 
 ### Detecting work mode
@@ -800,8 +800,8 @@ source $HOME/Code/work/home/functions.sh
 source $HOME/Code/work/home/variables.sh
 export PATH=$PATH:$HOME/Code/work/home/bin
 
-export TF_VAR_datadog_api_key={{ (onepasswordDetailsFields "62n7qafj3crbjqtunwktgzoguq" "3rs5ui53xhp5zfe63vltdpb6o4" "vendhq").username.value }}
-export TF_VAR_datadog_app_key={{ (onepasswordDetailsFields "62n7qafj3crbjqtunwktgzoguq" "3rs5ui53xhp5zfe63vltdpb6o4" "vendhq").password.value }}
+export TF_VAR_datadog_api_key={{ onepasswordRead "op://Private/Datadog API Key/username" "lightspeedhq" }}
+export TF_VAR_datadog_app_key={{ onepasswordRead "op://Private/Datadog API Key/password" "lightspeedhq" }}
 {{- end }}
 ```
 

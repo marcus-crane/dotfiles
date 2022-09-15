@@ -5,13 +5,13 @@ connection "datadog" {
   # Steampipe will resolve the API key in below order:
   #   1. The "api_key" specified here in the config
   #   2. The `DD_CLIENT_API_KEY` environment variable
-  api_key = "{{ (onepasswordItemFields "db7wrr6jl3373wxrljaii2nle4" "3rs5ui53xhp5zfe63vltdpb6o4" "vendhq").api_key.value }}"
+  api_key = "{{ onepasswordRead "op://Private/Datadog API Key/username" "lightspeedhq" }}"
 
   # Get your application key from https://app.datadoghq.com/organization-settings/application-keys
   # Steampipe will resolve the application key in below order:
   #   1. The "app_key" specified here in the config
   #   2. The `DD_CLIENT_APP_KEY` environment variable
-  app_key = "{{ (onepasswordItemFields "db7wrr6jl3373wxrljaii2nle4" "3rs5ui53xhp5zfe63vltdpb6o4" "vendhq").app_key.value }}"
+  app_key = "{{ onepasswordRead "op://Private/Datadog API Key/password" "lightspeedhq" }}"
 
   # The API URL. By default it is pointed to "https://api.datadoghq.com/"
   # If working with the EU version of Datadog, use "https://api.datadoghq.eu/"
