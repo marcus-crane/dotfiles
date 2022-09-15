@@ -8,48 +8,43 @@ work:
   website: https://www.vendhq.com/nz/
 languages:
   aria2: 1.36.0
-  chezmoi: 2.16.0
+  chezmoi: 2.22.1
+  container-diff: 0.17.0
   crystal:
-    home: 1.4.1
+    home: 1.5.1
     work: null
   cue: 0.4.3
   dive: 0.10.0
+  dotenv-linter: 3.2.0
   exa: 0.10.1
   flutter:
     home: 3.0.4-stable
     work: null
-  gohugo: 0.99.1
-  golang: 1.18.2
-  goreleaser: 1.9.1
+  golang: 1.19
+  goreleaser: 1.11.2
+  ghorg: 1.8.7
   hadolint: v2.10.0
   lua: 5.4.3
   mitmproxy:
-    home: 8.1.0
+    home: 8.1.1
     work: null
   neovim: 0.7.0
-  nodejs:
-    home: 18.2.0
-    work: lts
-  ocaml:
-    home: 4.14.0
-    work: null
-  opam:
-    home: 2.1.2
-    work: null
+  nodejs: lts
   python: 3.9.9
   ruby: 3.0.2
   rust: nightly
   saml2aws:
     home: null
-    work: 2.35.0
+    work: 2.36.0
   shellcheck: 0.8.0
   shellspec: 0.28.1
-  steampipe: 0.15.4
-  sqlite: 3.38.5
+  steampipe: 0.16.2
+  sqlite: 3.39.3
   terraform:
-    home: 1.2.0
+    home: 1.2.9
     work: 0.13.7
-  tmux: 3.2
+  terraform-docs: 0.16.0
+  tmux: 3.3
   upx:
     home: 3.96
     work: null
@@ -84,10 +79,6 @@ libraries:
       - yarn
     work:
       - "@datadog/datadog-ci"
-  ocaml:
-    installer: opam install
-    global:
-      - soupault
   python:
     installer: pip install -U
     global:
@@ -100,6 +91,7 @@ libraries:
       - devdeck-slack
       - dnspython
       - flake8
+      - kazoo
       - isort
       - mkdocs
       - nose
