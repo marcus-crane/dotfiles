@@ -7,3 +7,7 @@ netlify.toml
 docs
 .oh-my-zsh/cache
 **/*.md
+
+{{- if ne .workmode }}
+dot_devdeck
+{{- end }}
