@@ -1,5 +1,4 @@
-{{ $workMode := eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" }}
-{{ if $workMode -}}
+{{ if .workmode -}}
 Include ~/Code/work/home/.ssh/config
 {{- end }}
 
@@ -13,7 +12,7 @@ Host *
   UseKeychain yes
   StrictHostKeyChecking no
   PreferredAuthentications=publickey
-  {{ if eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" -}}User marcus.crane{{- end }}
+  {{ if .workmode -}}User marcus.crane{{- end }}
 
 Host netocean
   HostName 192.168.1.111

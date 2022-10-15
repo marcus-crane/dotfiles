@@ -17,9 +17,8 @@
 	insteadOf = https://github.com/
 [init]
 	defaultBranch = "main"
-{{ $workMode := eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" }}
 {{ $workLite := (eq (env "WORK_MODE") "1") }}
-{{- if (or $workMode $workLite) }}
+{{- if (or .workmode $workLite) }}
 [includeIf "gitdir:~/Code/work/"]
 	path = ~/.work.gitconfig
 {{- end }}

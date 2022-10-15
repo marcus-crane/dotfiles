@@ -1,7 +1,5 @@
 #!/bin/bash
 
-{{ $workMode := eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4" }}
-
 asdf update >/dev/null 2>&1 || true && echo "~ asdf has been updated"
 
 echo "~ languages (installations)"
@@ -10,11 +8,7 @@ echo "~ languages (installations)"
 {{ range sortAlpha (keys .languages) -}}
   {{ $version := get $.languages . }}
   {{- if eq (kindOf $version) "map" }}
-    {{ $env := "home" }}
-    {{- if $workMode }}
-      {{ $env = "work" }}
-    {{ end -}}
-    {{ $version = get $version $env }}
+    {{ $version = get $version $.langenv }}
   {{ end -}}
   {{ if ne (kindOf $version) "invalid" }}
     # You can skip a language by setting it to null for an environment
@@ -29,17 +23,12 @@ echo "~ languages (installations)"
 
 # -- Globally installed packages -- #
 
-# TODO: Make a template for getting environment
 {{ range sortAlpha (keys .libraries) -}}
   echo "~~ {{ . }} libraries"
   {{ $langLibMap := (get $.libraries .) }}
   {{ $installer := $langLibMap.installer }}
   {{ $libs := $langLibMap.global }}
-  {{ $env := "home" }}
-  {{- if $workMode }}
-    {{ $env = "work" }}
-  {{ end -}}
-  {{ $envLibs := get $langLibMap $env }}
+  {{ $envLibs := get $langLibMap $.langenv }}
   {{- if $envLibs }}
     {{ $libs = concat $libs $envLibs }}
   {{ end -}}

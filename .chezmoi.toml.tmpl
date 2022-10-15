@@ -1,0 +1,16 @@
+{{/* feature flags */}}
+{{- $workmode := false -}}{{/* enable work configuration */}}
+{{- "" -}}
+
+{{- $langenv := "home" }}{{/* determine which programming languages (and versions) to sync with asdf */}}
+
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   if contains "MacBookPro16,4" (output "sysctl" "-n" "hw.model" | trim) -}}
+{{-     $workmode = true -}}
+{{-     $langenv  = "work" -}}
+{{-   end -}}
+{{- end -}}
+
+[data]
+    workmode = {{ $workmode }}
+    langenv  = "{{ $langenv }}"

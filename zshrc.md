@@ -38,14 +38,6 @@ source $ZSH/oh-my-zsh.sh
 export GITHUB_TOKEN={{ onepasswordRead "op://Personal/Chezmoi Github Token/password" "my" }}
 ```
 
-### Detecting work mode
-
-This is used in chezmoi land to see which aspects of my config should be flipped on and off.
-
-```bash
-{{ $workMode := (eq (output "sysctl" "-n" "hw.model" | trim) "MacBookPro16,4") }}
-```
-
 ### Setting up PATH
 
 These paths generally exist on most every system so we'll set them seperately from other PATH additions.
@@ -794,7 +786,7 @@ I've opted to maintain mine in public to show that it's possible to have the bes
 In the case of my employer, not only are the referenced tools the usual suspects but you can easily verify on Github that we use them internally in the form of public repos so this can't be considered as leaking metadata in that sense.
 
 ```bash
-{{ if $workMode }}
+{{ if .workmode }}
 source $HOME/Code/work/home/aliases.sh
 source $HOME/Code/work/home/functions.sh
 source $HOME/Code/work/home/variables.sh
