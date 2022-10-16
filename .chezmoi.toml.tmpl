@@ -1,5 +1,6 @@
 {{/* feature flags */}}
 {{- $workmode := false -}}{{/* enable work configuration */}}
+{{- $wsl := false -}}{{/* enable wsl specific features */}}
 {{- "" -}}
 
 {{- $langenv := "home" }}{{/* determine which programming languages (and versions) to sync with asdf */}}
@@ -11,6 +12,13 @@
 {{-   end -}}
 {{- end -}}
 
+{{- if eq .chezmoi.os "linux" -}}
+{{-   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+{{-     $wsl = true -}}
+{{-   end -}}
+{{- end -}}
+
 [data]
     workmode = {{ $workmode }}
     langenv  = "{{ $langenv }}"
+    wsl      = {{ $wsl }}

@@ -11,7 +11,7 @@ Host *
   AddKeysToAgent yes
   {{- if (eq .chezmoi.os "darwin") -}}
   UseKeychain yes
-  {{- end}}
+  {{- end }}
   StrictHostKeyChecking no
   PreferredAuthentications=publickey
   {{ if .workmode -}}

@@ -777,6 +777,23 @@ asdfv() {
 }
 ```
 
+### 1Password CLI for WSL
+
+When using WSL, it's more ideal to use an instance of the OP CLI installed on the Windows host as that will enable the use of biometric unlock from within WSL
+
+As my dotfiles use both my personal and work accounts for various things, this is basically required due to having to switch accounts partway through the dotfile installation process.
+
+It's also just a lot nicer not having to deal with long passwords.
+
+By default, `op.exe` is installed at `C:/Program Files/1Password CLI`
+
+```bash
+{{ if .wsl }}
+export PATH="/mnt/c/Program Files/1Password CLI:$PATH"
+op() { op.exe "$@"; }
+{{- end }}
+```
+
 ## Work configuration
 
 Usually most people maintain a separate configuration between their personal and work lives.
