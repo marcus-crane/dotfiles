@@ -82,6 +82,18 @@ export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
 export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
 ```
 
+### Setting up WSL Shims
+
+In order to support WSL, there are a bunch of scripts that live in `dot_wslshims` containing wrapper scripts.
+
+These are just dumb files that translate eg; `op` into `op.exe` which is the equivalent executable in Windows land
+
+```bash
+{{ if .wsl }}
+export PATH="~/.wslshims:$PATH"
+{{ end }}
+```
+
 ### Setting my workspace
 
 All of my development occurs in `$HOME/Code` regardless of what machine I'm on. One day I might change it though hence the variable.
@@ -787,10 +799,11 @@ It's also just a lot nicer not having to deal with long passwords.
 
 By default, `op.exe` is installed at `C:/Program Files/1Password CLI`
 
+In order to make this switch transparent to any calling scripts, there is a wrapper script that can be found in the `dot_wslshims` folder
+
 ```bash
 {{ if .wsl }}
 export PATH="/mnt/c/Program Files/1Password CLI:$PATH"
-op() { op.exe "$@"; }
 {{- end }}
 ```
 
