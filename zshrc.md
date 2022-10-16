@@ -52,7 +52,7 @@ path=($(brew --prefix)/bin
       /usr/local/sbin
       /usr/libexec
       /opt/X11/bin
-      $HOME/bin
+      $HOME/.bin
       $HOME/.nix-profile/bin
       $HOME/.emacs.d/bin
       $HOME/.local/bin

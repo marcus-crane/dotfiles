@@ -8,6 +8,6 @@ docs
 .oh-my-zsh/cache
 **/*.md
 
-{{- if ne .workmode }}
+{{- if ne .workmode true }}
 dot_devdeck
 {{- end }}
