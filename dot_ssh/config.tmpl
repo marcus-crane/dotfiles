@@ -9,7 +9,7 @@ Host *
   ServerAliveInterval 30
   ServerAliveCountMax 3
   AddKeysToAgent yes
-  {{- if (eq .chezmoi.os "darwin") -}}
+  {{ if (eq .chezmoi.os "darwin") -}}
   UseKeychain yes
   {{- end }}
   StrictHostKeyChecking no
