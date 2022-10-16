@@ -22,3 +22,6 @@
     workmode = {{ $workmode }}
     langenv  = "{{ $langenv }}"
     wsl      = {{ $wsl }}
+
+[onepassword]
+    command = "{{ if $wsl }}~/.wslshims/op{{ else }}op{{ end }}"
