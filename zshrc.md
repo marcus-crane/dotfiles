@@ -46,8 +46,16 @@ The following options were borrowed from [this HN comment](https://news.ycombina
 > 
 > HIST_IGNORE_DUPS (or HIST_IGNORE_ALL_DUPS) will cause duplicated commands to not be written to the history file which helps with `Ctrl-R`ing
 
-```
+```bash
 setopt SHARE_HISTORY HIST_IGNORE_DUPS
+```
+
+Also, just for my sanity across platforms, here are the macOS history defaults explicitly defined
+
+```bash
+HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
+HISTSIZE=2000
+SAVEHIST=1000
 ```
 
 ### Setting up PATH
