@@ -38,6 +38,18 @@ source $ZSH/oh-my-zsh.sh
 export GITHUB_TOKEN={{ onepasswordRead "op://Personal/Chezmoi Github Token/password" "my" }}
 ```
 
+### History
+
+The following options were borrowed from [this HN comment](https://news.ycombinator.com/item?id=33188042)
+
+> SHARE_HISTORY will cause zsh to write to the history file after every command which means that two shells running in parallel won't override changes of each other and it will write a timestamp to the file too in order to have the history in chronological order even in light of multiple instances.
+> 
+> HIST_IGNORE_DUPS (or HIST_IGNORE_ALL_DUPS) will cause duplicated commands to not be written to the history file which helps with `Ctrl-R`ing
+
+```
+setopt SHARE_HISTORY HIST_IGNORE_DUPS
+```
+
 ### Setting up PATH
 
 These paths generally exist on most every system so we'll set them seperately from other PATH additions.
