@@ -30,6 +30,7 @@ languages:
   goreleaser: 1.11.2
   ghorg: 1.8.7
   hadolint: v2.10.0
+  hugo: latest
   lua: 5.4.3
   mitmproxy:
     home: 8.1.1
