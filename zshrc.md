@@ -81,6 +81,7 @@ path=($(brew --prefix)/bin
       /usr/local/MacGPG2/bin
       /usr/local/opt/postgresql@10/bin
       /Applications/Postgres.app/Contents/Versions/latest/bin
+      $HOME/.asdf/installs/lua/5.4.3/luarocks/bin
       "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
     )
 export PATH
