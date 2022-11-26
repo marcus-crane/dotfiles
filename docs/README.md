@@ -48,3 +48,4 @@ Instead of anything fancy, I just "tangle" the contents into a file that chezmoi
 ## Extras to be manually installed
 
 Wallpaper - [evangelion-clock-screensaver](https://github.com/Wandmalfarbe/evangelion-clock-screensaver)
+Font - [Berkeley Mono](https://berkeleygraphics.com/typefaces/berkeley-mono/)
