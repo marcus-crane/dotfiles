@@ -8,33 +8,30 @@ work:
   website: https://www.vendhq.com/nz/
 languages:
   aria2: 1.36.0
-  chezmoi: 2.22.1
+  chezmoi: 2.27.1
   container-diff: 0.17.0
   crystal:
-    home: 1.5.1
+    home: 1.6.2
     work: null
   cue: 0.4.3
   dive: 0.10.0
   dotenv-linter: 3.2.0
   elixir:
-    home: 1.14.0
+    home: 1.14.2
     work: null
   erlang:
-    home: 25.1.1
+    home: 25.1.2
     work: null
   exa: 0.10.1
   flutter:
-    home: 3.0.4-stable
+    home: 3.3.9-stable
     work: null
-  golang: 1.19
-  goreleaser: 1.11.2
-  ghorg: 1.8.7
-  hadolint: v2.10.0
+  golang: 1.19.3
+  goreleaser: 1.13.0
+  ghorg: 1.9.0
+  hadolint: v2.12.0
   hugo: latest
   lua: 5.4.3
-  mitmproxy:
-    home: 8.1.1
-    work: null
   neovim: 0.7.0
   nodejs: lts
   python: 3.9.9
@@ -42,18 +39,18 @@ languages:
   rust: nightly
   saml2aws:
     home: null
-    work: 2.36.0
+    work: 2.36.1
   shellcheck: 0.8.0
   shellspec: 0.28.1
-  steampipe: 0.16.2
-  sqlite: 3.39.3
+  steampipe: 0.17.2
+  sqlite: 3.40.0
   terraform:
     home: 1.2.9
     work: 0.13.7
   terraform-docs: 0.16.0
   tmux: 3.3
   upx:
-    home: 3.96
+    home: 4.0.1
     work: null
 libraries:
   go:
