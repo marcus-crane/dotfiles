@@ -21,8 +21,10 @@ brew "khinsider"
 brew "spanner"
 
 # cli tools
+brew "angle-grinder"
 brew "autoconf"
 brew "bash"
+brew "bat"
 brew "bison"
 brew "cmake"
 brew "comby"
@@ -49,6 +51,7 @@ brew "hey"
 brew "hidapi"
 brew "html-xml-utils"
 brew "htop"
+brew "hyperfine"
 brew "jq"
 brew "libiconv"
 brew "librdkafka"
@@ -58,6 +61,7 @@ brew "neomutt"
 brew "nmap"
 brew "notmuch"
 brew "oha"
+brew "onefetch"
 brew "openssl@1.1"
 brew "overmind"
 brew "pandoc"
@@ -159,6 +163,6 @@ xattr -r -d com.apple.quarantine ~/Library/QuickLook/*.qlgenerator
 qlmanage -r >/dev/null 2>&1 || true && echo "~~ quicklook extensions have been configured"
 
 # Used to fix a PHP compilation issue
-ln -sf /Applications/Postgres.app/Contents/Versions/latest/bin/pg_config  /usr/local/bin/pg_config
+# ln -sf /Applications/Postgres.app/Contents/Versions/latest/bin/pg_config  /usr/local/bin/pg_config
 
 {{ end -}}
