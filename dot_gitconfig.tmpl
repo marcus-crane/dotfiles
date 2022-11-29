@@ -12,7 +12,7 @@
 [checkout]
 	workers = 0
 [gpg]
-	{{- if (eq .chezmoi.os "darwin") -}}
+	{{- if (eq .chezmoi.os "darwin") }}
 	program = /usr/local/MacGPG2/bin/gpg2
 	{{- end }}
 [url "ssh://git@github.com/"]
