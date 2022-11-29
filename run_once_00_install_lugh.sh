@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 VERSION=v0.0.3
 SYSTEM=$(uname | tr '[:upper:]' '[:lower:]')
