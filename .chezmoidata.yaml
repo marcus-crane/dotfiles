@@ -53,6 +53,10 @@ languages:
     home: 4.0.1
     work: null
 libraries:
+  cargo:
+    installer: cargo install
+    global:
+      - git-cliff
   go:
     installer: go install
     global:
