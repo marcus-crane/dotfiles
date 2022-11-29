@@ -63,7 +63,8 @@ SAVEHIST=1000
 These paths generally exist on most every system so we'll set them seperately from other PATH additions.
 
 ```bash
-path=($(brew --prefix)/bin
+path=(
+      /opt/homebrew/bin
       /bin
       /sbin
       /usr/local/bin
