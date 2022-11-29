@@ -10,7 +10,7 @@ tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 
 # Community taps
-tap "benwebber/tunnelblickctl"
+tap "railwaycat/emacsmacport"
 tap "espanso/espanso"
 tap "go-task/tap"
 tap "yt-dlp/taps"
@@ -23,6 +23,7 @@ brew "spanner"
 # cli tools
 brew "angle-grinder"
 brew "autoconf"
+brew "automake"
 brew "bash"
 brew "bat"
 brew "bison"
@@ -31,7 +32,9 @@ brew "comby"
 brew "coreutils"
 brew "create-dmg"
 brew "curl"
+brew "dbus"
 brew "docker-credential-helper-ecr"
+brew "emacs-mac", args: ["--with-emacs-big-sur-icon", "--with-imagemagick", "--with-native-compilation", "--with-natural-title-bar", "--with-dbus", "--with-glib", "--with-librsvg"], restart_service: :changed, link: true
 brew "entr"
 brew "fd"
 brew "ffmpeg"
@@ -52,6 +55,8 @@ brew "hidapi"
 brew "html-xml-utils"
 brew "htop"
 brew "hyperfine"
+brew "imagemagick"
+brew "jansson"
 brew "jq"
 brew "libiconv"
 brew "librdkafka"
@@ -76,10 +81,10 @@ brew "source-highlight"
 brew "speedtest-cli"
 brew "telnet"
 brew "terminal-notifier"
+brew "texinfo"
 brew "transmission-cli"
 brew "tmuxp"
 brew "tree"
-brew "tunnelblickctl"
 brew "vdirsyncer"
 brew "vpn-slice"
 brew "w3m"
@@ -112,9 +117,7 @@ cask "font-hack-nerd-font"
 # force is used here to overwrite any applications
 # manually installed outside of brew. without force,
 # these commands will fail otherwise
-cask "1password-cli-beta", args: { force: true }
 cask "beeper", args: { force: true }
-cask "brave-browser", args: { force: true }
 cask "calibre", args: { force: true }
 cask "charles", args: { force: true }
 cask "cleanshot", args: { force: true }
@@ -137,6 +140,7 @@ cask "sidequest", args: { force: true }
 cask "slack", args: { force: true }
 cask "sublime-text", args: { force: true }
 cask "tableplus", args: { force: true }
+cask "ticktick", args: { force: true }
 cask "todoist", args: { force: true }
 cask "trackerzapper", args: { force: true }
 cask "transmission", args: { force: true }
