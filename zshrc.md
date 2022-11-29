@@ -12,6 +12,44 @@ A few of the helper functions are intended to make sure my configuration acts mo
 
 Whether that statement holds true is... debatable :)
 
+### Setting up PATH
+
+These paths generally exist on most every system so we'll set them seperately from other PATH additions.
+
+```bash
+path=(
+      /opt/homebrew/bin
+      /bin
+      /sbin
+      /usr/local/bin
+      /usr/bin
+      /usr/sbin
+      /usr/local/sbin
+      /usr/libexec
+      /opt/X11/bin
+      $HOME/.bin
+      $HOME/.nix-profile/bin
+      $HOME/.emacs.d/bin
+      $HOME/.local/bin
+      $HOME/.opam/default/bin
+      $HOME/scripts
+      /usr/local/MacGPG2/bin
+      /usr/local/opt/postgresql@10/bin
+      /Applications/Postgres.app/Contents/Versions/latest/bin
+      $HOME/.asdf/installs/lua/5.4.3/luarocks/bin
+      "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+    )
+export PATH
+```
+
+### fzf setup
+
+This is requested by the fzf plugin so we need to do it before we load things
+
+```bash
+export FZF_BASE=$(brew --prefix)/bin
+```
+
 ### OMZ
 
 ```bash
@@ -56,36 +94,6 @@ Also, just for my sanity across platforms, here are the macOS history defaults e
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 HISTSIZE=2000
 SAVEHIST=1000
-```
-
-### Setting up PATH
-
-These paths generally exist on most every system so we'll set them seperately from other PATH additions.
-
-```bash
-path=(
-      /opt/homebrew/bin
-      /bin
-      /sbin
-      /usr/local/bin
-      /usr/bin
-      /usr/sbin
-      /usr/local/sbin
-      /usr/libexec
-      /opt/X11/bin
-      $HOME/.bin
-      $HOME/.nix-profile/bin
-      $HOME/.emacs.d/bin
-      $HOME/.local/bin
-      $HOME/.opam/default/bin
-      $HOME/scripts
-      /usr/local/MacGPG2/bin
-      /usr/local/opt/postgresql@10/bin
-      /Applications/Postgres.app/Contents/Versions/latest/bin
-      $HOME/.asdf/installs/lua/5.4.3/luarocks/bin
-      "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
-    )
-export PATH
 ```
 
 ### Setting up build flags
