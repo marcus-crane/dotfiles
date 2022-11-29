@@ -9,9 +9,6 @@ Host *
   ServerAliveInterval 30
   ServerAliveCountMax 3
   AddKeysToAgent yes
-  {{ if (eq .chezmoi.os "darwin") -}}
-  UseKeychain yes
-  {{- end }}
   StrictHostKeyChecking no
   PreferredAuthentications=publickey
   IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
