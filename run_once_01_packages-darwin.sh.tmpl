@@ -3,7 +3,7 @@
 
 echo "~ homebrew"
 
-brew bundle --quiet --no-lock --file=/dev/stdin <<EOF  >/dev/null 2>&1 || true && echo "~~ brew packages have been updated"
+brew bundle --quiet --no-lock --file=/dev/stdin <<EOF && echo "~~ brew packages have been updated"
 
 # Official taps
 tap "homebrew/cask-fonts"
