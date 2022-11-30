@@ -47,7 +47,7 @@ export PATH
 This is requested by the fzf plugin so we need to do it before we load things
 
 ```bash
-export FZF_BASE=$(brew --prefix)/bin
+export FZF_BASE=$(brew --prefix)/opt/fzf
 ```
 
 ### OMZ
