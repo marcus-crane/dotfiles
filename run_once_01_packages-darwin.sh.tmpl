@@ -38,7 +38,7 @@ brew "emacs-mac", args: ["with-emacs-big-sur-icon", "with-imagemagick", "with-na
 brew "entr"
 brew "fd"
 brew "ffmpeg"
-brew "flyctl
+brew "flyctl"
 brew "flycut"
 brew "fzf"
 brew "gh"
@@ -164,7 +164,7 @@ mas "Vinegar", id: 1591303229
 
 EOF
 
-xattr -r -d com.apple.quarantine ~/Library/QuickLook/*.qlgenerator
+/usr/bin/xattr -r -d com.apple.quarantine ~/Library/QuickLook/*.qlgenerator
 qlmanage -r >/dev/null 2>&1 || true && echo "~~ quicklook extensions have been configured"
 
 # Used to fix a PHP compilation issue
