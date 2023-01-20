@@ -18,10 +18,15 @@
 {{-   end -}}
 {{- end -}}
 
+{{- if eq .chezmoi.os "darwin" -}}
+{{-     $ssid = (output "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport --getinfo | awk -F: '/ SSID: /{print $2}'" | trim) -}}
+{{ - end -}}
+
 [data]
     workmode = {{ $workmode }}
     langenv  = "{{ $langenv }}"
     wsl      = {{ $wsl }}
+    ssid     = "{{ $ssid }}"
 
 [onepassword]
     command = "{{ if $wsl }}~/.wslshims/op{{ else }}op{{ end }}"
