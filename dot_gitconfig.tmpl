@@ -11,6 +11,8 @@
 	showStash = true
 [checkout]
 	workers = 0
+[core]
+	hooksPath = "~/.githooks"
 [gpg]
 	{{- if (eq .chezmoi.os "darwin") }}
 	program = /usr/local/MacGPG2/bin/gpg2

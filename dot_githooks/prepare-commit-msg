@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+# This precommit script automatically adds the Signed-off-by message to any commit
+# even if you forget to invoke the flag. I find it handy to add by default everywhere
+# rather than forget and end up doing a lot of fumbling for repos that require DCOs etc
+
+NAME=$(git config user.name)
+EMAIL=$(git config user.email)
+
+if [ -z "$NAME" ]; then
+    echo "empty git config user.name"
+    exit 1
+fi
+
+if [ -z "$EMAIL" ]; then
+    echo "empty git config user.email"
+    exit 1
+fi
+
+git interpret-trailers --if-exists doNothing --trailer \
+    "Signed-off-by: $NAME <$EMAIL>" \
+    --in-place "$1"
