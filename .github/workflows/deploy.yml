@@ -1,0 +1,39 @@
+name: Build and push
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    permissions:
+      deployments: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Python
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11.0"
+      - name: Install Python dependencies
+        run: pip install mkdocs mkdocs-techdocs-core
+      - name: Gather files to build
+        run: find . -name '*.md' -not -path './docs/*' | xargs -I{} mv '{}' docs
+      - name: Build site
+        run: mkdocs build
+      - name: Publish to Cloudflare Pages
+        id: cloudflare-publish
+        if: ${{ !env.ACT }}
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 8e782a355544971b192db9e75d789dca
+          projectName: dotfiles
+          directory: docs
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      - uses: mshick/add-pr-comment@v2
+        if: ${{ !env.ACT }}
+        with:
+          message: |
+            🚀 This branch can be previewed at ${{ steps.cloudflare-publish.outputs.url }}
