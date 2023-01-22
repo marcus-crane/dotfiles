@@ -1,3 +1,4 @@
 .DS_Store
 dot_zshrc.tmpl
 dot_ssh/authorized_keys.tmpl
+site
