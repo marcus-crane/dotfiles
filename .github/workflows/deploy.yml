@@ -30,7 +30,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 8e782a355544971b192db9e75d789dca
           projectName: dotfiles
-          directory: docs
+          directory: site
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
       - uses: mshick/add-pr-comment@v2
         if: ${{ !env.ACT }}
