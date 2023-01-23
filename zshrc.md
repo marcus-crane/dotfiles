@@ -284,6 +284,7 @@ You know... when I get around to doing that...
 
 ```bash
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
+alias bat="cat"
 alias ccd="chezmoi cd"
 alias cce="chezmoi edit"
 alias crush="pngcrush -ow"
