@@ -18,10 +18,10 @@ languages:
   dive: 0.10.0
   dotenv-linter: 3.2.0
   elixir:
-    home: 1.14.2
+    home: 1.14.3
     work: null
   erlang:
-    home: 25.1.2
+    home: 25.3
     work: null
   exa: 0.10.1
   flutter:
