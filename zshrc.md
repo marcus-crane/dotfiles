@@ -248,6 +248,7 @@ export PATH="$PNPM_HOME:$PATH"
 Whenever I compile `erlang` (using `asdf`), I always use the same flags so it's easier to just set them within my shell
 
 ```bash
+export ERL_AFLAGS="-kernel shell_history enabled"
 export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac"
 export KERL_BUILD_DOCS="yes"
 ```
