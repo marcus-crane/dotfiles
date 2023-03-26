@@ -28,7 +28,7 @@ languages:
     home: 3.3.9-stable
     work: null
   github-markdown-toc: 1.2.0
-  golang: 1.19.3
+  golang: 1.20
   goreleaser: 1.13.0
   ghorg: 1.9.0
   hadolint: v2.12.0
