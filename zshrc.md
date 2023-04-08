@@ -1,6 +1,8 @@
 ---
 title: .zshrc
 category: zsh
+tags:
+- shell
 output: dot_zshrc.tmpl
 ---
 

@@ -1,3 +1,6 @@
 .DS_Store
-dot_zshrc.tmpl
+
+# Generated chezmoi files
 dot_ssh/authorized_keys.tmpl
+dot_sqliterc
+dot_zshrc.tmpl
