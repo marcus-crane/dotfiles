@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies for site 
         run: cd site && npm install
       - name: Gather files to build
-        run: find . -name '*.md' -not -path './site/*' -not -path './README.md' | xargs -I{} mv '{}' site/docs
+        run: ./setup-site.sh
       - name: Copy README as index
         run: cp README.md site/docs/intro.md
       - name: Build site

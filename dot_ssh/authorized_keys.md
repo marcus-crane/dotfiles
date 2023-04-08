@@ -1,9 +1,10 @@
 ---
-title: ~/.ssh/authorized_keys
+title: authorized_keys
+category: ssh
 output: authorized_keys.tmpl
 ---
 
-# SSH Authorized Keys (`~/.ssh/authorized_keys`)
+# ~/.ssh/authorized_keys
 
 One cool feature of Chezmoi is that we can automatically import keys from Github.
 

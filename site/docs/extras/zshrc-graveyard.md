@@ -1,6 +1,6 @@
 ---
 title: ZSH Playground
-category: zsh
+category: oh-my-zsh
 ---
 
 > Bits of my zshrc that are unused but useful to keep for future reference
