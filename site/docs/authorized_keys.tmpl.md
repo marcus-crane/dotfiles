@@ -1,5 +1,4 @@
 ---
-title: ~/.ssh/authorized_keys
 output: authorized_keys.tmpl
 ---
 

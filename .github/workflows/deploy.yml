@@ -11,17 +11,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup Python
-        id: setup-python
-        uses: actions/setup-python@v4
+      - name: Setup Node
+        id: setup-node
+        uses: actions/setup-node@v3
         with:
-          python-version: "3.11.0"
-      - name: Install Python dependencies
-        run: pip install mkdocs mkdocs-techdocs-core
+          node-version: "18.12.1"
+      - name: Install dependencies for site 
+        run: cd site && npm install
       - name: Gather files to build
-        run: find . -name '*.md' -not -path './docs/*' | xargs -I{} mv '{}' docs
+        run: find . -name '*.md' -not -path './site/*' -not -path './README.md' | xargs -I{} mv '{}' site/docs
       - name: Build site
-        run: mkdocs build
+        run: cd site && npm run build
       - name: Publish to Cloudflare Pages
         id: cloudflare-publish
         if: ${{ !env.ACT }}
@@ -30,7 +30,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 8e782a355544971b192db9e75d789dca
           projectName: 9kdotfiles
-          directory: site
+          directory: site/build
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
       - uses: mshick/add-pr-comment@v2
         if: ${{ !env.ACT }}

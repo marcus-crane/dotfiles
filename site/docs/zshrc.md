@@ -391,7 +391,7 @@ function jwt() {
 
 <details><summary>Example</summary>
 
-<code>
+```console
 > jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 {
     "alg": "HS256",
@@ -402,7 +402,7 @@ function jwt() {
     "name": "John Doe",
     "iat": 1516239022
 }
-</code>
+```
 
 </details>
 
@@ -420,13 +420,13 @@ function funcs() {
 
 <details><summary>Example</summary>
 
-<code>
+```console
 > funcs
 kumamon () {
 massunset () {
 master2main () {
 mkd () {
-</code>
+```
 
 </details>
 
@@ -490,7 +490,7 @@ function nines() {
 
 <details><summary>Example</summary>
 
-<code>
+```console
 > nines 99.95
 {
   "SLA": 99.95,
@@ -507,7 +507,7 @@ function nines() {
   "uptimeURL": "https://uptime.is/99.95",
   "runtimeSecs": 0.001
 }
-</code>
+```
 
 </details>
 
