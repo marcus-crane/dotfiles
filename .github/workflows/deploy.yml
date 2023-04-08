@@ -20,6 +20,8 @@ jobs:
         run: cd site && npm install
       - name: Gather files to build
         run: find . -name '*.md' -not -path './site/*' -not -path './README.md' | xargs -I{} mv '{}' site/docs
+      - name: Copy README as index
+        run: mv README.md site/docs/index.md
       - name: Build site
         run: cd site && npm run build
       - name: Publish to Cloudflare Pages

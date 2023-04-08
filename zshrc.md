@@ -329,10 +329,10 @@ function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
 
 <details><summary>Example</summary>
 
-<code>
+```console
 > lsof -nP -i4TCP:1313 | grep LISTEN
 hugo    64740 marcus  466u  IPv4 0x76ace186a77b90b9      0t0  TCP 127.0.0.1:1313 (LISTEN)
-</code>
+```
 
 </details>
 
@@ -391,7 +391,7 @@ function jwt() {
 
 <details><summary>Example</summary>
 
-<code>
+```console
 > jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 {
     "alg": "HS256",
@@ -402,7 +402,7 @@ function jwt() {
     "name": "John Doe",
     "iat": 1516239022
 }
-</code>
+```
 
 </details>
 
@@ -420,13 +420,13 @@ function funcs() {
 
 <details><summary>Example</summary>
 
-<code>
+```console
 > funcs
 kumamon () {
 massunset () {
 master2main () {
 mkd () {
-</code>
+```
 
 </details>
 
@@ -490,7 +490,7 @@ function nines() {
 
 <details><summary>Example</summary>
 
-<code>
+```console
 > nines 99.95
 {
   "SLA": 99.95,
@@ -507,7 +507,7 @@ function nines() {
   "uptimeURL": "https://uptime.is/99.95",
   "runtimeSecs": 0.001
 }
-</code>
+```
 
 </details>
 
@@ -562,14 +562,14 @@ function secretregen() {
 
 <details><summary>Example</summary>
 
-<code>
+```console
 > secretregen ABC123
 0qbTGG
 > secretregen 0qbTGG
 LUhxAp
 > secretregen LUhxAp
 S5VkqQ
-</code>
+```
 
 </details>
 
@@ -591,10 +591,10 @@ function percentdecode() {
 
 <details><summary>Example</summary>
 
-<code>
+```console
 > percentdecode "https://example.com?repo=marcus%2Dcrane%2Fdotfiles"
 https://example.com?repo=marcus-crane/dotfiles
-</code>
+```
 
 </details>
 
@@ -669,13 +669,13 @@ params() {
 
 <details><summary>Example</summary>
 
-<code>
+```console
 > params "http://localhost:1313?test=hi&nice=cool&wow=great"
 http://localhost:1313
 test=hi
 nice=cool
 wow=great
-</code>
+```
 
 </details>
 
