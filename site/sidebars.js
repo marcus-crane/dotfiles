@@ -37,6 +37,11 @@ const sidebars = {
         },
         {
           type: 'doc',
+          id: 'home/sqliterc',
+          label: '.sqliterc'
+        },
+        {
+          type: 'doc',
           id: 'home/zshrc',
           label: '.zshrc'
         }
