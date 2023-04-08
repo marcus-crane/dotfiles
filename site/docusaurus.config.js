@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'dotfiles',
-  tagline: 'Borrow whatever you like',
+  tagline: 'My personal configuration annotated for your reading',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -59,22 +59,22 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'My Site',
+        title: 'dotfiles',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: 'The utf9k robot logo',
+          src: 'https://utf9k.net/favicon.png',
         },
         items: [
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Files',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          // {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
+            href: 'https://github.com/marcus-crane/dotfiles',
+            label: 'Github',
             position: 'right',
           },
         ],
@@ -83,28 +83,24 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Files',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Intro',
                 to: '/docs/intro',
               },
             ],
           },
           {
-            title: 'Community',
+            title: 'Ask me questions',
             items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
               {
                 label: 'Discord',
                 href: 'https://discordapp.com/invite/docusaurus',
               },
               {
                 label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                href: 'https://twitter.com/sentreh',
               },
             ],
           },
@@ -112,17 +108,16 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
+                label: 'My personal site',
+                href: 'https://utf9k.net'
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: 'Github',
+                href: 'https://github.com/marcus-crane/dotfiles',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
