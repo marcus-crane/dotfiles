@@ -24,6 +24,7 @@ These paths generally exist on most every system so we'll set them seperately fr
 
 ```bash
 path=(
+      /opt/homebrew/opt/emacs-mac/bin
       /opt/homebrew/bin
       /bin
       /sbin
