@@ -36,7 +36,7 @@ path=(
       /opt/X11/bin
       $HOME/.bin
       $HOME/.nix-profile/bin
-      $HOME/.emacs.d/bin
+      $HOME/.config/emacs/bin
       $HOME/.local/bin
       $HOME/.opam/default/bin
       $HOME/scripts
