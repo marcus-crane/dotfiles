@@ -292,10 +292,12 @@ You know... when I get around to doing that...
 
 ```bash
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
+alias assume="source assume"
 alias ccd="chezmoi cd"
 alias cce="chezmoi edit"
 alias crush="pngcrush -ow"
 alias de="deactivate &> /dev/null"
+alias decludge="git status -su --no-ahead-behind | awk '{ print $2 }' | xargs rm"
 alias ec="emacsclient -na $(which code)"
 alias edit="$EDITOR $CONFIG_SRC"
 alias gb="git branch -v"
