@@ -11,13 +11,15 @@ Host *
   AddKeysToAgent yes
   StrictHostKeyChecking no
   PreferredAuthentications=publickey
+  {{ if .workmode -}}
   User marcus.crane
+  {{ else }}
+  User marcus
+  {{- end }}
 
 Host netocean
-  User marcus
   HostName 192.168.1.111
 
 Host izumo
-  User marcus
   HostName 192.168.1.244
 
