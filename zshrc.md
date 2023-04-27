@@ -45,6 +45,7 @@ path=(
       /Applications/Postgres.app/Contents/Versions/latest/bin
       $HOME/.asdf/installs/lua/5.4.3/luarocks/bin
       "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+      /opt/homebrew/opt/openjdk/bin
     )
 export PATH
 ```
@@ -839,6 +840,18 @@ asdfv() {
 }
 ```
 
+### Format Terraform plans for Github
+
+At work, I occasionally paste Terraform plans into Github pull requests where they aren't otherwise automated.
+
+In order to make use of screen real estate, these are put inside of an HTML `details` block that can be expanded.
+
+```bash
+txtplan() {
+  gsed '1 i <details><summary>Plan</summary>||```terraform' txt.plan | gsed -E '$ a ```||</details>' | tr '|' '\n' | pbcopy
+}
+```
+
 ### 1Password CLI for WSL
 
 When using WSL, it's more ideal to use an instance of the OP CLI installed on the Windows host as that will enable the use of biometric unlock from within WSL
@@ -868,7 +881,6 @@ In the case of my employer, not only are the referenced tools the usual suspects
 ```bash
 {{ if .workmode }}
 source $HOME/Code/work/home/aliases.sh
-source $HOME/Code/work/home/functions.sh
 source $HOME/Code/work/home/variables.sh
 export PATH=$PATH:$HOME/Code/work/home/bin
 
