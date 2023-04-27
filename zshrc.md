@@ -25,6 +25,7 @@ These paths generally exist on most every system so we'll set them seperately fr
 ```bash
 path=(
       /opt/homebrew/opt/emacs-mac/bin
+      /opt/homebrew/opt/openjdk/bin
       /opt/homebrew/bin
       /bin
       /sbin
@@ -45,7 +46,6 @@ path=(
       /Applications/Postgres.app/Contents/Versions/latest/bin
       $HOME/.asdf/installs/lua/5.4.3/luarocks/bin
       "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
-      /opt/homebrew/opt/openjdk/bin
     )
 export PATH
 ```
