@@ -1,0 +1,20 @@
+[general]
+status_path = "~/.vdirsyncer/status/"
+
+[pair calendar]
+a = "local"
+b = "remote"
+collections = ["from a", "from b"]
+metadata = ["color"]
+conflict_resolution = "b wins"
+
+[storage local]
+type = "filesystem"
+path = "~/.calendars/"
+fileext = ".ics"
+
+[storage remote]
+type = "caldav"
+url = "https://caldav.fastmail.com/dav/principals/user/{{ .email }}/"
+username = "{{ .email }}"
+password = "{{ onepasswordRead "op://Personal/Chezmoi Fastmail/password" "my" }}"
