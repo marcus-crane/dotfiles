@@ -45,6 +45,11 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
+(setq khalel-org-calendar-export "~/.calendars/khalel.org")
+
+(setq org-agenda-files
+      '(org-directory
+        khalel-org-calendar-export))
 
 ;; General settings
 (setq undo-limit 80000000
@@ -59,10 +64,6 @@
 ;; Show battery on laptops
 (unless (string-match-p "^Power N/A" (battery))
   (display-battery-mode 1))
-
-;; Initialise frame to be a bit bigger
-(add-to-list 'default-frame-alist '(height . 24))
-(add-to-list 'default-frame-alist '(width . 80))
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
@@ -99,4 +100,5 @@
 (use-package! khalel
   :after org
   :config
-  (khalel-add-capture-template))
+  (khalel-add-capture-template)
+  (setq khalel-import-org-file khalel-org-calendar-export))
