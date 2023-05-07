@@ -46,9 +46,7 @@ languages:
   shellspec: 0.28.1
   steampipe: 0.17.2
   sqlite: 3.40.0
-  terraform:
-    home: 1.4.6
-    work: 0.13.7
+  terraform: 1.4.6
   terraform-docs: 0.16.0
   tmux: 3.3
   upx:
