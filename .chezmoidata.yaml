@@ -55,6 +55,9 @@ languages:
 libraries:
   cargo:
     installer: cargo install
+    # cargo install --features=pcre2 ripgrep
+    # Requires a custom flag
+    # TODO: Add generic flag support to my wonky installer?
     global:
       - git-cliff
   go:
