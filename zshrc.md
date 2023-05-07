@@ -26,6 +26,9 @@ These paths generally exist on most every system so we'll set them seperately fr
 path=(
       /opt/homebrew/opt/emacs-mac/bin
       /opt/homebrew/opt/openjdk/bin
+      $HOME/.bin
+      $HOME/.asdf/installs/lua/5.4.3/luarocks/bin
+      $HOME/.asdf/installs/rust/nightly/bin
       /opt/homebrew/bin
       /bin
       /sbin
@@ -35,7 +38,6 @@ path=(
       /usr/local/sbin
       /usr/libexec
       /opt/X11/bin
-      $HOME/.bin
       $HOME/.nix-profile/bin
       $HOME/.config/emacs/bin
       $HOME/.local/bin
@@ -44,7 +46,6 @@ path=(
       /usr/local/MacGPG2/bin
       /usr/local/opt/postgresql@10/bin
       /Applications/Postgres.app/Contents/Versions/latest/bin
-      $HOME/.asdf/installs/lua/5.4.3/luarocks/bin
       "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
     )
 export PATH
