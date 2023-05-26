@@ -26,6 +26,7 @@ These paths generally exist on most every system so we'll set them seperately fr
 path=(
       /opt/homebrew/opt/emacs-mac/bin
       /opt/homebrew/opt/openjdk/bin
+      /nix/var/nix/profiles/default/bin
       $HOME/.bin
       $HOME/.asdf/installs/lua/5.4.3/luarocks/bin
       $HOME/.asdf/installs/rust/nightly/bin
@@ -229,7 +230,7 @@ Setup is:
   - `nix-shell '<home-manager>' -A install`
 
 ```bash
-export NIX_SSL_CERT_FILE=/etc/ssl/cert.pem
+export NIX_SSL_CERT_FILE=/nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt
 if [[ $(command -v nix) ]]; then
   export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
 fi
