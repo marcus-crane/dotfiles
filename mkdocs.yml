@@ -19,7 +19,6 @@ theme:
     - navigation.tabs
     - navigation.top
     - toc.follow
-    - toc.integrate
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
