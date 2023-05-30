@@ -12,12 +12,14 @@ theme:
     - content.code.annotate
     - content.code.copy
     - content.code.select
+    - navigation.expand
     - navigation.indexes
     - navigation.path
     - navigation.sections
     - navigation.tabs
     - navigation.top
     - toc.follow
+    - toc.integrate
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
