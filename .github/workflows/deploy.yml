@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Install social card dependencies
+        run: sudo apt-get install -y libcairo2-dev libfreetype6-dev libffi-dev libjpeg-dev libpng-dev libz-dev
       - name: Setup Python
         id: setup-python
         uses: actions/setup-python@v4
@@ -18,6 +20,11 @@ jobs:
           python-version: "3.11.0"
       - name: Install Python dependencies
         run: pip install mkdocs mkdocs-techdocs-core
+      - uses: actions/cache@v2
+        with:
+          key: ${{ github.ref }}
+          path: .cache
+      - run: pip install git+https://${{ secrets.GITHUB_TOKEN }}@github.com/squidfunk/mkdocs-material-insiders.git Pillow cairosvg
       - name: Gather files to build
         run: ./setup-site.sh
       - name: Build site
