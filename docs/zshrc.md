@@ -26,11 +26,11 @@ These paths generally exist on most every system so we'll set them seperately fr
 path=(
       /opt/homebrew/opt/emacs-mac/bin
       /opt/homebrew/opt/openjdk/bin
-      /nix/var/nix/profiles/default/bin
+      /nix/var/nix/profiles/default/bin # (1)!
       $HOME/.bin
       $HOME/.asdf/installs/lua/5.4.3/luarocks/bin
       $HOME/.asdf/installs/rust/nightly/bin
-      /opt/homebrew/bin
+      /opt/homebrew/bin # (2)!
       /bin
       /sbin
       /usr/local/bin
@@ -47,10 +47,14 @@ path=(
       /usr/local/MacGPG2/bin
       /usr/local/opt/postgresql@10/bin
       /Applications/Postgres.app/Contents/Versions/latest/bin
-      "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+      "/Applications/Sublime Text.app/Contents/SharedSupport/bin" # (3)!
     )
 export PATH
 ```
+
+1. If we're using Nix, we want Nix installed binaries to always resolve first no matter what
+2. We want to make sure that our Homebrew binaries are picked up earlier than system binaries that tend to be older
+3. Enables the `subl` command
 
 ### fzf setup
 
@@ -64,7 +68,7 @@ export FZF_BASE=$(brew --prefix)/opt/fzf
 
 ```bash
 export ZSH="$HOME/.oh-my-zsh"
-DISABLE_AUTO_UPDATE="true" # Updates are handled by chezmoi
+DISABLE_AUTO_UPDATE="true" # (1)!
 ZSH_THEME="agnoster"
 plugins=(
   asdf
@@ -79,6 +83,8 @@ plugins=(
 )
 source $ZSH/oh-my-zsh.sh
 ```
+
+1. Updates are handled by chezmoi
 
 ### Handy credentials
 
