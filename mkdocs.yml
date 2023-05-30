@@ -1,0 +1,23 @@
+site_name: dotfiles
+site_url: https://dotfiles.utf9k.net
+repo_name: marcus-crane/dotfiles
+repo_url: https://github.com/marcus-crane/dotfiles
+site_author: Marcus Crane <marcus@utf9k.net>
+
+nav:
+  - intro: README.md
+  - Home Directory:
+    - .ssh:
+      - authorized_keys: authorized_keys.md
+    - .sqliterc: sqliterc.md
+    - .zshrc: zshrc.md
+  - Extras:
+    - Playground: playground.md
+    - .zshrc Graveyard: zshrc-graveyard.md
+
+markdown_extensions:
+  - toc:
+      baselevel: 3
+
+plugins:
+  - techdocs-core

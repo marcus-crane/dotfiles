@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 
+# Create docs folder
+mkdir docs
+
 # Intro
-cp README.md site/docs/intro.md
+cp README.md docs
+
 
 # Root Home Directory ($HOME)
-mkdir -p site/docs/home
-
-cp sqliterc.md site/docs/home/
-cp zshrc.md site/docs/home/
+cp sqliterc.md docs
+cp zshrc.md docs
 
 # SSH (~/.ssh)
-mkdir -p site/docs/home/ssh
+mkdir -p docs/home/ssh
 
-cp dot_ssh/authorized_keys.md site/docs/home/ssh/authorized_keys.md
+cp dot_ssh/authorized_keys.md docs
 
 # Extras
-mkdir -p site/docs/extras
-
-cp playground.md site/docs/extras
-cp zshrc-graveyard.md site/docs/extras
+cp playground.md docs
+cp zshrc-graveyard.md docs
