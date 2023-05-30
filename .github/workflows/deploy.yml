@@ -24,7 +24,7 @@ jobs:
         with:
           key: ${{ github.ref }}
           path: .cache
-      - run: pip install git+https://${{ secrets.GITHUB_TOKEN }}@github.com/squidfunk/mkdocs-material-insiders.git Pillow cairosvg
+      - run: pip install git+https://${{ secrets.GH_TOKEN }}@github.com/squidfunk/mkdocs-material-insiders.git Pillow cairosvg
       - name: Gather files to build
         run: ./setup-site.sh
       - name: Build site
