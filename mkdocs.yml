@@ -8,10 +8,12 @@ repo_url: https://github.com/marcus-crane/dotfiles
 theme:
   name: material
   language: en
-  # logo: logo.png
-  # custom_dir: theme
   features:
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
     - navigation.indexes
+    - navigation.path
     - navigation.sections
     - navigation.tabs
     - navigation.top
@@ -35,7 +37,15 @@ theme:
     - privacy:
         enabled: true
     - search
-    - social
+    - social:
+        cards_layout: default
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/marcus-crane
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/sentreh
 
 markdown_extensions:
   - abbr
