@@ -26,7 +26,7 @@ These paths generally exist on most every system so we'll set them seperately fr
 path=(
       /opt/homebrew/opt/emacs-mac/bin
       /opt/homebrew/opt/openjdk/bin
-      /nix/var/nix/profiles/default/bin
+      /nix/var/nix/profiles/default/bin # (1)
       $HOME/.bin
       $HOME/.asdf/installs/lua/5.4.3/luarocks/bin
       $HOME/.asdf/installs/rust/nightly/bin
@@ -51,6 +51,8 @@ path=(
     )
 export PATH
 ```
+
+1. If we're using Nix, we want Nix installed binaries to always resolve first no matter what
 
 ### fzf setup
 
