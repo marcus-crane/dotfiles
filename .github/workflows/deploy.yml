@@ -20,7 +20,7 @@ jobs:
           python-version: "3.11.0"
       - name: Install Python dependencies
         run: pip install mkdocs mkdocs-techdocs-core
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           key: ${{ github.ref }}
           path: .cache
