@@ -882,6 +882,7 @@ In the case of my employer, not only are the referenced tools the usual suspects
 ```bash
 {{ if .workmode }}
 source $HOME/Code/work/home/aliases.sh
+source $HOME/functions.sh
 source $HOME/Code/work/home/variables.sh
 export PATH=$PATH:$HOME/Code/work/home/bin
 
