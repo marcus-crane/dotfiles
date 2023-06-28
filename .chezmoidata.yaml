@@ -9,10 +9,10 @@ work:
 languages:
   aria2: 1.36.0
   bat: 0.22.1
-  chezmoi: 2.27.1
+  chezmoi: 2.33.6
   container-diff: 0.17.0
   crystal:
-    home: 1.6.2
+    home: 1.8.2
     work: null
   cue: 0.4.3
   dive: 0.10.0
@@ -28,7 +28,7 @@ languages:
     home: 3.3.9-stable
     work: null
   github-markdown-toc: 1.2.0
-  golang: 1.20
+  golang: 1.20.4
   goreleaser: 1.13.0
   ghorg: 1.9.0
   hadolint: v2.12.0
@@ -36,19 +36,14 @@ languages:
   lua: 5.4.3
   neovim: 0.7.0
   nodejs: lts
-  python: 3.9.9
+  python: 3.11.3
   ruby: 3.0.2
   rust: nightly
-  saml2aws:
-    home: null
-    work: 2.36.1
   shellcheck: 0.8.0
   shellspec: 0.28.1
-  steampipe: 0.17.2
+  steampipe: 0.20.2
   sqlite: 3.40.0
-  terraform:
-    home: 1.4.6
-    work: 0.13.7
+  terraform: 1.4.6
   terraform-docs: 0.16.0
   tmux: 3.3
   upx:
@@ -57,6 +52,9 @@ languages:
 libraries:
   cargo:
     installer: cargo install
+    # cargo install --features=pcre2 ripgrep
+    # Requires a custom flag
+    # TODO: Add generic flag support to my wonky installer?
     global:
       - git-cliff
   go:

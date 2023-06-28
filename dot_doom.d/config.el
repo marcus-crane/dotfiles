@@ -6,8 +6,12 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Marcus Crane"
+      user-mail-address "marcus@utf9k.net")
+
+;; My Doom config lives in a different place than the default as I use
+;; Chezmoi to manage my dotfiles
+(setq doom-user-dir "~/.local/share/chezmoi/dot_doom.d/")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -32,7 +36,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-vibrant)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -41,6 +45,25 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
+(setq khalel-org-calendar-export "~/.calendars/khalel.org")
+
+(setq org-agenda-files
+      '(org-directory
+        khalel-org-calendar-export))
+
+;; General settings
+(setq undo-limit 80000000
+      evil-want-fine-undo t
+      auto-save-default t
+      truncate-string-ellipsis "…"
+      password-cache-expiry nil)
+
+;; Show time in status bar
+(display-time-mode 1)
+
+;; Show battery on laptops
+(unless (string-match-p "^Power N/A" (battery))
+  (display-battery-mode 1))
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
@@ -74,3 +97,8 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+(use-package! khalel
+  :after org
+  :config
+  (khalel-add-capture-template)
+  (setq khalel-import-org-file khalel-org-calendar-export))

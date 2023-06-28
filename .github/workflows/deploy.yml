@@ -11,19 +11,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup Node
-        id: setup-node
-        uses: actions/setup-node@v3
+      - name: Install social card dependencies
+        run: sudo apt-get install -y libcairo2-dev libfreetype6-dev libffi-dev libjpeg-dev libpng-dev libz-dev
+      - name: Setup Python
+        id: setup-python
+        uses: actions/setup-python@v4
         with:
-          node-version: "18.12.1"
-      - name: Install dependencies for site 
-        run: cd site && npm install
+          python-version: "3.11.0"
+      - name: Install Python dependencies
+        run: pip install mkdocs mkdocs-techdocs-core
+      - uses: actions/cache@v3
+        with:
+          key: ${{ github.ref }}
+          path: .cache
+      - run: pip install git+https://${{ secrets.GH_TOKEN }}@github.com/squidfunk/mkdocs-material-insiders.git Pillow cairosvg
       - name: Gather files to build
         run: ./setup-site.sh
-      - name: Copy README as index
-        run: cp README.md site/docs/intro.md
       - name: Build site
-        run: cd site && npm run build
+        run: mkdocs build
       - name: Publish to Cloudflare Pages
         id: cloudflare-publish
         if: ${{ !env.ACT }}
@@ -32,7 +37,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 8e782a355544971b192db9e75d789dca
           projectName: 9kdotfiles
-          directory: site/build
+          directory: site
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
       - uses: mshick/add-pr-comment@v2
         if: ${{ !env.ACT }}

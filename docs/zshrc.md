@@ -54,7 +54,7 @@ export PATH
 
 1. If we're using Nix, we want Nix installed binaries to always resolve first no matter what
 2. We want to make sure that our Homebrew binaries are picked up earlier than system binaries that tend to be older
-3. Enables quickly opening Sublime Text via terminal by using the `subl` command
+3. Enables the `subl` command
 
 ### fzf setup
 
@@ -84,15 +84,13 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 ```
 
-1. Updates are handled by chezmoi so we disable automatic zsh updating
+1. Updates are handled by chezmoi
 
 ### Handy credentials
 
 ```bash
-export GITHUB_TOKEN={{ onepasswordRead "op://Personal/Chezmoi Github Token/password" "my" }} # (1)!
+export GITHUB_TOKEN={{ onepasswordRead "op://Personal/Chezmoi Github Token/password" "my" }}
 ```
-
-1. I use this with the Github CLI among other places so it's useful to just have it always set in my shell
 
 ### History
 
@@ -184,10 +182,8 @@ export PATH=$(asdf where python)/bin:$PATH
 Given that I use chezmoi, I can't have Doom Emacs editing the default config in `$HOME` so we need to overwrite that.
 
 ```bash
-export DOOMDIR=$(chezmoi source-path)/dot_doom.d # (1)!
+export DOOMDIR=$(chezmoi source-path)/dot_doom.d
 ```
-
-1. If I make updates to my Emacs config, I want to make sure that I'm editing the source and not the version in `$HOME` which will get overwritten on the next `chezmoi apply`
 
 ### fzf
 
@@ -805,6 +801,14 @@ SHELL=•••
 
 </details>
 
+### Set AWS_PROFILE interactively
+
+```bash
+awsp() {
+  export AWS_PROFILE=$(grep "profile" ~/.aws/config | awk '{ print $2 }' | sed 's/.$//' | fzf)
+}
+```
+
 ### Mass unset environment items
 
 ```bash
@@ -888,7 +892,6 @@ In the case of my employer, not only are the referenced tools the usual suspects
 ```bash
 {{ if .workmode }}
 source $HOME/Code/work/home/aliases.sh
-source $HOME/functions.sh
 source $HOME/Code/work/home/variables.sh
 export PATH=$PATH:$HOME/Code/work/home/bin
 
