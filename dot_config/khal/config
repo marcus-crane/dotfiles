@@ -12,4 +12,4 @@ datetimeformat = %Y-%m-%d %H:%M
 longdatetimeformat = %Y-%m-%d %H:%M
 
 [default]
-default_calendar = "Adventures"
+default_calendar = "e40441a6-c330-4302-8017-8405b740df53"
