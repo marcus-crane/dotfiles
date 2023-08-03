@@ -155,7 +155,7 @@ export WORKSPACE="$HOME/Code"
 ```bash
 export CONFIG_FILE="$HOME/.zshrc"
 export CONFIG_SRC="$(chezmoi source-path)/zshrc.md"
-export EDITOR="code"
+export EDITOR="lvim"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
 export LAST_MODIFIED="$(date)"
