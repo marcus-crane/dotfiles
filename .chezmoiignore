@@ -7,6 +7,8 @@ netlify.toml
 docs
 .oh-my-zsh/cache
 **/*.md
+setup-site.sh
+renovate.json
 
 {{- if ne .workmode true }}
 dot_devdeck
