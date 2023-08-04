@@ -9,10 +9,10 @@ work:
 languages:
   aria2: 1.36.0
   bat: 0.22.1
-  chezmoi: 2.33.6
+  chezmoi: 2.36.1
   container-diff: 0.17.0
   crystal:
-    home: 1.8.2
+    home: 1.9.2
     work: null
   cue: 0.4.3
   dive: 0.10.0
@@ -28,15 +28,15 @@ languages:
     home: 3.3.9-stable
     work: null
   github-markdown-toc: 1.2.0
-  golang: 1.20.4
+  golang: 1.20.7
   goreleaser: 1.13.0
   ghorg: 1.9.0
   hadolint: v2.12.0
   hugo: latest
   lua: 5.4.3
-  neovim: 0.7.0
+  neovim: 0.9.1
   nodejs: lts
-  python: 3.11.3
+  python: 3.11.4
   ruby: 3.0.2
   rust: nightly
   shellcheck: 0.8.0
