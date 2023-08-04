@@ -4,3 +4,4 @@
 dot_ssh/authorized_keys.tmpl
 dot_sqliterc
 dot_zshrc.tmpl
+docs/*.tmpl
