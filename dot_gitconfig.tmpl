@@ -14,6 +14,7 @@
 [checkout]
 	workers = 0
 [core]
+	excludesFile = "~/.gitignore"
 	hooksPath = "~/.githooks"
 [gpg]
 	{{- if (eq .chezmoi.os "darwin") }}
