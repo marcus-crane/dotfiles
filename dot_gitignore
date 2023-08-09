@@ -1,2 +1,74 @@
+# Common editors
+.idea # JetBrains IDEs
+*.sublime-workspace # Sublime Text
+*.sublime-project # Sublime Text
+*.tmproj # TextMate
+*.tmproject # TextMate
+.netrwhist # Vim
+.vscode # VS Code
+
+# Common languages
+*.out # Go
+*.log # Miscellaneous
+node_modules # NodeJS
+dist # Python
+.eggs # Python
+*.egg # Python
+MANIFEST # Python
+__pycache__ # Python
+
+# --- macOS: https://github.com/github/gitignore/blob/main/Global/macOS.gitignore ---
+# General
 .DS_Store
-__pycache__
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# --- Windows: https://github.com/github/gitignore/blob/main/Global/Windows.gitignore ---
+
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
