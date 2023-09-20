@@ -26,6 +26,7 @@ These paths generally exist on most every system so we'll set them seperately fr
 path=(
       /opt/homebrew/opt/emacs-mac/bin
       /opt/homebrew/opt/openjdk/bin
+      /opt/homebrew/opt/mtr/sbin
       /nix/var/nix/profiles/default/bin # (1)!
       $HOME/.bin
       $HOME/.asdf/installs/lua/5.4.3/luarocks/bin
