@@ -2,6 +2,7 @@
 container-diff = '0.17.0'
 crystal = '1.9.2'
 cue = '0.6.0'
+deno = '1.37.2'
 dive = '0.11.0'
 dotenv-linter = '3.3.0'
 github-markdown-toc = '1.2.0'
