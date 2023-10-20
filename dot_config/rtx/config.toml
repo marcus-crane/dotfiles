@@ -1,0 +1,4 @@
+[tools]
+golang = '1.21.3'
+hugo = '1.19.0'
+python = '3.12.0'

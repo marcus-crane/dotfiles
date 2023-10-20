@@ -29,8 +29,6 @@ path=(
       /opt/homebrew/opt/mtr/sbin
       /nix/var/nix/profiles/default/bin # (1)!
       $HOME/.bin
-      $HOME/.asdf/installs/lua/5.4.3/luarocks/bin
-      $HOME/.asdf/installs/rust/nightly/bin
       /opt/homebrew/bin # (2)!
       /bin
       /sbin
@@ -72,7 +70,6 @@ export ZSH="$HOME/.oh-my-zsh"
 DISABLE_AUTO_UPDATE="true" # (1)!
 ZSH_THEME="agnoster"
 plugins=(
-  asdf
   aws
   fzf
   # fzf-tab
@@ -165,21 +162,6 @@ REPORTTIME=5
 
 ## Applications
 
-### asdf
-
-The version manager to rule them all
-
-It wraps a number of existing language version managers into plugins that can be managed through one unified CLI tool
-
-```bash
-export ASDF_DIR=$HOME/.asdf
-if [[ -f $ASDF_DIR/asdf.sh ]]; then
-  . $ASDF_DIR/asdf.sh
-fi
-export PATH=$(asdf where nodejs)/.npm/bin:$PATH
-export PATH=$(asdf where python)/bin:$PATH
-```
-
 ### Emacs
 
 Given that I use chezmoi, I can't have Doom Emacs editing the default config in `$HOME` so we need to overwrite that.
@@ -269,7 +251,7 @@ export PATH="$PNPM_HOME:$PATH"
 
 ### Erlang
 
-Whenever I compile `erlang` (using `asdf`), I always use the same flags so it's easier to just set them within my shell
+Whenever I compile `erlang`, I always use the same flags so it's easier to just set them within my shell
 
 ```bash
 export ERL_AFLAGS="-kernel shell_history enabled"
@@ -279,18 +261,16 @@ export KERL_BUILD_DOCS="yes"
 
 ### go
 
-I don't explicitly set `GOROOT` as it is defined by `asdf` generally.
+I don't explicitly set `GOROOT` as it is defined by `rtx` generally.
 
 ```bash
 export GOPATH="$WORKSPACE/go"
-ASDF_GO_VERSION=$(asdf current golang | awk '{ print $2 }')
-export GOROOT="$HOME/.asdf/installs/golang/$ASDF_GO_VERSION/go"
 export PATH="$GOPATH/bin:$PATH"
 ```
 
 ### Terraform
 
-Sometimes I use an older version of Terraform outside of asdf that doesn't support ARM builds
+Sometimes I use an older version of Terraform outside of `rtx` that doesn't support ARM builds
 
 ```bash
 if [[ $(type /usr/local/bin/terraform) ]]; then
@@ -828,23 +808,6 @@ tsd() {
     sed 's/        //g' |
     fzf --multi --preview="awk '{ print $1 }' | transmission-remote netocean -t {} -i" | awk '{ print $1 }' |
     xargs -I{} transmission-remote netocean -t {} -r
-}
-```
-
-### Quick view asdf plugin versions
-
-This function is handy for quickly viewing plugin versions for asdf
-
-It'll try to install the plugin and ignore the error that results from trying to install an already installed plugin.
-
-```bash
-asdfv() {
-  if [[ ! $1 ]]; then
-    echo "You must enter a plugin name"
-  else
-    asdf plugin-add $1 || true && asdf list-all $1 |
-      fzf --tac
-  fi
 }
 ```
 
