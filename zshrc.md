@@ -247,6 +247,12 @@ export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 ```
 
+### rtx
+
+```bash
+eval "$(rtx activate zsh)"
+```
+
 ## Languages
 
 ### Erlang
