@@ -25,7 +25,7 @@ brew "spanner"
 
 # cli tools
 brew "angle-grinder"
-brew "aria2c"
+brew "aria2"
 brew "autoconf"
 brew "automake"
 brew "bash"
@@ -38,7 +38,6 @@ brew "create-dmg"
 brew "curl"
 brew "dbus"
 brew "docker-credential-helper-ecr"
-brew "emacs-mac", args: ["with-emacs-big-sur-icon", "with-imagemagick", "with-native-compilation", "with-natural-title-bar", "with-dbus", "with-glib", "with-librsvg", "with-starter"]
 brew "entr"
 brew "fd"
 brew "ffmpeg"
@@ -76,12 +75,12 @@ brew "onefetch"
 brew "openssl@1.1"
 brew "overmind"
 brew "pandoc"
-brew "php@8.0"
 brew "pngcrush"
 brew "pngpaste"
 brew "protobuf"
 brew "pwgen"
 brew "rclone"
+brew "re2c" # php build dependency
 brew "ripgrep"
 brew "rtx"
 brew "source-highlight"
@@ -105,17 +104,14 @@ brew "yt-dlp"
 brew "z"
 brew "zsh"
 
-# install this after php is ready
-brew "composer"
-
 # quicklook extensions
-cask "gltfquicklook"
-cask "provisionql"
-cask "qladdict"
-cask "qlcommonmark"
-cask "qlstephen"
-cask "quickgeojson"
-cask "quicklook-csv"
+cask "gltfquicklook", args: { force: true }
+cask "provisionql", args: { force: true }
+cask "qladdict", args: { force: true }
+cask "qlcommonmark", args: { force: true }
+cask "qlstephen", args: { force: true }
+cask "quickgeojson", args: { force: true }
+cask "quicklook-csv", args: { force: true }
 
 # fonts
 cask "font-fira-code-nerd-font"
