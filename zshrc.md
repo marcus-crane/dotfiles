@@ -162,6 +162,14 @@ REPORTTIME=5
 
 ## Applications
 
+### Atuin
+
+```bash
+if [[ $(command -v atuin) ]]; then
+  eval "$(atuin init zsh)"
+fi
+```
+
 ### Emacs
 
 Given that I use chezmoi, I can't have Doom Emacs editing the default config in `$HOME` so we need to overwrite that.
