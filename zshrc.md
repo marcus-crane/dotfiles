@@ -543,10 +543,8 @@ If you decide to back out, you can press ESC to cancel.
 ```bash
 function gbd() {
   git branch |
-    sed 's/* //g' |
-    sed 's/  //g' |
-    grep --invert-match --extended-regexp '^(master|main)$' |
-    cut -c 3- |
+    grep --invert-match $(git branch --show-current) |
+    awk '{print $1}'
     fzf --multi --preview="git log {} --" |
     xargs git branch --delete --force
 }
