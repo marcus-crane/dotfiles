@@ -1,7 +1,0 @@
-connection "slack" {
-  plugin = "slack"
-
-  # The Slack app token used to connect to the API.
-  # Can also be set with the SLACK_TOKEN environment variable.
-  token = "{{ onepasswordRead "op://Personal/Cannard Slack Token/password" "my" }}"
-}

@@ -1,6 +1,6 @@
-{{ if .workmode -}}
+{{- if .workmode }}
 Include ~/Code/work/home/.ssh/config
-{{- end }}
+{{- end -}}
 
 Host *
   ControlMaster auto
@@ -11,7 +11,7 @@ Host *
   AddKeysToAgent yes
   StrictHostKeyChecking no
   PreferredAuthentications=publickey
-  {{ if .workmode -}}
+  {{- if .workmode }}
   User marcus.crane
   {{ else }}
   User marcus
@@ -22,4 +22,3 @@ Host netocean
 
 Host izumo
   HostName 192.168.1.244
-

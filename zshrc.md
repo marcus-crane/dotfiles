@@ -28,8 +28,9 @@ path=(
       /opt/homebrew/opt/openjdk/bin
       /opt/homebrew/opt/mtr/sbin
       /nix/var/nix/profiles/default/bin # (1)!
+      /home/linuxbrew/.linuxbrew/bin # (2)!
       $HOME/.bin
-      /opt/homebrew/bin # (2)!
+      /opt/homebrew/bin # (3)!
       /bin
       /sbin
       /usr/local/bin
@@ -38,6 +39,7 @@ path=(
       /usr/local/sbin
       /usr/libexec
       /opt/X11/bin
+      $HOME/.local/share/rtx/bin
       $HOME/.nix-profile/bin
       $HOME/.config/emacs/bin
       $HOME/.local/bin
@@ -46,14 +48,25 @@ path=(
       /usr/local/MacGPG2/bin
       /usr/local/opt/postgresql@10/bin
       /Applications/Postgres.app/Contents/Versions/latest/bin
-      "/Applications/Sublime Text.app/Contents/SharedSupport/bin" # (3)!
+      "/Applications/Sublime Text.app/Contents/SharedSupport/bin" # (4)!
     )
 export PATH
 ```
 
 1. If we're using Nix, we want Nix installed binaries to always resolve first no matter what
-2. We want to make sure that our Homebrew binaries are picked up earlier than system binaries that tend to be older
-3. Enables quickly opening Sublime Text via terminal by using the `subl` command
+2. While this could cause trouble, this path should only ever resolve on Linux so it'll do for now
+3. We want to make sure that our Homebrew binaries are picked up earlier than system binaries that tend to be older
+4. Enables quickly opening Sublime Text via terminal by using the `subl` command
+
+TODO: Why is Homebrew on Linux installed as its own user
+
+### Homebrew
+
+Some homebrew setup that is needed on Linux
+
+```bash
+eval "$(brew shellenv)"
+```
 
 ### fzf setup
 

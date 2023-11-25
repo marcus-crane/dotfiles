@@ -16,10 +16,10 @@
 [core]
 	excludesFile = "~/.gitignore"
 	hooksPath = "~/.githooks"
+{{- if (eq .chezmoi.os "darwin") }}
 [gpg]
-	{{- if (eq .chezmoi.os "darwin") }}
 	program = /usr/local/MacGPG2/bin/gpg2
-	{{- end }}
+{{- end }}
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
 [init]
