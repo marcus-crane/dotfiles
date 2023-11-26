@@ -472,6 +472,18 @@ Technically speaking, the second grep would potentially be filtering itself out 
 
 It also makes my head hurt a little bit for what you'd think would be a pretty basic function!
 
+### What is the definition of a given shell function?
+
+Sometimes I like to take a copy of an existing shell function and poke around the internals to debug/fix it.
+
+I can read through my shell config but I'm lazy so instead here is a function to search other functions.
+
+```bash
+function fsearch () {
+  functions | sed -n "/$1/,/^}$/p"
+}
+```
+
 ### What's a quick way to archive backups?
 
 In order to save on cloud storage space, while still keeping a home for rarely used backups, I like to store things in [Backblaze B2](https://backblaze.com/b2/cloud-storage)
