@@ -1,7 +1,3 @@
----
-title: Overview
----
-
 # dotfiles
 
 > View my dotfiles in literate form at [dotfiles.utf9k.net](https://dotfiles.utf9k.net)
