@@ -4,7 +4,13 @@ title: Overview
 
 # dotfiles
 
-> View my dotfiles rendered over at [dotfiles.utf9k.net](https://dotfiles.utf9k.net)
+> View my dotfiles in literate form at [dotfiles.utf9k.net](https://dotfiles.utf9k.net)
+
+<center>
+
+![](docs/term.png)
+
+</center>
 
 Currently, I use [chezmoi](https://github.com/twpayne/chezmoi) as a dotfile manager which runs a bunch of preinstallation scripts and then applies all dotfiles in this repo to `$HOME`.
 
