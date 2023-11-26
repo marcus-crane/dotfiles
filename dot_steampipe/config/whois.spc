@@ -1,3 +1,0 @@
-connection "whois" {
-  plugin = "whois"
-}

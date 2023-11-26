@@ -1,3 +1,0 @@
-connection "steampipe" {
-  plugin = "steampipe"
-}
