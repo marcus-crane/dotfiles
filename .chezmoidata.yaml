@@ -16,7 +16,7 @@ languages:
     home: 1.9.2
     work: null
   cue: 0.6.0
-  deno: 1.37.2
+  deno: 1.38.4
   dive: 0.11.0
   dotenv-linter: 3.3.0
   github-markdown-toc: 1.2.0
