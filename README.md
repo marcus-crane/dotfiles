@@ -27,7 +27,7 @@ My shell of choice is zsh, with [oh-my-zsh](https://ohmyz.sh/) although from tim
 On a fresh machine, it's supposed to be possible to both install `chezmoi` and my dotfiles in one go like so:
 
 ```bash
-sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply marcus-crane
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply marcus-crane
 ```
 
 I say supposed to because I don't set up machines from scratch very often, and each time I do, there's usually some bootstrapping problem like hard references to chezmoi that don't resolve, because it isn't installed yet where my shell scripts expect it to be.
