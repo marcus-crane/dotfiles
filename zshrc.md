@@ -569,7 +569,7 @@ If you decide to back out, you can press ESC to cancel.
 function gbd() {
   git branch |
     grep --invert-match $(git branch --show-current) |
-    awk '{print $1}'
+    cut -c 3- |
     fzf --multi --preview="git log {} --" |
     xargs git branch --delete --force
 }
