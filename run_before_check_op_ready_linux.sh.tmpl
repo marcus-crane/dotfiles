@@ -1,0 +1,11 @@
+{{- if (eq .chezmoi.os "linux") -}}
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+if [[ ! $(ps -ax | grep 1password | grep -v grep) ]]; then
+    echo "[ ! ] 1Password on Linux needs to be open to continue successfully"
+    exit 1
+fi
+
+{{ end -}}

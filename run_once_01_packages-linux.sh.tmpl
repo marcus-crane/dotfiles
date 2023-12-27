@@ -1,0 +1,35 @@
+{{- if (eq .chezmoi.os "linux") -}}
+{{- if eq .chezmoi.osRelease.id "debian" -}}
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+{{ $packages := list
+  "bash"
+  "ca-certificates"
+  "curl"
+  "ffmpeg"
+  "fzf"
+  "gcc"
+  "git"
+  "gnupg2"
+  "grep"
+  "gzip"
+  "iproute2"
+  "libgtk-3-dev"
+  "libreadline-dev"
+  "neofetch"
+  "tcpdump"
+  "vlc"
+  "zlib1g-dev"
+  "zsh"
+}}
+
+sudo apt-get update
+
+sudo apt-get install "{{ $packages | uniq }}"
+
+echo "[ ~ ] linux packages have been installed"
+
+{{ end -}}
+{{ end -}}
