@@ -1,4 +1,0 @@
-plugins: vgmdb embedart fetchart lastgenre
-pluginpath:
-  - /Users/marcus/Code/VGMdb-BeetsPlug/beetsplug
-directory: /Volumes/media/music

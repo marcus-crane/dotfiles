@@ -1,0 +1,2 @@
+plugins: embedart fetchart lastgenre VGMplug
+directory: {{ if (eq .chezmoi.os "darwin") -}}/Volumes/media/music{{ else }}/run/user/1000/gvfs/afp-volume:host=netocean.local,user=marcus,volume=media/music{{ end }}

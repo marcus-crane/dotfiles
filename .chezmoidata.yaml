@@ -97,6 +97,7 @@ libraries:
       - requests
     home:
       - beets
+      - beets-vgmdb
       - pylast
       - pyusb
     work:
