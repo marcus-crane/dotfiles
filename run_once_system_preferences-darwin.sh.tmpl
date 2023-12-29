@@ -5,7 +5,7 @@
 # to see what still applies in macOS Big Sur
 
 # Close any open System Preferences panes, to prevent them from overriding
-# settings we’re about to change
+# settings we're about to change
 osascript -e 'tell application "System Preferences" to quit'
 
 # Ask for the administrator password upfront
@@ -44,13 +44,7 @@ defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 defaults write com.apple.loginwindow TALLogoutSavesState -bool false
 
 # Disable Quick Note which is set by default on macOS Monterey and above
-defaults write com.apple.dock wvous-tr-corner -int 0
-
-# Disable Safari autofill
-defaults write com.apple.Safari AutoFillFromAddressBook -bool false
-defaults write com.apple.Safari AutoFillPasswords -bool false
-defaults write com.apple.Safari AutoFillCreditCardData -bool false
-defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false
+defaults write com.apple.dock wvous-br-corner -int 0
 
 # Only use Plain Text for TextEdit documents
 defaults write com.apple.TextEdit "RichText" -bool false
@@ -69,6 +63,17 @@ defaults write com.apple.screencapture "location" -string "~/Screenshots"
 
 # Don't show recently opened applications in Dock
 defaults write com.apple.dock "show-recents" -bool false
+
+# Disable "natural" style scrolling
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+
+# Increase sound quality for Bluetooth headphones/headsets
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+
+# Show the ~/Library folder if it isn't already visible
+if xattr ~/Library | grep com.apple.FinderInfo; then
+    chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
+fi
 
 # Autohide Dock
 defaults write com.apple.dock "autohide" -bool true
