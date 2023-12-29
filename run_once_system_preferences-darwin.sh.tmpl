@@ -64,6 +64,15 @@ defaults write com.apple.screencapture "location" -string "~/Screenshots"
 # Don't show recently opened applications in Dock
 defaults write com.apple.dock "show-recents" -bool false
 
+# Enable "natural" style scrolling for trackpad gestures
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true
+
+# Only show scroll bars when scrolling
+defaults write NSGlobalDomain "AppleShowScrollBars" -string "WhenScrolling"
+
+# Jump scrollbar to where you click, not just page down a little bit
+defaults write NSGlobalDomain "AppleScrollerPagingBehavior" -bool true
+
 # Increase sound quality for Bluetooth headphones/headsets
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
