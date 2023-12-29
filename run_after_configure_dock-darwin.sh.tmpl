@@ -6,11 +6,13 @@ set -eufo pipefail
 {{ $apps := list
   "/Applications/Arc.app"
   "/Applications/TickTick.app"
-  "/Applications/iTerm.app"
+  "/Applications/kitty.app"
   "/Applications/Plexamp.app"
   "/Applications/Obsidian.app"
-  "/Applications/Slack.app"
+  "/Applications/TraktCasts.app"
 }}
+
+{{ if .workmode }}{{ $apps = append $apps "/Applications/Slack.app" }}{{ end }}
 
 defaults delete com.apple.dock persistent-apps
 
