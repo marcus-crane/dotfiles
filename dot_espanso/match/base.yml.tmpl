@@ -8,16 +8,16 @@
 # Matches are substitution rules: when you type the "trigger" string
 # it gets replaced by the "replace" string.
 matches:
-  - trigger: ":em"
-    replace: "email:"
+  - trigger: ":gpp"
+    replace: "git push"
 
-  - trigger: ":wt"
-    replace: "waiting:"
-
-  - trigger: ":re"
-    replace: "review:"
+  - trigger: ":gpo"
+    replace: "git push origin"
   
-  - trigger: ":wc"
-    replace: "watch:"
+  - trigger: ":em"
+    replace: "{{ .email }}"
+  
+  - trigger: ":wem"
+    replace: "{{ .work.email }}"
 
   # And much more! For more information, visit the docs: https://espanso.org/docs/
