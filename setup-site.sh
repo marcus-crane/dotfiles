@@ -6,10 +6,10 @@ mkdir docs
 # Intro
 cp README.md docs
 
-
 # Root Home Directory ($HOME)
 cp sqliterc.md docs
 cp zshrc.md docs
+cp run_once_01_packages-darwin.sh.tmpl.md docs
 
 # SSH (~/.ssh)
 mkdir -p docs/home/ssh
