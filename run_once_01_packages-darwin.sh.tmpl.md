@@ -28,6 +28,8 @@ Now that all of our boring boilerplate is out of the way, let's see what we've g
 
 ### Official taps
 
+#### cask-fonts
+
 Nothing particularly interesting to see here.
 
 [homebrew-cask-fonts](https://github.com/Homebrew/homebrew-cask-fonts) contains lots of fonts but it's most commonly used for installing [Nerd Fonts](https://www.nerdfonts.com/).
@@ -36,11 +38,11 @@ That is, fonts which are modified to work nicely with icons, great for use in th
 
 By default, most fonts don't have support for glyphs and things, hence the modifications to the underlying fonts.
 
-
-
 ```bash
 tap "homebrew/cask-fonts"
 ```
+
+#### cask-versions
 
 As for [homebrew-cask-versions](https://github.com/Homebrew/homebrew-cask-versions), it contains alternative versions of Homebrew casks.
 
