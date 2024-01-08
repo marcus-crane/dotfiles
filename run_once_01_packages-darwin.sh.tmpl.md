@@ -20,11 +20,43 @@ Inlining packages means that adding or removing files causes the script to be re
 echo "~ homebrew"
 
 brew bundle --quiet --no-lock --file=/dev/stdin <<EOF && echo "~~ brew packages have been updated"
+```
 
-# Official taps
+Now that all of our boring boilerplate is out of the way, let's see what we've got to play with!
+
+## Taps
+
+### Official taps
+
+Nothing particularly interesting to see here.
+
+[homebrew-cask-fonts](https://github.com/Homebrew/homebrew-cask-fonts) contains lots of fonts but it's most commonly used for installing [Nerd Fonts](https://www.nerdfonts.com/).
+
+That is, fonts which are modified to work nicely with icons, great for use in the terminal to represent things like Git branch states and that.
+
+By default, most fonts don't have support for glyphs and things, hence the modifications to the underlying fonts.
+
+
+
+```bash
 tap "homebrew/cask-fonts"
-tap "homebrew/cask-versions"
+```
 
+As for [homebrew-cask-versions](https://github.com/Homebrew/homebrew-cask-versions), it contains alternative versions of Homebrew casks.
+
+Not just older versions but also beta and canary versions as well.
+
+I don't think I actively use it but in the past, it's been handy to grab [Chrome Canary](https://www.google.com/intl/en_au/chrome/canary/) for testing in a pinch.
+
+```bash
+tap "homebrew/cask-versions"
+```
+
+## The rest
+
+TBA
+
+```bash
 # Community taps
 tap "espanso/espanso"
 tap "go-task/tap"
