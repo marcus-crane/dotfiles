@@ -10,7 +10,6 @@ tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 
 # Community taps
-tap "common-fate/granted"
 tap "espanso/espanso"
 tap "go-task/tap"
 tap "jdx/tap"
@@ -18,10 +17,16 @@ tap "railwaycat/emacsmacport"
 tap "vectordotdev/brew"
 tap "yt-dlp/taps"
 
+# Work taps
+{{ if .workmode }}
+tap "common-fate/granted"
+{{ end }}
+
 # my own projects
 tap "marcus-crane/tap"
 brew "khinsider"
 brew "spanner"
+cask "october", args: { force: true } # Hey, that's me!
 
 # cli tools
 brew "angle-grinder"
@@ -29,7 +34,6 @@ brew "aria2"
 brew "autoconf"
 brew "automake"
 brew "bash"
-brew "bat"
 brew "bison"
 brew "cmake"
 brew "comby"
@@ -65,6 +69,7 @@ brew "jq"
 brew "libiconv"
 brew "librdkafka"
 brew "libxmlsec1"
+brew "moreutils"
 brew "mpv"
 brew "mtr"
 brew "neomutt"
@@ -135,8 +140,6 @@ cask "iterm2", args: { force: true }
 cask "keka", args: { force: true }
 cask "kekaexternalhelper", args: { force: true }
 cask "obsidian", args: { force: true }
-cask "october", args: { force: true } # Hey, that's me!
-cask "postgres-unofficial", args: { force: true }
 cask "plexamp", args: { force: true }
 cask "pycharm", args: { force: true }
 cask "raycast", args: { force: true }
