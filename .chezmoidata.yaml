@@ -32,7 +32,9 @@ languages:
   shellcheck: 0.9.0
   shellspec: 0.28.1
   sqlite: 3.43.1
-  terraform: 1.5.7
+  terraform:
+    home: 1.5.7
+    work: 1.4.5
   tmux: 3.3
 libraries:
   cargo:
