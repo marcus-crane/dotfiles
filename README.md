@@ -18,7 +18,7 @@ In saying that, this repository definitely has some sharp edges so while you're 
 
 I have a wonky (read: gross) language manager abstraction visible in [`.chezmoidata.yaml`](.chezmoidata.yaml) which selectively installs different language runtimes depending on whether the machine is used for home or work.
 
-Currently I use [rtx](https://github.com/jdx/rtx) to manage languages and previously used [asdf](https://asdf-vm.com/) for quite a few years.
+Currently I use [mise](https://github.com/jdx/mise) to manage languages and previously used [asdf](https://asdf-vm.com/) for quite a few years.
 
 My shell of choice is zsh, with [oh-my-zsh](https://ohmyz.sh/) although from time to time I flip between OMZ and raw zsh as I don't really use many features from it.
 
