@@ -140,7 +140,7 @@ path=(
       /usr/local/sbin
       /usr/libexec
       /opt/X11/bin
-      $HOME/.local/share/mise/bin
+      $HOME/.local/share/mise/shims
       $HOME/.nix-profile/bin
       $HOME/.config/emacs/bin
       $HOME/.local/bin
