@@ -4,11 +4,18 @@
 	signingkey = 15DC6AC2068B5E35827845D20066202F5187A0C8
 	useConfigOnly = true
 [push]
-	autoSetupRemote = true
+  default = current
 [pull]
 	rebase = false
 [commit]
 	gpgSign = true
+  verbose = true
+[merge]
+  conflictstyle = zdiff3
+[diff]
+  algorithm = histogram
+[rebase]
+  autostash = true
 [status]
 	showStash = true
 [checkout]
@@ -20,7 +27,7 @@
 [gpg]
 	program = /usr/local/MacGPG2/bin/gpg2
 {{- end }}
-[url "ssh://git@github.com/"]
+[url "git@github.com/"]
 	insteadOf = https://github.com/
 [init]
 	defaultBranch = "main"
