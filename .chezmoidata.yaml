@@ -12,9 +12,7 @@ languages:
     work: 2.13.38
   bun: 1.0.26
   container-diff: 0.17.0
-  crystal:
-    home: 1.9.2
-    work: null
+  crystal: 1.11.2
   cue: 0.6.0
   deno: 1.38.4
   dive: 0.11.0
