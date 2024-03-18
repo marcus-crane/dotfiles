@@ -9,6 +9,7 @@ docs
 **/*.md
 setup-site.sh
 renovate.json
+node_modules
 
 {{- if ne .workmode true }}
 dot_devdeck
