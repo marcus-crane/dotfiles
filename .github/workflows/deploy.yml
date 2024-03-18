@@ -15,10 +15,8 @@ jobs:
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - name: Install Vitepress
-        run: bun install --global vitepress
       - name: Build site
-        run: vitepress build
+        run: bun x vitepress build
       - name: Publish to Cloudflare Pages
         id: cloudflare-publish
         if: ${{ !env.ACT }}
