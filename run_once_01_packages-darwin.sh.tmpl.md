@@ -186,6 +186,7 @@ cask "flycut", args: { force: true }
 cask "goland", args: { force: true }
 cask "gpg-suite-no-mail", args: { force: true }
 cask "hex-fiend", args: { force: true }
+cask "iina", args: { force: true }
 cask "insomnia", args: { force: true }
 cask "iterm2", args: { force: true }
 cask "keka", args: { force: true }
