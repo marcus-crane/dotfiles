@@ -1,0 +1,19 @@
+{
+  "name": "dotfiles",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "vitepress": "^1.0.0-rc.45"
+  }
+}
