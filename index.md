@@ -7,7 +7,7 @@ hero:
   text: "Now served via the world wide web"
   tagline: This mish mash of files merge together to form my development environment
   image:
-    src: /static/person-server.svg
+    src: /person-server.svg
     alt: A cartoon illustration of a person with a laptop looking up at a big server
   actions:
     - theme: brand

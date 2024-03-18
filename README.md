@@ -4,7 +4,7 @@
 
 <center>
 
-![](static/term.png)
+![](public/term.png)
 
 </center>
 
