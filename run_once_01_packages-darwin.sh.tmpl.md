@@ -178,7 +178,6 @@ cask "font-hack-nerd-font"
 # manually installed outside of brew. without force,
 # these commands will fail otherwise
 cask "calibre", args: { force: true }
-cask "charles", args: { force: true }
 cask "cleanshot", args: { force: true }
 cask "dbngin", args: { force: true }
 cask "discord", args: { force: true }
@@ -186,12 +185,14 @@ cask "espanso", args: { force: true }
 cask "flycut", args: { force: true }
 cask "goland", args: { force: true }
 cask "gpg-suite-no-mail", args: { force: true }
+cask "hex-fiend", args: { force: true }
 cask "insomnia", args: { force: true }
 cask "iterm2", args: { force: true }
 cask "keka", args: { force: true }
 cask "kekaexternalhelper", args: { force: true }
 cask "obsidian", args: { force: true }
 cask "plexamp", args: { force: true }
+cask "proxyman", args: { force: true }
 cask "pycharm", args: { force: true }
 cask "raycast", args: { force: true }
 cask "sidequest", args: { force: true }
@@ -205,7 +206,8 @@ cask "vlc", args: { force: true }
 
 # mac app store
 mas "iA Writer", id: 775737590
-mas "Book Track", id: 1496543317
+mas "Book Tracker", id: 1496543317
+mas "Day One", id: 1055511498
 mas "Parcel", id: 639968404
 mas "Shazam", id: 897118787
 mas "Tailscale", id: 1475387142
