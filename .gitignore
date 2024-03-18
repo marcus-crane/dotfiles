@@ -9,3 +9,5 @@ docs/*.tmpl
 run_once_01_packages-darwin.sh.tmpl
 
 node_modules
+.vitepress/cache
+.vitepress/dist

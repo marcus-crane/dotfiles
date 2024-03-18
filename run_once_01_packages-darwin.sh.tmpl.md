@@ -7,6 +7,8 @@ tags:
 output: run_once_01_packages-darwin.sh.tmpl
 ---
 
+# Homebrew Packages
+
 This script uses `brew bundle` to install various macOS packages.
 
 The reason that it is done inline instead of using a Brewfile is because Chezmoi basically hashes the script to determine whether it needs to be rerun again or not.

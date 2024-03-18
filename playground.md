@@ -1,8 +1,6 @@
----
-title: Playground
----
+# Playground
 
-This is a page for testing out mkdocs
+This is a page for testing out various things
 
 ```mermaid
 graph LR

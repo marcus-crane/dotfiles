@@ -11,24 +11,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install social card dependencies
-        run: sudo apt-get install -y libcairo2-dev libfreetype6-dev libffi-dev libjpeg-dev libpng-dev libz-dev
-      - name: Setup Python
-        id: setup-python
-        uses: actions/setup-python@v5
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          python-version: "3.11.0"
-      - name: Install Python dependencies
-        run: pip install mkdocs mkdocs-techdocs-core
-      - uses: actions/cache@v4
-        with:
-          key: ${{ github.ref }}
-          path: .cache
-      - run: pip install git+https://${{ secrets.GH_TOKEN }}@github.com/squidfunk/mkdocs-material-insiders.git Pillow cairosvg
-      - name: Gather files to build
-        run: ./setup-site.sh
+          bun-version: latest
       - name: Build site
-        run: mkdocs build
+        run: bun x vitepress build
       - name: Publish to Cloudflare Pages
         id: cloudflare-publish
         if: ${{ !env.ACT }}
@@ -37,7 +25,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 8e782a355544971b192db9e75d789dca
           projectName: 9kdotfiles
-          directory: site
+          directory: .vitepress/dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
       - uses: mshick/add-pr-comment@v2
         if: ${{ !env.ACT }}
