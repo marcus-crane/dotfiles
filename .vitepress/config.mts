@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "(my) dotfiles",
   description: "My personal dotfiles",
+  lastUpdated: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -38,14 +39,17 @@ export default defineConfig({
         ]
       },
       {
-        text: 'Extra',
+        text: 'Extras',
         items: [
           { text: 'Playground', link: '/playground' },
           { text: 'zshrc Graveyard', link: '/zshrc-graveyard' }
         ]
       }
     ],
-
+    footer: {
+      message: 'Source code released under the <a href="https://github.com/marcus-crane/dotfiles/blob/main/LICENSE">MIT License</a>.',
+      copyright: '<a href="https://www.svgrepo.com/svg/492995/server-and-people">Hero image</a> by <a href="https://soco-st.com">Soco St</a> used under the <a href="https://creativecommons.org/licenses/by/4.0/">CC Attribution License</a>.'
+    },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/marcus-crane/dotfiles' }
     ]

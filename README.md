@@ -4,7 +4,7 @@
 
 <center>
 
-![](assets/term.png)
+![](static/term.png)
 
 </center>
 

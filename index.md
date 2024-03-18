@@ -7,8 +7,8 @@ hero:
   text: "Now served via the world wide web"
   tagline: This mish mash of files merge together to form my development environment
   image:
-    src: /assets/term.png
-    alt: Terminal
+    src: /static/person-server.svg
+    alt: A cartoon illustration of a person with a laptop looking up at a big server
   actions:
     - theme: brand
       text: Browse my dotfiles
@@ -28,9 +28,3 @@ features:
     title: It's neat
     details: For myself, it's nice to be able to link others to useful snippets!
 ---
-
-<style>
-.VPImage {
-  max-width: 100% !important;
-}
-</style>
