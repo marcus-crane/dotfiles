@@ -11,6 +11,7 @@ export default defineConfig({
     ['link', { rel: "manifest", href: "/site.webmanifest"}],
     ['link', { rel: "shortcut icon", href: "/favicon.ico"}],
   ],
+  cleanUrls: true,
   lastUpdated: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
