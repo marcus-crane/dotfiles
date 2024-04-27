@@ -5,11 +5,13 @@ assets
 mkdocs.yml
 netlify.toml
 docs
-.oh-my-zsh/cache
 **/*.md
 setup-site.sh
 renovate.json
 node_modules
+bun.lockb
+package.json
+tsconfig.json
 
 {{- if ne .workmode true }}
 dot_devdeck
