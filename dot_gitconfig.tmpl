@@ -1,14 +1,14 @@
 [user]
-	email = {{ .email }}
-	name = {{ .name }}
-	signingkey = 15DC6AC2068B5E35827845D20066202F5187A0C8
-	useConfigOnly = true
+  email = {{ .email }}
+  name = {{ .name }}
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBYJRc1rj7YqWxo3dDALqnjPwCY9askwTo1gq1xO/QhB
+  useConfigOnly = true
 [push]
   default = current
 [pull]
-	rebase = false
+  rebase = false
 [commit]
-	gpgSign = true
+  gpgsign = true
   verbose = true
 [merge]
   conflictstyle = zdiff3
@@ -17,22 +17,27 @@
 [rebase]
   autostash = true
 [status]
-	showStash = true
+  showStash = true
 [checkout]
-	workers = 0
+  workers = 0
 [core]
-	excludesFile = "~/.gitignore"
-	hooksPath = "~/.githooks"
+  excludesFile = "~/.gitignore"
+  hooksPath = "~/.githooks"
 {{- if (eq .chezmoi.os "darwin") }}
 [gpg]
-	program = /usr/local/MacGPG2/bin/gpg2
+  program = /usr/local/MacGPG2/bin/gpg2
+{{ else }}
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  program = "/opt/1Password/op-ssh-sign"
 {{- end }}
 [url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/
 [init]
-	defaultBranch = "main"
+  defaultBranch = "main"
 {{ $workLite := (eq (env "WORK_MODE") "1") }}
 {{- if (or .workmode $workLite) }}
 [includeIf "gitdir:~/Code/work/"]
-	path = ~/.work.gitconfig
+  path = ~/.work.gitconfig
 {{- end }}

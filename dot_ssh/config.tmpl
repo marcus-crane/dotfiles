@@ -3,6 +3,7 @@ Include ~/Code/work/home/.ssh/config
 {{ end }}
 
 Host *
+  IdentityAgent ~/.1password/agent.sock
   ControlMaster auto
   ControlPath /tmp/SSH-%C
   ControlPersist 720
