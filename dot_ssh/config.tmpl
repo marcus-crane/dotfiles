@@ -3,7 +3,11 @@ Include ~/Code/work/home/.ssh/config
 {{ end }}
 
 Host *
+{{- if (eq .chezmoi.os "darwin") }}
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+{{- else }}
   IdentityAgent ~/.1password/agent.sock
+{{- end }}
   ControlMaster auto
   ControlPath /tmp/SSH-%C
   ControlPersist 720
@@ -14,7 +18,7 @@ Host *
   PreferredAuthentications=publickey
   {{- if .workmode }}
   User marcus.crane
-  {{ else }}
+  {{- else }}
   User marcus
   {{- end }}
 
