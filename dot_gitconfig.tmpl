@@ -23,13 +23,12 @@
 [core]
   excludesFile = "~/.gitignore"
   hooksPath = "~/.githooks"
-{{- if (eq .chezmoi.os "darwin") }}
-[gpg]
-  program = /usr/local/MacGPG2/bin/gpg2
-{{ else }}
 [gpg]
   format = ssh
 [gpg "ssh"]
+{{- if (eq .chezmoi.os "darwin") }}
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+{{ else }}
   program = "/opt/1Password/op-ssh-sign"
 {{- end }}
 [url "ssh://git@github.com/"]
