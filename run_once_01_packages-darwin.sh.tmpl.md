@@ -62,7 +62,6 @@ TBA
 
 ```bash
 # Community taps
-tap "espanso/espanso"
 tap "go-task/tap"
 tap "jdx/tap"
 tap "railwaycat/emacsmacport"
@@ -93,7 +92,6 @@ brew "coreutils"
 brew "create-dmg"
 brew "curl"
 brew "dbus"
-brew "docker-credential-helper-ecr"
 brew "entr"
 brew "fd"
 brew "ffmpeg"
@@ -104,7 +102,9 @@ brew "git"
 brew "glow"
 brew "go-task"
 brew "golangci-lint"
+{{ if .workmode }}
 brew "granted"
+{{ end }}
 brew "graphicsmagick"
 brew "graphviz"
 brew "gron"
@@ -183,7 +183,6 @@ cask "calibre", args: { force: true }
 cask "cleanshot", args: { force: true }
 cask "dbngin", args: { force: true }
 cask "discord", args: { force: true }
-cask "espanso", args: { force: true }
 cask "flycut", args: { force: true }
 cask "goland", args: { force: true }
 cask "gpg-suite-no-mail", args: { force: true }
@@ -194,6 +193,7 @@ cask "iterm2", args: { force: true }
 cask "keka", args: { force: true }
 cask "kekaexternalhelper", args: { force: true }
 cask "obsidian", args: { force: true }
+cask "ogdesign-eagle", args: { force: true }
 cask "plexamp", args: { force: true }
 cask "proxyman", args: { force: true }
 cask "pycharm", args: { force: true }
@@ -208,13 +208,18 @@ cask "transmission", args: { force: true }
 cask "vlc", args: { force: true }
 
 # mac app store
-mas "iA Writer", id: 775737590
+mas "1Password for Safari", id: 1569813296
+mas "Baking Soda", id: 1601151613
 mas "Book Tracker", id: 1496543317
 mas "Day One", id: 1055511498
+mas "iA Writer", id: 775737590
+mas "Kagi for Safari", id: 1622835804
 mas "Parcel", id: 639968404
+mas "Reeder 5", id: 1529448980
 mas "Shazam", id: 897118787
 mas "Tailscale", id: 1475387142
 mas "TestFlight", id: 899247664 # Only available on macOS 12+
+mas "Vinegar", id: 1591303229
 
 EOF
 
