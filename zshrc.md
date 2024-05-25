@@ -125,6 +125,7 @@ These paths generally exist on most every system so we'll set them seperately fr
 
 ```bash
 path=(
+      $HOME/.local/share/mise/shims
       /opt/homebrew/opt/emacs-mac/bin
       /opt/homebrew/opt/openjdk/bin
       /opt/homebrew/opt/mtr/sbin
@@ -140,7 +141,6 @@ path=(
       /usr/local/sbin
       /usr/libexec
       /opt/X11/bin
-      $HOME/.local/share/mise/shims
       $HOME/.nix-profile/bin
       $HOME/.config/emacs/bin
       $HOME/.local/bin
@@ -374,7 +374,7 @@ I don't explicitly set `GOROOT` as it is defined by `mise` generally.
 
 ```bash
 export GOPATH="$WORKSPACE/go"
-export PATH="$GOPATH/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
 ```
 
 ### Terraform
