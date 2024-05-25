@@ -377,17 +377,6 @@ export GOPATH="$WORKSPACE/go"
 export PATH="$PATH:$GOPATH/bin"
 ```
 
-### Terraform
-
-Sometimes I use an older version of Terraform outside of `mise` that doesn't support ARM builds
-
-```bash
-if [[ $(type /usr/local/bin/terraform) ]]; then
-  # This is dumb because we're exporting it twice but it'll do for now
-  export PATH="/usr/local/bin:$PATH"
-fi
-```
-
 ## Shortcuts
 
 Admittedly most of the git related stuff could live inside of a `.gitconfig` file but I never get around to moving it
