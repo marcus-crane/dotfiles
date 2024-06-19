@@ -68,14 +68,8 @@ Currently, I use [powerlevel10k](https://github.com/romkatv/powerlevel10k) as my
 if [[ -f "$HOME/.p10k/powerlevel10k.zsh-theme" ]]; then
   source "$HOME/.p10k/powerlevel10k.zsh-theme"
 else
-  # If powerlevel10 is not installed, use a nice minimal green prompt
-  if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
-    export PROMPT=' ' # Installing iTerm helpers adds an arrow prompt
-  else
-    export PROMPT='%B%F{green}>%f%b ' # I'd like a prompt in every other terminal
-  fi
-
-  export RPROMPT='%(?.%F{green}.%F{red})%t / %? / %L%f'
+  export PS1='%F{green}%3d %B%F{green}>%f%b '
+  export RPROMPT='%(?.%F{green}.%F{green})%t / %? / %L%f'
 fi
 ```
 
