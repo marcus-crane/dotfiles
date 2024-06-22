@@ -331,7 +331,7 @@ alias view="less $CONFIG_FILE"
 alias vim="$EDITOR"
 alias ws="cd $WORKSPACE"
 alias wsd="chezmoi cd"
-alias youtube-dl="yt-dlp --add-metadata"
+alias youtube-dl="yt-dlp --add-metadata --dateafter 20081004 -i -o '%(uploader)s [%(channel_id)s]/%(title)s [%(id)s].%(ext)s' -ci --format 'bestvideo[height<=?1080]+bestaudio[ext=m4a]/bestvideo+bestaudio/best' --merge-output-format mp4"
 ```
 
 ## Functions
