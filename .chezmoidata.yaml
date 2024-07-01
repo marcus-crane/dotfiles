@@ -21,7 +21,7 @@ languages:
   golang: 1.22.0
   goreleaser: 1.21.2
   hugo: 0.119.0
-  lua: 5.4.3
+  lua: 5.1
   neovim: 0.9.5
   nodejs: 20.8.0
   python: 3.11.0
