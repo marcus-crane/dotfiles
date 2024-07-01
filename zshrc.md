@@ -10,6 +10,74 @@ output: dot_zshrc.tmpl
 
 > My personal zsh configuration, now available in literate form.
 
+## Zim setup
+
+At the time of writing, I'm using [zim](https://github.com/zimfw/zimfw) as my zsh framework of choice.
+
+Here is some general setup of it before doing wider zsh fiddling.
+
+```bash
+# Set editor default keymap to vi (`-v`) rather than emacs (`-e`)
+bindkey -v
+
+# Remove path separator from WORDCHARS.
+WORDCHARS=${WORDCHARS//[\/]}
+```
+
+### zsh-autosuggestions
+
+```bash
+# Disable automatic widget re-binding on each precmd. This can be set when
+# zsh-users/zsh-autosuggestions is the last module in your ~/.zimrc.
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+```
+
+### zsh-syntax-highlighting
+
+```bash
+# Set what highlighters will be used.
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+```
+
+## Module setup + zimfw install
+
+If we don't have zimfw already installed, let's automatically install it before attempting setup.
+
+```bash
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+# Download zimfw plugin manager if missing.
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  if (( ${+commands[curl]} )); then
+    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  else
+    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  fi
+fi
+# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+  source ${ZIM_HOME}/zimfw.zsh init -q
+fi
+# Initialize modules.
+source ${ZIM_HOME}/init.zsh
+```
+
+## Post-setup configuration
+
+### zsh-history-substring-search
+
+```bash
+zmodload -F zsh/terminfo +p:terminfo
+# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search-up
+for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
+for key ('k') bindkey -M vicmd ${key} history-substring-search-up
+for key ('j') bindkey -M vicmd ${key} history-substring-search-down
+unset key
+```
+
 ## Initialisation
 
 This section consists of helpers functions and global variables used by various applications.
@@ -60,19 +128,6 @@ export PATH
 
 TODO: Why is Homebrew on Linux installed as its own user
 
-## Theme
-
-Currently, I use [powerlevel10k](https://github.com/romkatv/powerlevel10k) as my theme of choice.
-
-```bash
-if [[ -f "$HOME/.p10k/powerlevel10k.zsh-theme" ]]; then
-  source "$HOME/.p10k/powerlevel10k.zsh-theme"
-else
-  export PS1='%F{green}%3d %B%F{green}>%f%b '
-  export RPROMPT='%(?.%F{green}.%F{green})%t / %? / %L%f'
-fi
-```
-
 ### Homebrew
 
 Some homebrew setup that is needed on Linux
@@ -108,7 +163,7 @@ The following options were borrowed from [this HN comment](https://news.ycombina
 > HIST_IGNORE_DUPS (or HIST_IGNORE_ALL_DUPS) will cause duplicated commands to not be written to the history file which helps with `Ctrl-R`ing
 
 ```bash
-setopt SHARE_HISTORY HIST_IGNORE_DUPS
+setopt SHARE_HISTORY HIST_IGNORE_ALL_DUPS
 ```
 
 Also, just for my sanity across platforms, here are the macOS history defaults explicitly defined
