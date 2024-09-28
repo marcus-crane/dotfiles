@@ -354,6 +354,7 @@ You know... when I get around to doing that...
 
 ```bash
 alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
+alias alphaenv="env -0 | sort -z | tr '\0' '\n'"
 alias assume="source assume"
 alias ccd="chezmoi cd"
 alias cce="chezmoi edit"
@@ -897,6 +898,22 @@ In order to make use of screen real estate, these are put inside of an HTML `det
 ```bash
 txtplan() {
   gsed '1 i <details><summary>Plan</summary>||```terraform' txt.plan | gsed -E '$ a ```||</details>' | tr '|' '\n' | pbcopy
+}
+```
+
+### Quick convert unix timestamps to ISO-8601 timestamps
+
+Often times, when using the `jwt` shell function (earlier in this file), the timestamps for expiry will be provided as unix timestamps.
+
+I always end up going to some website to convert these and never remember that `date` exists so this shell function is a quick way to convert these locally.
+
+Note that `gdate` is needed for macOS (`brew install coreutils`) but you can probably just use plain `date` on Linux.
+
+TODO: Update this to use `date` by default but `gdate` if platform is `darwin`
+
+```bash
+deunix() {
+  gdate --iso-8601=seconds -d '@$1'
 }
 ```
 
