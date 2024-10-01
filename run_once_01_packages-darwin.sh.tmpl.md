@@ -203,6 +203,7 @@ cask "slack", args: { force: true }
 cask "sublime-text", args: { force: true }
 cask "tableplus", args: { force: true }
 cask "ticktick", args: { force: true }
+cask "time-out", args: { force: true }
 cask "trackerzapper", args: { force: true }
 cask "transmission", args: { force: true }
 cask "vlc", args: { force: true }
