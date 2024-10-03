@@ -3,6 +3,7 @@
 
 set -eufo pipefail
 
+
 {{ $apps := list
   "/Applications/Brave Browser.app"
   "/System/Applications/Calendar.app"
@@ -12,9 +13,12 @@ set -eufo pipefail
   "/Applications/Plexamp.app"
   "/Applications/Obsidian.app"
   "/Applications/Reeder.localized/Reeder.app"
+  "/Applications/Beeper.app"
   "/Applications/Eagle.app"
 }}
 
+
+{{ if .workmode }}{{ $apps = append $apps "/Applications/Google Chrome.app" }}{{ end }}
 {{ if .workmode }}{{ $apps = append $apps "/Applications/Slack.app" }}{{ end }}
 
 defaults delete com.apple.dock persistent-apps
