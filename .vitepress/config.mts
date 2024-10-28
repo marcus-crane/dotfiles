@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress'
 
+import markdownItTaskLists from 'markdown-it-task-lists'
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "(my) dotfiles",
@@ -13,6 +15,11 @@ export default defineConfig({
   ],
   cleanUrls: true,
   lastUpdated: true,
+  markdown: {
+    config: (md) => {
+      md.use(markdownItTaskLists)
+    }
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -50,6 +57,7 @@ export default defineConfig({
       {
         text: 'Extras',
         items: [
+          { text: 'TODO', link: '/todo' },
           { text: 'Playground', link: '/playground' },
           { text: 'zshrc Graveyard', link: '/zshrc-graveyard' }
         ]
