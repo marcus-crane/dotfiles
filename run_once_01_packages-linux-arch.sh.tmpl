@@ -4,31 +4,31 @@
 
 set -eufo pipefail
 
-{{ $packages := list
-  "bash"
-  "ca-certificates"
-  "curl"
-  "ffmpeg"
-  "fzf"
-  "gcc"
-  "git"
-  "gnupg"
-  "grep"
-  "gtk3"
-  "gzip"
-  "iproute2"
-  "neofetch"
-  "openssl"
-  "readline"
-  "tcpdump"
-  "vlc"
-  "zlib"
-  "zsh"
-}}
-
 sudo pacman -Syu
 
-sudo pacman -Su {{ $packages | uniq }}
+sudo pacman -S --needed - <<EOF
+atuin
+bash
+ca-certificates
+chezmoi
+curl
+ffmpeg
+fzf
+gcc
+git
+gnupg
+grep
+gtk3
+gzip
+iproute2
+neofetch
+openssl
+readline
+tcpdump
+vlc
+zlib
+zsh
+EOF
 
 echo "[ ~ ] linux packages have been installed"
 
