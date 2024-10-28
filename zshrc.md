@@ -133,7 +133,9 @@ TODO: Why is Homebrew on Linux installed as its own user
 Some homebrew setup that is needed on Linux
 
 ```bash
+{{- if eq .chezmoi.os "darwin" -}}
 eval "$(brew shellenv)"
+{{ end -}}
 ```
 
 ### fzf setup
@@ -141,7 +143,9 @@ eval "$(brew shellenv)"
 This is requested by the fzf plugin so we need to do it before we load things
 
 ```bash
+{{- if eq .chezmoi.os "darwin" -}}
 export FZF_BASE=$(brew --prefix)/opt/fzf
+{{ end -}}
 ```
 
 1. Updates are handled by chezmoi so we disable automatic zsh updating
@@ -185,9 +189,11 @@ Pretty boring stuff.
 Crystal on macOS Silicon fails with an architecture error for me without this `PKG_CONFIG_PATH` as an example
 
 ```bash
+{{- if eq .chezmoi.os "darwin" -}}
 export LDFLAGS="-L$(brew --prefix)/opt/openssl@1.1/lib"
 export CPPFLAGS="-I$(brew --prefix)/opt/openssl@1.1/include"
 export PKG_CONFIG_PATH="$(brew --prefix)/opt/openssl@1.1/lib/pkgconfig"
+{{ end -}}
 ```
 
 ### Setting up WSL Shims
