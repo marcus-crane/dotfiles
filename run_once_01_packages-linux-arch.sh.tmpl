@@ -1,0 +1,36 @@
+{{- if (eq .chezmoi.os "linux") -}}
+{{- if eq .chezmoi.osRelease.idLike "arch" -}}
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+{{ $packages := list
+  "bash"
+  "ca-certificates"
+  "curl"
+  "ffmpeg"
+  "fzf"
+  "gcc"
+  "git"
+  "gnupg"
+  "grep"
+  "gtk3"
+  "gzip"
+  "iproute2"
+  "neofetch"
+  "openssl"
+  "readline"
+  "tcpdump"
+  "vlc"
+  "zlib"
+  "zsh"
+}}
+
+sudo pacman -Syu
+
+sudo pacman -Su {{ $packages | uniq }}
+
+echo "[ ~ ] linux packages have been installed"
+
+{{ end -}}
+{{ end -}}
