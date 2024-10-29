@@ -8,31 +8,29 @@ work:
 languages:
   awscli:
     home: null
-    work: 2.13.38
-  bun: 1.0.26
-  container-diff: 0.17.0
-  crystal: 1.11.2
-  cue: 0.6.0
-  deno: 1.38.4
-  dive: 0.11.0
+    work: 2.18.16
+  bun: 1.1.13
+  container-diff: 0.19.0
+  crystal: 1.14.0
+  deno: 2.0.3
+  dive: 0.12.0
   dotenv-linter: 3.3.0
-  github-markdown-toc: 1.2.0
-  golang: 1.22.0
-  goreleaser: 1.21.2
-  hugo: 0.119.0
+  golang: 1.23.2
+  goreleaser: 2.3.2
+  hugo: 0.136.5
   lua: 5.1
-  neovim: 0.9.5
-  nodejs: 20.8.0
-  python: 3.11.0
-  ruby: 3.3.0
+  neovim: 0.10.2
+  nodejs: 23.1.0
+  python: 3.13.0
+  ruby: 3.3.5
   rust: nightly
-  shellcheck: 0.9.0
+  shellcheck: 0.10.0
   shellspec: 0.28.1
-  sqlite: 3.43.1
+  sqlite: 3.47.0
   terraform:
-    home: 1.7.3
+    home: 1.9.8
     work: 1.4.5
-  tmux: 3.3
+  tmux: 3.5
 libraries:
   cargo:
     installer: cargo install
@@ -64,7 +62,6 @@ libraries:
       - js-beautify
       - neovim
       - npm
-      - pkgparse
       - pnpm
       - stylelint
       - tree-sitter-cli
@@ -78,9 +75,6 @@ libraries:
       - PyGithub
       - beautifulsoup4
       - black
-      - devdeck
-      - devdeck-macos
-      - devdeck-slack
       - dnspython
       - flake8
       - kazoo
