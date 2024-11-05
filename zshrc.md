@@ -133,7 +133,7 @@ TODO: Why is Homebrew on Linux installed as its own user
 Some homebrew setup that is needed on Linux
 
 ```bash
-{{- if eq .chezmoi.os "darwin" -}}
+{{ if eq .chezmoi.os "darwin" -}}
 eval "$(brew shellenv)"
 {{ end -}}
 ```
@@ -189,7 +189,7 @@ Pretty boring stuff.
 Crystal on macOS Silicon fails with an architecture error for me without this `PKG_CONFIG_PATH` as an example
 
 ```bash
-{{- if eq .chezmoi.os "darwin" -}}
+{{ if eq .chezmoi.os "darwin" -}}
 export LDFLAGS="-L$(brew --prefix)/opt/openssl@1.1/lib"
 export CPPFLAGS="-I$(brew --prefix)/opt/openssl@1.1/include"
 export PKG_CONFIG_PATH="$(brew --prefix)/opt/openssl@1.1/lib/pkgconfig"
@@ -256,15 +256,6 @@ A fuzzy finder which comes with some autocompletions
 if [[ $(command -v fzf) ]]; then
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
-```
-
-### git
-
-To save me having to set up each machine, I just set my Git identifiers each time
-
-```bash
-git config --global user.name "{{ .name }}"
-git config --global user.email "{{ .email }}"
 ```
 
 ### Homebrew
