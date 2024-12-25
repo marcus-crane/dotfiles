@@ -8,29 +8,27 @@ work:
 languages:
   awscli:
     home: null
-    work: 2.18.16
-  bun: 1.1.13
-  container-diff: 0.19.0
+    work: 2.22.23
+  bun: 1.1.42
   crystal: 1.14.0
-  deno: 2.0.3
+  deno: 2.1.4
   dive: 0.12.0
-  dotenv-linter: 3.3.0
-  golang: 1.23.2
-  goreleaser: 2.3.2
-  hugo: 0.136.5
+  golang: 1.23.4
   lua: 5.1
-  neovim: 0.10.2
-  nodejs: 23.1.0
-  python: 3.13.0
-  ruby: 3.3.5
+  neovim: 0.10.3
+  nodejs: 23.5.0
+  python:
+    home: 3.11.0
+    work: 3.10.0
+  ruby: 3.3.6
   rust: nightly
   shellcheck: 0.10.0
   shellspec: 0.28.1
-  sqlite: 3.47.0
+  sqlite: 3.47.2
   terraform:
-    home: 1.9.8
+    home: 1.10.3
     work: 1.4.5
-  tmux: 3.5
+  yt-dlp: 2024.12.23
 libraries:
   cargo:
     installer: cargo install
