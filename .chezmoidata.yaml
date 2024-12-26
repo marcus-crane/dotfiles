@@ -5,7 +5,7 @@ social:
 work:
   email: marcus.crane@lightspeedhq.com
   website: https://www.lightspeedhq.com.au
-languages:
+tools:
   awscli:
     home: null
     work: 2.22.23
@@ -28,6 +28,7 @@ languages:
   terraform:
     home: 1.10.3
     work: 1.4.5
+  vale: 3.9.2
   yt-dlp: 2024.12.23
 libraries:
   cargo:
