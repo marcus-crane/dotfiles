@@ -225,6 +225,7 @@ export EDITOR="nvim"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
 export LAST_MODIFIED="$(date)"
+export SHELL="$(which zsh)"
 REPORTTIME=5
 ```
 
