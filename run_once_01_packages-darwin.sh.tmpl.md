@@ -184,6 +184,7 @@ cask "cleanshot", args: { force: true }
 cask "dbngin", args: { force: true }
 cask "discord", args: { force: true }
 cask "flycut", args: { force: true }
+cask "ghostty", args: { force: true }
 cask "goland", args: { force: true }
 cask "gpg-suite-no-mail", args: { force: true }
 cask "hex-fiend", args: { force: true }
@@ -206,6 +207,7 @@ cask "ticktick", args: { force: true }
 cask "time-out", args: { force: true }
 cask "trackerzapper", args: { force: true }
 cask "transmission", args: { force: true }
+cask "vivaldi", args: { force: true }
 cask "vlc", args: { force: true }
 
 # mac app store
