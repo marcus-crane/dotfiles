@@ -190,9 +190,9 @@ Crystal on macOS Silicon fails with an architecture error for me without this `P
 
 ```bash
 {{ if eq .chezmoi.os "darwin" -}}
-export LDFLAGS="-L$(brew --prefix)/opt/openssl@1.1/lib"
-export CPPFLAGS="-I$(brew --prefix)/opt/openssl@1.1/include"
-export PKG_CONFIG_PATH="$(brew --prefix)/opt/openssl@1.1/lib/pkgconfig"
+export LDFLAGS="-L$(brew --prefix)/opt/openssl/lib"
+export CPPFLAGS="-I$(brew --prefix)/opt/openssl/include"
+export PKG_CONFIG_PATH="$(brew --prefix)/opt/openssl/lib/pkgconfig"
 {{ end -}}
 ```
 
