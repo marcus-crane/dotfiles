@@ -342,6 +342,14 @@ export GOPATH="$WORKSPACE/go"
 export PATH="$PATH:$GOPATH/bin"
 ```
 
+### Rust
+
+For certain applications and utilities that require compilation from source, Cargo tends to fall over when running up against 1Password's built-in SSH agent so we [tell Cargo](https://doc.rust-lang.org/cargo/reference/config.html#netgit-fetch-with-cli) to use the `git` CLI directly.
+
+```bash
+export CARGO_NET_GIT_FETCH_WITH_CLI=true
+```
+
 ## Shortcuts
 
 Admittedly most of the git related stuff could live inside of a `.gitconfig` file but I never get around to moving it
