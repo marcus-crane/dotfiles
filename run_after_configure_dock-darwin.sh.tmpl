@@ -3,9 +3,8 @@
 
 set -eufo pipefail
 
-
-{{ $apps := list
-  "/Applications/Vivaldi.app"
+{{ $personalApps := list
+  "/Applications/Zen Browser.app"
   "/System/Applications/Calendar.app"
   "/Applications/TickTick.app"
   "/Applications/Ghostty.app"
@@ -17,9 +16,19 @@ set -eufo pipefail
   "/Applications/Eagle.app"
 }}
 
+{{ $workApps := list
+  "/Applications/Google Chrome.app"
+  "/System/Applications/Calendar.app"
+  "/Applications/TickTick.app"
+  "/Applications/Ghostty.app"
+  "/Applications/Spotify.app"
+  "/Applications/Plexamp.app"
+  "/Applications/Obsidian.app"
+  "/Applications/Slack.app"
+}}
 
-{{ if .workmode }}{{ $apps = append $apps "/Applications/Google Chrome.app" }}{{ end }}
-{{ if .workmode }}{{ $apps = append $apps "/Applications/Slack.app" }}{{ end }}
+{{ $apps := $personalApps }}
+{{ if .workmode }}{{ $apps = $workApps }}{{ end }}
 
 defaults delete com.apple.dock persistent-apps
 
