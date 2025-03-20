@@ -923,6 +923,32 @@ deunix() {
 }
 ```
 
+### Recurse through files to find Slack emoji identifiers
+
+In the past, I had some use case where I needed to search for Slack identifiers in order to confirm that emoji referenced still existed in our workspace post-migration.
+
+This command also needed to be able to skip AWS ARNs as well as Ruby classes (which both use `:` characters)
+
+Here's the verbatim explainer I wrote at the time:
+
+> So, the actual regex is `(?<=\s):([a-z0-9_\-\+']+):` and it comes in two parts.
+> 
+> I'll start with the second portion which is `:([a-z0-9_\-\+']+):` . It's just saying to look for anything that has a bunch of characters between two colons. Specifically, any lowercase characters (TIL you can't use uppercase letters!), numbers and a handful of punctuation characters. Most punctuation isn't allowed but `_`, `-`, `+` and `'` are valid. `-` and `+` also need to be escaped since they're regex operators. Any number of these characters can be used although there is an upper limit to the emoji name that I forget but we've definitely hit.
+> 
+> The first portion is a little less clear. It's a positive lookbehind meaning it only matches if its content exist behind the snippet that we're checking for. In this case, we're looking for any whitespace character which could be a newline, tab, carriage return and so on.
+> 
+> The reason we want to do this is because there are other things that will otherwise match a Slack emoji identifier such as AWS ARNs (`aws:arn:ecs::blah`) and Ruby classes (`Something::Blah:Bleh`) which might match so to get around this, we just say that emojis have to either be on a new line or have a space behind them.
+> 
+> Technically, you can have two emojis back to back (`:3720-rainbow-corgi::3720-rainbow-corgi:`) eg <img src="https://cdn.utf9k.net/emoji/3720-rainbow-corgi.gif" height="30px" /><img src="https://cdn.utf9k.net/emoji/3720-rainbow-corgi.gif" height="30px" />) but that's an edge case so :shrug:
+> 
+> Now if you'll excuse me, I'm going to go outside and touch some grass
+
+```bash
+reslackmoji() {
+  rg --pcre2 --no-filename --no-line-number --only-matching "(?<=\s):([a-z0-9_\-\+']+):" . | sort -u
+}
+```
+
 ### 1Password CLI for WSL
 
 When using WSL, it's more ideal to use an instance of the OP CLI installed on the Windows host as that will enable the use of biometric unlock from within WSL
