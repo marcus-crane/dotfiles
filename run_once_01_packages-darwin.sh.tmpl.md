@@ -156,7 +156,6 @@ cask "gpg-suite-no-mail", args: { force: true }
 cask "hex-fiend", args: { force: true }
 cask "iina", args: { force: true }
 cask "insomnia", args: { force: true }
-cask "iterm2", args: { force: true }
 cask "keka", args: { force: true }
 cask "kekaexternalhelper", args: { force: true }
 cask "obsidian", args: { force: true }
@@ -170,21 +169,16 @@ cask "slack", args: { force: true }
 cask "sublime-text", args: { force: true }
 cask "tableplus", args: { force: true }
 cask "ticktick", args: { force: true }
-cask "time-out", args: { force: true }
 cask "trackerzapper", args: { force: true }
 cask "transmission", args: { force: true }
-cask "vivaldi", args: { force: true }
 cask "vlc", args: { force: true }
 
 # mac app store
 mas "1Password for Safari", id: 1569813296
 mas "Baking Soda", id: 1601151613
 mas "Book Tracker", id: 1496543317
-mas "Day One", id: 1055511498
-mas "iA Writer", id: 775737590
 mas "Kagi for Safari", id: 1622835804
 mas "Parcel", id: 639968404
-mas "Reeder 5", id: 1529448980
 mas "Shazam", id: 897118787
 mas "Tailscale", id: 1475387142
 mas "TestFlight", id: 899247664 # Only available on macOS 12+
