@@ -16,11 +16,7 @@ Host *
   AddKeysToAgent yes
   StrictHostKeyChecking no
   PreferredAuthentications=publickey
-  {{- if .workmode }}
-  User marcus.crane
-  {{- else }}
   User marcus
-  {{- end }}
 
 Host netocean
   HostName 192.168.1.111

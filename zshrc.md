@@ -967,26 +967,6 @@ export PATH="/mnt/c/Program Files/1Password CLI:$PATH"
 {{- end }}
 ```
 
-## Work configuration
-
-Usually most people maintain a separate configuration between their personal and work lives.
-
-I've opted to maintain mine in public to show that it's possible to have the best of both worlds without leaking credentials.
-
-In the case of my employer, not only are the referenced tools the usual suspects but you can easily verify on Github that we use them internally in the form of public repos so this can't be considered as leaking metadata in that sense.
-
-```bash
-{{ if .workmode }}
-source $HOME/Code/work/home/aliases.sh
-source $HOME/Code/work/home/functions.sh
-source $HOME/Code/work/home/variables.sh
-export PATH=$PATH:$HOME/Code/work/home/bin
-
-export TF_VAR_datadog_api_key={{ onepasswordRead "op://Private/Datadog API Key/username" "lightspeedhq" }}
-export TF_VAR_datadog_app_key={{ onepasswordRead "op://Private/Datadog API Key/password" "lightspeedhq" }}
-{{- end }}
-```
-
 ## iTerm 2 integration
 
 I used iTerm 2 on my various devices as a terminal and so, there are some shell integrations that are handy to use

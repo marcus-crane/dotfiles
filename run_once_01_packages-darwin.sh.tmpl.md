@@ -34,11 +34,6 @@ tap "railwaycat/emacsmacport"
 tap "vectordotdev/brew"
 tap "yt-dlp/taps"
 
-# Work taps
-{{ if .workmode }}
-tap "common-fate/granted"
-{{ end }}
-
 # my own projects
 tap "marcus-crane/tap"
 brew "khinsider"
@@ -68,9 +63,6 @@ brew "git"
 brew "glow"
 brew "go-task"
 brew "golangci-lint"
-{{ if .workmode }}
-brew "granted"
-{{ end }}
 brew "graphicsmagick"
 brew "graphviz"
 brew "gron"

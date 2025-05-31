@@ -13,7 +13,3 @@ bun.lockb
 package.json
 tsconfig.json
 public
-
-{{- if ne .workmode true }}
-dot_devdeck
-{{- end }}
