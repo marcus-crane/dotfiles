@@ -35,8 +35,7 @@
   insteadOf = https://github.com/
 [init]
   defaultBranch = "main"
-{{- $workLite := (eq (env "WORK_MODE") "1") }}
-{{- if (or .workmode $workLite) }}
-[includeIf "gitdir:~/Code/work/"]
+{{- if .workmode }}
+[includeIf "gitdir:~/halter"]
   path = ~/.work.gitconfig
 {{- end }}
