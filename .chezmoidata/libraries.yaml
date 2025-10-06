@@ -1,0 +1,68 @@
+libraries:
+  cargo:
+    installer: cargo install
+    # cargo install --features=pcre2 ripgrep
+    # Requires a custom flag
+    # TODO: Add generic flag support to my wonky installer?
+    global:
+      - git-cliff
+  go:
+    installer: go install
+    global:
+      - github.com/cweill/gotests/...@latest
+      - github.com/fatih/gomodifytags@latest
+      - github.com/go-delve/delve/cmd/dlv@latest
+      - github.com/mdempsky/gocode@latest
+      - github.com/segmentio/golines@latest
+      - github.com/x-motemen/gore/cmd/gore@latest
+      - golang.org/x/tools/cmd/goimports@latest
+      - golang.org/x/tools/cmd/guru@latest
+      - mvdan.cc/gofumpt@latest
+    home:
+      - github.com/wailsapp/wails/v2/cmd/wails@latest
+    work:
+      - github.com/golang/mock/mockgen@v1.6.0
+  npm:
+    installer: npm install -g
+    global:
+      - eslint
+      - js-beautify
+      - neovim
+      - npm
+      - pnpm
+      - stylelint
+      - tree-sitter-cli
+      - yarn
+    work:
+      - "@datadog/datadog-ci"
+  python:
+    installer: pip install -U
+    global:
+      - Django
+      - PyGithub
+      - beautifulsoup4
+      - black
+      - dnspython
+      - flake8
+      - kazoo
+      - isort
+      - mkdocs
+      - nose
+      - pip
+      - poetry
+      - pynvim
+      - pyyaml
+      - requests
+    home:
+      - beets
+      - beets-vgmdb
+      - pylast
+      - pyusb
+    work:
+      - ansible
+      - mkdocs-techdocs-core
+  ruby:
+    installer: gem install
+    global:
+      - bundler
+      - neovim
