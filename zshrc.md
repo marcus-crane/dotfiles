@@ -976,3 +976,21 @@ if [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
   . $HOME/.iterm2_shell_integration.zsh
 fi
 ```
+
+## Work configuration
+
+Usually most people maintain a separate configuration between their personal and work lives.
+
+I've opted to maintain mine in public to show that it's possible to have the best of both worlds without leaking credentials.
+
+In the case of my employer, not only are the referenced tools the usual suspects but you can easily verify on Github that we use them internally in the form of public repos so this can't be considered as leaking metadata in that sense.
+
+```bash
+{{ if .workmode }}
+source $HOME/.halter_asdf.sh
+source $HOME/.halter_backend.sh
+source $HOME/.halter_core.sh
+export PATH=$PATH:$HOME/Code/work/home/bin
+
+{{- end }}
+```
