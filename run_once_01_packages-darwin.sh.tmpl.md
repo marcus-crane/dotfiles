@@ -28,11 +28,9 @@ Now that all of our boring boilerplate is out of the way, let's see what we've g
 
 ```bash
 # Community taps
-tap "go-task/tap"
-tap "jdx/tap"
-tap "railwaycat/emacsmacport"
-tap "vectordotdev/brew"
-tap "yt-dlp/taps"
+{{ range .packages.darwin.taps -}}
+brew {{ . | quote }}
+{{ end -}}
 
 # my own projects
 tap "marcus-crane/tap"
