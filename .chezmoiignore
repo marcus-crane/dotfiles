@@ -13,3 +13,7 @@ bun.lockb
 package.json
 tsconfig.json
 public
+
+{{ if .workmode }}
+.ssh/config
+{{ end }}
