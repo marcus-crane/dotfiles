@@ -987,10 +987,9 @@ In the case of my employer, not only are the referenced tools the usual suspects
 
 ```bash
 {{ if .workmode }}
-source $HOME/.halter_asdf.sh
-source $HOME/.halter_backend.sh
-source $HOME/.halter_core.sh
-export PATH=$PATH:$HOME/Code/work/home/bin
-
+source $HOME/.halter_asdf
+source $HOME/.halter_backend
+source $HOME/.halter_core
+source $HOME/.halter_utilities
 {{- end }}
 ```
