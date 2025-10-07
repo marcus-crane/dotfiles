@@ -8,5 +8,48 @@
 {{- if ne (kindOf $version) "invalid" -}}
 {{ . }} = '{{ $version }}'
 {{ end -}}
-{{ end -}}
+{{- end -}}
 
+# libraries
+{{- range sortAlpha (keys .libraries) }}
+{{- $lang := . }}
+
+# {{ $lang }}
+# global tools
+{{- $langLibs := get $.libraries $lang -}}
+{{- if hasKey $langLibs "global" -}}
+{{- range sortAlpha (get $langLibs "global") }}
+"{{ $lang }}:{{ . }}" = { version = "latest" }
+{{- end -}}
+{{- end -}}
+{{- end }}
+
+# tools only used at {{ $.langenv }}
+{{- range sortAlpha (keys .libraries) -}}
+{{- $lang := . -}}
+{{- $langLibs := get $.libraries $lang -}}
+{{- if and (ne $.langenv "global") (hasKey $langLibs $.langenv) }}
+{{- range sortAlpha (get $langLibs $.langenv) }}
+"{{ $lang }}:{{ . }}" = { version = "latest" }
+{{- end }}
+{{- end }}
+{{- end }}
+
+# tools
+# global tools
+{{- if hasKey .tools "global" -}}
+{{- range sortAlpha (get .tools "global") }}
+{{ . }} = { version = "latest" }
+{{- end -}}
+{{- end }}
+
+# tools only used at {{ $.langenv }}
+{{- if and (ne $.langenv "global") (hasKey .tools $.langenv) -}}
+{{- range sortAlpha (get .tools $.langenv) }}
+{{ . }} = { version = "latest" }
+{{- end }}
+{{- end }}
+
+# enable experimental backends (go)
+[settings]
+experimental = true
