@@ -1,3 +1,7 @@
+[settings]
+# enable experimental backends (https://mise.jdx.dev/dev-tools/backends/)
+experimental = true
+
 [tools]
 # programming languages
 {{ range sortAlpha (keys .languages) -}}
@@ -8,14 +12,13 @@
 {{- if ne (kindOf $version) "invalid" -}}
 {{ . }} = '{{ $version }}'
 {{ end -}}
-{{- end -}}
-
+{{- end }}
 # tools
 {{- range sortAlpha (keys .tools) }}
 {{- $toolBackend := . }}
 {{- $toolsForBackend := get $.tools $toolBackend }}
 
-# {{ $toolBackend }}
+## {{ $toolBackend }}
 {{- $toolMap := dict }}
 {{/* We fetch global tools first and then apply home/work overrides on top */}}
 {{- if hasKey $toolsForBackend "global" }}
@@ -39,7 +42,3 @@
 "{{ $toolBackend }}:{{ $tool.ref }}" = { version = "{{ $version }}" } # {{ $source }}
 {{- end }}
 {{- end }}
-
-# enable experimental backends (https://mise.jdx.dev/dev-tools/backends/)
-[settings]
-experimental = true
