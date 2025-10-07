@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euox pipefail
+
 LUGH_BIN="${HOME}/.bin/lugh"
 
 if [ ! -x "$LUGH_BIN" ]; then
@@ -7,7 +9,7 @@ if [ ! -x "$LUGH_BIN" ]; then
   exit 0
 fi
 
-SOURCE_PATH="$(chezmoi source-path)"
+SOURCE_PATH="{{ .chezmoi.sourceDir }}"
 
 while IFS= read -r -d '' file; do
   if head -n 10 "$file" | grep -q "^output:"; then
