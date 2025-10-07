@@ -1,6 +1,6 @@
 [tools]
-{{ range sortAlpha (keys .tools) -}}
-{{ $version := get $.tools . -}}
+{{ range sortAlpha (keys .languages) -}}
+{{ $version := get $.languages . -}}
 {{- if eq (kindOf $version) "map" -}}
   {{ $version = get $version $.langenv -}}
 {{- end -}}
@@ -8,3 +8,4 @@
 {{ . }} = '{{ $version }}'
 {{ end -}}
 {{ end -}}
+
