@@ -1,7 +1,7 @@
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/usr/bin/env bash
 
-set -eufo pipefail
+set -euo pipefail
 
 {{ $personalApps := list
   "/Applications/Firefox Developer Edition.app"

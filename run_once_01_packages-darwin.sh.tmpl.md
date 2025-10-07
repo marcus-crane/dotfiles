@@ -19,6 +19,8 @@ Inlining packages means that adding or removing files causes the script to be re
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 echo "~ homebrew"
 
 brew bundle --quiet --file=/dev/stdin <<EOF && echo "~~ brew packages have been updated"
