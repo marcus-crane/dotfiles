@@ -21,7 +21,7 @@ Inlining packages means that adding or removing files causes the script to be re
 
 echo "~ homebrew"
 
-brew bundle --quiet --no-lock --file=/dev/stdin <<EOF && echo "~~ brew packages have been updated"
+brew bundle --quiet --file=/dev/stdin <<EOF && echo "~~ brew packages have been updated"
 ```
 
 Now that all of our boring boilerplate is out of the way, let's see what we've got to play with!
@@ -29,7 +29,7 @@ Now that all of our boring boilerplate is out of the way, let's see what we've g
 ```bash
 # Community taps
 {{ range .packages.darwin.taps -}}
-brew {{ . | quote }}
+tap {{ . | quote }}
 {{ end -}}
 
 # my own projects
