@@ -1,5 +1,6 @@
 ---
 title: Packages
+outline: [1, 4]
 ---
 
 # {{ $frontmatter.title }}

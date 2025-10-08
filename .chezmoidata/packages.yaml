@@ -3,16 +3,150 @@ packages:
     taps:
       - ref: go-task/tap
       - ref: jdx/tap
+      - ref: marcus-crane/tap
       - ref: railwaycat/emacsmacport
       - ref: vectordotdev/brew
       - ref: yt-dlp/taps
     brews:
+      - ref: angle-grinder
+      - ref: aria2
+      - ref: autoconf
+      - ref: automake
+      - ref: bash
+      - ref: bison
+      - ref: cmake
+      - ref: comby
+      - ref: coreutils
+      - ref: create-dmg
+      - ref: curl
+      - ref: dbus
+      - ref: entr
+      - ref: fd
+      - ref: ffmpeg
+      - ref: flyctl
+      - ref: fzf
+      - ref: gh
+      - ref: glow
+      - ref: go-task
+      - ref: golangci-lint
+      - ref: graphicsmagick
+      - ref: graphviz
+      - ref: gron
+      - ref: gnu-tar
+      - ref: hexyl
+      - ref: hey
+      - ref: hidapi
+      - ref: html-xml-utils
+      - ref: htop
+      - ref: hyperfine
+      - ref: ical-buddy
+      - ref: imagemagick
+      - ref: jansson
+      - ref: jq
       - ref: git
+      - ref: khinsider
+      - ref: libiconv
+      - ref: librdkafka
+      - ref: libxmlsec1
+      - ref: mise
+      - ref: moreutils
+      - ref: mpv
+      - ref: mtr
+      - ref: neomutt
+      - ref: nmap
+      - ref: notmuch
+      - ref: oha
+      - ref: onefetch
+      - ref: openssl
+      - ref: overmind
+      - ref: pandoc
+      - ref: pngcrush
+      - ref: pngpaste
+      - ref: protobuf
+      - ref: pwgen
+      - ref: rclone
+      - ref: re2c
+        description: php build dependency
+      - ref: ripgrep
+      - ref: source-highlight
+      - ref: spanner
+      - ref: speedtest-cli
+      - ref: telnet
+      - ref: terminal-notifier
+      - ref: texinfo
+      - ref: transmission-cli
+      - ref: tmuxp
+      - ref: tree
+      - ref: vdirsyncer
+      - ref: vector
+      - ref: vpn-slice
+      - ref: w3m
+      - ref: watch
+      - ref: webp
+      - ref: wget
+      - ref: wxwidgets
+      - ref: xz
+      - ref: yt-dlp
+      - ref: z
+      - ref: zsh
     casks:
+      - ref: calibre
+      - ref: cleanshot
+      - ref: dbngin
+      - ref: discord
+      - ref: font-fira-code-nerd-font
+      - ref: font-hack-nerd-font
+      - ref: flycut
+      - ref: ghostty
       - name: Google Chrome
         ref: google-chrome
         description: The world's most popular browser, created by Google. You should support alternatives!
+      - ref: gltfquicklook
+      - ref: goland
+      - ref: gpg-suite-no-mail
+      - ref: hex-fiend
+      - ref: iina
+      - ref: insomnia
+      - ref: keka
+      - ref: kekaexternalhelper
+      - ref: obsidian
+      - name: October
+        ref: october
+      - ref: ogdesign-eagle
+      - ref: plexamp
+      - ref: provisionql
+      - ref: proxyman
+      - ref: qladdict
+      - ref: qlcommonmark
+      - ref: qlstephen
+      - ref: quickgeojson
+      - ref: quicklook-csv
+      - ref: pycharm
+      - ref: raycast
+      - ref: sidequest
+      - ref: slack
+      - ref: sublime-text
+      - ref: tableplus
+      - ref: ticktick
+      - ref: trackerzapper
+      - ref: transmission
+      - ref: vlc
     mas:
       - name: 1Password for Safari
         ref: 1569813296
-        description: 
+      - name: Baking Soda
+        ref: 1601151613
+      - name: Book Tracker
+        ref: 1496543317
+      - name: Kagi for Safari
+        ref: 1622835804
+      - name: Parcel
+        ref: 639968404
+      - name: Shazam
+        ref: 897118787
+      - name: Tailscale
+        ref: 1475387142
+      - name: TestFlight
+        ref: 899247664
+      - name: Vinegar
+        ref: 1591303229
