@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 
+import markdownItFootnote from 'markdown-it-footnote'
 import markdownItTaskLists from 'markdown-it-task-lists'
 
 // https://vitepress.dev/reference/site-config
@@ -17,6 +18,7 @@ export default defineConfig({
   lastUpdated: true,
   markdown: {
     config: (md) => {
+      md.use(markdownItFootnote)
       md.use(markdownItTaskLists)
     }
   },
@@ -52,6 +54,7 @@ export default defineConfig({
         text: 'Utilities',
         items: [
           { text: 'Language Toolchains', link: '/pages/language-toolchains.md'},
+          { text: 'Packages', link: '/pages/packages.md'},
           { text: 'Tools', link: '/pages/tools.md'}
         ]
       },

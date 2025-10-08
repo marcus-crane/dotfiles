@@ -9,13 +9,14 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "markdown-it-footnote": "^4.0.0",
+    "markdown-it-task-lists": "^2.1.1",
     "yaml": "^2.8.1"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "markdown-it-task-lists": "^2.1.1",
-    "vitepress": "^1.0.0-rc.45"
+    "vitepress": "^1.6.4"
   }
 }

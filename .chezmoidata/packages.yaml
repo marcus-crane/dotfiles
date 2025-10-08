@@ -1,12 +1,18 @@
 packages:
   darwin:
     taps:
-      - 'go-task/tap'
-      - 'jdx/tap'
-      - 'railwaycat/emacsmacport'
-      - 'vectordotdev/brew'
-      - 'yt-dlp/taps'
+      - ref: go-task/tap
+      - ref: jdx/tap
+      - ref: railwaycat/emacsmacport
+      - ref: vectordotdev/brew
+      - ref: yt-dlp/taps
     brews:
-      - 'git'
+      - ref: git
     casks:
-      - 'google-chrome'
+      - name: Google Chrome
+        ref: google-chrome
+        description: The world's most popular browser, created by Google. You should support alternatives!
+    mas:
+      - name: 1Password for Safari
+        ref: 1569813296
+        description: 
