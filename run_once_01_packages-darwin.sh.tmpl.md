@@ -19,20 +19,20 @@ Inlining packages means that adding or removing files causes the script to be re
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 echo "~ homebrew"
 
-brew bundle --quiet --no-lock --file=/dev/stdin <<EOF && echo "~~ brew packages have been updated"
+brew bundle --quiet --file=/dev/stdin <<EOF && echo "~~ brew packages have been updated"
 ```
 
 Now that all of our boring boilerplate is out of the way, let's see what we've got to play with!
 
 ```bash
 # Community taps
-tap "go-task/tap"
-tap "jdx/tap"
-tap "railwaycat/emacsmacport"
-tap "vectordotdev/brew"
-tap "yt-dlp/taps"
+{{ range .packages.darwin.taps -}}
+tap {{ . | quote }}
+{{ end -}}
 
 # my own projects
 tap "marcus-crane/tap"

@@ -3,12 +3,12 @@
 {{- $wsl := false -}}{{/* enable wsl specific features */}}
 {{- "" -}}
 
-{{- $langenv := "home" }}{{/* determine which programming languages (and versions) to sync with asdf */}}
+{{- $installEnv := "home" }}{{/* determine which programming languages (and versions) to sync with asdf */}}
 
 {{- if eq .chezmoi.os "darwin" -}}
-{{-   if contains "MacBookPro18,3" (output "sysctl" "-n" "hw.model" | trim) -}}
+{{-   if contains "Mac16,1" (output "sysctl" "-n" "hw.model" | trim) -}}
 {{-     $workmode = true -}}
-{{-     $langenv  = "work" -}}
+{{-     $installEnv  = "work" -}}
 {{-   end -}}
 {{- end -}}
 
@@ -19,8 +19,8 @@
 {{- end -}}
 
 [data]
+    installenv  = "{{ $installEnv }}"
     workmode = {{ $workmode }}
-    langenv  = "{{ $langenv }}"
     wsl      = {{ $wsl }}
 
 [onepassword]

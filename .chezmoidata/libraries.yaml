@@ -1,0 +1,32 @@
+# Unlike tools, these are non-executable libraries that I like to have
+# installed for experiments or as helpers in other tools ie; neovim
+# There may be duplicates betweens tools and libraries as tools
+# installed via Mise will not be importable ie; in the Python REPL
+libraries:
+  pip:
+    command: pip install
+    global:
+      - Django
+      - PyGithub
+      - beautifulsoup4
+      - dnspython
+      - flake8
+      - kazoo
+      - pip
+      - poetry
+      - pynvim
+      - pyyaml
+      - requests
+    home:
+      - beets
+      - beets-vgmdb
+      - pylast
+      - pyusb
+    work:
+      - ansible
+      - mkdocs-techdocs-core
+  ruby:
+    command: gem install
+    global:
+      - bundler
+      - neovim

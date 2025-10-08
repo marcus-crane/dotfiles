@@ -2,7 +2,7 @@
 {{- if eq .chezmoi.osRelease.id "debian" -}}
 #!/usr/bin/env bash
 
-set -eufo pipefail
+set -euo pipefail
 
 {{ $packages := list
   "bash"

@@ -1,10 +1,44 @@
+[settings]
+# enable experimental backends (https://mise.jdx.dev/dev-tools/backends/)
+experimental = true
+
 [tools]
-{{ range sortAlpha (keys .tools) -}}
-{{ $version := get $.tools . -}}
+# programming languages
+{{ range sortAlpha (keys .languages) -}}
+{{ $version := get $.languages . -}}
 {{- if eq (kindOf $version) "map" -}}
-  {{ $version = get $version $.langenv -}}
+  {{ $version = get $version $.installenv -}}
 {{- end -}}
 {{- if ne (kindOf $version) "invalid" -}}
 {{ . }} = '{{ $version }}'
 {{ end -}}
-{{ end -}}
+{{- end }}
+# tools
+{{- range sortAlpha (keys .tools) }}
+{{- $toolBackend := . }}
+{{- $toolsForBackend := get $.tools $toolBackend }}
+
+## {{ $toolBackend }}
+{{- $toolMap := dict }}
+{{/* We fetch global tools first and then apply home/work overrides on top */}}
+{{- if hasKey $toolsForBackend "global" }}
+{{- range get $toolsForBackend "global" }}
+{{- $toolMap = set $toolMap .ref (dict "tool" . "source" "global") }}
+{{- end }}
+{{- end }}
+{{- if and (ne $.installenv "global") (hasKey $toolsForBackend $.installenv) }}
+{{- range get $toolsForBackend $.installenv }}
+{{- $toolMap = set $toolMap .ref (dict "tool" . "source" $.installenv) }}
+{{- end }}
+{{- end }}
+{{- range sortAlpha (keys $toolMap) }}
+{{- $entry := get $toolMap . }}
+{{- $tool := $entry.tool }}
+{{- $source := $entry.source }}
+{{- $version := "latest" }}
+{{- if hasKey $tool "version" }}
+{{- $version = $tool.version }}
+{{- end }}
+"{{ $toolBackend }}:{{ $tool.ref }}" = { version = "{{ $version }}" } # {{ $source }}
+{{- end }}
+{{- end }}

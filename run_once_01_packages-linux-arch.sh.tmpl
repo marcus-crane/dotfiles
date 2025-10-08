@@ -2,7 +2,7 @@
 {{- if eq .chezmoi.osRelease.idLike "arch" -}}
 #!/usr/bin/env bash
 
-set -eufo pipefail
+set -euo pipefail
 
 sudo pacman -Syu
 

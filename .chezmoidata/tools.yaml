@@ -1,0 +1,91 @@
+# A full list of valid tools can be found here:
+# - https://mise.jdx.dev/registry.html#tools
+# - https://github.com/jdx/mise/blob/main/registry.toml
+#
+# Each key is a backend, to help keep it explicit for myself what
+# is being installed from where. These are further split by tools
+# that I only use either at home, work or both.
+#
+# A list of backend names, which map to the keys below, can be
+# found here: https://mise.jdx.dev/registry.html#backends
+#
+# This layer isn't really necessary but it's a nice abstraction away
+# from Mise in case I ever wanted to manually install these tools
+# which is what I used to do at one point or query this file.
+#
+# General schema:
+#   name: display name for a tool (optional)
+#   ref: full name for the registry entry (required)
+#   description: reminder what the tool does (optional)
+#   url: where to find more info about the tool (optional)
+#
+# name is assumed to be identical to ref is not provided
+# mainly used for displaying a pretty name when querying
+tools:
+  aqua:
+    global:
+      - name: 1password
+        ref: 1password/cli
+        version: v2.31.1 # mise fails to look up latest version
+        description: It's a password manager, historically for macOS but now available for all major platforms
+        url: https://1password.com
+      - name: ast-grep
+        ref: ast-grep/ast-grep
+        description: Search through AST nodes instead of plain text
+        url: https://github.com/ast-grep/ast-grep
+      - name: atuin
+        ref: atuinsh/atuin
+        description: Search through your shell history and sync it across machines with end-to-end encryption
+        url: https://atuin.sh
+      - name: black
+        ref: psf/black
+        description: A Python code formatter that is more opinionated than you are, for better or worse
+        url: https://github.com/psf/black
+      - name: git-cliff
+        ref: orhun/git-cliff
+    work:
+      - name: amazon-ecr-credential-helper
+        ref: awslabs/amazon-ecr-credential-helper
+  go:
+    global:
+      - name: gotests
+        ref: github.com/cweill/gotests/...
+        description: Automatically generates table-driven tests
+        url: https://github.com/cweill/gotests
+      - name: gomodifytags
+        ref: github.com/fatih/gomodifytags
+        description: Helps with bulk-editing struct tags
+        url: github.com/fatih/gomodifytags
+      - ref: github.com/go-delve/delve/cmd/dlv
+      - ref: github.com/mdempsky/gocode
+      - ref: github.com/segmentio/golines
+      - ref: github.com/x-motemen/gore/cmd/gore
+      - ref: golang.org/x/tools/cmd/goimports
+      - ref: golang.org/x/tools/cmd/guru
+      - ref: mvdan.cc/gofumpt
+    home:
+      - ref: github.com/wailsapp/wails/v2/cmd/wails
+    work:
+      - ref: github.com/golang/mock/mockgen
+  gem:
+    global:
+      - ref: bundler
+      - ref: neovim
+  npm:
+    global:
+      - ref: eslint
+      - ref: js-beautify
+      - ref: neovim
+      - ref: pnpm
+      - ref: stylelint
+      - ref: tree-sitter-cli
+      - ref: yarn
+  pipx:
+    global:
+      - ref: Django
+      - ref: isort
+      - ref: mkdocs
+      - ref: nose
+    work:
+      - ref: ansible
+      - ref: ansible-core
