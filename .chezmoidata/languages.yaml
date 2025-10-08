@@ -2,7 +2,7 @@ languages:
   awscli:
     home: null
     work: 2.24.25
-  bun: 1.2.5
+  bun: 1.2.23
   deno: 2.2.4
   dive: 0.12.0
   golang: 1.24.0

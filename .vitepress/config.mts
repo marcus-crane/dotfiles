@@ -49,6 +49,13 @@ export default defineConfig({
         ]
       },
       {
+        text: 'Utilities',
+        items: [
+          { text: 'Language Toolchains', link: '/pages/language-toolchains.md'},
+          { text: 'Tools', link: '/pages/tools.md'}
+        ]
+      },
+      {
         text: 'Scripts',
         items: [
           { text: '01 Packages (macOS)', link: '/run_once_01_packages-darwin.sh.tmpl' }
