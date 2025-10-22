@@ -150,14 +150,6 @@ export FZF_BASE=$(brew --prefix)/opt/fzf
 
 1. Updates are handled by chezmoi so we disable automatic zsh updating
 
-### Handy credentials
-
-```bash
-export GITHUB_TOKEN={{ onepasswordRead "op://Personal/Chezmoi Github Token/password" "my" }} # (1)!
-```
-
-1. I use this with the Github CLI among other places so it's useful to just have it always set in my shell
-
 ### History
 
 The following options were borrowed from [this HN comment](https://news.ycombinator.com/item?id=33188042)
@@ -210,10 +202,22 @@ export PATH="~/.wslshims:$PATH"
 
 ### Setting my workspace
 
-All of my development occurs in `$HOME/Code` regardless of what machine I'm on. One day I might change it though hence the variable.
+All of my development occurs in `$HOME/Code` regardless of what machine I'm on.
+
+This is used for doing other stuff like setting my `GOPATH` for example.
 
 ```bash
 export WORKSPACE="$HOME/Code"
+```
+
+While I still want my Go tooling and so on to live in `$WORKSPACE`, I want to dynamically set my `ws` alias to go to another directory on my work machine as I do all of my daily work development there instead.
+
+We'll use another environment variable to capture that.
+
+```bash
+{{ if .workmode }}
+export WORKREPOS="$HOME/halter"
+{{ end }}
 ```
 
 ### Setting various global constants
@@ -383,7 +387,7 @@ alias lvim="nvim"
 alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
 alias refresh="chezmoi git pull && chezmoi apply && exec zsh && echo '~ refreshed shell config'"
 alias rmuntracked="git status -su --no-ahead-behind | awk '{ print $2 }' | xargs rm"
-alias rtx="echo 'Reminder that rtx is now called mise!'"
+alias ss="cd $WORKSPACE"
 alias tabcheck="/bin/cat -e -t -v"
 alias tsc="transmission-remote netocean"
 alias utd="cd ~/utf9k && yarn start"
@@ -391,7 +395,11 @@ alias venv="python3 -m venv venv && ae"
 alias vi="$EDITOR"
 alias view="less $CONFIG_FILE"
 alias vim="$EDITOR"
+{{ if .workmode }}
+alias ws="cd $WORKREPOS"
+{{ else }}
 alias ws="cd $WORKSPACE"
+{{ end }}
 alias wsd="chezmoi cd"
 alias youtube-dl="yt-dlp --add-metadata --dateafter 20081004 -i -o '%(uploader)s [%(channel_id)s]/%(title)s [%(id)s].%(ext)s' -ci --format 'bestvideo[height<=?1080]+bestaudio[ext=m4a]/bestvideo+bestaudio/best' --merge-output-format mp4"
 ```
