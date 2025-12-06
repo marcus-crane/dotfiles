@@ -6,6 +6,7 @@ set -euo pipefail
 
 sudo pacman -Syu
 
+# pcre used as a lugh dependency
 sudo pacman -S --needed - <<EOF
 atuin
 bash
@@ -24,7 +25,7 @@ gzip
 iproute2
 mise
 openssl
-pcre # lugh dependency
+pcre
 readline
 tcpdump
 vlc
