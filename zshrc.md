@@ -911,7 +911,10 @@ In order to make use of screen real estate, these are put inside of an HTML `det
 
 ```bash
 txtplan() {
-  gsed '1 i <details><summary>Plan</summary>||```terraform' txt.plan | gsed -E '$ a ```||</details>' | tr '|' '\n' | pbcopy
+  gsed '1 i <details><summary>Plan</summary>||```terraform' txt.plan |
+    gsed -E '$ a ```||</details>' |
+    tr '|' '\n' |
+    pbcopy
 }
 ```
 
@@ -953,7 +956,24 @@ Here's the verbatim explainer I wrote at the time:
 
 ```bash
 reslackmoji() {
-  rg --pcre2 --no-filename --no-line-number --only-matching "(?<=\s):([a-z0-9_\-\+']+):" . | sort -u
+  rg --pcre2 --no-filename --no-line-number --only-matching "(?<=\s):([a-z0-9_\-\+']+):" . |
+    sort -u
+}
+```
+
+### Kill multiple processes interactively
+
+When trying to kill certain processes, such as Electron apps, they may have multiple entries.
+
+To make this quicker, `multikill` uses `fzf` to interactively allow the user to select processes and then batch kill them all.
+
+```bash
+multikill() {
+  ps -ax |
+    grep "$1" |
+    fzf --multi |
+    awk '{print $1}'|
+    kill -9
 }
 ```
 
