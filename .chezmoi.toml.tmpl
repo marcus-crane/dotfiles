@@ -24,4 +24,4 @@
     wsl      = {{ $wsl }}
 
 [onepassword]
-    command = "{{ if $wsl }}~/.wslshims/op{{ else }}op{{ end }}"
+    mode = "service"
