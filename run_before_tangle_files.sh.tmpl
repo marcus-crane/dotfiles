@@ -2,21 +2,23 @@
 
 set -euo pipefail
 
-LUGH_BIN="${HOME}/.bin/lugh"
 LUGH_VERSION="v0.0.3"
 LUGH_ARCHIVE="lugh-{{ .chezmoi.os }}-${LUGH_VERSION}.tar.gz"
 LUGH_URL="https://github.com/marcus-crane/lugh/releases/download/${LUGH_VERSION}/${LUGH_ARCHIVE}"
 
 if [ ! -x "$LUGH_BIN" ]; then
-  echo "lugh is not at $LUGH_BIN so fetching a new copy"
-  mkdir -p "${HOME}/.bin"
-  TEMP_DIR=$(mktemp -d)
-  trap "rm -rf $TEMP_DIR" EXIT
-  curl -sL "$LUGH_URL" -o "${TEMP_DIR}/${LUGH_ARCHIVE}"
-  tar -xzf "${TEMP_DIR}/${LUGH_ARCHIVE}" -C "${TEMP_DIR}"
-  mv "${TEMP_DIR}/bin/lugh" "$LUGH_BIN"
-  chmod +x "$LUGH_BIN"
-  echo "lugh installed to $LUGH_BIN"
+  cd /tmp && \
+  wget -q $LUGH_URL -O lugh.tar.gz && \
+  tar -xf lugh.tar.gz && \
+  mkdir -p ~/.bin && \
+  mv bin/lugh ~/.bin/ && \
+  rm lugh.tar.gz && \
+  rm -rf bin && \
+  echo "~ lugh $VERSION has been installed"
+fi
+
+if [ -f /etc/arch-release ]; then
+  sudo ln -sf /usr/lib/libpcre.so /usr/lib/libpcre.so.3
 fi
 
 SOURCE_PATH="{{ .chezmoi.sourceDir }}"
