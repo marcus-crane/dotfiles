@@ -14,7 +14,7 @@ if [ ! -x "$LUGH_BIN" ]; then
   trap "rm -rf $TEMP_DIR" EXIT
   curl -sL "$LUGH_URL" -o "${TEMP_DIR}/${LUGH_ARCHIVE}"
   tar -xzf "${TEMP_DIR}/${LUGH_ARCHIVE}" -C "${TEMP_DIR}"
-  mv "${TEMP_DIR}/lugh" "$LUGH_BIN"
+  mv "${TEMP_DIR}/bin/lugh" "$LUGH_BIN"
   chmod +x "$LUGH_BIN"
   echo "lugh installed to $LUGH_BIN"
 fi
