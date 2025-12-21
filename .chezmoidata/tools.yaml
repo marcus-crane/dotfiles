@@ -43,40 +43,100 @@ tools:
         url: https://github.com/psf/black
       - name: git-cliff
         ref: orhun/git-cliff
-    work:
-      - name: amazon-ecr-credential-helper
-        ref: awslabs/amazon-ecr-credential-helper
   go:
     global:
-      - name: gotests
-        ref: github.com/cweill/gotests/...
-        description: Automatically generates table-driven tests
-        url: https://github.com/cweill/gotests
+      - name: delve
+        ref: github.com/go-delve/delve/cmd/dlv
+        description: A debugger for Go
+        url: https://github.com/go-delve/delve
+      - name: gofumpt
+        ref: mvdan.cc/gofumpt
+        description: It's like gofmt but even stricter
+        url: https://github.com/mvdan/gofumpt
+      - name: goimports
+        ref: golang.org/x/tools/cmd/goimports
+        description: A tool for tidying up imports in Go
+        url: https://pkg.go.dev/golang.org/x/tools/cmd/goimports
+      - name: golines
+        ref: github.com/segmentio/golines
+        description: A code formatter for Go
+        url: https://github.com/segmentio/golines
       - name: gomodifytags
         ref: github.com/fatih/gomodifytags
         description: Helps with bulk-editing struct tags
         url: github.com/fatih/gomodifytags
-      - ref: github.com/go-delve/delve/cmd/dlv
-      - ref: github.com/mdempsky/gocode
-      - ref: github.com/segmentio/golines
-      - ref: github.com/x-motemen/gore/cmd/gore
-      - ref: golang.org/x/tools/cmd/goimports
-      - ref: golang.org/x/tools/cmd/guru
-      - ref: mvdan.cc/gofumpt
+      - name: gore
+        ref: github.com/x-motemen/gore/cmd/gore
+        description: A REPL for Go. Who would have thought!
+        url: https://github.com/x-motemen/gore
+      - name: gotests
+        ref: github.com/cweill/gotests/...
+        description: Automatically generates table-driven tests
+        url: https://github.com/cweill/gotests
+      - name: guru
+        ref: golang.org/x/tools/cmd/guru
+        description: Introspects Go files to query things like function definitions
+        url: https://pkg.go.dev/golang.org/x/tools/cmd/guru
     home:
-      - ref: github.com/wailsapp/wails/v2/cmd/wails
+      - name: wails (v2)
+        ref: github.com/wailsapp/wails/v2/cmd/wails
+        description: Build desktop applications using Go and system webviews
+        url: https://wails.io
     work:
-      - ref: github.com/golang/mock/mockgen
+      - name: mockgen
+        ref: go.uber.org/mock/mockgen
+        description: A tool for generating mock files in Go
+        url: https://github.com/uber-go/mock
   gem:
     global:
       - ref: bundler
+        description: A tool for managing, resolving and installing Ruby dependencies
+        url: https://bundler.io
       - ref: neovim
+        description: Provides Ruby support for Neovim
+        url: https://github.com/neovim/neovim-ruby
   npm:
     global:
       - ref: eslint
+        description: A popular linter for Javascript
+        url: https://eslint.org/
       - ref: js-beautify
+        description: It makes Javascript source code look pretty
+        url: https://www.npmjs.com/package/js-beautify
       - ref: neovim
+        description: Provides Node support for Neovim
+        url: https://github.com/neovim/node-client
       - ref: pnpm
+        description: Node package manager that globally symlinks node_modules to save disk space
+        url: https://pnpm.io
       - ref: stylelint
+        description: A CSS linter that enforces conventions and helps you avoid errors
+        url: https://stylelint.io/
       - ref: tree-sitter-cli
       - ref: yarn
+        description: Used to develop, test and use tree-sitter grammars, which can parse source code into ASTs
+        url: https://www.npmjs.com/package/tree-sitter-cli
+  # Confusingly, pipx actually uses `uvx` under the hood
+  pipx:
+    global:
+      - name: django
+        ref: Django
+        description: Popular web framework for scaffolding web applications fast
+        url: https://www.djangoproject.com
+      - ref: isort
+        description: Consistently sorts and groups imports in Python source code
+        url: https://pycqa.github.io/isort
+      - ref: mkdocs
+        description: Generate documentation sites from Markdown files
+        url: https://www.mkdocs.org
+      - ref: nose
+        description: Extends unittest to make Python testing easier
+        url: https://nose.readthedocs.io/en/latest
+    work:
+      - ref: ansible
+        description: A popular tool for performing operations across multiple machines at once
+        url: https://docs.ansible.com/ansible/latest/index.html
+      - ref: ansible-core
+        description: Provides core utilities for use with Ansible
+        url: https://docs.ansible.com/core.html
+        

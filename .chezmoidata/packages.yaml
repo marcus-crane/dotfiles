@@ -95,9 +95,15 @@ packages:
       - ref: dbngin
       - ref: discord
       - ref: font-fira-code-nerd-font
+        description: It's the Fira Code font with Nerd Glyphs applied
+        url: https://www.nerdfonts.com/
       - ref: font-hack-nerd-font
+        description: It's the Hack font with Nerd Glyphs applied
+        url: https://www.nerdfonts.com/
       - ref: flycut
       - ref: ghostty
+        description: A fast and correct terminal emulator that is cross-platform yet uses native features of each platform
+        url: https://ghostty.org/
       - name: Google Chrome
         ref: google-chrome
         description: The world's most popular browser, created by Google. You should support alternatives!
@@ -105,13 +111,15 @@ packages:
       - ref: goland
       - ref: gpg-suite-no-mail
       - ref: hex-fiend
-      - ref: iina
-      - ref: insomnia
+        description: A lightweight hex editor for macOS
+        url: https://hexfiend.com/
       - ref: keka
+        description: A powerful archive/unarchive tool that works on all popular filetypes
       - ref: kekaexternalhelper
       - ref: obsidian
-      - name: October
-        ref: october
+        description: Store all of your notes in plain Markdown with cross-device sync
+        url: https://obsidian.md
+      - ref: october
       - ref: ogdesign-eagle
       - ref: plexamp
       - ref: provisionql
@@ -121,7 +129,6 @@ packages:
       - ref: qlstephen
       - ref: quickgeojson
       - ref: quicklook-csv
-      - ref: pycharm
       - ref: raycast
       - ref: sidequest
       - ref: slack
@@ -134,19 +141,28 @@ packages:
     mas:
       - name: 1Password for Safari
         ref: 1569813296
+        description: Quick access to 1Password within Safari
       - name: Baking Soda
         ref: 1601151613
+        description: 
       - name: Book Tracker
         ref: 1496543317
+        description: You can... track books!
       - name: Kagi for Safari
         ref: 1622835804
+        description: Set your default search engine in Safari to Kagi
       - name: Parcel
         ref: 639968404
+        description: It tracks parcels
       - name: Shazam
         ref: 897118787
+        description: Find out what any given song is!
       - name: Tailscale
         ref: 1475387142
+        description: An always-on VPN that securely connects devices together across the internet
       - name: TestFlight
         ref: 899247664
+        description: Try out beta versions of macOS and iOS applications
       - name: Vinegar
         ref: 1591303229
+        description: Replaces annoying video players with a stock Safari player
