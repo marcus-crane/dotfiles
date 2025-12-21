@@ -1,4 +1,30 @@
 packages:
+  arch:
+    pacman:
+      - ref: atuin
+      - ref: bash
+      - ref: ca-certificates
+      - ref: chezmoi
+      - ref: curl
+      - ref: fastfetch
+      - ref: ffmpeg
+      - ref: fzf
+      - ref: gcc
+      - ref: git
+      - ref: gnupg
+      - ref: grep
+      - ref: gtk3
+      - ref: gzip
+      - ref: iproute2
+      - ref: mise
+      - ref: openssl
+      - ref: pcre
+      - ref: readline
+      - ref: tcpdump
+      - ref: vlc
+      - ref: zlib
+      - ref: zsh
+    aur:
   darwin:
     taps:
       - ref: go-task/tap
