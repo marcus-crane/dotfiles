@@ -33,7 +33,7 @@ These are third party repositories that ensure I can fetch the most up to date v
     <template v-for="entry in data.packages.darwin.taps">
       <tr>
         <td v-if="typeof(entry.url) !== 'undefined'">
-          <a href="{{ entry.url }}">{{ entry.name !== undefined ? entry.name : entry.ref }}</a>
+          <a :href="entry.url">{{ entry.name !== undefined ? entry.name : entry.ref }}</a>
         </td>
         <td v-else>
           {{ entry.name !== undefined ? entry.name : entry.ref }}
@@ -58,7 +58,7 @@ These are CLI tools installed from Homebrew
     <template v-for="entry in data.packages.darwin.brews">
       <tr>
         <td v-if="typeof(entry.url) !== 'undefined'">
-          <a href="{{ entry.url }}">{{ entry.name !== undefined ? entry.name : entry.ref }}</a>
+          <a :href="entry.url">{{ entry.name !== undefined ? entry.name : entry.ref }}</a>
         </td>
         <td v-else>
           {{ entry.name !== undefined ? entry.name : entry.ref }}
@@ -84,7 +84,7 @@ These are desktop apps installed from Homebrew
     <template v-for="entry in data.packages.darwin.casks">
       <tr>
         <td v-if="typeof(entry.url) !== 'undefined'">
-          <a href="{{ entry.url }}">{{ entry.name !== undefined ? entry.name : entry.ref }}</a>
+          <a :href="entry.url">{{ entry.name !== undefined ? entry.name : entry.ref }}</a>
         </td>
         <td v-else>
           {{ entry.name !== undefined ? entry.name : entry.ref }}

@@ -40,7 +40,7 @@ These tools are installed using the <code>{{ backend }}</code> backend.
     <template v-for="tool in tools">
       <tr>
         <td v-if="typeof(tool.url) !== 'undefined'">
-          <a href="{{ tool.url }}">{{ tool.name !== undefined ? tool.name : tool.ref }}</a>
+          <a :href="tool.url">{{ tool.name !== undefined ? tool.name : tool.ref }}</a>
         </td>
         <td v-else>
           {{ tool.name !== undefined ? tool.name : tool.ref }}
