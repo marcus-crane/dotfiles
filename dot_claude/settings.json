@@ -1,0 +1,20 @@
+{
+  "enabledPlugins": {
+    "commit-commands@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git diff:*)",
+      "Read(~/.zshrc)",
+      "WebFetch(https://developer.mozilla.org/*)",
+      "WebFetch(https://github.com/*)",
+      "WebFetch(https://pkg.go.dev/*)",
+      "WebFetch(https://utf9k.net/*)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(~/.aws/**)"
+    ]
+  }
+}
