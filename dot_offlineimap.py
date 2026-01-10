@@ -1,6 +1,7 @@
-#! /usr/bin/env python2
+#!/usr/bin/env python3
 from subprocess import check_output
 
 def get_pass():
-    return check_output("gpg -dq $HOME/.offlineimappass.asc", 
-shell=True).strip("\n")
+    return check_output(
+        ["op", "read", "op://dotfiles/offlineimap3 Homeostasis Fastmail/password"]
+    ).decode().strip()

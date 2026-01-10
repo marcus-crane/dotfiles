@@ -1,26 +1,26 @@
 [general]
-ui = blinkenlights
+ui = ttyui
 accounts = fastmail
 fsync = False
 maxsyncaccounts = 1
-pythonfile = $HOME/.offlineimap.py
+pythonfile = ~/.offlineimap.py
 
 [Account fastmail]
-localrepository = local
-remoterepository = remote
+localrepository = fastmail-local
+remoterepository = fastmail-remote
 postsynchook = notmuch new
 
-[Repository local]
+[Repository fastmail-local]
 type = Maildir
-localfolders = $HOME/Mail
+localfolders = ~/Mail/marcus-utf9k-net
 
-[Repository remote]
+[Repository fastmail-remote]
 type = IMAP
-readonly = true
 remotehost = imap.fastmail.com
+remoteport = 993
 remoteuser = {{ .email }}
 remotepasseval = get_pass()
 ssl = yes
-sslcacertfile = /usr/local/etc/openssl/cert.pem
-maxconnections = 1
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+maxconnections = 3
 folderfilter = lambda folder: folder in ['Archive', 'Drafts', 'INBOX', 'Sent', 'Spam', 'Trash']
