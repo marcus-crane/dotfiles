@@ -9,7 +9,11 @@ Host *
   IdentityAgent ~/.1password/agent.sock
 {{- end }}
   ControlMaster auto
+{{- if contains "com.termux" .chezmoi.homeDir }}
+  ControlPath /data/data/com.termux/files/usr/tmp/SSH-%C
+{{- else }}
   ControlPath /tmp/SSH-%C
+{{- end }}
   ControlPersist 720
   ServerAliveInterval 30
   ServerAliveCountMax 3

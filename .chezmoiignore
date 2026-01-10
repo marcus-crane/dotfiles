@@ -17,3 +17,9 @@ public
 {{ if .workmode }}
 .ssh/config
 {{ end }}
+
+{{ if eq .chezmoi.os "android" }}
+.config/vdirsyncer
+.devdeck
+*mise*
+{{ end }}
