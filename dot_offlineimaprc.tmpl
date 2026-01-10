@@ -1,6 +1,6 @@
 [general]
 ui = ttyui
-accounts = fastmail
+accounts = fastmail, work
 fsync = False
 maxsyncaccounts = 1
 pythonfile = ~/.offlineimap.py
@@ -24,3 +24,30 @@ ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 maxconnections = 3
 folderfilter = lambda folder: folder in ['Archive', 'Drafts', 'INBOX', 'Sent', 'Spam', 'Trash']
+
+[Account work]
+localrepository = work-local
+remoterepository = work-remote
+postsynchook = notmuch new
+
+[Repository work-local]
+type = Maildir
+localfolders = ~/Mail/work
+# Prevent remote deletions from removing local emails
+sync_deletes = no
+
+[Repository work-remote]
+type = Gmail
+remoteuser = {{ .work.email }}
+remotepasseval = get_work_pass()
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+maxconnections = 3
+nametrans = lambda folder: {'[Gmail]/All Mail': 'All Mail',
+                            '[Gmail]/Drafts': 'Drafts',
+                            '[Gmail]/Sent Mail': 'Sent',
+                            '[Gmail]/Starred': 'Starred',
+                            '[Gmail]/Trash': 'Trash',
+                            '[Gmail]/Spam': 'Spam',
+                            }.get(folder, folder)
+folderfilter = lambda folder: folder in ['INBOX', '[Gmail]/All Mail', '[Gmail]/Drafts', '[Gmail]/Sent Mail', '[Gmail]/Starred', '[Gmail]/Trash']
