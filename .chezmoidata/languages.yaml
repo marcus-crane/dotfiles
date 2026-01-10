@@ -7,18 +7,14 @@ languages:
   dive: 0.12.0
   golang: 1.24.0
   lua: 5.1
-  neovim: 0.10.4
+  neovim: latest
   nodejs: 24.9.0
-  python:
-    home: 3.11.0
-    work: 3.10.0
+  python: 3.11.0
   ruby: 3.4.2
   rust: nightly
   shellcheck: 0.10.0
   shellspec: 0.28.1
   sqlite: 3.49.1
-  terraform:
-    home: 1.11.2
-    work: 1.4.5
+  terraform: 1.11.2
   vale: 3.9.6
   yt-dlp: 2025.02.19

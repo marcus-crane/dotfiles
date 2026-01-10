@@ -5,14 +5,11 @@
 
 {{- $installEnv := "home" }}{{/* determine which programming languages (and versions) to sync with asdf */}}
 
-{{- if eq .chezmoi.os "darwin" -}}
-{{-   if contains "Mac16,1" (output "sysctl" "-n" "hw.model" | trim) -}}
+{{- if eq .chezmoi.os "linux" -}}
+{{-   if eq .chezmoi.hostname "homeostasis" -}}
 {{-     $workmode = true -}}
 {{-     $installEnv  = "work" -}}
 {{-   end -}}
-{{- end -}}
-
-{{- if eq .chezmoi.os "linux" -}}
 {{-   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
 {{-     $wsl = true -}}
 {{-   end -}}

@@ -128,6 +128,20 @@ export PATH
 
 TODO: Why is Homebrew on Linux installed as its own user
 
+### Automatically load system environment variables
+
+On Linux, we can set some environment variables that we want to apply to all shells. I use this to authorize access to 1Password, as I occasionally have issues with 1Password/op (cli)'s inter-process communication falling over which is really annoying.
+
+```bash
+{{ if eq .chezmoi.os "linux" -}}
+if [[ -f /etc/environment ]]; then
+  set -a
+  source /etc/environment
+  set +a
+fi
+{{ end -}}
+```
+
 ### Homebrew
 
 Some homebrew setup that is needed on Linux
@@ -1018,6 +1032,7 @@ In the case of my employer, not only are the referenced tools the usual suspects
 source $HOME/.halter_asdf
 source $HOME/.halter_backend
 source $HOME/.halter_core
+source $HOME/.halter_firmware
 source $HOME/.halter_utilities
 {{- end }}
 ```
