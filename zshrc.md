@@ -255,7 +255,7 @@ REPORTTIME=5
 ### Atuin
 
 ```bash
-if [[ $(command -v atuin) ]]; then
+if (( $+commands[atuin] )); then
   eval "$(atuin init zsh)"
 fi
 ```
@@ -275,7 +275,7 @@ export DOOMDIR="${_chezmoi_src}/dot_doom.d" # (1)!
 A fuzzy finder which comes with some autocompletions
 
 ```bash
-if [[ $(command -v fzf) ]]; then
+if (( $+commands[fzf] )); then
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
 ```
@@ -293,9 +293,8 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 Less is great by default but it'd be even nicer with syntax highlighting!
 
 ```bash
-if [[ $(which src-hilite-lesspipe.sh) ]]; then
-  LESSPIPE=`which src-hilite-lesspipe.sh`
-  export LESSOPEN="| ${LESSPIPE} %s"
+if (( $+commands[src-hilite-lesspipe.sh] )); then
+  export LESSOPEN="| $commands[src-hilite-lesspipe.sh] %s"
   export LESS=' -R -X -F '
 fi
 ```
@@ -319,7 +318,7 @@ Setup is:
 
 ```bash
 export NIX_SSL_CERT_FILE=/nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt
-if [[ $(command -v nix) ]]; then
+if (( $+commands[nix] )); then
   export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
 fi
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
@@ -447,7 +446,7 @@ I have my own little Markdown tangling tool which you can read about [here](http
 
 ```bash
 function tangle-md() {
-  if [[ $(command -v lugh) ]]; then
+  if (( $+commands[lugh] )); then
     lugh -f "$1"
   else
     echo "lugh isn't installed. You can find it at https://github.com/marcus-crane/lugh"
@@ -575,7 +574,7 @@ Often times, I find myself making screen recording with Quicktime but they expor
 
 ```bash
 function demov() {
-  if [[ $(command -v "ffmpeg") ]]; then
+  if (( $+commands[ffmpeg] )); then
       ffmpeg -i $1 -vcodec libx264 -acodec aac $(echo "$1" | rev | cut -f 2- -d '.' | rev).mp4
   else
       print "It doesn't look like you have ffmpeg installed."
@@ -587,7 +586,7 @@ function demov() {
 
 ```bash
 function de265() {
-  if [[ $(command -v "ffmpeg") ]]; then
+  if (( $+commands[ffmpeg] )); then
       ffmpeg -i $1 -map 0 -c:v libx264 -crf 18 -vf format=yuv420p -c:a copy $(echo "$1" | rev | cut -f 2- -d '.' | rev).mp4
   else
       print "It doesn't look like you have ffmpeg installed."
