@@ -149,6 +149,7 @@ Some homebrew setup that is needed on Linux
 ```bash
 {{ if eq .chezmoi.os "darwin" -}}
 eval "$(brew shellenv)"
+_brew_prefix="$(brew --prefix)"
 {{ end -}}
 ```
 
@@ -158,7 +159,7 @@ This is requested by the fzf plugin so we need to do it before we load things
 
 ```bash
 {{- if eq .chezmoi.os "darwin" -}}
-export FZF_BASE=$(brew --prefix)/opt/fzf
+export FZF_BASE="${_brew_prefix}/opt/fzf"
 {{ end -}}
 ```
 
@@ -196,9 +197,10 @@ Crystal on macOS Silicon fails with an architecture error for me without this `P
 
 ```bash
 {{ if eq .chezmoi.os "darwin" -}}
-export LDFLAGS="-L$(brew --prefix)/opt/openssl/lib"
-export CPPFLAGS="-I$(brew --prefix)/opt/openssl/include"
-export PKG_CONFIG_PATH="$(brew --prefix)/opt/openssl/lib/pkgconfig"
+export LDFLAGS="-L${_brew_prefix}/opt/openssl/lib"
+export CPPFLAGS="-I${_brew_prefix}/opt/openssl/include"
+export PKG_CONFIG_PATH="${_brew_prefix}/opt/openssl/lib/pkgconfig"
+unset _brew_prefix
 {{ end -}}
 ```
 
@@ -237,8 +239,9 @@ export WORKREPOS="$HOME/halter"
 ### Setting various global constants
 
 ```bash
+_chezmoi_src="$(chezmoi source-path)"
 export CONFIG_FILE="$HOME/.zshrc"
-export CONFIG_SRC="$(chezmoi source-path)/zshrc.md"
+export CONFIG_SRC="${_chezmoi_src}/zshrc.md"
 export EDITOR="nvim"
 export GPG_TTY=$(tty)
 export LANGUAGE="en_NZ:en"
@@ -262,7 +265,7 @@ fi
 Given that I use chezmoi, I can't have Doom Emacs editing the default config in `$HOME` so we need to overwrite that.
 
 ```bash
-export DOOMDIR=$(chezmoi source-path)/dot_doom.d # (1)!
+export DOOMDIR="${_chezmoi_src}/dot_doom.d" # (1)!
 ```
 
 1. If I make updates to my Emacs config, I want to make sure that I'm editing the source and not the version in `$HOME` which will get overwritten on the next `chezmoi apply`
@@ -398,8 +401,9 @@ alias ipv4="dig @resolver4.opendns.com myip.opendns.com +short -4"
 alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6"
 alias lidclosed="ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState | awk '{ print $4 }'"
 alias lvim="nvim"
-alias rebrew="brew bundle --file=$(chezmoi source-path)/Brewfile"
-alias refresh="chezmoi git pull && chezmoi apply && exec zsh && echo '~ refreshed shell config'"
+alias rebrew="brew bundle --file=${_chezmoi_src}/Brewfile"
+unset _chezmoi_src
+alias refresh="chezmoi git pull && chezmoi apply && echo '~ refreshed shell config' && exec zsh"
 alias rmuntracked="git status -su --no-ahead-behind | awk '{ print $2 }' | xargs rm"
 alias ss="cd $WORKSPACE"
 alias tabcheck="/bin/cat -e -t -v"
