@@ -7,10 +7,10 @@
     "allow": [
       "Bash(git diff:*)",
       "Read(~/.zshrc)",
-      "WebFetch(https://developer.mozilla.org/*)",
-      "WebFetch(https://github.com/*)",
-      "WebFetch(https://pkg.go.dev/*)",
-      "WebFetch(https://utf9k.net/*)"
+      "WebFetch(domain:developer.mozilla.org)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:pkg.go.dev)",
+      "WebFetch(domain:utf9k.net)"
     ],
     "deny": [
       "Read(.env)",
