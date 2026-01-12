@@ -1,4 +1,8 @@
+{{ if env "TERMUX_VERSION" -}}
+#!/data/data/com.termux/files/usr/bin/bash
+{{ else -}}
 #!/usr/bin/env bash
+{{ end -}}
 
 set -euo pipefail
 
@@ -8,7 +12,7 @@ LUGH_ARCHIVE="lugh-{{ .chezmoi.os }}-${LUGH_VERSION}.tar.gz"
 LUGH_URL="https://github.com/marcus-crane/lugh/releases/download/${LUGH_VERSION}/${LUGH_ARCHIVE}"
 
 if [ ! -x "$LUGH_BIN" ]; then
-  cd /tmp && \
+  cd "$TMPDIR" && \
   wget -q $LUGH_URL -O lugh.tar.gz && \
   tar -xf lugh.tar.gz && \
   mkdir -p ~/.bin && \
