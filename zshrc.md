@@ -1063,6 +1063,22 @@ export PATH="/mnt/c/Program Files/1Password CLI:$PATH"
 {{- end }}
 ```
 
+### Claude Code for Termux
+
+When running Claude on Termux, the `/tmp` directory is inaccessible.
+
+To work around that, I have a temporary alias that uses `proot` to trick Claude into thinking that `/tmp` is somewhere else.
+
+Eventually, this should be fixed properly within `claude` itself.
+
+```bash
+{{- if contains "com.termux" .chezmoi.homeDir }}
+claude() {
+  proot -b /data/data/com.termux/files/usr/tmp:/tmp command claude "$@"
+}
+{{- end }}
+```
+
 ## iTerm 2 integration
 
 I used iTerm 2 on my various devices as a terminal and so, there are some shell integrations that are handy to use
