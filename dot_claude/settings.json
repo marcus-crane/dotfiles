@@ -1,16 +1,20 @@
 {
   "enabledPlugins": {
     "commit-commands@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
     "ralph-loop@claude-plugins-official": true
   },
   "permissions": {
     "allow": [
       "Bash(git diff:*)",
+      "Bash(pip list:*)",
+      "Bash(pip show:*)",
       "Read(~/.zshrc)",
       "WebFetch(domain:developer.mozilla.org)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:pkg.go.dev)",
-      "WebFetch(domain:utf9k.net)"
+      "WebFetch(domain:utf9k.net)",
+      "WebSearch"
     ],
     "deny": [
       "Read(.env)",
