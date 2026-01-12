@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git config:*)",
+      "Bash(ls:*)",
+      "Bash(chezmoi apply:*)"
+    ]
+  }
+}

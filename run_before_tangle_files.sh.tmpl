@@ -1,4 +1,4 @@
-{{ if env "TERMUX_VERSION" -}}
+{{ if .termux -}}
 #!/data/data/com.termux/files/usr/bin/bash
 {{ else -}}
 #!/usr/bin/env bash

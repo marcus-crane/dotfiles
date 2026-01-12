@@ -249,6 +249,15 @@ export LANGUAGE="en_NZ:en"
 export LAST_MODIFIED="$(date)"
 export SHELL="$(which zsh)"
 REPORTTIME=5
+
+{{ if .termux -}}
+# Use Termux ssh-agent service
+export SSH_AUTH_SOCK="$PREFIX/var/run/ssh-agent.socket"
+# Add SSH key to agent automatically (only if not already added)
+if [ -z "$(ssh-add -l 2>/dev/null | grep id_ed25519)" ]; then
+  ssh-add ~/.ssh/id_ed25519 2>/dev/null
+fi
+{{ end -}}
 ```
 
 ## Applications
