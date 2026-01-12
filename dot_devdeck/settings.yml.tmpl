@@ -10,7 +10,7 @@ decks:
     - name: 'devdeck_slack.slack_deck.SlackDeck'
       key: 2
       settings:
-        api_key: "{{ onepasswordRead "op://dotfiles/Cannard Slack Token/password" }}"
+        api_key: "{{ onepasswordRead "op://dotfiles/Cannard Slack Token/password" "my" }}"
         actions:
           - action: online
             key: 0
