@@ -1,6 +1,7 @@
 {{/* feature flags */}}
 {{- $workmode := false -}}{{/* enable work configuration */}}
 {{- $wsl := false -}}{{/* enable wsl specific features */}}
+{{- $termux := false -}}{{/* enable termux specific features */}}
 {{- $opmode := "account" -}}{{/* 1password mode: "account" for desktop app, "service" for service token */}}
 {{- "" -}}
 
@@ -18,11 +19,15 @@
 {{- if eq .chezmoi.os "android" -}}
 {{-   $opmode = "service" -}}
 {{- end -}}
+{{- if env "TERMUX_VERSION" -}}
+{{-   $termux = true -}}
+{{- end -}}
 
 [data]
     installenv  = "{{ $installEnv }}"
     workmode = {{ $workmode }}
     wsl      = {{ $wsl }}
+    termux   = {{ $termux }}
     opmode   = "{{ $opmode }}"
 
 [onepassword]
