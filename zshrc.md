@@ -670,7 +670,7 @@ I can never remember which keys require a specific length so this is a short fun
 
 ```bash
 function secretregen() {
-  local SECRET_LENGTH=$(echo -n $1 | wc -m | awk '{$1=$1};1')
+  local SECRET_LENGTH=$(echo -n "$1" | wc -m | awk '{$1=$1};1')
   LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c $SECRET_LENGTH ; echo ''
 }
 ```
@@ -687,6 +687,56 @@ S5VkqQ
 </code>
 
 </details>
+
+### Redact a string while preserving format
+
+This function takes in a string and rotates each character. Lowercase, uppercase and digit characters are replaced with the same value types. I found this useful when "redacting" a page. I used CSS black bars for the redaction but in order to have each redact look legitimate, I just randomly rotated each character to preserve character lengths.
+
+```bash
+function redact() {
+  local input="$1"
+  local output=""
+  local char
+  for (( i=0; i<${#input}; i++ )); do
+    char="${input:$i:1}"
+    if [[ "$char" =~ [a-z] ]]; then
+      output+=$(LC_ALL=C tr -dc a-z </dev/urandom | head -c 1)
+    elif [[ "$char" =~ [A-Z] ]]; then
+      output+=$(LC_ALL=C tr -dc A-Z </dev/urandom | head -c 1)
+    elif [[ "$char" =~ [0-9] ]]; then
+      output+=$(LC_ALL=C tr -dc 0-9 </dev/urandom | head -c 1)
+    else
+      output+="$char"
+    fi
+  done
+  echo "$output"
+}
+```
+
+### Regenerate a GUID with the same format
+
+This is basically the same as `secretregen` but instead, it takes in a GUID and rotates the values to be randomised.
+
+```bash
+function guidregen() {
+  local input="$1"
+  local output=""
+  local char
+  local charset="0-9a-f"
+  if [[ "$input" =~ [A-F] ]]; then
+    charset="0-9A-F"
+  fi
+  for (( i=0; i<${#input}; i++ )); do
+    char="${input:$i:1}"
+    if [[ "$char" == "-" ]]; then
+      output+="-"
+    else
+      output+=$(LC_ALL=C tr -dc "$charset" </dev/urandom | head -c 1)
+    fi
+  done
+  echo "$output"
+}
+```
 
 ### Decode URLs with percentage decoded values
 
