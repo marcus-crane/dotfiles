@@ -1,6 +1,7 @@
 {{/* feature flags */}}
 {{- $workmode := false -}}{{/* enable work configuration */}}
 {{- $wsl := false -}}{{/* enable wsl specific features */}}
+{{- $opmode := "account" -}}{{/* 1password mode: "account" for desktop app, "service" for service token */}}
 {{- "" -}}
 
 {{- $installEnv := "home" }}{{/* determine which programming languages (and versions) to sync with asdf */}}
@@ -14,11 +15,15 @@
 {{-     $wsl = true -}}
 {{-   end -}}
 {{- end -}}
+{{- if eq .chezmoi.os "android" -}}
+{{-   $opmode = "service" -}}
+{{- end -}}
 
 [data]
     installenv  = "{{ $installEnv }}"
     workmode = {{ $workmode }}
     wsl      = {{ $wsl }}
+    opmode   = "{{ $opmode }}"
 
 [onepassword]
-    mode = "account" {{/* Use "service" for devices that can't run 1Password Desktop */}}
+    mode = "{{ $opmode }}"
