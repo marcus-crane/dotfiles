@@ -1,0 +1,59 @@
+{{- if .termux -}}
+#!/data/data/com.termux/files/usr/bin/bash
+
+set -euo pipefail
+
+echo "Installing Termux packages..."
+
+# Update package lists
+pkg update -y
+
+# Core language runtimes
+pkg install -y \
+  nodejs \
+  python \
+  ruby \
+  golang \
+  rust \
+  lua54 \
+  deno \
+  neovim
+
+# Development tools
+pkg install -y \
+  git \
+  gh \
+  ripgrep \
+  fd \
+  fzf \
+  jq \
+  curl \
+  wget \
+  openssh \
+  gnupg \
+  make \
+  clang \
+  binutils
+
+# Language package managers are included with runtimes:
+# - npm/npx (comes with nodejs)
+# - pip (comes with python)
+# - gem (comes with ruby)
+# - cargo (comes with rust)
+# - go install (comes with golang)
+
+echo "✓ All Termux packages installed successfully"
+
+# Verify key tools
+echo ""
+echo "Installed versions:"
+node --version && echo "✓ Node.js"
+python3 --version && echo "✓ Python"
+ruby --version | head -1 && echo "✓ Ruby"
+go version && echo "✓ Go"
+rustc --version && echo "✓ Rust"
+deno --version | head -1 && echo "✓ Deno"
+lua -v && echo "✓ Lua"
+nvim --version | head -1 && echo "✓ Neovim"
+
+{{- end -}}
