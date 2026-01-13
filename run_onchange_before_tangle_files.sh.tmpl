@@ -4,6 +4,11 @@
 #!/usr/bin/env bash
 {{ end -}}
 
+# Hashes for change detection:
+{{ range .tangle -}}
+# {{ . }}: {{ include . | sha256sum }}
+{{ end -}}
+
 set -euo pipefail
 
 LUGH_BIN="${HOME}/.bin/lugh"
@@ -28,8 +33,6 @@ fi
 
 SOURCE_PATH="{{ .chezmoi.sourceDir }}"
 
-while IFS= read -r -d '' file; do
-  if head -n 10 "$file" | grep -q "^output:"; then
-    "$LUGH_BIN" -f "$file" && echo "~ $file has been tangled"
-  fi
-done < <(find "$SOURCE_PATH" -type f -name '*.md' -print0)
+{{ range .tangle -}}
+"$LUGH_BIN" -f "$SOURCE_PATH/{{ . }}" && echo "~ {{ . }} has been tangled"
+{{ end }}
