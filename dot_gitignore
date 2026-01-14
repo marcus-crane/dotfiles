@@ -1,5 +1,6 @@
 # Common editors
 .idea # JetBrains IDEs
+.worktrees # Git worktrees directory
 *.sublime-workspace # Sublime Text
 *.sublime-project # Sublime Text
 *.tmproj # TextMate
