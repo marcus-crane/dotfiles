@@ -19,6 +19,7 @@
       "Bash(pip show:*)",
       "Read(~/.zshrc)",
       "WebFetch(domain:developer.mozilla.org)",
+      "WebFetch(docs.github.com)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:pkg.go.dev)",
       "WebFetch(domain:utf9k.net)",
