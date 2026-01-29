@@ -1,4 +1,6 @@
-# System
+# Some useful information and personal preferences
+
+## System
 
 - **User:** `{{ .chezmoi.username }}`
 - **Host:** `{{ .chezmoi.hostname }}`
@@ -25,7 +27,7 @@
 - **Terminal:** `{{ output "sh" "-c" "basename \"$(cat /proc/$PPID/comm 2>/dev/null || echo $TERM)\"" | trim }}`
 {{- end }}
 
-# Dotfiles
+## Dotfiles
 
 This machine uses [chezmoi](https://chezmoi.io) for dotfile management.
 

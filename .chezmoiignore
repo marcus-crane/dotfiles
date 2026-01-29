@@ -6,6 +6,7 @@ mkdocs.yml
 netlify.toml
 docs
 **/*.md
+.claude/*.md
 !.claude/CLAUDE.md
 setup-site.sh
 renovate.json
