@@ -65,6 +65,13 @@ export default defineConfig({
         ]
       },
       {
+        text: 'Claude Code',
+        items: [
+          { text: '~/.claude/CLAUDE.md', link: '/dot_claude/CLAUDE' },
+          { text: '~/.claude/settings.json', link: '/dot_claude/settings' }
+        ]
+      },
+      {
         text: 'Extras',
         items: [
           { text: 'TODO', link: '/todo' },

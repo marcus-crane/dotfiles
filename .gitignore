@@ -13,3 +13,5 @@ node_modules
 .vitepress/dist
 
 bin
+
+dot_claude/*.md

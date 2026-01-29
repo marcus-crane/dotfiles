@@ -1,0 +1,34 @@
+# System
+
+- **User:** `{{ .chezmoi.username }}`
+- **Host:** `{{ .chezmoi.hostname }}`
+- **Shell:** `{{ env "SHELL" | base }}`
+- **Editor:** `{{ env "EDITOR" }}`
+- **Git:** `{{ output "git" "--version" | trim | trimPrefix "git version " }}`
+{{- if eq .chezmoi.os "darwin" }}
+- **OS:** `macOS {{ output "sw_vers" "-productVersion" | trim }}`
+- **Arch:** `{{ .chezmoi.arch }}`
+- **Package Manager:** `Homebrew`
+- **CPU:** `{{ output "sysctl" "-n" "machdep.cpu.brand_string" | trim }}`
+- **RAM:** `{{ div (output "sysctl" "-n" "hw.memsize" | trim | int) 1073741824 }}GB`
+- **GPU:** `{{ output "sh" "-c" "system_profiler SPDisplaysDataType 2>/dev/null | grep 'Chipset Model' | head -1 | cut -d: -f2" | trim }}`
+- **Terminal:** `{{ env "TERM_PROGRAM" }}`
+{{- else if eq .chezmoi.os "linux" }}
+- **OS:** `{{ .chezmoi.osRelease.name }}`
+- **Kernel:** `{{ .chezmoi.kernel.osrelease }}`
+- **Desktop:** `{{ env "XDG_CURRENT_DESKTOP" }}`
+- **Display Server:** `{{ env "XDG_SESSION_TYPE" }}`
+- **Package Manager:** `{{ output "sh" "-c" "command -v pacman >/dev/null && echo 'pacman' || (command -v apt >/dev/null && echo 'apt' || echo 'unknown')" | trim }}`
+- **CPU:** `{{ output "sh" "-c" "lscpu | grep 'Model name' | cut -d: -f2 | xargs" | trim }}`
+- **RAM:** `{{ output "sh" "-c" "free -h | awk '/Mem:/{print $2}'" | trim }}`
+- **GPU:** `{{ output "sh" "-c" "lspci 2>/dev/null | grep -i 'vga\\|3d\\|display' | head -1 | cut -d: -f3 | xargs" | trim }}`
+- **Terminal:** `{{ output "sh" "-c" "basename \"$(cat /proc/$PPID/comm 2>/dev/null || echo $TERM)\"" | trim }}`
+{{- end }}
+
+# Dotfiles
+
+This machine uses [chezmoi](https://chezmoi.io) for dotfile management.
+
+- **Source of truth:** `~/.local/share/chezmoi`
+- Use `refresh` to apply chezmoi changes to the home directory (not `chezmoi apply`)
+- It's fine to edit dotfiles directly when testing changes before codifying them in chezmoi
