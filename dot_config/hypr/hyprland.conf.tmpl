@@ -167,6 +167,9 @@ bind = , XF86AudioPause, global, caelestia:mediaToggle
 bind = , XF86AudioNext, global, caelestia:mediaNext
 bind = , XF86AudioPrev, global, caelestia:mediaPrev
 
+# Screenshots
+bind = CTRL SHIFT, 4, exec, grim -g "$(slurp)" - | satty -f -
+
 # Lock & Session
 bind = $mainMod, L, global, caelestia:lock
 bind = CTRL_ALT, Delete, global, caelestia:session
