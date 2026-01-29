@@ -3,7 +3,10 @@
     "allow": [
       "Bash(git config:*)",
       "Bash(ls:*)",
-      "Bash(chezmoi apply:*)"
+      "Bash(chezmoi apply:*)",
+      "Bash(pacman:*)",
+      "Bash(chezmoi diff:*)",
+      "Bash(chezmoi cat:*)"
     ]
   }
 }

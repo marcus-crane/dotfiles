@@ -1,0 +1,24 @@
+monitors:
+  # Default fallback
+  default:
+    - name: "eDP-1"
+      resolution: "2880x1920"
+      refresh: 120
+      position: "0x0"
+      scale: 1.666667
+
+  # homeostasis (current machine)
+  homeostasis:
+    - name: "eDP-1"
+      resolution: "2880x1920"
+      refresh: 120
+      position: "0x0"
+      scale: 1.666667
+
+  # Add other machines here as needed
+  # otherhostname:
+  #   - name: "DP-1"
+  #     resolution: "3840x2160"
+  #     refresh: 60
+  #     position: "0x0"
+  #     scale: 1.5

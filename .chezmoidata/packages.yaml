@@ -3,28 +3,91 @@ packages:
     pacman:
       - ref: atuin
       - ref: bash
+      - ref: breeze-gtk
+        description: Breeze GTK theme for consistent theming
       - ref: ca-certificates
       - ref: chezmoi
       - ref: curl
+      - ref: dolphin
+        description: KDE file manager
+      - ref: dolphin-plugins
       - ref: fastfetch
       - ref: ffmpeg
+      - ref: firefox
       - ref: fzf
       - ref: gcc
       - ref: git
       - ref: gnupg
       - ref: grep
+      - ref: gst-plugin-pipewire
       - ref: gtk3
       - ref: gzip
+      - ref: hyprland
+        description: Dynamic tiling Wayland compositor
+      - ref: hyprpaper
+        description: Wallpaper utility for Hyprland
       - ref: iproute2
+      - ref: kde-gtk-config
+      - ref: kitty
+        description: GPU-accelerated terminal emulator
+      - ref: kwayland-integration
       - ref: mise
       - ref: openssl
       - ref: pcre
+      - ref: pipewire-alsa
+      - ref: pipewire-jack
+      - ref: pipewire-pulse
+      - ref: python-pyqt6
+      - ref: qt6-base
+        description: Qt6 base (Caelestia dependency)
+      - ref: qt6ct
+        description: Qt6 configuration tool
+      - ref: qt6-declarative
+        description: Qt6 QML (Caelestia dependency)
+      - ref: qt6-imageformats
+      - ref: qt6-wayland
       - ref: readline
       - ref: tcpdump
       - ref: vlc
+      - ref: wireplumber
+        description: PipeWire session manager
+      - ref: xdg-desktop-portal-hyprland
+        description: xdg-desktop-portal backend for Hyprland
+      - ref: xdg-desktop-portal-kde
       - ref: zlib
       - ref: zsh
+      # Caelestia shell dependencies
+      - ref: aubio
+        description: Audio analysis library (Caelestia dependency)
+      - ref: brightnessctl
+        description: Brightness control (Caelestia dependency)
+      - ref: ddcutil
+        description: DDC/CI monitor control (Caelestia dependency)
+      - ref: fish
+        description: Fish shell (Caelestia dependency)
+      - ref: libqalculate
+        description: Calculator library (Caelestia dependency)
+      - ref: lm_sensors
+        description: Hardware monitoring (Caelestia dependency)
+      - ref: networkmanager
+        description: Network management (Caelestia dependency)
+      - ref: swappy
+        description: Screenshot annotation tool (Caelestia dependency)
     aur:
+      - ref: caelestia-shell
+        description: Caelestia desktop shell for Hyprland
+      - ref: caelestia-cli
+        description: CLI tools for Caelestia
+      - ref: quickshell-git
+        description: QtQuick shell toolkit (must be git version)
+      - ref: app2unit
+        description: XDG app launcher (Caelestia dependency)
+      - ref: libcava
+        description: Audio visualizer library (Caelestia dependency)
+      - ref: ttf-material-symbols-variable-git
+        description: Material Symbols font (Caelestia dependency)
+      - ref: ttf-caskaydia-cove-nerd
+        description: CaskaydiaCove Nerd Font (Caelestia dependency)
   darwin:
     taps:
       - ref: go-task/tap

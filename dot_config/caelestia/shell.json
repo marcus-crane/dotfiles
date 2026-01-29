@@ -1,0 +1,10 @@
+{
+  "appearance": {
+    "transparency": {
+      "enabled": false
+    }
+  },
+  "paths": {
+    "wallpaperDir": "~/Pictures/Wallpapers"
+  }
+}

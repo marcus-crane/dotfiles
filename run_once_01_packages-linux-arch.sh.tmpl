@@ -4,36 +4,91 @@
 
 set -euo pipefail
 
-sudo pacman -Syu
+echo "[ ~ ] Updating system packages..."
+sudo pacman -Syu --noconfirm
 
-# pcre used as a lugh dependency
-sudo pacman -S --needed - <<EOF
+echo "[ ~ ] Installing pacman packages..."
+sudo pacman -S --needed --noconfirm - <<EOF
 atuin
+aubio
 bash
+breeze-gtk
+brightnessctl
 ca-certificates
 chezmoi
 curl
+ddcutil
+dolphin
+dolphin-plugins
 fastfetch
 ffmpeg
+firefox
+fish
 fzf
 gcc
 git
 gnupg
 grep
+gst-plugin-pipewire
 gtk3
 gzip
+hyprland
+hyprpaper
 iproute2
+kde-gtk-config
+kitty
+kwayland-integration
+libqalculate
+lm_sensors
 mise
+networkmanager
 openssl
 pcre
+pipewire-alsa
+pipewire-jack
+pipewire-pulse
+python-pyqt6
+qt6-base
+qt6ct
+qt6-declarative
+qt6-imageformats
+qt6-wayland
 readline
+swappy
 tcpdump
 vlc
+wireplumber
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-kde
 zlib
 zsh
 EOF
 
-echo "[ ~ ] linux packages have been installed"
+echo "[ ~ ] Pacman packages have been installed"
+
+# Install yay if not present (needed for AUR packages)
+if ! command -v yay &> /dev/null; then
+    echo "[ ~ ] Installing yay AUR helper..."
+    sudo pacman -S --needed --noconfirm git base-devel
+    TMPDIR=$(mktemp -d)
+    git clone https://aur.archlinux.org/yay.git "$TMPDIR/yay"
+    (cd "$TMPDIR/yay" && makepkg -si --noconfirm)
+    rm -rf "$TMPDIR"
+fi
+
+echo "[ ~ ] Installing AUR packages..."
+# Disable mise to ensure yay uses system Python for building
+MISE_DISABLE=1 yay -S --needed --noconfirm \
+    app2unit \
+    caelestia-cli \
+    caelestia-shell \
+    libcava \
+    quickshell-git \
+    ttf-caskaydia-cove-nerd \
+    ttf-material-symbols-variable-git
+
+echo "[ ~ ] AUR packages have been installed"
+echo "[ ~ ] All Linux packages have been installed"
 
 {{ end -}}
 {{ end -}}

@@ -1,0 +1,197 @@
+# Hyprland Configuration
+# See https://wiki.hyprland.org/Configuring/
+
+###################
+### ENVIRONMENT ###
+###################
+
+env = XDG_CURRENT_DESKTOP,Hyprland
+env = XDG_SESSION_TYPE,wayland
+env = XDG_SESSION_DESKTOP,Hyprland
+env = QT_QPA_PLATFORM,wayland
+env = QT_QPA_PLATFORMTHEME,qt6ct
+env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
+env = GDK_BACKEND,wayland,x11,*
+env = SDL_VIDEODRIVER,wayland
+env = CLUTTER_BACKEND,wayland
+
+################
+### MONITORS ###
+################
+
+{{- $monitors := .monitors.default -}}
+{{- if hasKey .monitors .chezmoi.hostname -}}
+{{-   $monitors = index .monitors .chezmoi.hostname -}}
+{{- end }}
+
+{{ range $monitors -}}
+monitor = {{ .name }}, {{ .resolution }}@{{ .refresh }}, {{ .position }}, {{ .scale }}
+{{ end }}
+#############
+### INPUT ###
+#############
+
+input {
+    kb_layout = us
+    follow_mouse = 1
+    sensitivity = 0
+    touchpad {
+        natural_scroll = true
+        tap-to-click = true
+    }
+}
+
+
+#####################
+### LOOK AND FEEL ###
+#####################
+
+general {
+    gaps_in = 5
+    gaps_out = 10
+    border_size = 2
+    col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
+    col.inactive_border = rgba(595959aa)
+    layout = dwindle
+    allow_tearing = false
+}
+
+decoration {
+    rounding = 10
+    blur {
+        enabled = true
+        size = 8
+        passes = 2
+        new_optimizations = true
+    }
+    shadow {
+        enabled = true
+        range = 4
+        render_power = 3
+        color = rgba(1a1a1aee)
+    }
+}
+
+animations {
+    enabled = true
+    bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+    animation = windows, 1, 7, myBezier
+    animation = windowsOut, 1, 7, default, popin 80%
+    animation = border, 1, 10, default
+    animation = borderangle, 1, 8, default
+    animation = fade, 1, 7, default
+    animation = workspaces, 1, 6, default
+}
+
+dwindle {
+    pseudotile = true
+    preserve_split = true
+}
+
+misc {
+    force_default_wallpaper = 0
+    disable_hyprland_logo = true
+}
+
+#################
+### AUTOSTART ###
+#################
+
+exec-once = caelestia shell
+
+###################
+### KEYBINDINGS ###
+###################
+
+$mainMod = SUPER
+
+# Caelestia global shortcuts
+# Super tap (release) opens launcher
+bindr = SUPER, SUPER_L, global, caelestia:launcher
+
+# Interrupt launcher when using Super+key combos
+bind = $mainMod, T, global, caelestia:launcherInterrupt
+bind = $mainMod, E, global, caelestia:launcherInterrupt
+bind = $mainMod, B, global, caelestia:launcherInterrupt
+bind = $mainMod, Q, global, caelestia:launcherInterrupt
+bind = $mainMod SHIFT, Q, global, caelestia:launcherInterrupt
+bind = $mainMod, V, global, caelestia:launcherInterrupt
+bind = $mainMod, F, global, caelestia:launcherInterrupt
+bind = $mainMod, L, global, caelestia:launcherInterrupt
+
+# Volume - use wpctl directly (Caelestia OSD reacts automatically)
+binde = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+binde = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bind = , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+
+# Brightness - Caelestia has shortcuts for this
+bind = , XF86MonBrightnessUp, global, caelestia:brightnessUp
+bind = , XF86MonBrightnessDown, global, caelestia:brightnessDown
+
+# Media
+bind = , XF86AudioPlay, global, caelestia:mediaToggle
+bind = , XF86AudioPause, global, caelestia:mediaToggle
+bind = , XF86AudioNext, global, caelestia:mediaNext
+bind = , XF86AudioPrev, global, caelestia:mediaPrev
+
+# Lock & Session
+bind = $mainMod, L, global, caelestia:lock
+bind = CTRL_ALT, Delete, global, caelestia:session
+
+# Application shortcuts
+bind = $mainMod, T, exec, kitty
+bind = $mainMod, E, exec, dolphin
+bind = $mainMod, B, exec, firefox
+
+# Window management
+bind = $mainMod, Q, killactive
+bind = $mainMod SHIFT, Q, exit
+bind = $mainMod, V, togglefloating
+bind = $mainMod, F, fullscreen
+bind = $mainMod, P, pseudo
+bind = $mainMod, J, togglesplit
+
+# Focus movement
+bind = $mainMod, left, movefocus, l
+bind = $mainMod, right, movefocus, r
+bind = $mainMod, up, movefocus, u
+bind = $mainMod, down, movefocus, d
+
+# Workspace switching
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+bind = $mainMod, 6, workspace, 6
+bind = $mainMod, 7, workspace, 7
+bind = $mainMod, 8, workspace, 8
+bind = $mainMod, 9, workspace, 9
+bind = $mainMod, 0, workspace, 10
+
+# Move window to workspace
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+bind = $mainMod SHIFT, 6, movetoworkspace, 6
+bind = $mainMod SHIFT, 7, movetoworkspace, 7
+bind = $mainMod SHIFT, 8, movetoworkspace, 8
+bind = $mainMod SHIFT, 9, movetoworkspace, 9
+bind = $mainMod SHIFT, 0, movetoworkspace, 10
+
+# Scroll through workspaces
+bind = $mainMod, mouse_down, workspace, e+1
+bind = $mainMod, mouse_up, workspace, e-1
+
+# Move/resize with mouse
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
+
+##############################
+### WINDOWS AND WORKSPACES ###
+##############################
+
+windowrulev2 = suppressevent maximize, class:.*
