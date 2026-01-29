@@ -1088,6 +1088,31 @@ claude() {
 {{- end }}
 ```
 
+### jot - Open today's journal entry
+
+This function opens today's journal entry in nvim, creating it with proper frontmatter if it doesn't exist.
+
+```bash
+jot() {
+  local date=$(date +%Y-%m-%d)
+  local journal_dir="/home/marcus/Mainframe/Journal/01 Daily"
+  local file="$journal_dir/$date.md"
+
+  if [[ ! -f "$file" ]]; then
+    mkdir -p "$journal_dir"
+    cat > "$file" << EOF
+---
+journal: Daily
+journal-date: $date
+---
+-
+EOF
+  fi
+
+  nvim "+normal G$" "$file"
+}
+```
+
 ## iTerm 2 integration
 
 I used iTerm 2 on my various devices as a terminal and so, there are some shell integrations that are handy to use
