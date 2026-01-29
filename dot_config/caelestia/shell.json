@@ -6,5 +6,8 @@
   },
   "paths": {
     "wallpaperDir": "~/Pictures/Wallpapers"
+  },
+  "services": {
+    "weatherLocation": "Auckland"
   }
 }
