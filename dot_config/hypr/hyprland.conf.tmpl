@@ -100,19 +100,6 @@ misc {
 exec-once = caelestia shell
 exec-once = /usr/lib/polkit-kde-authentication-agent-1
 
-# === Startup Session (per-machine) ===
-{{- $ws := index .workspaces .chezmoi.hostname }}
-{{- if $ws }}
-{{- range $ws.startup }}
-exec-once = [workspace {{ .workspace }} silent] {{ .app }}
-{{- end }}
-
-# Window rules for workspace assignment
-{{- range $ws.rules }}
-windowrulev2 = workspace {{ .workspace }} silent, class:{{ .class }}
-{{- end }}
-{{- end }}
-
 ###################
 ### KEYBINDINGS ###
 ###################
@@ -264,10 +251,6 @@ bind = $mainMod, mouse:274, splitratio, exact 1.0
 ##############################
 ### WINDOWS AND WORKSPACES ###
 ##############################
-
-# Music workspace: master layout with 20% sidebar for Plexamp
-workspace = 3, layout:master
-workspace = 3, layoutopt:master:mfact:0.2
 
 windowrule {
     name = suppress-maximize
