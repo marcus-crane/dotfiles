@@ -4,6 +4,12 @@
       "enabled": false
     }
   },
+  "bar": {
+    "scrollActions": {
+      "volume": false,
+      "brightness": false
+    }
+  },
   "paths": {
     "wallpaperDir": "~/Pictures/Wallpapers"
   },
