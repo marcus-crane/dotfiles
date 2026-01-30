@@ -250,6 +250,11 @@ export LAST_MODIFIED="$(date)"
 export SHELL="$(which zsh)"
 REPORTTIME=5
 
+{{ if eq .chezmoi.os "linux" -}}
+{{ if not .termux -}}
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+{{ end -}}
+{{ end -}}
 {{ if .termux -}}
 # Use Termux ssh-agent service
 export SSH_AUTH_SOCK="$PREFIX/var/run/ssh-agent.socket"

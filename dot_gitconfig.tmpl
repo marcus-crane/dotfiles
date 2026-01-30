@@ -1,7 +1,7 @@
 [user]
   email = {{ .email }}
   name = {{ .name }}
-  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBYJRc1rj7YqWxo3dDALqnjPwCY9askwTo1gq1xO/QhB
+  signingkey = ~/.ssh/id_ed25519.pub
   useConfigOnly = true
 [push]
   default = current
@@ -25,12 +25,6 @@
   hooksPath = "~/.githooks"
 [gpg]
   format = ssh
-[gpg "ssh"]
-{{- if (eq .chezmoi.os "darwin") }}
-  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-{{- else }}
-  program = "/opt/1Password/op-ssh-sign"
-{{- end }}
 [url "ssh://git@github.com/"]
   insteadOf = https://github.com/
 [init]
