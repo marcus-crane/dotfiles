@@ -1,0 +1,6 @@
+#!/bin/bash
+{{ if eq .chezmoi.os "linux" -}}
+if command -v caelestia &> /dev/null; then
+    caelestia scheme set -n "catppuccin" -f "frappe" -m "dark" -v "tonalspot"
+fi
+{{- end }}
