@@ -239,6 +239,10 @@ bind = $mainMod SHIFT, 0, movetoworkspace, 10
 bind = $mainMod, mouse_down, workspace, e+1
 bind = $mainMod, mouse_up, workspace, e-1
 
+# Move workspace to monitor
+bind = $mainMod SHIFT, bracketleft, movecurrentworkspacetomonitor, -1
+bind = $mainMod SHIFT, bracketright, movecurrentworkspacetomonitor, +1
+
 # Move/resize with mouse
 bindm = $mainMod, mouse:272, movewindow
 bindm = $mainMod, mouse:273, resizewindow
