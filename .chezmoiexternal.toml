@@ -10,3 +10,7 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "168h"
+["Code/caelestia"]
+    type = "git-repo"
+    url = "https://github.com/caelestia-dots/caelestia.git"
+    refreshPeriod = "168h"
