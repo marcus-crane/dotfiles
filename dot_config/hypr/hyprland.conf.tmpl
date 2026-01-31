@@ -154,6 +154,13 @@ bind = $mainMod, up, global, caelestia:launcherInterrupt
 bind = $mainMod, down, global, caelestia:launcherInterrupt
 bind = $mainMod SHIFT, left, global, caelestia:launcherInterrupt
 bind = $mainMod SHIFT, right, global, caelestia:launcherInterrupt
+bind = $mainMod SHIFT, up, global, caelestia:launcherInterrupt
+bind = $mainMod SHIFT, down, global, caelestia:launcherInterrupt
+bind = $mainMod ALT, left, global, caelestia:launcherInterrupt
+bind = $mainMod ALT, right, global, caelestia:launcherInterrupt
+bind = $mainMod ALT, up, global, caelestia:launcherInterrupt
+bind = $mainMod ALT, down, global, caelestia:launcherInterrupt
+bind = $mainMod ALT, C, global, caelestia:launcherInterrupt
 
 # Volume - use wpctl directly (Caelestia OSD reacts automatically)
 binde = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
@@ -203,9 +210,20 @@ bind = $mainMod, right, movefocus, r
 bind = $mainMod, up, movefocus, u
 bind = $mainMod, down, movefocus, d
 
-# Bump floating windows left/right
-bind = $mainMod SHIFT, Left, moveactive, -250 0
-bind = $mainMod SHIFT, Right, moveactive, 250 0
+# Move windows
+bind = $mainMod SHIFT, left, movewindow, l
+bind = $mainMod SHIFT, right, movewindow, r
+bind = $mainMod SHIFT, up, movewindow, u
+bind = $mainMod SHIFT, down, movewindow, d
+
+# Nudge floating windows
+bind = $mainMod ALT, left, moveactive, -250 0
+bind = $mainMod ALT, right, moveactive, 250 0
+bind = $mainMod ALT, up, moveactive, 0 -250
+bind = $mainMod ALT, down, moveactive, 0 250
+
+# Centre floating window
+bind = $mainMod ALT, C, centerwindow
 
 # Cycle through windows
 bind = ALT, Tab, cyclenext
