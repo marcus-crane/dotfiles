@@ -185,7 +185,7 @@ bind = $mainMod, B, exec, firefox
 
 # Notes scratchpad
 bind = $mainMod, N, togglespecialworkspace, notes
-bind = $mainMod, N, exec, pgrep -f "^kitty --class notes-scratchpad" || kitty --class notes-scratchpad -o font_size=14 -e zsh -c 'd=$(date +%Y-%m-%d); f="$HOME/Mainframe/Journal/01 Daily/$d.md"; [[ -f "$f" ]] || printf "---\njournal: Daily\njournal-date: %s\n---\n- \n" "$d" > "$f"; nvim "+normal GA" "$f"'
+bind = $mainMod, N, exec, pgrep -f "^kitty --class notes-scratchpad" || kitty --class notes-scratchpad -o font_size=14 -e zsh -ic 'd=$(date +%Y-%m-%d); f="$HOME/Mainframe/Journal/01 Daily/$d.md"; [[ -f "$f" ]] || printf "---\njournal: Daily\njournal-date: %s\n---\n- \n" "$d" > "$f"; nvim "+normal GA" "$f"'
 
 # Window management
 bind = $mainMod, Q, killactive
@@ -194,7 +194,7 @@ bind = $mainMod, V, togglefloating
 bind = $mainMod, F, fullscreen
 # Yesterday's notes scratchpad
 bind = $mainMod, P, togglespecialworkspace, yesterday
-bind = $mainMod, P, exec, pgrep -f "^kitty --class yesterday-scratchpad" || kitty --class yesterday-scratchpad -o font_size=14 -e zsh -c 'd=$(date -d yesterday +%Y-%m-%d); f="$HOME/Mainframe/Journal/01 Daily/$d.md"; nvim "+normal GA" "$f"'
+bind = $mainMod, P, exec, pgrep -f "^kitty --class yesterday-scratchpad" || kitty --class yesterday-scratchpad -o font_size=14 -e zsh -ic 'd=$(date -d yesterday +%Y-%m-%d); f="$HOME/Mainframe/Journal/01 Daily/$d.md"; nvim "+normal GA" "$f"'
 bind = $mainMod, J, togglesplit
 
 # Focus movement
