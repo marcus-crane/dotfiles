@@ -18,13 +18,15 @@
 {{- else if eq .chezmoi.os "linux" }}
 - **OS:** `{{ .chezmoi.osRelease.name }}`
 - **Kernel:** `{{ .chezmoi.kernel.osrelease }}`
-- **Desktop:** `{{ env "XDG_CURRENT_DESKTOP" }}`
+- **Window Manager:** `{{ env "XDG_CURRENT_DESKTOP" }}`
 - **Display Server:** `{{ env "XDG_SESSION_TYPE" }}`
 - **Package Manager:** `{{ output "sh" "-c" "command -v pacman >/dev/null && echo 'pacman' || (command -v apt >/dev/null && echo 'apt' || echo 'unknown')" | trim }}`
+- **AUR Helper:** `{{ output "sh" "-c" "command -v yay >/dev/null && echo 'yay' || (command -v paru >/dev/null && echo 'paru' || echo 'none')" | trim }}`
 - **CPU:** `{{ output "sh" "-c" "lscpu | grep 'Model name' | cut -d: -f2 | xargs" | trim }}`
 - **RAM:** `{{ output "sh" "-c" "free -h | awk '/Mem:/{print $2}'" | trim }}`
-- **GPU:** `{{ output "sh" "-c" "lspci 2>/dev/null | grep -i 'vga\\|3d\\|display' | head -1 | cut -d: -f3 | xargs" | trim }}`
-- **Terminal:** `{{ output "sh" "-c" "basename \"$(cat /proc/$PPID/comm 2>/dev/null || echo $TERM)\"" | trim }}`
+- **GPU:** `{{ output "sh" "-c" "nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null || (lspci 2>/dev/null | grep -i 'vga\\|3d\\|display' | head -1 | cut -d: -f3 | xargs)" | trim }}`
+- **Monitor:** `{{ output "sh" "-c" "hyprctl monitors -j 2>/dev/null | jq -r '.[0] | \"\\(.width)x\\(.height)@\\(.refreshRate | floor)Hz (\\(.make) \\(.model))\"' 2>/dev/null || echo 'unknown'" | trim }}`
+- **Terminal:** `{{ output "sh" "-c" "if [ -n \"$KITTY_PID\" ]; then echo 'Kitty'; elif [ -n \"$WEZTERM_EXECUTABLE\" ]; then echo 'WezTerm'; elif [ -n \"$ALACRITTY_SOCKET\" ]; then echo 'Alacritty'; else echo \"$TERM\"; fi" | trim }}`
 {{- end }}
 
 ## Dotfiles
@@ -34,3 +36,40 @@ This machine uses [chezmoi](https://chezmoi.io) for dotfile management.
 - **Source of truth:** `~/.local/share/chezmoi`
 - Use `refresh` to apply chezmoi changes to the home directory (not `chezmoi apply`)
 - It's fine to edit dotfiles directly when testing changes before codifying them in chezmoi
+
+## Dev Tools
+{{ if output "sh" "-c" "command -v mise >/dev/null && echo 'yes' || echo 'no'" | trim | eq "yes" -}}
+- **Version Manager:** `mise`
+- **Runtimes:**
+{{ output "sh" "-c" "mise ls --current --no-header 2>/dev/null | awk '{print \"  - \" $1 \" \" $2}'" }}
+{{ end -}}
+- **Docker:** `{{ output "sh" "-c" "command -v docker >/dev/null && echo 'installed' || echo 'not installed'" | trim }}`
+
+## Shell Aliases
+
+Prefer these over long-form commands:
+
+- `refresh` — apply chezmoi changes and reload shell (always use this, NOT `chezmoi apply`)
+- `ws` — cd to workspace (`~/Code` or `~/halter` depending on the machine)
+- `ss` — cd to `~/Code`
+- `venv` — create Python venv and activate it
+- `ae` / `de` — activate / deactivate Python venv
+- `vi`, `vim`, `lvim` — all aliased to `nvim`
+- `ccd` — cd to chezmoi source directory
+- `gs` / `gst` — git status
+- `gb` — git branch -v
+
+## Editor
+
+- **Neovim** with **LazyVim** (lazy.nvim plugin manager)
+- Config at `~/.config/nvim/`, customizations in `lua/plugins/`
+- Rely on LazyVim defaults; keep customizations minimal
+
+## Git Workflow
+
+- **Signing:** SSH-based, automatic via prepare-commit-msg hook — never skip with `--no-gpg-sign` or `--no-verify`
+- **Default branch:** `main`
+- **Diff algorithm:** histogram
+- **Merge conflict style:** zdiff3
+- **Hooks directory:** `~/.githooks`
+- **Zsh framework:** zimfw (NOT oh-my-zsh)
