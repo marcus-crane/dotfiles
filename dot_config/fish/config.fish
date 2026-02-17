@@ -34,9 +34,6 @@ set -x DROPBOX_DIR $HOME/Dropbox
 
 set -xg PATH $HOME/.emacs.d/bin $PATH
 
-git config --global user.name "Marcus Crane"
-git config --global user.email "marcus@utf9k.net"
-
 if test $OPSYS = "darwin"
     set -xg PATH /usr/bin/local $PATH
 end

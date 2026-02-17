@@ -20,14 +20,8 @@ env = CLUTTER_BACKEND,wayland
 ### MONITORS ###
 ################
 
-{{- $monitors := .monitors.default -}}
-{{- if hasKey .monitors .chezmoi.hostname -}}
-{{-   $monitors = index .monitors .chezmoi.hostname -}}
-{{- end }}
+source = ~/.config/hypr/monitors.conf
 
-{{ range $monitors -}}
-monitor = {{ .name }}, {{ .resolution }}@{{ .refresh }}, {{ .position }}, {{ .scale }}
-{{ end }}
 #############
 ### INPUT ###
 #############

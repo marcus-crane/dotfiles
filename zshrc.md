@@ -417,7 +417,7 @@ alias lidclosed="ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState
 alias lvim="nvim"
 alias rebrew="brew bundle --file=${_chezmoi_src}/Brewfile"
 unset _chezmoi_src
-alias refresh="chezmoi git pull && chezmoi apply && echo '~ refreshed shell config' && exec zsh"
+alias refresh="chezmoi git pull && chezmoi apply --force && echo '~ refreshed shell config' && exec zsh"
 alias rmuntracked="git status -su --no-ahead-behind | awk '{ print $2 }' | xargs rm"
 alias ss="cd $WORKSPACE"
 alias tabcheck="/bin/cat -e -t -v"
