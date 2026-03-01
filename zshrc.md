@@ -440,6 +440,13 @@ alias youtube-dl="yt-dlp --add-metadata --dateafter 20081004 -i -o '%(uploader)s
 
 These are some handy functions I use from time to time
 
+### Ensure AUR builds use system Python
+
+```bash
+function yay() { PATH="/usr/bin:$PATH" command yay "$@" }
+function makepkg() { PATH="/usr/bin:$PATH" command makepkg "$@" }
+```
+
 ### What application is listening on any given port?
 
 ```bash

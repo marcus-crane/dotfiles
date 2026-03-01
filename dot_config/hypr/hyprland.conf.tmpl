@@ -92,7 +92,7 @@ misc {
 ### AUTOSTART ###
 #################
 
-exec-once = caelestia shell
+exec-once = ambxst
 exec-once = /usr/lib/polkit-kde-authentication-agent-1
 
 ###################
@@ -101,93 +101,29 @@ exec-once = /usr/lib/polkit-kde-authentication-agent-1
 
 $mainMod = SUPER
 
-# Caelestia global shortcuts
-# Super tap (release) opens launcher
-bindr = SUPER, SUPER_L, global, caelestia:launcher
-
-# Interrupt launcher when using Super+key combos
-bind = $mainMod, T, global, caelestia:launcherInterrupt
-bind = $mainMod, E, global, caelestia:launcherInterrupt
-bind = $mainMod, B, global, caelestia:launcherInterrupt
-bind = $mainMod, Q, global, caelestia:launcherInterrupt
-bind = $mainMod SHIFT, Q, global, caelestia:launcherInterrupt
-bind = $mainMod, V, global, caelestia:launcherInterrupt
-bind = $mainMod, F, global, caelestia:launcherInterrupt
-bind = $mainMod, L, global, caelestia:launcherInterrupt
-bind = $mainMod, N, global, caelestia:launcherInterrupt
-
-# Interrupt launcher for workspace switching
-bind = $mainMod, 1, global, caelestia:launcherInterrupt
-bind = $mainMod, 2, global, caelestia:launcherInterrupt
-bind = $mainMod, 3, global, caelestia:launcherInterrupt
-bind = $mainMod, 4, global, caelestia:launcherInterrupt
-bind = $mainMod, 5, global, caelestia:launcherInterrupt
-bind = $mainMod, 6, global, caelestia:launcherInterrupt
-bind = $mainMod, 7, global, caelestia:launcherInterrupt
-bind = $mainMod, 8, global, caelestia:launcherInterrupt
-bind = $mainMod, 9, global, caelestia:launcherInterrupt
-bind = $mainMod, 0, global, caelestia:launcherInterrupt
-
-# Interrupt launcher for move-to-workspace
-bind = $mainMod SHIFT, 1, global, caelestia:launcherInterrupt
-bind = $mainMod SHIFT, 2, global, caelestia:launcherInterrupt
-bind = $mainMod SHIFT, 3, global, caelestia:launcherInterrupt
-bind = $mainMod SHIFT, 4, global, caelestia:launcherInterrupt
-bind = $mainMod SHIFT, 5, global, caelestia:launcherInterrupt
-bind = $mainMod SHIFT, 6, global, caelestia:launcherInterrupt
-bind = $mainMod SHIFT, 7, global, caelestia:launcherInterrupt
-bind = $mainMod SHIFT, 8, global, caelestia:launcherInterrupt
-bind = $mainMod SHIFT, 9, global, caelestia:launcherInterrupt
-bind = $mainMod SHIFT, 0, global, caelestia:launcherInterrupt
-
-# Interrupt launcher for other missing bindings
-bind = $mainMod, P, global, caelestia:launcherInterrupt
-bind = $mainMod, J, global, caelestia:launcherInterrupt
-bind = $mainMod, left, global, caelestia:launcherInterrupt
-bind = $mainMod, right, global, caelestia:launcherInterrupt
-bind = $mainMod, up, global, caelestia:launcherInterrupt
-bind = $mainMod, down, global, caelestia:launcherInterrupt
-bind = $mainMod SHIFT, left, global, caelestia:launcherInterrupt
-bind = $mainMod SHIFT, right, global, caelestia:launcherInterrupt
-bind = $mainMod SHIFT, up, global, caelestia:launcherInterrupt
-bind = $mainMod SHIFT, down, global, caelestia:launcherInterrupt
-bind = $mainMod ALT, left, global, caelestia:launcherInterrupt
-bind = $mainMod ALT, right, global, caelestia:launcherInterrupt
-bind = $mainMod ALT, up, global, caelestia:launcherInterrupt
-bind = $mainMod ALT, down, global, caelestia:launcherInterrupt
-bind = $mainMod ALT, C, global, caelestia:launcherInterrupt
-
-# Volume - use wpctl directly (Caelestia OSD reacts automatically)
+# Volume
 binde = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
 binde = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bind = , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
-# Brightness - Caelestia has shortcuts for this
-bind = , XF86MonBrightnessUp, global, caelestia:brightnessUp
-bind = , XF86MonBrightnessDown, global, caelestia:brightnessDown
+# Brightness
+binde = , XF86MonBrightnessUp, exec, ambxst brightness +5
+binde = , XF86MonBrightnessDown, exec, ambxst brightness -5
 
 # Media
-bind = , XF86AudioPlay, global, caelestia:mediaToggle
-bind = , XF86AudioPause, global, caelestia:mediaToggle
-bind = , XF86AudioNext, global, caelestia:mediaNext
-bind = , XF86AudioPrev, global, caelestia:mediaPrev
+bind = , XF86AudioPlay, exec, ambxst run media-play-pause
+bind = , XF86AudioPause, exec, ambxst run media-play-pause
+bind = , XF86AudioNext, exec, ambxst run media-next
+bind = , XF86AudioPrev, exec, ambxst run media-prev
 
 # Screenshots
 bind = CTRL SHIFT, 4, exec, grim -g "$(slurp)" - | satty -f -
-
-# Lock & Session
-bind = $mainMod, L, global, caelestia:lock
-bind = CTRL_ALT, Delete, global, caelestia:session
 
 # Application shortcuts
 bind = $mainMod, T, exec, kitty
 bind = $mainMod, E, exec, dolphin
 bind = $mainMod, B, exec, firefox
-
-# Notes scratchpad
-bind = $mainMod, N, togglespecialworkspace, notes
-bind = $mainMod, N, exec, pgrep -f "^kitty --class notes-scratchpad" || kitty --class notes-scratchpad -o font_size=14 -e zsh -ic 'd=$(date +%Y-%m-%d); f="$HOME/Mainframe/Journal/01 Daily/$d.md"; [[ -f "$f" ]] || printf "---\njournal: Daily\njournal-date: %s\n---\n- \n" "$d" > "$f"; nvim "+normal GA" "$f"'
 
 # Window management
 bind = $mainMod, Q, killactive
@@ -269,16 +205,6 @@ windowrule {
     name = suppress-maximize
     match:class = .*
     suppress_event = maximize
-}
-
-# Notes scratchpad rules
-windowrule {
-    name = notes-scratchpad
-    match:class = ^notes-scratchpad$
-    workspace = special notes
-    float = true
-    size = 1000 750
-    center = true
 }
 
 # Yesterday's notes scratchpad rules
