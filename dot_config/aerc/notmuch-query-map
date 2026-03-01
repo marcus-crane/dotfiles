@@ -1,10 +1,10 @@
 # Notmuch query map for aerc
 # Format: display-name=notmuch-query
-Inbox=tag:inbox
-Unread=tag:unread
-Archive=tag:archive
-Sent=tag:sent
-Drafts=tag:draft
-Spam=tag:spam
-Trash=tag:deleted
-Flagged=tag:flagged
+Inbox=tag:inbox AND path:personal/**
+Unread=tag:unread AND path:personal/**
+Archive=tag:archive AND path:personal/**
+Sent=tag:sent AND path:personal/**
+Drafts=tag:draft AND path:personal/**
+Spam=tag:spam AND path:personal/**
+Trash=tag:deleted AND path:personal/**
+Flagged=tag:flagged AND path:personal/**

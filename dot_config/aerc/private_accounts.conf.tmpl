@@ -1,11 +1,13 @@
 [Fastmail]
 source = notmuch://{{ .chezmoi.homeDir }}/Mail
 query-map = {{ .chezmoi.homeDir }}/.config/aerc/notmuch-query-map
-default = tag:inbox
+default = Inbox
 from = {{ .name }} <{{ .email }}>
 outgoing = smtps+plain://{{ .email }}@smtp.fastmail.com:465
 outgoing-cred-cmd = op read{{ if ne .opmode "service" }} --account my{{ end }} "op://dotfiles/offlineimap3 Homeostasis Fastmail/password"
 copy-to = Sent
+check-mail-cmd = offlineimap -a fastmail
+check-mail = 5m
 
 [Work]
 source = maildir://{{ .chezmoi.homeDir }}/Mail/work
@@ -14,3 +16,5 @@ from = {{ .name }} <{{ .work.email }}>
 outgoing = smtps+plain://{{ .work.email }}@smtp.gmail.com:465
 outgoing-cred-cmd = op read{{ if ne .opmode "service" }} --account my{{ end }} "op://dotfiles/offlineimap3 Work Gmail/password"
 copy-to = Sent
+check-mail-cmd = offlineimap -a work
+check-mail = 5m
