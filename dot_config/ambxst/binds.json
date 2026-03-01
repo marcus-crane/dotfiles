@@ -134,9 +134,9 @@
                 "argument": "ambxst run screenshot",
                 "dispatcher": "exec",
                 "flags": "",
-                "key": "S",
+                "key": "4",
                 "modifiers": [
-                    "SUPER",
+                    "CTRL",
                     "SHIFT"
                 ]
             },
@@ -2349,9 +2349,9 @@
                 "argument": "ambxst run screenshot",
                 "dispatcher": "exec",
                 "flags": "",
-                "key": "S",
+                "key": "4",
                 "modifiers": [
-                    "SUPER",
+                    "CTRL",
                     "SHIFT"
                 ]
             },
