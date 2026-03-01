@@ -43,6 +43,10 @@ tools:
         url: https://github.com/psf/black
       - name: git-cliff
         ref: orhun/git-cliff
+      - name: neovim
+        ref: neovim/neovim
+        description: Hyperextensible Vim-based text editor
+        url: https://neovim.io
   go:
     global:
       - name: delve

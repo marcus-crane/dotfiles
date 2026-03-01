@@ -7,7 +7,6 @@ languages:
   dive: 0.12.0
   golang: 1.24.0
   lua: 5.1
-  neovim: latest
   nodejs: 24.9.0
   python: 3.11.0
   ruby: 3.4.2
