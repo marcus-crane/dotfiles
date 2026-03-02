@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Rebuild quickshell-git with the QueuedConnection patch and stamp the version
+set -euo pipefail
+
+cd ~/.cache/yay/quickshell-git
+makepkg -sif
+pacman -Q quickshell-git | awk '{print $2}' > ~/.cache/yay/quickshell-git/.patched-version
+echo "[ ~ ] stamped patched version: $(cat .patched-version)"
