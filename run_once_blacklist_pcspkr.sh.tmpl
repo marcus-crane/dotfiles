@@ -1,0 +1,15 @@
+{{- if (eq .chezmoi.os "linux") -}}
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ -f /etc/modprobe.d/nobeep.conf ]]; then
+    echo "[ ~ ] pcspkr already blacklisted"
+    exit 0
+fi
+
+echo "[ ~ ] Blacklisting pcspkr kernel module..."
+echo "blacklist pcspkr" | sudo tee /etc/modprobe.d/nobeep.conf > /dev/null
+echo "[ ~ ] pcspkr blacklisted"
+
+{{ end -}}
