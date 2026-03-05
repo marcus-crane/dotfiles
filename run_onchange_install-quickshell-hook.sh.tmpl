@@ -1,7 +1,7 @@
 {{- if (eq .chezmoi.os "linux") -}}
 {{- if eq .chezmoi.osRelease.idLike "arch" -}}
 #!/usr/bin/env bash
-# Install pacman hook to auto-rebuild quickshell-git with QueuedConnection patch
+# Install pacman hook to notify when quickshell-git is upgraded
 set -euo pipefail
 
 sudo mkdir -p /etc/pacman.d/hooks
@@ -14,9 +14,9 @@ Type = Package
 Target = quickshell-git
 
 [Action]
-Description = Scheduling quickshell-git rebuild with QueuedConnection patch...
+Description = Quickshell-git upgraded — manual re-patch needed
 When = PostTransaction
-Exec = /home/marcus/.local/bin/quickshell-patch-hook
+Exec = /usr/bin/runuser -u marcus -- env DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u normal "Quickshell" "quickshell-git upgraded — run: rebuild-quickshell"
 EOF
 
 echo "[ ~ ] Installed pacman hook: quickshell-patch-rebuild.hook"
