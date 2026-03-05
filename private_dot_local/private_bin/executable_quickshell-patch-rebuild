@@ -33,3 +33,9 @@ runuser -u "$USER" -- bash -c "pacman -Q quickshell-git | awk '{print \$2}' > $W
 
 VERSION=$(cat "$WORKDIR/.patched-version")
 notify "Quickshell Patched" "quickshell-git rebuilt with QueuedConnection fix ($VERSION)"
+
+# Restart ambxst so the patched binary takes effect
+runuser -u "$USER" -- env \
+  DBUS_SESSION_BUS_ADDRESS="$DBUS" \
+  HYPRLAND_INSTANCE_SIGNATURE="$(runuser -u "$USER" -- bash -c 'echo $HYPRLAND_INSTANCE_SIGNATURE')" \
+  ambxst reload

@@ -62,6 +62,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DDISTRIBUTOR="AUR (package: quickshell-git)" \
     -DDISTRIBUTOR_DEBUGINFO_AVAILABLE=NO \
+    -DVENDOR_CPPTRACE=ON \
     -DINSTALL_QML_PREFIX=lib/qt6/qml
 
   cmake --build build
@@ -72,4 +73,11 @@ package() {
   cd "$_pkgname"
   DESTDIR="$pkgdir" cmake --install build
   install -Dm644 "LICENSE" -t "$pkgdir/usr/share/licenses/$_pkgname"
+
+  # Remove vendored headers/libs installed by VENDOR_CPPTRACE that conflict
+  # with system cpptrace, zstd, libdwarf/libelf packages
+  rm -rf "$pkgdir"/usr/include/{cpptrace,ctrace}
+  rm -f  "$pkgdir"/usr/include/{dwarf.h,zdict.h,zstd.h,zstd_errors.h}
+  rm -rf "$pkgdir"/usr/lib/cmake/{cpptrace,zstd}
+  rm -f  "$pkgdir"/usr/lib/pkgconfig/{libdwarf.pc,libzstd.pc}
 }

@@ -7,3 +7,4 @@ makepkg -sif
 pacman -Q quickshell-git | awk '{print $2}' > ~/.cache/yay/quickshell-git/.patched-version
 echo "[ ~ ] stamped patched version: $(cat .patched-version)"
 notify-send -u normal "Quickshell Patched" "quickshell-git rebuilt with QueuedConnection fix ($(cat .patched-version))"
+ambxst reload
