@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Async rebuild of quickshell-git with QueuedConnection patch
+# Launched by quickshell-patch-hook via systemd-run (runs as root)
+set -euo pipefail
+
+USER=marcus
+UID_NUM=1000
+HOME_DIR=/home/$USER
+WORKDIR="$HOME_DIR/.cache/yay/quickshell-git"
+DBUS="unix:path=/run/user/$UID_NUM/bus"
+
+notify() {
+  runuser -u "$USER" -- env DBUS_SESSION_BUS_ADDRESS="$DBUS" \
+    notify-send -u normal "$@"
+}
+
+cd "$WORKDIR"
+
+# Build as user (makepkg refuses to run as root)
+if ! runuser -u "$USER" -- makepkg -sf --noconfirm; then
+  notify "Quickshell" "Patch rebuild FAILED during makepkg — check journalctl -u quickshell-patch-rebuild"
+  exit 1
+fi
+
+# Install as root
+if ! pacman -U --noconfirm "$WORKDIR"/quickshell-git-*.pkg.tar.zst; then
+  notify "Quickshell" "Patch rebuild FAILED during pacman install — check journalctl -u quickshell-patch-rebuild"
+  exit 1
+fi
+
+# Stamp patched version
+runuser -u "$USER" -- bash -c "pacman -Q quickshell-git | awk '{print \$2}' > $WORKDIR/.patched-version"
+
+VERSION=$(cat "$WORKDIR/.patched-version")
+notify "Quickshell Patched" "quickshell-git rebuilt with QueuedConnection fix ($VERSION)"

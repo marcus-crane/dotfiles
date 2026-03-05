@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Pacman hook handler: restore patched PKGBUILD and schedule async rebuild
+# Called as root by pacman after quickshell-git is upgraded/installed
+set -euo pipefail
+
+USER=marcus
+UID_NUM=1000
+HOME_DIR=/home/$USER
+DBUS="unix:path=/run/user/$UID_NUM/bus"
+
+# Restore patched PKGBUILD + patch file from chezmoi
+runuser -u "$USER" -- chezmoi apply --force "$HOME_DIR/.cache/yay/quickshell-git/"
+
+# Notify that rebuild is starting
+runuser -u "$USER" -- env DBUS_SESSION_BUS_ADDRESS="$DBUS" \
+  notify-send -u normal "Quickshell" "Rebuilding with QueuedConnection patch..."
+
+# Reset stale unit if it exists from a previous run
+systemctl reset-failed quickshell-patch-rebuild.service 2>/dev/null || true
+
+# Schedule async rebuild (so pacman transaction isn't blocked)
+systemd-run \
+  --unit=quickshell-patch-rebuild \
+  --description="Rebuild quickshell-git with QueuedConnection patch" \
+  "$HOME_DIR/.local/bin/quickshell-patch-rebuild"
