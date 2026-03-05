@@ -1,0 +1,8 @@
+{{ if eq .chezmoi.hostname "amaterasu" -}}
+monitor=DP-2,2560x1440@59.95,auto,1
+{{ else if eq .chezmoi.hostname "homeostasis" -}}
+monitor=eDP-1,2880x1920@120.0,0x480,1.67
+monitor=DP-2,3840x2160@60.0,1725x58,1.67
+{{ else -}}
+monitor=,preferred,auto,1
+{{ end -}}
