@@ -126,7 +126,7 @@ bind = $mainMod, B, exec, firefox
 bind = $mainMod, Q, killactive
 bind = $mainMod SHIFT, Q, exit
 bind = $mainMod, V, togglefloating
-bind = $mainMod, F, fullscreen
+bind = $mainMod, F, fullscreen, 1
 # Yesterday's notes scratchpad
 bind = $mainMod, P, togglespecialworkspace, yesterday
 bind = $mainMod, P, exec, pgrep -f "^kitty --class yesterday-scratchpad" || kitty --class yesterday-scratchpad -o font_size=14 -e zsh -ic 'd=$(date -d yesterday +%Y-%m-%d); f="$HOME/Mainframe/Journal/01 Daily/$d.md"; nvim "+normal GA" "$f"'
