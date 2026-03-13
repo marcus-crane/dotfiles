@@ -1,15 +1,28 @@
 {
-    "position": "top",
-    "launcherIcon": "",
-    "launcherIconTint": true,
-    "launcherIconFullTint": true,
-    "launcherIconSize": 18,
-    "screenList": [],
-    "enableFirefoxPlayer": false,
+    "availableOnFullscreen": false,
     "barColor": [
         [
             "surface",
             0
         ]
-    ]
+    ],
+    "containBar": false,
+    "enableFirefoxPlayer": false,
+    "frameEnabled": false,
+    "frameThickness": 6,
+    "hoverRegionHeight": 8,
+    "hoverToReveal": true,
+    "keepBarBorder": false,
+    "keepBarShadow": false,
+    "launcherIcon": "",
+    "launcherIconFullTint": true,
+    "launcherIconSize": 18,
+    "launcherIconTint": true,
+    "pillStyle": "default",
+    "pinnedOnStartup": true,
+    "position": "top",
+    "screenList": [
+    ],
+    "showPinButton": true,
+    "use12hFormat": true
 }
