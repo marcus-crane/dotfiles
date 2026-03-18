@@ -86,7 +86,7 @@ packages:
         description: Audio visualizer library (Caelestia dependency)
       - ref: ttf-material-symbols-variable-git
         description: Material Symbols font (Caelestia dependency)
-      - ref: ttf-caskaydia-cove-nerd
+      - ref: ttf-cascadia-code-nerd
         description: CaskaydiaCove Nerd Font (Caelestia dependency)
       - ref: ttf-jetbrains-mono-nerd
         description: JetBrainsMono Nerd Font (primary terminal font)
