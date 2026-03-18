@@ -2247,8 +2247,8 @@
                     "SUPER"
                 ]
             },
-            "tmux": {
-                "argument": "ambxst run tmux",
+            "terminal": {
+                "argument": "ghostty",
                 "dispatcher": "exec",
                 "flags": "",
                 "key": "T",
