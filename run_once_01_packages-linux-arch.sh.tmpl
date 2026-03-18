@@ -101,8 +101,8 @@ if ! command -v yay &> /dev/null; then
 fi
 
 echo "[ ~ ] Installing AUR packages..."
-# Disable mise to ensure yay uses system Python for building
-MISE_DISABLE=1 yay -S --needed --noconfirm \
+# Prepend /usr/bin so yay resolves python3 to system Python (not mise's)
+PATH="/usr/bin:/usr/sbin:$PATH" yay -S --needed --noconfirm \
     adw-gtk-theme \
     app2unit \
     gpu-screen-recorder \
@@ -112,6 +112,7 @@ MISE_DISABLE=1 yay -S --needed --noconfirm \
     mpvpaper \
     quickshell-git \
     ttf-caskaydia-cove-nerd \
+    ttf-jetbrains-mono-nerd \
     ttf-league-gothic \
     ttf-material-symbols-variable-git \
     ttf-phosphor-icons \
