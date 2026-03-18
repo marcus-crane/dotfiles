@@ -64,4 +64,3 @@ Instead of anything fancy, I just "tangle" the contents into a file that chezmoi
 ## Extras to be manually installed
 
 - Wallpaper - [evangelion-clock-screensaver](https://github.com/Wandmalfarbe/evangelion-clock-screensaver)
-- Font - [JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads) Regular 14
