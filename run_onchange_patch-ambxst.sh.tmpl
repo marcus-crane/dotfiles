@@ -2,72 +2,58 @@
 {{- if eq .chezmoi.osRelease.idLike "arch" -}}
 #!/usr/bin/env bash
 
-# NVIDIA fix: patch GradientCanvas/GradientCache to avoid nested QSGRhiLayer::grab crash
+# Screenshot fix: patch ScreenshotTool to avoid grim screencopy overlay blocking
 # hash: {{ include ".chezmoiexternal.toml" | sha256sum }}
 
 set -euo pipefail
 
 AMBXST_DIR="$HOME/.local/src/ambxst"
-CANVAS="$AMBXST_DIR/modules/components/GradientCanvas.qml"
-CACHE="$AMBXST_DIR/modules/components/GradientCache.qml"
+SCREENSHOT="$AMBXST_DIR/modules/services/Screenshot.qml"
+TOOL="$AMBXST_DIR/modules/tools/ScreenshotTool.qml"
 
 if [[ ! -d "$AMBXST_DIR" ]]; then
-    echo "[ ~ ] Ambxst not cloned yet, skipping NVIDIA patch"
+    echo "[ ~ ] Ambxst not cloned yet, skipping screenshot patch"
     exit 0
 fi
 
-# Patch GradientCanvas.qml — add FBO renderTarget
-if ! grep -q 'renderTarget: Canvas.FramebufferObject' "$CANVAS"; then
-    echo "[ ~ ] Patching GradientCanvas.qml (FBO render target)..."
-    sed -i '/visible: false/a\    renderTarget: Canvas.FramebufferObject\n    renderStrategy: Canvas.Cooperative' "$CANVAS"
+# Patch Screenshot.qml — add cancel() function after _freezing property
+if ! grep -q 'function cancel()' "$SCREENSHOT"; then
+    echo "[ ~ ] Patching Screenshot.qml (add cancel function)..."
+    sed -i '/property bool _freezing: false/a\
+\
+    function cancel() {\
+        if (freezeProcess.running) {\
+            freezeProcess.running = false;\
+        }\
+        _freezing = false;\
+    }' "$SCREENSHOT"
 else
-    echo "[ ~ ] GradientCanvas.qml already patched"
+    echo "[ ~ ] Screenshot.qml already patched"
 fi
 
-# Patch GradientCache.qml — remove ShaderEffectSource, return Canvas directly
-if grep -q 'ShaderEffectSource' "$CACHE"; then
-    echo "[ ~ ] Patching GradientCache.qml (remove ShaderEffectSource)..."
-
-    # Replace the _createTextureEntry function body
-    python3 -c "
-import re
-
-with open('$CACHE', 'r') as f:
-    content = f.read()
-
-# Replace the docstring
-content = content.replace(
-    'Create a Canvas and ShaderEffectSource pair for the gradient.',
-    '''Create a Canvas for the gradient.
-     * Uses Canvas.FramebufferObject rendering so the Canvas itself acts as
-     * a texture provider, avoiding ShaderEffectSource and the nested
-     * QSGRhiLayer::grab crash on NVIDIA.'''
-)
-
-# Remove '// Create Canvas' comment
-content = content.replace('        // Create Canvas\n', '')
-
-# Remove ShaderEffectSource block and return canvas directly
-old_block = re.search(
-    r'        // Create ShaderEffectSource.*?return \{.*?source: sourceComponent,.*?canvas: canvas,.*?key: key.*?\};',
-    content,
-    re.DOTALL
-)
-if old_block:
-    content = content[:old_block.start()] + '''        return {
-            source: canvas,
-            canvas: canvas,
-            key: key
-        };''' + content[old_block.end():]
-
-with open('$CACHE', 'w') as f:
-    f.write(content)
-"
+# Patch ScreenshotTool.qml — remove "loading" state before freezeScreen
+if grep -q 'screenshotPopup.state = "loading"' "$TOOL"; then
+    echo "[ ~ ] Patching ScreenshotTool.qml (remove loading state before freeze)..."
+    sed -i '/screenshotPopup.state = "loading";/,/\/\/ Trigger freeze/{
+        /screenshotPopup.state = "loading";/c\        // Don'\''t set state to "loading" — keep window invisible while grim runs.\
+        // The overlay window blocks grim'\''s screencopy protocol, so grim must\
+        // finish before the window becomes visible (state transitions in\
+        // onMonitorScreenshotReady).
+        /\/\/ Trigger freeze/d
+    }' "$TOOL"
 else
-    echo "[ ~ ] GradientCache.qml already patched"
+    echo "[ ~ ] ScreenshotTool.qml open() already patched"
 fi
 
-echo "[ ~ ] Ambxst NVIDIA patch complete"
+# Patch ScreenshotTool.qml — add Screenshot.cancel() in close()
+if ! grep -q 'Screenshot.cancel()' "$TOOL"; then
+    echo "[ ~ ] Patching ScreenshotTool.qml (add cancel on close)..."
+    sed -i '/function close() {/a\        Screenshot.cancel();' "$TOOL"
+else
+    echo "[ ~ ] ScreenshotTool.qml close() already patched"
+fi
+
+echo "[ ~ ] Ambxst screenshot patch complete"
 
 {{ end -}}
 {{ end -}}
