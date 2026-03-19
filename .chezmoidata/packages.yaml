@@ -86,8 +86,10 @@ packages:
         description: Audio visualizer library (Caelestia dependency)
       - ref: ttf-material-symbols-variable-git
         description: Material Symbols font (Caelestia dependency)
-      - ref: ttf-caskaydia-cove-nerd
+      - ref: ttf-cascadia-code-nerd
         description: CaskaydiaCove Nerd Font (Caelestia dependency)
+      - ref: ttf-jetbrains-mono-nerd
+        description: JetBrainsMono Nerd Font (primary terminal font)
   darwin:
     taps:
       - ref: go-task/tap
@@ -188,6 +190,9 @@ packages:
         url: https://www.nerdfonts.com/
       - ref: font-hack-nerd-font
         description: It's the Hack font with Nerd Glyphs applied
+        url: https://www.nerdfonts.com/
+      - ref: font-jetbrains-mono-nerd-font
+        description: JetBrainsMono Nerd Font (primary terminal font)
         url: https://www.nerdfonts.com/
       - ref: flycut
       - ref: ghostty

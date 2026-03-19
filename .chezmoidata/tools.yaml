@@ -22,6 +22,12 @@
 # name is assumed to be identical to ref is not provided
 # mainly used for displaying a pretty name when querying
 tools:
+  github:
+    global:
+      - name: axctl
+        ref: Axenide/axctl
+        description: Compositor abstraction layer for ambxst desktop shell
+        url: https://github.com/Axenide/axctl
   aqua:
     global:
       - name: 1password
