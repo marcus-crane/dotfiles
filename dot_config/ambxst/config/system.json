@@ -11,11 +11,6 @@
         },
         "listeners": [
             {
-                "timeout": 150,
-                "onTimeout": "ambxst brightness 10 -s",
-                "onResume": "ambxst brightness -r"
-            },
-            {
                 "timeout": 300,
                 "onTimeout": "loginctl lock-session"
             },
