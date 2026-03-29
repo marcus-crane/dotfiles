@@ -8,6 +8,10 @@
 env = XDG_CURRENT_DESKTOP,Hyprland
 env = XDG_SESSION_TYPE,wayland
 env = XDG_SESSION_DESKTOP,Hyprland
+env = XDG_DATA_HOME,{{ .chezmoi.homeDir }}/.local/share
+env = XDG_CACHE_HOME,{{ .chezmoi.homeDir }}/.cache
+env = XDG_CONFIG_HOME,{{ .chezmoi.homeDir }}/.config
+env = XDG_STATE_HOME,{{ .chezmoi.homeDir }}/.local/state
 env = XDG_DATA_DIRS,/usr/local/share:/usr/share:{{ .chezmoi.homeDir }}/.local/share
 env = QT_QPA_PLATFORM,wayland
 env = QT_QPA_PLATFORMTHEME,qt6ct
@@ -92,8 +96,8 @@ misc {
 ### AUTOSTART ###
 #################
 
-exec-once = ambxst
 exec-once = /usr/lib/polkit-kde-authentication-agent-1
+exec-once = ~/.local/bin/colorshell
 
 ###################
 ### KEYBINDINGS ###
@@ -108,19 +112,28 @@ bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bind = , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
 # Brightness
-binde = , XF86MonBrightnessUp, exec, ambxst brightness +5
-binde = , XF86MonBrightnessDown, exec, ambxst brightness -5
+binde = , XF86MonBrightnessUp, exec, brightnessctl set +5%
+binde = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
 
 # Media
-bind = , XF86AudioPlay, exec, ambxst run media-play-pause
-bind = , XF86AudioPause, exec, ambxst run media-play-pause
-bind = , XF86AudioNext, exec, ambxst run media-next
-bind = , XF86AudioPrev, exec, ambxst run media-prev
+bind = , XF86AudioPlay, exec, playerctl play-pause
+bind = , XF86AudioPause, exec, playerctl play-pause
+bind = , XF86AudioNext, exec, playerctl next
+bind = , XF86AudioPrev, exec, playerctl previous
+
+# Screenshot
+bind = CTRL SHIFT, code:13, exec, sh -c 'f="/tmp/screenshot_$(date +%s).png"; grim -g "$(slurp)" "$f" && wl-copy --type image/png < "$f"'
 
 # Application shortcuts
+bindr = SUPER, SUPER_L, exec, pkill fuzzel || fuzzel
 bind = $mainMod, T, exec, ghostty
 bind = $mainMod, E, exec, dolphin
 bind = $mainMod, B, exec, firefox
+bind = $mainMod, L, exec, hyprlock --config /run/user/1000/colorshell/config/hyprlock.conf
+
+# Today's notes scratchpad
+bind = $mainMod, N, togglespecialworkspace, notes
+bind = $mainMod, N, exec, pgrep -f "^kitty --class notes-scratchpad" || kitty --class notes-scratchpad -o font_size=14 -e zsh -ic 'd=$(date +%Y-%m-%d); f="$HOME/Mainframe/Journal/01 Daily/$d.md"; [[ -f "$f" ]] || printf "---\njournal: Daily\njournal-date: %s\n---\n- \n" "$d" > "$f"; nvim "+normal GA" "$f"'
 
 # Window management
 bind = $mainMod, Q, killactive
@@ -204,6 +217,16 @@ windowrule {
     suppress_event = maximize
 }
 
+# Today's notes scratchpad rules
+windowrule {
+    name = notes-scratchpad
+    match:class = ^notes-scratchpad$
+    workspace = special notes
+    float = true
+    size = 1000 750
+    center = true
+}
+
 # Yesterday's notes scratchpad rules
 windowrule {
     name = yesterday-scratchpad
@@ -213,9 +236,6 @@ windowrule {
     size = 1000 750
     center = true
 }
-
-# Ambxst
-source = ~/.local/share/ambxst/hyprland.conf
 
 # OVERRIDES
 # Down here you can write or source anything that you want to override from Ambxst's settings.
