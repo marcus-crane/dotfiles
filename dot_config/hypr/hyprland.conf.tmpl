@@ -122,7 +122,7 @@ bind = , XF86AudioNext, exec, playerctl next
 bind = , XF86AudioPrev, exec, playerctl previous
 
 # Screenshot
-bind = CTRL SHIFT, code:13, exec, sh -c 'f="/tmp/screenshot_$(date +%s).png"; grim -g "$(slurp)" "$f" && wl-copy --type image/png < "$f"'
+bind = CTRL SHIFT, 4, exec, sh -c 'grim -g "$(slurp)" - | satty -f - --early-exit'
 
 # Application shortcuts
 bindr = SUPER, SUPER_L, exec, pkill fuzzel || fuzzel
