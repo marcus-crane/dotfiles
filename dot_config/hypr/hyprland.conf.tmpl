@@ -105,27 +105,27 @@ exec-once = ~/.local/bin/colorshell
 
 $mainMod = SUPER
 
-# Volume
-binde = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-binde = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bind = , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+# Volume (via colorshell for OSD)
+binde = , XF86AudioRaiseVolume, exec, ~/.local/bin/colorshell volume sink-increase 5
+binde = , XF86AudioLowerVolume, exec, ~/.local/bin/colorshell volume sink-decrease 5
+bind = , XF86AudioMute, exec, ~/.local/bin/colorshell volume sink-mute
+bind = , XF86AudioMicMute, exec, ~/.local/bin/colorshell volume source-mute
 
 # Brightness
 binde = , XF86MonBrightnessUp, exec, brightnessctl set +5%
 binde = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
 
-# Media
-bind = , XF86AudioPlay, exec, playerctl play-pause
-bind = , XF86AudioPause, exec, playerctl play-pause
-bind = , XF86AudioNext, exec, playerctl next
-bind = , XF86AudioPrev, exec, playerctl previous
+# Media (via colorshell)
+bind = , XF86AudioPlay, exec, ~/.local/bin/colorshell media play-pause
+bind = , XF86AudioPause, exec, ~/.local/bin/colorshell media play-pause
+bind = , XF86AudioNext, exec, ~/.local/bin/colorshell media next
+bind = , XF86AudioPrev, exec, ~/.local/bin/colorshell media previous
 
 # Screenshot
 bind = CTRL SHIFT, 4, exec, sh -c 'grim -g "$(slurp)" - | satty -f - --early-exit'
 
 # Application shortcuts
-bindr = SUPER, SUPER_L, exec, pkill fuzzel || fuzzel
+bindr = SUPER, SUPER_L, exec, ~/.local/bin/colorshell runner
 bind = $mainMod, T, exec, ghostty
 bind = $mainMod, E, exec, dolphin
 bind = $mainMod, B, exec, firefox
