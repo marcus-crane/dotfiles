@@ -122,7 +122,7 @@ bind = , XF86AudioNext, exec, ~/.local/bin/colorshell media next
 bind = , XF86AudioPrev, exec, ~/.local/bin/colorshell media previous
 
 # Screenshot
-bind = CTRL SHIFT, 4, exec, sh -c 'grim -g "$(slurp)" - | satty -f - --early-exit'
+bind = CTRL SHIFT, 4, exec, sh -c 'grim -g "$(slurp)" - | satty -f -'
 
 # Application shortcuts
 bindr = SUPER, SUPER_L, exec, ~/.local/bin/colorshell runner
