@@ -25,6 +25,7 @@ dolphin
 dolphin-plugins
 easyeffects
 fastfetch
+fcitx5
 ffmpeg
 firefox
 fish
@@ -36,14 +37,17 @@ gnupg
 grep
 gjs
 glycin
+glycin-gtk4
 grim
 gst-plugin-pipewire
 gvfs
 gtk3
 gzip
 hyprland
+hypridle
 hyprlock
 hyprpaper
+hyprsunset
 imagemagick
 iproute2
 jq
@@ -69,7 +73,6 @@ playerctl
 power-profiles-daemon
 python-pipx
 python-pyqt6
-python-pywal16
 qt6-base
 qt6ct
 qt6-declarative
@@ -86,6 +89,7 @@ tmux
 ttf-roboto
 ttf-roboto-mono
 upower
+uwsm
 vlc
 wl-clipboard
 wlsunset
@@ -115,6 +119,8 @@ echo "[ ~ ] Installing AUR packages..."
 # Prepend /usr/bin so yay resolves python3 to system Python (not mise's)
 PATH="/usr/bin:/usr/sbin:$PATH" yay -S --needed --noconfirm \
     adw-gtk-theme \
+    aylurs-gtk-shell-git \
+    libastal-meta \
     app2unit \
     gpu-screen-recorder \
     gradia \
@@ -122,6 +128,7 @@ PATH="/usr/bin:/usr/sbin:$PATH" yay -S --needed --noconfirm \
     matugen \
     mpvpaper \
     quickshell-git \
+    python-pywal16 \
     ttf-cascadia-code-nerd \
     ttf-jetbrains-mono-nerd \
     ttf-league-gothic \
