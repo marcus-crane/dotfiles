@@ -25,7 +25,7 @@
 - **CPU:** `{{ output "sh" "-c" "lscpu | grep 'Model name' | cut -d: -f2 | xargs" | trim }}`
 - **RAM:** `{{ output "sh" "-c" "free -h | awk '/Mem:/{print $2}'" | trim }}`
 - **GPU:** `{{ output "sh" "-c" "nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null || (lspci 2>/dev/null | grep -i 'vga\\|3d\\|display' | head -1 | cut -d: -f3 | xargs)" | trim }}`
-- **Monitor:** `{{ output "sh" "-c" "hyprctl monitors -j 2>/dev/null | jq -r '.[0] | \"\\(.width)x\\(.height)@\\(.refreshRate | floor)Hz (\\(.make) \\(.model))\"' 2>/dev/null || echo 'unknown'" | trim }}`
+- **Monitor:** `{{ output "sh" "-c" "niri msg -j outputs 2>/dev/null | jq -r 'to_entries[0].value | \"\\(.modes[0].width)x\\(.modes[0].height)@\\(.modes[0].refresh_rate / 1000 | floor)Hz (\\(.make) \\(.model))\"' 2>/dev/null || echo 'unknown'" | trim }}`
 - **Terminal:** `{{ output "sh" "-c" "if [ -n \"$KITTY_PID\" ]; then echo 'Kitty'; elif [ -n \"$WEZTERM_EXECUTABLE\" ]; then echo 'WezTerm'; elif [ -n \"$ALACRITTY_SOCKET\" ]; then echo 'Alacritty'; else echo \"$TERM\"; fi" | trim }}`
 {{- end }}
 

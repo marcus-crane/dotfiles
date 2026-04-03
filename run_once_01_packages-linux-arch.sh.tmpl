@@ -10,17 +10,16 @@ sudo pacman -Syu --noconfirm
 echo "[ ~ ] Installing pacman packages..."
 sudo pacman -S --needed --noconfirm - <<EOF
 atuin
-aubio
 bash
 blueman
 breeze-gtk
 brightnessctl
 ca-certificates
+cava
 chezmoi
 cliphist
 curl
 dart-sass
-ddcutil
 dolphin
 dolphin-plugins
 easyeffects
@@ -28,7 +27,6 @@ fastfetch
 fcitx5
 ffmpeg
 firefox
-fish
 fuzzel
 fzf
 gcc
@@ -43,11 +41,6 @@ gst-plugin-pipewire
 gvfs
 gtk3
 gzip
-hyprland
-hypridle
-hyprlock
-hyprpaper
-hyprsunset
 imagemagick
 iproute2
 jq
@@ -57,10 +50,10 @@ libcanberra
 libnotify
 kitty
 kwayland-integration
-libqalculate
-lm_sensors
 mise
 networkmanager
+niri
+xwayland-satellite
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
@@ -77,12 +70,12 @@ qt6-base
 qt6ct
 qt6-declarative
 qt6-imageformats
+qt6-multimedia-ffmpeg
 qt6-wayland
 readline
 slurp
 socat
 sqlite
-swappy
 tcpdump
 tesseract
 tmux
@@ -95,7 +88,8 @@ wl-clipboard
 wlsunset
 wireplumber
 wtype
-xdg-desktop-portal-hyprland
+xdg-desktop-portal-gnome
+xdg-desktop-portal-gtk
 xdg-desktop-portal-kde
 zbar
 zenity
@@ -120,15 +114,12 @@ echo "[ ~ ] Installing AUR packages..."
 PATH="/usr/bin:/usr/sbin:$PATH" yay -S --needed --noconfirm \
     adw-gtk-theme \
     aylurs-gtk-shell-git \
+    dms-shell-bin \
     libastal-meta \
-    app2unit \
     gpu-screen-recorder \
     gradia \
-    libcava \
     matugen \
     mpvpaper \
-    quickshell-git \
-    python-pywal16 \
     ttf-cascadia-code-nerd \
     ttf-jetbrains-mono-nerd \
     ttf-league-gothic \
