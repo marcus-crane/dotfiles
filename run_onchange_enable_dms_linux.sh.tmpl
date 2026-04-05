@@ -1,0 +1,15 @@
+{{- if (eq .chezmoi.os "linux") -}}
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! command -v dms &> /dev/null; then
+    echo "dms not installed, skipping"
+    exit 0
+fi
+
+echo "Enabling dms.service..."
+systemctl --user enable dms.service
+echo "dms.service enabled"
+
+{{ end -}}
