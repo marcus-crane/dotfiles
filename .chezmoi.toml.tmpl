@@ -16,6 +16,12 @@
 {{-     $wsl = true -}}
 {{-   end -}}
 {{- end -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   if eq .chezmoi.hostname "seiryu" -}}
+{{-     $workmode = true -}}
+{{-     $installEnv  = "work" -}}
+{{-   end -}}
+{{- end -}}
 {{- if eq .chezmoi.os "android" -}}
 {{-   $opmode = "service" -}}
 {{- end -}}
