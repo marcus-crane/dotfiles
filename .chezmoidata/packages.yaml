@@ -118,7 +118,6 @@ packages:
       - ref: jansson
       - ref: jq
       - ref: git
-      - ref: khinsider
       - ref: libiconv
       - ref: librdkafka
       - ref: libxmlsec1
@@ -143,7 +142,6 @@ packages:
         description: php build dependency
       - ref: ripgrep
       - ref: source-highlight
-      - ref: spanner
       - ref: speedtest-cli
       - ref: telnet
       - ref: terminal-notifier
@@ -152,7 +150,6 @@ packages:
       - ref: tmuxp
       - ref: tree
       - ref: vdirsyncer
-      - ref: vector
       - ref: vpn-slice
       - ref: w3m
       - ref: watch
