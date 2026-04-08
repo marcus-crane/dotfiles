@@ -1,7 +1,7 @@
 [user]
   email = {{ .email }}
   name = {{ .name }}
-  signingkey = ~/.ssh/id_ed25519.pub
+  signingkey = {{ if stat (joinPath .chezmoi.homeDir ".ssh" "id_ed25519.pub") }}~/.ssh/id_ed25519.pub{{ else }}~/.ssh/id_rsa.pub{{ end }}
   useConfigOnly = true
 [push]
   default = current
