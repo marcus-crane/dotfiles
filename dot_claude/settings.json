@@ -14,9 +14,17 @@
   "permissions": {
     "allow": [
       "Bash(git diff:*)",
+      "Bash(head *"),
+      "Bash(ls *)",
       "Bash(pip list:*)",
       "Bash(pip show:*)",
-      "Read(~/.zshrc)",
+      "Bash(sort *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Read(~/*)",
+      "Read(~/.local/share/chezmoi/**)",
+      "Read(~/Code/**)",
+      "Read(~/halter/**)",
       "WebFetch(domain:developer.mozilla.org)",
       "WebFetch(domain:docs.github.com)",
       "WebFetch(domain:github.com)",
