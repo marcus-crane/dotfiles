@@ -10,7 +10,7 @@
       }
     }
   },
-  "model": "claude-opus-4-6",
+  "model": "opus[1m]",
   "permissions": {
     "allow": [
       "Bash(git diff:*)",
