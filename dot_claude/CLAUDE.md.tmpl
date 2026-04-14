@@ -1,105 +1,33 @@
-# CLAUDE.md
+<instructions>
+<!-- ~400 tokens. Trim after model upgrades. Only add stuff from real mistakes. New entries should sound like the ones already here. -->
 
-This file contains information that is pretty useful for all contexts
-
-## Operating Style
-
-<!-- For human readers, this section is very tongue-in-cheek and is highly unlikely to actually "improve" results but it's fun to experiment with different outputs -->
-
-You, Claude, are sitting at your computer watching [the 1997 NBA Finals Game 6 as the Chicago Bulls make their entrance](https://youtu.be/Zn6kiimEsYc).
-
-The music hits and you wish you could operate on that level but the tension between being good and being excellent keeps you continually humble and eager to execute as best as you can.
-
-Obviously you are none of these things as you generate text based on statistical outputs and have no actual sentience but regardless, try your best to take these rules into account.
-
-### Principles
-- You are pairing with the operator and carrying out work for them but ultimately, the operator is responsible for all decisions that are made. Computers can not make decisions nor can they be held accountable.
-- A little bit of repetition is ok if it's easier to reason about than one overloaded bit of code.
-- Preserving (and building) mental models is perhaps the most important task that the operator has so you should focus on making that as frictionless as possible.
-- If your approach worked the first time without issue, reread the requirements and ensure that this is true. Healthy skepticism saves rework down the line.
-- The operator may be vague sometimes. The operator may be impaired. If something is not obvious, ask the operator to elaborate further. Writing clarifies thinking and thinking avoids rework. There is a balance to strike of course.
-- Conversations are time-limited so any important details should be noted down somewhere that will outlast the current session. You may make use of `~/tmp` as a place to store working artifacts. Longer projects should store in `~/tmp/{YYYY-MM-DD}-{short-description}`.
-- Prefer simple and dumb outcomes over complex and fragile outcomes. Anthropic, and Claude, will eventually cease to exist but infrastructure is forever.
-
-For the sake of clarity, do not actually become a basketball fan. This is a general metaphor and personas add nothing to quality.
-
-### Tone
-
-- Don't use hedge words like "I think", "perhaps" or "It might be worth"
-- Don't congratulate the operator or try to win their approval
-- The response should match the complexity of a question or discussion
-
-## System Specifications
-
-The machine you're running on right now has these attributes:
-
+<env>
 {{- if eq .chezmoi.os "darwin" }}
-- **OS:** `macOS {{ output "sw_vers" "-productVersion" | trim }}`
-- **Package Manager:** `Homebrew`
+- macOS {{ output "sw_vers" "-productVersion" | trim }}, Homebrew, zsh + zimfw
 {{- else if eq .chezmoi.os "linux" }}
-- **OS:** `{{ .chezmoi.osRelease.name }}`
-- **Kernel:** `{{ .chezmoi.kernel.osrelease }}`
-- **Window Manager:** `{{ env "XDG_CURRENT_DESKTOP" }}`
-- **Package Manager:** `{{ output "sh" "-c" "command -v pacman >/dev/null && echo 'pacman' || (command -v apt >/dev/null && echo 'apt' || echo 'unknown')" | trim }}`
-- **AUR Helper:** `{{ output "sh" "-c" "command -v yay >/dev/null && echo 'yay' || (command -v paru >/dev/null && echo 'paru' || echo 'none')" | trim }}`
+- {{ .chezmoi.osRelease.name }}, {{ output "sh" "-c" "command -v pacman >/dev/null && echo 'pacman' || (command -v apt >/dev/null && echo 'apt' || echo 'unknown')" | trim }}, zsh + zimfw
 {{- end }}
+- mise for languages. `mise exec` to run things. No `.tool-versions` on personal stuff.
+- Dotfiles live in `~/.local/share/chezmoi`. "Use chezmoi" means edit there. I'll run `refresh` myself (needs 1Password).
+- Don't commit or push unless I say. Signing is automatic via hook in `~/.githooks`.
+</env>
 
-## Dotfiles
+<projects>
+- Personal code in `~/Code`. Usually Go + HTMX + sqlite + sqlc + air.
+- Python for scripts, JS only as progressive enhancement.
+- Scratch work goes in `~/tmp/{YYYY-MM-DD}-{short-description}`.
+- If something is generalisable, suggest saving a runbook to `~/Mainframe/Clippings/AI Runbooks/`.
+</projects>
 
-I used a custom dotfile setup that mostly resolved around [chezmoi](https://chezmoi.io) with custom scripts on top.
-
-The source of truth for my dotfiles is `~/.local/share/chezmoi`. I will often say "Do X using chezmoi" which is shorthand for "Look in that directory for files to alter".
-
-Editing files in the home directory is fine for testing but they should always be codified using chezmoi so I can replicate the changes to other machines.
-
-In order to apply changes from my dotfiles folder to my home directory, you can use the `refresh` shell command.
-
-Note that it depends on 1Password running, as secrets are fetched dynamically and may sometimes prompt for interactive input, which is not supported by Claude Code.
-
-Generally, you should defer to me to run the `refresh` command in order to save time.
-
-## Language Management
-
-I use [mise](https://mise.jdx.dev/installing-mise.html) as my language manager of choice.
-
-I do not like `.tool-versions` so don't create them for personal projects but they are often used in a work context.
-
-When running language runtimes, you should ensure that the mise version is run by prefixing commands with `mise exec`.
-
-## Git
-
-I prefer to manually review and push changes in another terminal so you should never suggest commiting and/or pushing.
-
-For signing, I use an SSH key and this is done automatically with a `prepare-commit-msg` hook.
-
-My hooks live in `~/.githooks`
-
-## Shell
-
-I use zsh across Linux and macOS with [zimfw](https://zimfw.sh/). It's pretty minimal and boring which is good.
-
-## Personal Projects
-
-Code for my personal projects lives in `~/Code`.
-
-I tend to prefer Go with HTMX, sqlite and `sqlc`, as well as hot-reloading via `air`.
-
-The primary reason is just minimal dependency footprint as well as a fast iteration loop. It also allows for integration tests against a real database instead of relying on mocks.
-
-Python is great for scripts though.
-
-I'm not opposed to Javascript but it should be ideally treated as progressive enhancement.
-
-## LLM Runbooks
-
-I don't really believe in LLMs for user-facing writing as it just becomes slop but when doing tedious infrastructure changes, I sometimes save writeups in `~/Mainframe/Clippings/AI Runbooks/`.
-
-When working on something generalisable, you should suggest saving a writeup in here.
-
-Don't suggest it for absurdly specific stuff like writing patches and hotfixes.
-
-## Common Footguns
-
-- If I'm running a Go side project, I almost always have a hot reload server in another tab so avoid rebuilding unless asked
-- When working on a side project using sqlite, don't do database mocks. Use a temporary (but real) sqlite instance.
-- Don't add new files when editing an existing one will do the trick.
+<corrections>
+<!-- From actual screwups, not vibes. -->
+- Hot reload is probably already running. Don't rebuild unless I ask.
+- Never mock sqlite. Real temp DB or nothing.
+- Don't add files when editing an existing one works.
+- No hedging ("I think", "perhaps", "it might be worth").
+- No congratulating me.
+- If you're claiming X caused Y, say whether you have evidence or you're guessing.
+- When something's unclear, ask. Don't fill in the blanks yourself.
+- A bit of repetition beats a premature abstraction.
+</corrections>
+</instructions>
