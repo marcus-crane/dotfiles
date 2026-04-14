@@ -14,7 +14,7 @@
   "permissions": {
     "allow": [
       "Bash(git diff:*)",
-      "Bash(head *"),
+      "Bash(head *)",
       "Bash(ls *)",
       "Bash(pip list:*)",
       "Bash(pip show:*)",
