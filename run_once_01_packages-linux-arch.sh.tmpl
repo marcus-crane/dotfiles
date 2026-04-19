@@ -15,12 +15,9 @@ blueman
 breeze-gtk
 brightnessctl
 ca-certificates
-cava
 chezmoi
-cliphist
 cups-pk-helper
 curl
-dart-sass
 dolphin
 dolphin-plugins
 easyeffects
@@ -29,16 +26,11 @@ fcitx5
 ffmpeg
 firefox
 fprintd
-fuzzel
 fzf
 gcc
 git
 gnupg
 grep
-gjs
-glycin
-glycin-gtk4
-grim
 gst-plugin-pipewire
 gvfs
 gtk3
@@ -55,8 +47,6 @@ khal
 kwayland-integration
 mise
 networkmanager
-niri
-xwayland-satellite
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
@@ -73,12 +63,9 @@ qt6-base
 qt6ct
 qt6-declarative
 qt6-imageformats
-qt6-multimedia-ffmpeg
 qt6-wayland
 readline
-slurp
 socat
-swaylock
 sqlite
 tcpdump
 tesseract
@@ -86,14 +73,9 @@ tmux
 ttf-roboto
 ttf-roboto-mono
 upower
-uwsm
 vlc
 wl-clipboard
-wlsunset
 wireplumber
-wtype
-xdg-desktop-portal-gnome
-xdg-desktop-portal-gtk
 xdg-desktop-portal-kde
 zbar
 zenity
@@ -116,22 +98,8 @@ fi
 echo "[ ~ ] Installing AUR packages..."
 # Prepend /usr/bin so yay resolves python3 to system Python (not mise's)
 PATH="/usr/bin:/usr/sbin:$PATH" yay -S --needed --noconfirm \
-    adw-gtk-theme \
-    aylurs-gtk-shell-git \
-    dms-shell-bin \
-    dsearch-bin \
-    quickshell-git \
-    libastal-meta \
-    gpu-screen-recorder \
-    gradia \
-    matugen \
-    mpvpaper \
     ttf-cascadia-code-nerd \
-    ttf-jetbrains-mono-nerd \
-    ttf-league-gothic \
-    ttf-material-symbols-variable-git \
-    ttf-phosphor-icons \
-    wl-clip-persist
+    ttf-jetbrains-mono-nerd
 
 echo "[ ~ ] AUR packages have been installed"
 echo "[ ~ ] All Linux packages have been installed"
