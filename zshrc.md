@@ -1145,7 +1145,6 @@ In the case of my employer, not only are the referenced tools the usual suspects
 
 ```bash
 {{ if .workmode }}
-source $HOME/.halter_asdf
 source $HOME/.halter_backend
 source $HOME/.halter_core
 source $HOME/.halter_firmware
