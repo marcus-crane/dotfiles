@@ -18,12 +18,21 @@
   },
   "icon_theme": "Catppuccin Mocha",
   "agent": {
+    "flexible": true,
     "button": true,
-    "dock": "right",
+    "dock": "bottom",
     "favorite_models": [],
     "model_parameters": []
   },
   "project_panel": {
+    "sort_mode": "directories_first",
+    "diagnostic_badges": false,
+    "git_status_indicator": false,
+    "show_diagnostics": "all",
+    "bold_folder_labels": false,
+    "indent_size": 20.0,
+    "entry_spacing": "standard",
+    "default_width": 240.0,
     "dock": "left"
   },
   "title_bar": {
@@ -39,10 +48,10 @@
       "type": "registry"
     }
   },
-  "ui_font_size": 16,
-  "buffer_font_size": 15.0,
+  "ui_font_size": 14.0,
+  "buffer_font_size": 12.0,
   "theme": {
-    "mode": "system",
+    "mode": "dark",
     "light": "One Light",
     "dark": "Catppuccin Macchiato",
   },
