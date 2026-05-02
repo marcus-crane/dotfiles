@@ -48,49 +48,11 @@ tools:
         description: Hyperextensible Vim-based text editor
         url: https://neovim.io
   go:
-    global:
-      - name: delve
-        ref: github.com/go-delve/delve/cmd/dlv
-        description: A debugger for Go
-        url: https://github.com/go-delve/delve
-      - name: gofumpt
-        ref: mvdan.cc/gofumpt
-        description: It's like gofmt but even stricter
-        url: https://github.com/mvdan/gofumpt
-      - name: goimports
-        ref: golang.org/x/tools/cmd/goimports
-        description: A tool for tidying up imports in Go
-        url: https://pkg.go.dev/golang.org/x/tools/cmd/goimports
-      - name: golines
-        ref: github.com/segmentio/golines
-        description: A code formatter for Go
-        url: https://github.com/segmentio/golines
-      - name: gomodifytags
-        ref: github.com/fatih/gomodifytags
-        description: Helps with bulk-editing struct tags
-        url: github.com/fatih/gomodifytags
-      - name: gore
-        ref: github.com/x-motemen/gore/cmd/gore
-        description: A REPL for Go. Who would have thought!
-        url: https://github.com/x-motemen/gore
-      - name: gotests
-        ref: github.com/cweill/gotests/...
-        description: Automatically generates table-driven tests
-        url: https://github.com/cweill/gotests
-      - name: guru
-        ref: golang.org/x/tools/cmd/guru
-        description: Introspects Go files to query things like function definitions
-        url: https://pkg.go.dev/golang.org/x/tools/cmd/guru
     home:
       - name: wails (v2)
         ref: github.com/wailsapp/wails/v2/cmd/wails
         description: Build desktop applications using Go and system webviews
         url: https://wails.io
-    work:
-      - name: mockgen
-        ref: go.uber.org/mock/mockgen
-        description: A tool for generating mock files in Go
-        url: https://github.com/uber-go/mock
   gem:
     global:
       - ref: bundler
