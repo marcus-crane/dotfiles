@@ -32,7 +32,7 @@
       "WebFetch(domain:utf9k.net)",
       "WebSearch"
     ],
-    "defaultMode": "plan",
+    "defaultMode": "auto",
     "deny": [
       "Read(.env)",
       "Read(~/.aws/credentials)"
