@@ -8,6 +8,7 @@ docs
 **/*.md
 .claude/*.md
 !.claude/CLAUDE.md
+!.claude/skills/**/SKILL.md
 setup-site.sh
 renovate.json
 node_modules
