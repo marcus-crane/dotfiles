@@ -1,7 +1,7 @@
 ---
 name: browser-history
 description: Search the user's browsing history (Firefox or any Chromium-based browser — Chrome, Vivaldi, Brave, Edge, Arc, Chromium) by keyword, URL, or time. Auto-detects default browser. Use when the user wants to find something they looked at, recall a link, or see what they were browsing around a specific time.
-argument-hint: [search term or question] [--browser=firefox|chrome|vivaldi|brave|edge|arc|chromium]
+argument-hint: "[search term or question] [--browser=firefox|chrome|vivaldi|brave|edge|arc|chromium]"
 allowed-tools: Bash, Read
 ---
 
