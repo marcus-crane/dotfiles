@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Fetch a URL via Browserless /content endpoint.
+# Credentials live in ~/.browserless/.env, materialised from 1Password by chezmoi.
+# Usage: bfetch <url>
+
+set -euo pipefail
+
+URL="${1:?Usage: bfetch <url>}"
+
+if { [ -z "${BROWSERLESS_TOKEN:-}" ] || [ -z "${BROWSERLESS_API_URL:-}" ]; } && [ -f "$HOME/.browserless/.env" ]; then
+  source "$HOME/.browserless/.env"
+fi
+
+if [ -z "${BROWSERLESS_TOKEN:-}" ] || [ -z "${BROWSERLESS_API_URL:-}" ]; then
+  echo "bfetch: BROWSERLESS_TOKEN/BROWSERLESS_API_URL not set. Run: chezmoi apply ~/.browserless/.env" >&2
+  exit 1
+fi
+
+curl -sf -X POST "${BROWSERLESS_API_URL%/}/content?token=${BROWSERLESS_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d "{\"url\": \"${URL}\"}"
