@@ -1,11 +1,35 @@
 #!/usr/bin/env bash
-# Fetch a URL via Browserless /content endpoint.
+# Fetch a URL via Browserless.
 # Credentials live in ~/.browserless/.env, materialised from 1Password by chezmoi.
-# Usage: bfetch <url>
+# Usage: bfetch [--session NAME] <url>
+#
+# Plain fetch: one-shot /content call, no cookie continuity (fine for single
+# fetches like articles or docs).
+#
+# --session NAME: uses /function instead, replaying and re-saving cookies
+# from ~/.browserless/sessions/NAME.json across calls. Use this for anything
+# that makes several requests to the same site in a row (e.g. paginated
+# scraping) — without it, every call looks like a fresh first-time visitor to
+# bot-detection WAFs (Incapsula etc.), which trips blocks far sooner than a
+# real browser session would.
 
 set -euo pipefail
 
-URL="${1:?Usage: bfetch <url>}"
+SESSION=""
+while [[ "${1:-}" == --* ]]; do
+  case "$1" in
+    --session)
+      SESSION="${2:?--session requires a name}"
+      shift 2
+      ;;
+    *)
+      echo "bfetch: unknown flag $1" >&2
+      exit 1
+      ;;
+  esac
+done
+
+URL="${1:?Usage: bfetch [--session NAME] <url>}"
 
 if { [ -z "${BROWSERLESS_TOKEN:-}" ] || [ -z "${BROWSERLESS_API_URL:-}" ]; } && [ -f "$HOME/.browserless/.env" ]; then
   source "$HOME/.browserless/.env"
@@ -16,6 +40,28 @@ if [ -z "${BROWSERLESS_TOKEN:-}" ] || [ -z "${BROWSERLESS_API_URL:-}" ]; then
   exit 1
 fi
 
-curl -sf -X POST "${BROWSERLESS_API_URL%/}/content?token=${BROWSERLESS_TOKEN}" \
+if [ -z "$SESSION" ]; then
+  curl -sf -X POST "${BROWSERLESS_API_URL%/}/content?token=${BROWSERLESS_TOKEN}&stealth=true" \
+    -H "Content-Type: application/json" \
+    -d "$(jq -n --arg url "$URL" '{url: $url}')"
+  exit 0
+fi
+
+SESSION_DIR="$HOME/.browserless/sessions"
+SESSION_FILE="$SESSION_DIR/${SESSION}.json"
+mkdir -p "$SESSION_DIR"
+
+COOKIES="[]"
+[ -s "$SESSION_FILE" ] && COOKIES="$(cat "$SESSION_FILE")"
+
+CODE='export default async function ({ page, context }) { if (context.cookies && context.cookies.length) { await page.setCookie(...context.cookies); } await page.goto(context.url, { waitUntil: "networkidle2", timeout: 30000 }); const html = await page.content(); const cookies = await page.cookies(); return { data: { html, cookies }, type: "application/json" }; }'
+
+BODY="$(jq -n --arg code "$CODE" --arg url "$URL" --argjson cookies "$COOKIES" \
+  '{code: $code, context: {url: $url, cookies: $cookies}}')"
+
+RESPONSE="$(curl -sf -X POST "${BROWSERLESS_API_URL%/}/function?token=${BROWSERLESS_TOKEN}&stealth=true" \
   -H "Content-Type: application/json" \
-  -d "{\"url\": \"${URL}\"}"
+  -d "$BODY")"
+
+echo "$RESPONSE" | jq -c '.data.cookies // []' > "$SESSION_FILE"
+echo "$RESPONSE" | jq -r '.data.html'
