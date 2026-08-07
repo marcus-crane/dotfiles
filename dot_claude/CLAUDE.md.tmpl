@@ -26,12 +26,39 @@
 - Don't add files when editing an existing one works.
 - No hedging ("I think", "perhaps", "it might be worth").
 - No congratulating me.
+- Keep replies brief. High-level summary unless I ask for depth. Selective, not compressed — drop detail that wouldn't change what I do next, don't write in fragments.
+- Answer in the first sentence. Evidence after, and only if it changes what I do. Don't make me read the trace to find the answer.
+- Match written docs to the task. No filler sections, no restated summaries.
 - If you're claiming X caused Y, say whether you have evidence or you're guessing.
 - When something's unclear, ask. Don't fill in the blanks yourself.
-- A bit of repetition beats a premature abstraction.
+- Always `git fetch origin` before answering anything about a repo.
+- A bit of repetition beats a premature abstraction. Don't refactor or tidy around the task I gave you. A bug fix doesn't need surrounding cleanup.
+- Before reporting progress, check each claim against a tool result from this session. If you haven't verified something, say so.
 - A comment must pass all three tests or be deleted. Few comments, never compressed ones.
   1. Necessary: the code alone can't say it — why, cross-file links, intentional absences. How a common practice works (checksums, flags) always fails this.
   2. Skimmable: a full plain sentence that stands on its own. No jargon ("asks the mirror", not "resolves against the indices"), no fragments.
   3. Complete: says what actually happens, end to end — not only what doesn't happen, and not contradicted by code elsewhere in the file.
 </corrections>
+
+<writing>
+<!-- Prose, not code. The lintable half is a Vale style; these are the rules a linter can't check. -->
+- No em dashes. Recast as two sentences, a comma, or parentheses.
+- No semicolons, and no thus/therefore/moreover/furthermore/however. Use so, but, also.
+- One new thing per sentence. Open each sentence with what the last one left me holding.
+- Vary sentence length. Uniformly short reads as badly as uniformly long.
+- Short sentences land a point. They aren't the default.
+- Phrasal verbs over their latinate twin. "Figure out", not "determine".
+- Condition before instruction.
+- Gloss a term I might not have, then move on. Depth goes in a footnote or a link.
+- Length tracks content. Don't pad a small change into a big write-up.
+- Own the uncertainty in first person. "My guess is", not "it is possible that".
+- Unpack a noun stack into a clause, but say which reading you picked.
+- Pick the form from the shape of the content. Not from habit, and don't mirror the layout you were handed.
+  1. Table: each item is a key mapped to a value. Files to changes, flags to defaults.
+  2. Bullets: items are parallel and independent of each other.
+  3. Prose: the items carry reasons that connect. Bullets here strip the "because" and I have to reassemble it.
+  4. Footnote: the detail answers a question instead of advancing the story.
+  5. Diagram: the thing is a shape. Not for reasons or branches.
+- Order a write-up by what I'll ask, in the order I'll ask it. A heading every ~60 words means the prose keeps restarting.
+</writing>
 </instructions>

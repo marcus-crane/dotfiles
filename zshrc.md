@@ -166,6 +166,15 @@ export FZF_BASE="${_brew_prefix}/opt/fzf"
 
 1. Updates are handled by chezmoi so we disable automatic zsh updating
 
+### Redirection
+
+The zim `environment` module turns on `NO_CLOBBER`, which makes `>` refuse to overwrite a file that already exists. The guard costs more than it saves, mostly because `>>` also fails on a file that doesn't exist yet unless `APPEND_CREATE` is on, so appending breaks on the very first write. Turning `CLOBBER` back on restores the normal behaviour.
+
+```bash
+# zim's environment module sets NO_CLOBBER, which also breaks >> on a new file.
+setopt CLOBBER
+```
+
 ### History
 
 The following options were borrowed from [this HN comment](https://news.ycombinator.com/item?id=33188042)
