@@ -1,21 +1,3 @@
----
-title: Homebrew Packages
-category: scripts
-tags:
-- applications
-- shell
-output: run_once_01_packages-darwin.sh.tmpl
----
-
-# Homebrew Packages
-
-This script uses `brew bundle` to install various macOS packages.
-
-The reason that it is done inline instead of using a Brewfile is because Chezmoi basically hashes the script to determine whether it needs to be rerun again or not.
-
-Inlining packages means that adding or removing files causes the script to be rerun as the hash will compute differently.
-
-```bash
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/usr/bin/env bash
 
@@ -23,12 +5,18 @@ set -euo pipefail
 
 echo "~ homebrew"
 
+# On a fresh machine, brew was just installed by run_before_install_homebrew
+# but this shell session doesn't have it on PATH yet.
+if ! command -v brew >/dev/null; then
+  if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  else
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+fi
+
 brew bundle --quiet --file=/dev/stdin <<EOF && echo "~~ brew packages have been updated"
-```
 
-Now that all of our boring boilerplate is out of the way, let's see what we've got to play with!
-
-```bash
 # community taps
 {{ range .packages.darwin.taps -}}
 tap "{{ .ref }}"
@@ -60,4 +48,4 @@ qlmanage -r >/dev/null 2>&1 || true && echo "~~ quicklook extensions have been c
 # ln -sf /Applications/Postgres.app/Contents/Versions/latest/bin/pg_config  /usr/local/bin/pg_config
 
 {{ end -}}
-```
+

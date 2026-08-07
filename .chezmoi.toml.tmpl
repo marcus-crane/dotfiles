@@ -17,7 +17,7 @@
 {{-   end -}}
 {{- end -}}
 {{- if eq .chezmoi.os "darwin" -}}
-{{-   if eq .chezmoi.hostname "seiryu" -}}
+{{-   if or (eq .chezmoi.hostname "seiryu") (eq .chezmoi.hostname "dahak") -}}
 {{-     $workmode = true -}}
 {{-     $installEnv  = "work" -}}
 {{-   end -}}
@@ -30,6 +30,7 @@
 {{- end -}}
 
 [data]
+    machinename = "{{ .chezmoi.hostname }}"
     installenv  = "{{ $installEnv }}"
     workmode = {{ $workmode }}
     wsl      = {{ $wsl }}

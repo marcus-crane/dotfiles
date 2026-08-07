@@ -1,0 +1,23 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# The name captured at chezmoi init time, which .chezmoi.toml.tmpl uses to
+# decide workmode. The fallback covers machines that haven't re-inited since
+# machinename was added to the config data.
+MACHINE_NAME="{{ get . "machinename" | default .chezmoi.hostname }}"
+
+# macOS sometimes renames the machine back to "Mac" after an update or an
+# iCloud sign-in, so re-pin all three names whenever they drift.
+CURRENT_HOSTNAME="$(scutil --get HostName 2>/dev/null || true)"
+CURRENT_LOCALHOSTNAME="$(scutil --get LocalHostName 2>/dev/null || true)"
+
+if [[ "$CURRENT_HOSTNAME" != "$MACHINE_NAME" ]] || [[ "$CURRENT_LOCALHOSTNAME" != "$MACHINE_NAME" ]]; then
+    echo "~ machine name has drifted, pinning it back to $MACHINE_NAME (needs sudo)"
+    sudo scutil --set ComputerName "$MACHINE_NAME"
+    sudo scutil --set LocalHostName "$MACHINE_NAME"
+    sudo scutil --set HostName "$MACHINE_NAME"
+fi
+
+{{ end -}}

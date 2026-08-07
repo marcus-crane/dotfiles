@@ -1,0 +1,521 @@
+# Set editor default keymap to vi (`-v`) rather than emacs (`-e`)
+bindkey -v
+
+# Remove path separator from WORDCHARS.
+WORDCHARS=${WORDCHARS//[\/]}
+
+# Disable automatic widget re-binding on each precmd. This can be set when
+# zsh-users/zsh-autosuggestions is the last module in your ~/.zimrc.
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+# Set what highlighters will be used.
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+# Download zimfw plugin manager if missing.
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  if (( ${+commands[curl]} )); then
+    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  else
+    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  fi
+fi
+# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+  source ${ZIM_HOME}/zimfw.zsh init -q
+fi
+# Initialize modules.
+source ${ZIM_HOME}/init.zsh
+
+zmodload -F zsh/terminfo +p:terminfo
+# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search-up
+for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
+for key ('k') bindkey -M vicmd ${key} history-substring-search-up
+for key ('j') bindkey -M vicmd ${key} history-substring-search-down
+unset key
+
+path=(
+  $HOME/.bun/bin
+  $HOME/.local/share/mise/shims
+  /opt/homebrew/opt/emacs-mac/bin
+  /opt/homebrew/opt/openjdk/bin
+  /opt/homebrew/opt/mtr/sbin
+  /nix/var/nix/profiles/default/bin
+  /home/linuxbrew/.linuxbrew/bin
+  $HOME/.bin
+  /opt/homebrew/bin
+  /bin
+  /sbin
+  /usr/local/bin
+  /usr/bin
+  /usr/sbin
+  /usr/local/sbin
+  /usr/libexec
+  /opt/X11/bin
+  $HOME/.nix-profile/bin
+  $HOME/.config/emacs/bin
+  $HOME/.local/bin
+  $HOME/.opam/default/bin
+  $HOME/scripts
+  /usr/local/MacGPG2/bin
+  /usr/local/opt/postgresql@10/bin
+  /Applications/Postgres.app/Contents/Versions/latest/bin
+  "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+)
+export PATH
+
+{{ if eq .chezmoi.os "linux" -}}
+if [[ -f /etc/environment ]]; then
+  set -a
+  source /etc/environment
+  set +a
+fi
+{{ end -}}
+
+{{ if eq .chezmoi.os "darwin" -}}
+eval "$(brew shellenv)"
+_brew_prefix="$(brew --prefix)"
+{{ end -}}
+
+{{- if eq .chezmoi.os "darwin" -}}
+export FZF_BASE="${_brew_prefix}/opt/fzf"
+{{ end -}}
+
+# zim's environment module sets NO_CLOBBER, which also breaks >> on a new file.
+setopt CLOBBER
+
+setopt SHARE_HISTORY HIST_IGNORE_ALL_DUPS
+
+HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
+HISTSIZE=2000
+SAVEHIST=1000
+
+{{ if eq .chezmoi.os "darwin" -}}
+export LDFLAGS="-L${_brew_prefix}/opt/openssl/lib"
+export CPPFLAGS="-I${_brew_prefix}/opt/openssl/include"
+export PKG_CONFIG_PATH="${_brew_prefix}/opt/openssl/lib/pkgconfig"
+unset _brew_prefix
+{{ end -}}
+
+{{ if .wsl }}
+export PATH="~/.wslshims:$PATH"
+{{ end }}
+
+export WORKSPACE="$HOME/Code"
+
+{{ if .workmode }}
+export WORKREPOS="$HOME/halter"
+{{ end }}
+
+_chezmoi_src="$(chezmoi source-path)"
+export CONFIG_FILE="$HOME/.zshrc"
+export CONFIG_SRC="${_chezmoi_src}/dot_zshrc.tmpl"
+export EDITOR="nvim"
+export GPG_TTY=$(tty)
+export LANGUAGE="en_NZ:en"
+export LAST_MODIFIED="$(date)"
+export SHELL="$(which zsh)"
+REPORTTIME=5
+
+{{ if eq .chezmoi.os "linux" -}}
+{{ if not .termux -}}
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+{{ end -}}
+{{ end -}}
+{{ if .termux -}}
+# Use Termux ssh-agent service
+export SSH_AUTH_SOCK="$PREFIX/var/run/ssh-agent.socket"
+# Add SSH key to agent automatically (only if not already added)
+if [ -z "$(ssh-add -l 2>/dev/null | grep id_ed25519)" ]; then
+  ssh-add ~/.ssh/id_ed25519 2>/dev/null
+fi
+{{ end -}}
+
+if (( $+commands[atuin] )); then
+  eval "$(atuin init zsh)"
+fi
+
+export DOOMDIR="${_chezmoi_src}/dot_doom.d" # (1)!
+
+if (( $+commands[fzf] )); then
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fi
+
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+if (( $+commands[src-hilite-lesspipe.sh] )); then
+  export LESSOPEN="| $commands[src-hilite-lesspipe.sh] %s"
+  export LESS=' -R -X -F '
+fi
+
+eval "$(mise activate zsh)"
+
+export NIX_SSL_CERT_FILE=/nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt
+if (( $+commands[nix] )); then
+  export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
+fi
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+
+[[ ! -r /Users/marcus/.opam/opam-init/init.zsh ]] || source /Users/marcus/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+export PNPM_HOME="$HOME/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+export ERL_AFLAGS="-kernel shell_history enabled"
+export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac"
+export KERL_BUILD_DOCS="yes"
+
+export GOPATH="$WORKSPACE/go"
+export PATH="$PATH:$GOPATH/bin"
+
+export CARGO_NET_GIT_FETCH_WITH_CLI=true
+
+alias ae="deactivate &> /dev/null; source ./venv/bin/activate"
+alias alphaenv="env -0 | sort -z | tr '\0' '\n'"
+alias assume="source assume"
+alias ccd="chezmoi cd"
+alias cce="chezmoi edit"
+alias crush="pngcrush -ow"
+alias de="deactivate &> /dev/null"
+alias ec="emacsclient -na $(which code)"
+alias edit="$EDITOR $CONFIG_SRC"
+alias gb="git branch -v"
+alias gbm="git checkout master"
+alias gcm="git commit -Ssi"
+alias gr="git remote -v"
+# Taken from https://twitter.com/flakpaket/status/1445751410331586568
+alias grip='grep -oE "([0-9]{1,3}[.]){3}[0-9]{1,3}"'
+alias gs="git status"
+alias gst="git status"
+alias ipv4="dig @resolver4.opendns.com myip.opendns.com +short -4"
+alias ipv6="dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6"
+alias lidclosed="ioreg -r -k AppleClamshellState -d 4 | grep AppleClamshellState | awk '{ print $4 }'"
+alias lvim="nvim"
+alias rebrew="brew bundle --file=${_chezmoi_src}/Brewfile"
+unset _chezmoi_src
+alias refresh="chezmoi git pull && chezmoi apply --force && echo '~ refreshed shell config' && exec zsh"
+alias rmuntracked="git status -su --no-ahead-behind | awk '{ print $2 }' | xargs rm"
+alias ss="cd $WORKSPACE"
+alias tabcheck="/bin/cat -e -t -v"
+alias tsc="transmission-remote netocean"
+alias utd="cd ~/utf9k && yarn start"
+alias venv="python3 -m venv venv && ae"
+alias vi="$EDITOR"
+alias view="less $CONFIG_FILE"
+alias vim="$EDITOR"
+{{ if .workmode }}
+alias ws="cd $WORKREPOS"
+{{ else }}
+alias ws="cd $WORKSPACE"
+{{ end }}
+alias wsd="chezmoi cd"
+alias youtube-dl="yt-dlp --add-metadata --dateafter 20081004 -i -o '%(uploader)s [%(channel_id)s]/%(title)s [%(id)s].%(ext)s' -ci --format 'bestvideo[height<=?1080]+bestaudio[ext=m4a]/bestvideo+bestaudio/best' --merge-output-format mp4"
+
+function yay() { PATH="/usr/bin:$PATH" command yay "$@" }
+function makepkg() { PATH="/usr/bin:$PATH" command makepkg "$@" }
+
+function whomport() { lsof -nP -i4TCP:$1 | grep LISTEN }
+
+function tangle-md() {
+  if (( $+commands[lugh] )); then
+    lugh -f "$1"
+  else
+    echo "lugh isn't installed. You can find it at https://github.com/marcus-crane/lugh"
+  fi
+}
+
+function tangle-file() {
+  emacs --batch -l org $@ -f org-babel-tangle
+}
+
+function jwt() {
+  for part in 1 2; do
+    b64="$(cut -f$part -d. <<< "$1" | tr '_-' '/+')"
+    len=${#b64}
+    n=$((len % 4))
+    if [[ 2 -eq n ]]; then
+      b64="${b64}=="
+    elif [[ 3 -eq n ]]; then
+      b64="${b64}="
+    fi
+    d="$(openssl enc -base64 -d -A <<< "$b64")"
+    python -mjson.tool <<< "$d"
+    # don't decode further if this is an encrypted JWT (JWE)
+    if [[ 1 -eq part ]] && grep '"enc":' <<< "$d" >/dev/null ; then
+        break
+    fi
+  done
+}
+
+function funcs() {
+    functions | grep "()" | grep -v '"'
+}
+
+function fsearch () {
+  functions | sed -n "/$1/,/^}$/p"
+}
+
+function archive() {
+    rclone copy "$(pwd)/$1" b2:long-term-backups --progress
+}
+
+function demov() {
+  if (( $+commands[ffmpeg] )); then
+      ffmpeg -i $1 -vcodec libx264 -acodec aac $(echo "$1" | rev | cut -f 2- -d '.' | rev).mp4
+  else
+      print "It doesn't look like you have ffmpeg installed."
+  fi
+}
+
+function de265() {
+  if (( $+commands[ffmpeg] )); then
+      ffmpeg -i $1 -map 0 -c:v libx264 -crf 18 -vf format=yuv420p -c:a copy $(echo "$1" | rev | cut -f 2- -d '.' | rev).mp4
+  else
+      print "It doesn't look like you have ffmpeg installed."
+  fi
+}
+
+function nines() {
+  curl -s https://uptime.is/$1 | jq
+}
+
+function gbd() {
+  git branch |
+    grep --invert-match $(git branch --show-current) |
+    cut -c 3- |
+    fzf --multi --preview="git log {} --" |
+    xargs git branch --delete --force
+}
+
+function casks() {
+  curl "https://formulae.brew.sh/api/cask.json" |
+    jq '.[].token' |
+    tr -d '"' |
+    fzf --multi --preview="curl https://formulae.brew.sh/api/cask/{}.json | jq '.'" |
+    xargs brew install --cask
+}
+
+function secretregen() {
+  local SECRET_LENGTH=$(echo -n "$1" | wc -m | awk '{$1=$1};1')
+  LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c $SECRET_LENGTH ; echo ''
+}
+
+function redact() {
+  local input="$1"
+  local output=""
+  local char
+  for (( i=0; i<${#input}; i++ )); do
+    char="${input:$i:1}"
+    if [[ "$char" =~ [a-z] ]]; then
+      output+=$(LC_ALL=C tr -dc a-z </dev/urandom | head -c 1)
+    elif [[ "$char" =~ [A-Z] ]]; then
+      output+=$(LC_ALL=C tr -dc A-Z </dev/urandom | head -c 1)
+    elif [[ "$char" =~ [0-9] ]]; then
+      output+=$(LC_ALL=C tr -dc 0-9 </dev/urandom | head -c 1)
+    else
+      output+="$char"
+    fi
+  done
+  echo "$output"
+}
+
+function guidregen() {
+  local input="$1"
+  local output=""
+  local char
+  local charset="0-9a-f"
+  if [[ "$input" =~ [A-F] ]]; then
+    charset="0-9A-F"
+  fi
+  for (( i=0; i<${#input}; i++ )); do
+    char="${input:$i:1}"
+    if [[ "$char" == "-" ]]; then
+      output+="-"
+    else
+      output+=$(LC_ALL=C tr -dc "$charset" </dev/urandom | head -c 1)
+    fi
+  done
+  echo "$output"
+}
+
+function percentdecode() {
+  echo $1 | python3 -c 'import sys,urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()),end="")'
+}
+
+envy() {
+  if [ -f ".env" ]; then
+    set -o allexport
+    source .env
+    set +o allexport
+  else
+    echo "No env file located"
+    return 1
+  fi
+}
+
+path() {
+  echo -e "${PATH//:/\\n}"
+}
+
+kumamon() {
+  channels=(
+    https://www.youtube.com/c/KumamonTV/videos
+    https://www.youtube.com/channel/UCHZQHTjxwQ5fa9Fiosp6orw/videos
+    https://www.youtube.com/channel/UCZ4jjYAi4BI1-aU7Tg4HliQ/videos
+    https://www.youtube.com/channel/UCrw3-jkioIlt7JtvtrrbPFg/videos
+  )
+  channel=${channels[$(( $RANDOM % ${#channels[@]} +1 ))]}
+  mpv $channel --shuffle --geometry=100%:0% --autofit=20% --ytdl-format="bestvideo[height<=480]+bestaudio/best[height<=480]" --ontop
+}
+
+viewdefaults() {
+  defaults domains |
+    sed 's/$/, NSGlobalDomain/' |
+    tr -d ',' |
+    tr ' ' '\n' |
+    fzf --preview="defaults export {} - | python3 -c \"import sys,plistlib,pprint; pprint.pprint(plistlib.loads(sys.stdin.read().encode('utf-8')))\"" |
+    xargs -n1 -I{} sh -c 'defaults export $1 - > $1.plist' -- {}
+}
+
+params() {
+  percentdecode $1 |
+    tr "?" "\n" |
+    tr "&" "\n"
+}
+
+master2main() {
+  git branch -m master main
+  git fetch origin
+  git branch -u origin/main main
+  git remote set-head origin -a
+}
+
+opauth() {
+  eval $(op signin --account $1.1password.com)
+  echo "~ Signed in to $1 vault"
+}
+
+mkd() {
+  mkdir -p $1 && cd $_
+}
+
+ecrrecurse() {
+  REPOSITORY_NAME=$1
+  IMAGE_TAG=$2
+
+  if [[ $REPOSITORY_NAME == "" || $IMAGE_TAG == "" ]]; then
+    echo "Please enter both a repository name and an image tag"
+    echo "Usage: ecrrecurse myservice abc1234"
+    exit 1
+  fi
+
+  MANIFEST=$(aws ecr batch-get-image --repository-name=$REPOSITORY_NAME --image-id imageTag=$IMAGE_TAG --region=us-west-2 --output json | jq -r '.images[].imageManifest')
+
+  if [[ $MANIFEST == "" ]]; then
+    echo "No results found for that Docker manifest"
+    exit 1
+  fi
+
+  MEDIA_TYPE=$(jq '.mediaType' <<< "${MANIFEST}")
+
+  if [[ $MEDIA_TYPE == '"application/vnd.docker.distribution.manifest.list.v2+json"' ]]; then
+    INNER_DIGEST=$(jq '.manifests[0].digest' <<< "${MANIFEST}")
+    MANIFEST=$(aws ecr batch-get-image --repository-name=$REPOSITORY_NAME --image-id imageDigest=$INNER_DIGEST | jq -r '.images[].imageManifest')
+  fi
+
+  CONFIG_DIGEST=$(jq '.config.digest' <<< "${MANIFEST}")
+  DOWNLOAD_URL=$(xargs -I{} aws ecr get-download-url-for-layer --repository-name=$REPOSITORY_NAME --layer-digest={} <<< "${CONFIG_DIGEST}" | jq '.downloadUrl')
+  CONTENT=$(xargs curl -s <<< "${DOWNLOAD_URL}")
+
+  echo $CONTENT | jq '.config.Labels'
+}
+
+redactenv() {
+  sed -E 's/=.*/=•••/g;t' <<< $(env | grep "$1")
+}
+
+massunset() {
+  name=$(env | fzf --multi | tr "=" " " | awk '{ print $1 }')
+  spacedName=$(echo $name | tr "\n" " ")
+  unset $spacedName
+}
+
+tsd() {
+  tsc -l |
+    awk 'NR>2 {print last} {last=$0}' |
+    awk '{ $2=$3=$4=$5=$6=$7=$8=$9=""; print $0 }' |
+    sed 's/        //g' |
+    fzf --multi --preview="awk '{ print $1 }' | transmission-remote netocean -t {} -i" | awk '{ print $1 }' |
+    xargs -I{} transmission-remote netocean -t {} -r
+}
+
+txtplan() {
+  gsed '1 i <details><summary>Plan</summary>||```terraform' txt.plan |
+    gsed -E '$ a ```||</details>' |
+    tr '|' '\n' |
+    pbcopy
+}
+
+deunix() {
+  gdate --iso-8601=seconds -d '@$1'
+}
+
+reslackmoji() {
+  rg --pcre2 --no-filename --no-line-number --only-matching "(?<=\s):([a-z0-9_\-\+']+):" . |
+    sort -u
+}
+
+multikill() {
+  ps -ax |
+    grep "$1" |
+    fzf --multi |
+    awk '{print $1}'|
+    kill -9
+}
+
+{{ if .wsl }}
+export PATH="/mnt/c/Program Files/1Password CLI:$PATH"
+{{- end }}
+
+{{- if contains "com.termux" .chezmoi.homeDir }}
+claude() {
+  proot -b /data/data/com.termux/files/usr/tmp:/tmp command claude "$@"
+}
+{{- end }}
+
+jot() {
+  local date=$(date +%Y-%m-%d)
+  local journal_dir="/home/marcus/Mainframe/Journal/01 Daily"
+  local file="$journal_dir/$date.md"
+
+  if [[ ! -f "$file" ]]; then
+    mkdir -p "$journal_dir"
+    cat > "$file" << EOF
+---
+journal: Daily
+journal-date: $date
+---
+-
+EOF
+  fi
+
+  nvim "+normal G$" "$file"
+}
+
+if [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
+  . $HOME/.iterm2_shell_integration.zsh
+fi
+
+{{ if .workmode }}
+source $HOME/.halter_backend
+source $HOME/.halter_core
+source $HOME/.halter_firmware
+source $HOME/.halter_utilities
+{{- end }}
+
