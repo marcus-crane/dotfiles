@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+# Read-only queries against changedetection.io.
+# Credentials live in ~/.changedetection/.env, materialised from 1Password by chezmoi.
+#
+# Every subcommand is a GET. Creating, editing, pausing and deleting watches are
+# deliberately absent so this can never disturb a running watch — do those in the
+# web UI at $CHANGEDETECTION_URL.
+#
+# Usage:
+#   cdio watches [--tag NAME] [--json]   list watches, most recently changed first
+#   cdio watch <uuid>                    full record for one watch
+#   cdio history <uuid>                  snapshot timestamps for one watch
+#   cdio snapshot <uuid> [ts] [--html]   snapshot body, defaults to 'latest'
+#   cdio diff <uuid> [from] [to]         defaults to 'previous' -> 'latest', plain text
+#   cdio search <query> [--tag NAME]     match against watch URLs and titles
+#   cdio systeminfo                      queue depth, uptime, watch count
+#   cdio raw <path> [curl args...]       any other GET, e.g. raw /watch?recheck_all=1
+
+set -euo pipefail
+
+cmd="${1:-}"; shift || true
+
+case "$cmd" in
+  ""|-h|--help|help)
+    awk 'NR>1 && /^#/ { sub(/^# ?/, ""); print; next } NR>1 { exit }' "$0"
+    exit 0
+    ;;
+esac
+
+if { [ -z "${CHANGEDETECTION_API_KEY:-}" ] || [ -z "${CHANGEDETECTION_URL:-}" ]; } && [ -f "$HOME/.changedetection/.env" ]; then
+  source "$HOME/.changedetection/.env"
+fi
+
+if [ -z "${CHANGEDETECTION_API_KEY:-}" ] || [ -z "${CHANGEDETECTION_URL:-}" ]; then
+  echo "cdio: CHANGEDETECTION_URL/CHANGEDETECTION_API_KEY not set. Run: chezmoi apply ~/.changedetection/.env" >&2
+  exit 1
+fi
+
+API="${CHANGEDETECTION_URL%/}/api/v1"
+
+get() {
+  local path="$1"; shift
+  curl -sS --fail-with-body -m 30 -H "x-api-key: $CHANGEDETECTION_API_KEY" "$API$path" "$@"
+}
+
+# Renders the watch-list JSON object as one line per watch. Unix epochs become local
+# times, and a watch that has never recorded a change shows "never".
+#
+# The uuid comes from the outer dict key. Live responses omit the per-watch "uuid"
+# field that the published API spec shows in its examples, so reading the field alone
+# yields a blank column.
+tabulate() {
+  python3 -c '
+import json, sys, datetime
+
+data = json.load(sys.stdin)
+watches = data.get("watches", data)
+
+def when(ts):
+    if not ts:
+        return "never"
+    return datetime.datetime.fromtimestamp(int(ts)).strftime("%Y-%m-%d %H:%M")
+
+rows = sorted(watches.items(), key=lambda kv: kv[1].get("last_changed") or 0, reverse=True)
+for uuid, w in rows:
+    flags = "".join(["P" if w.get("paused") else "", "M" if w.get("notification_muted") else ""])
+    title = w.get("title") or w.get("page_title") or ""
+    print("\t".join([
+        w.get("uuid") or uuid,
+        when(w.get("last_changed")),
+        when(w.get("last_checked")),
+        flags or "-",
+        w.get("link") or w.get("url", ""),
+        title,
+    ]))
+print(f"\n{len(rows)} watches. Columns: uuid, last_changed, last_checked, flags (P=paused M=muted), url, title.", file=sys.stderr)
+'
+}
+
+case "$cmd" in
+  watches)
+    query=""
+    raw_json=false
+    while [[ $# -gt 0 ]]; do
+      case "$1" in
+        --tag) query="?tag=${2:?--tag requires a name}"; shift 2 ;;
+        --json) raw_json=true; shift ;;
+        *) echo "cdio watches: unknown flag $1" >&2; exit 1 ;;
+      esac
+    done
+    if $raw_json; then
+      get "/watch$query"
+    else
+      get "/watch$query" | tabulate
+    fi
+    ;;
+
+  watch)
+    get "/watch/${1:?Usage: cdio watch <uuid>}"
+    ;;
+
+  history)
+    get "/watch/${1:?Usage: cdio history <uuid>}/history"
+    ;;
+
+  snapshot)
+    uuid="${1:?Usage: cdio snapshot <uuid> [timestamp|latest] [--html]}"; shift
+    ts="latest"
+    [[ $# -gt 0 && "$1" != --* ]] && { ts="$1"; shift; }
+    query=""
+    [[ "${1:-}" == "--html" ]] && query="?html=1"
+    get "/watch/$uuid/history/$ts$query"
+    ;;
+
+  diff)
+    uuid="${1:?Usage: cdio diff <uuid> [from] [to] [curl args...]}"; shift
+    from="previous"
+    to="latest"
+    [[ $# -gt 0 && "$1" != -* ]] && { from="$1"; shift; }
+    [[ $# -gt 0 && "$1" != -* ]] && { to="$1"; shift; }
+    get "/watch/$uuid/difference/$from/$to?format=text&changesOnly=true" "$@"
+    ;;
+
+  search)
+    q="${1:?Usage: cdio search <query> [--tag NAME]}"; shift
+    query="?q=$(python3 -c 'import sys,urllib.parse; print(urllib.parse.quote(sys.argv[1]))' "$q")&partial=1"
+    [[ "${1:-}" == "--tag" ]] && query="$query&tag=${2:?--tag requires a name}"
+    get "/search$query" | tabulate
+    ;;
+
+  systeminfo)
+    get "/systeminfo"
+    ;;
+
+  raw)
+    path="${1:?Usage: cdio raw <path> [curl args...]}"; shift
+    get "$path" "$@"
+    ;;
+
+  *)
+    echo "cdio: unknown subcommand '$cmd'. Try: cdio --help" >&2
+    exit 1
+    ;;
+esac
