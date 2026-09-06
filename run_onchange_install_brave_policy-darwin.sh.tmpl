@@ -1,0 +1,119 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ ! -d "/Applications/Brave Browser.app" ]; then
+  exit 0
+fi
+
+dest="/Library/Managed Preferences/com.brave.Browser.plist"
+staged="$(mktemp -t brave-policy)"
+trap 'rm -f "$staged"' EXIT
+
+cat > "$staged" <<'PLIST'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AutofillAddressEnabled</key>
+	<false/>
+	<key>AutofillCreditCardEnabled</key>
+	<false/>
+	<key>BraveAIChatEnabled</key>
+	<false/>
+	<key>BraveNewsDisabled</key>
+	<true/>
+	<key>BraveRewardsDisabled</key>
+	<true/>
+	<key>BraveSearchResultAdsEnabled</key>
+	<false/>
+	<key>BraveStatsPingEnabled</key>
+	<false/>
+	<key>BraveTalkDisabled</key>
+	<true/>
+	<key>BraveVPNDisabled</key>
+	<true/>
+	<key>BraveWalletDisabled</key>
+	<true/>
+	<key>BraveWebDiscoveryEnabled</key>
+	<false/>
+	<key>DefaultSearchProviderEnabled</key>
+	<true/>
+	<key>DefaultSearchProviderEncodings</key>
+	<array>
+		<string>UTF-8</string>
+	</array>
+	<key>DefaultSearchProviderIconURL</key>
+	<string>https://kagi.com/favicon.ico</string>
+	<key>DefaultSearchProviderKeyword</key>
+	<string>@kagi</string>
+	<key>DefaultSearchProviderName</key>
+	<string>Kagi</string>
+	<key>DefaultSearchProviderSearchURL</key>
+	<string>https://kagi.com/search?q={searchTerms}</string>
+	<key>DefaultSearchProviderSuggestURL</key>
+	<string>https://kagisuggest.com/api/autosuggest?q={searchTerms}</string>
+	<key>ExtensionSettings</key>
+	<dict>
+		<key>aeblfdkhhhdcdjpifhhbdiojplfjncoa</key>
+		<dict>
+			<key>installation_mode</key>
+			<string>normal_installed</string>
+			<key>update_url</key>
+			<string>https://clients2.google.com/service/update2/crx</string>
+		</dict>
+		<key>cciilamhchpmbdnniabclekddabkifhb</key>
+		<dict>
+			<key>installation_mode</key>
+			<string>normal_installed</string>
+			<key>update_url</key>
+			<string>https://clients2.google.com/service/update2/crx</string>
+		</dict>
+		<key>cdglnehniifkbagbbombnjghhcihifij</key>
+		<dict>
+			<key>installation_mode</key>
+			<string>normal_installed</string>
+			<key>update_url</key>
+			<string>https://clients2.google.com/service/update2/crx</string>
+		</dict>
+		<key>jcokkipkhhgiakinbnnplhkdbjbgcgpe</key>
+		<dict>
+			<key>installation_mode</key>
+			<string>normal_installed</string>
+			<key>update_url</key>
+			<string>https://clients2.google.com/service/update2/crx</string>
+		</dict>
+		<key>jpmkfafbacpgapdghgdpembnojdlgkdl</key>
+		<dict>
+			<key>installation_mode</key>
+			<string>normal_installed</string>
+			<key>update_url</key>
+			<string>https://clients2.google.com/service/update2/crx</string>
+		</dict>
+	</dict>
+	<key>IPFSEnabled</key>
+	<false/>
+	<key>PasswordLeakDetectionEnabled</key>
+	<false/>
+	<key>PasswordManagerEnabled</key>
+	<false/>
+	<key>PasswordSharingEnabled</key>
+	<false/>
+</dict>
+</plist>
+PLIST
+
+plutil -lint "$staged" >/dev/null
+
+if [ -f "$dest" ] && sudo cmp -s "$staged" "$dest"; then
+  echo "~ brave policy is already current"
+  exit 0
+fi
+
+sudo mkdir -p "$(dirname "$dest")"
+sudo install -o root -g wheel -m 0644 "$staged" "$dest"
+
+echo "~ brave policy installed, restart brave to apply it"
+
+{{ end -}}
